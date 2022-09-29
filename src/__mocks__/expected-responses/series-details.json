@@ -1,0 +1,2062 @@
+{
+  "aliases": "Der ultimative Spider-Man\nUltimate Spider-Man: Web Warriors\nUltimate Spider-Man Vs. The Sinister 6\nUltimate Spider-Man Vs. The Sinister Six",
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/series/4075-13/",
+  "characters": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1443/",
+      "id": 1443,
+      "name": "Spider-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-man/4005-1443/",
+      "count": "104"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1450/",
+      "id": 1450,
+      "name": "Luke Cage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/luke-cage/4005-1450/",
+      "count": "66"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1492/",
+      "id": 1492,
+      "name": "Iron Fist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iron-fist/4005-1492/",
+      "count": "66"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80709/",
+      "id": 80709,
+      "name": "Ava Ayala",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ava-ayala/4005-80709/",
+      "count": "64"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82858/",
+      "id": 82858,
+      "name": "Sam Alexander",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sam-alexander/4005-82858/",
+      "count": "61"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3202/",
+      "id": 3202,
+      "name": "Nick Fury",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nick-fury/4005-3202/",
+      "count": "54"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1489/",
+      "id": 1489,
+      "name": "Flash Thompson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/flash-thompson/4005-1489/",
+      "count": "39"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1485/",
+      "id": 1485,
+      "name": "Doctor Octopus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doctor-octopus/4005-1485/",
+      "count": "38"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1486/",
+      "id": 1486,
+      "name": "Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/venom/4005-1486/",
+      "count": "36"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1780/",
+      "id": 1780,
+      "name": "Aunt May",
+      "siteDetailUrl": "https://comicvine.gamespot.com/aunt-may/4005-1780/",
+      "count": "29"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58812/",
+      "id": 58812,
+      "name": "Norman Osborn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/norman-osborn/4005-58812/",
+      "count": "29"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2478/",
+      "id": 2478,
+      "name": "Harry Osborn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/harry-osborn/4005-2478/",
+      "count": "28"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13380/",
+      "id": 13380,
+      "name": "Mary Jane",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mary-jane/4005-13380/",
+      "count": "26"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43587/",
+      "id": 43587,
+      "name": "Amadeus Cho",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amadeus-cho/4005-43587/",
+      "count": "26"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1487/",
+      "id": 1487,
+      "name": "J. Jonah Jameson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/j-jonah-jameson/4005-1487/",
+      "count": "24"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70860/",
+      "id": 70860,
+      "name": "Phil Coulson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phil-coulson/4005-70860/",
+      "count": "23"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1935/",
+      "id": 1935,
+      "name": "Dagger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dagger/4005-1935/",
+      "count": "21"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1474/",
+      "id": 1474,
+      "name": "Cloak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cloak/4005-1474/",
+      "count": "18"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79420/",
+      "id": 79420,
+      "name": "Miles Morales",
+      "siteDetailUrl": "https://comicvine.gamespot.com/miles-morales/4005-79420/",
+      "count": "18"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1488/",
+      "id": 1488,
+      "name": "Lizard",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lizard/4005-1488/",
+      "count": "17"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2267/",
+      "id": 2267,
+      "name": "Hulk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hulk/4005-2267/",
+      "count": "17"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2488/",
+      "id": 2488,
+      "name": "Squirrel Girl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/squirrel-girl/4005-2488/",
+      "count": "17"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2126/",
+      "id": 2126,
+      "name": "Rhino",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rhino/4005-2126/",
+      "count": "16"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6286/",
+      "id": 6286,
+      "name": "Ben Reilly",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ben-reilly/4005-6286/",
+      "count": "16"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1442/",
+      "id": 1442,
+      "name": "Captain America",
+      "siteDetailUrl": "https://comicvine.gamespot.com/captain-america/4005-1442/",
+      "count": "15"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2268/",
+      "id": 2268,
+      "name": "Thor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thor/4005-2268/",
+      "count": "13"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1455/",
+      "id": 1455,
+      "name": "Iron Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iron-man/4005-1455/",
+      "count": "12"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2475/",
+      "id": 2475,
+      "name": "Kraven the Hunter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kraven-the-hunter/4005-2475/",
+      "count": "11"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1456/",
+      "id": 1456,
+      "name": "Doctor Strange",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doctor-strange/4005-1456/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3228/",
+      "id": 3228,
+      "name": "Electro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/electro/4005-3228/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4822/",
+      "id": 4822,
+      "name": "Abe Jenkins",
+      "siteDetailUrl": "https://comicvine.gamespot.com/abe-jenkins/4005-4822/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14876/",
+      "id": 14876,
+      "name": "Arnim Zola",
+      "siteDetailUrl": "https://comicvine.gamespot.com/arnim-zola/4005-14876/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1490/",
+      "id": 1490,
+      "name": "Carnage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/carnage/4005-1490/",
+      "count": "9"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1529/",
+      "id": 1529,
+      "name": "Batroc",
+      "siteDetailUrl": "https://comicvine.gamespot.com/batroc/4005-1529/",
+      "count": "9"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3558/",
+      "id": 3558,
+      "name": "Ka-Zar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ka-zar/4005-3558/",
+      "count": "9"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4578/",
+      "id": 4578,
+      "name": "Taskmaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/taskmaster/4005-4578/",
+      "count": "9"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1475/",
+      "id": 1475,
+      "name": "Hawkeye",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hawkeye/4005-1475/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3537/",
+      "id": 3537,
+      "name": "Zabu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zabu/4005-3537/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3544/",
+      "id": 3544,
+      "name": "Sandman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sandman/4005-3544/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4484/",
+      "id": 4484,
+      "name": "Scorpion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scorpion/4005-4484/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11428/",
+      "id": 11428,
+      "name": "Triton",
+      "siteDetailUrl": "https://comicvine.gamespot.com/triton/4005-11428/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3200/",
+      "id": 3200,
+      "name": "Black Widow",
+      "siteDetailUrl": "https://comicvine.gamespot.com/black-widow/4005-3200/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4328/",
+      "id": 4328,
+      "name": "Trapster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/trapster/4005-4328/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4459/",
+      "id": 4459,
+      "name": "Vulture",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vulture/4005-4459/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8682/",
+      "id": 8682,
+      "name": "Spider-Ham",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-ham/4005-8682/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-124552/",
+      "id": 124552,
+      "name": "Petra Parker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/petra-parker/4005-124552/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3114/",
+      "id": 3114,
+      "name": "Uncle Ben",
+      "siteDetailUrl": "https://comicvine.gamespot.com/uncle-ben/4005-3114/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3115/",
+      "id": 3115,
+      "name": "Stan Lee",
+      "siteDetailUrl": "https://comicvine.gamespot.com/stan-lee/4005-3115/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3225/",
+      "id": 3225,
+      "name": "Crossbones",
+      "siteDetailUrl": "https://comicvine.gamespot.com/crossbones/4005-3225/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4324/",
+      "id": 4324,
+      "name": "Loki",
+      "siteDetailUrl": "https://comicvine.gamespot.com/loki/4005-4324/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4825/",
+      "id": 4825,
+      "name": "Shocker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shocker/4005-4825/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13987/",
+      "id": 13987,
+      "name": "Collector",
+      "siteDetailUrl": "https://comicvine.gamespot.com/collector/4005-13987/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1440/",
+      "id": 1440,
+      "name": "Wolverine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wolverine/4005-1440/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1468/",
+      "id": 1468,
+      "name": "Doctor Doom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doctor-doom/4005-1468/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2500/",
+      "id": 2500,
+      "name": "Monkey Joe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/monkey-joe/4005-2500/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3517/",
+      "id": 3517,
+      "name": "Executioner",
+      "siteDetailUrl": "https://comicvine.gamespot.com/executioner/4005-3517/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4457/",
+      "id": 4457,
+      "name": "Hydro-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hydro-man/4005-4457/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6722/",
+      "id": 6722,
+      "name": "Morbius",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morbius/4005-6722/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13812/",
+      "id": 13812,
+      "name": "Zzzax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zzzax/4005-13812/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20577/",
+      "id": 20577,
+      "name": "Ant-Man (Lang)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ant-man-lang/4005-20577/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32735/",
+      "id": 32735,
+      "name": "Grandmaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grandmaster/4005-32735/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39695/",
+      "id": 39695,
+      "name": "Grizzly",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grizzly/4005-39695/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40524/",
+      "id": 40524,
+      "name": "Spider-Man 2099",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-man-2099/4005-40524/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73456/",
+      "id": 73456,
+      "name": "Max Fury",
+      "siteDetailUrl": "https://comicvine.gamespot.com/max-fury/4005-73456/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-162256/",
+      "id": 162256,
+      "name": "Spider-Man Noir",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-man-noir/4005-162256/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-173759/",
+      "id": 173759,
+      "name": "Anti-Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/anti-venom/4005-173759/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1445/",
+      "id": 1445,
+      "name": "Juggernaut",
+      "siteDetailUrl": "https://comicvine.gamespot.com/juggernaut/4005-1445/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1451/",
+      "id": 1451,
+      "name": "Falcon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/falcon/4005-1451/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1945/",
+      "id": 1945,
+      "name": "Swarm",
+      "siteDetailUrl": "https://comicvine.gamespot.com/swarm/4005-1945/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2646/",
+      "id": 2646,
+      "name": "Nightmare",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nightmare/4005-2646/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3171/",
+      "id": 3171,
+      "name": "Klaw",
+      "siteDetailUrl": "https://comicvine.gamespot.com/klaw/4005-3171/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3287/",
+      "id": 3287,
+      "name": "Wizard",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wizard/4005-3287/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3457/",
+      "id": 3457,
+      "name": "Thunderbolt Ross",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thunderbolt-ross/4005-3457/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3709/",
+      "id": 3709,
+      "name": "M.O.D.O.K.",
+      "siteDetailUrl": "https://comicvine.gamespot.com/modok/4005-3709/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4234/",
+      "id": 4234,
+      "name": "Rio Morales",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rio-morales/4005-4234/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5065/",
+      "id": 5065,
+      "name": "Mesmero",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mesmero/4005-5065/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6299/",
+      "id": 6299,
+      "name": "Boomerang",
+      "siteDetailUrl": "https://comicvine.gamespot.com/boomerang/4005-6299/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6803/",
+      "id": 6803,
+      "name": "Howard the Duck",
+      "siteDetailUrl": "https://comicvine.gamespot.com/howard-the-duck/4005-6803/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7235/",
+      "id": 7235,
+      "name": "Thundra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thundra/4005-7235/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11554/",
+      "id": 11554,
+      "name": "Molten Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/molten-man/4005-11554/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13313/",
+      "id": 13313,
+      "name": "Wendigo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wendigo/4005-13313/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15232/",
+      "id": 15232,
+      "name": "Shriek",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shriek/4005-15232/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16197/",
+      "id": 16197,
+      "name": "Julia Carpenter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/julia-carpenter/4005-16197/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24341/",
+      "id": 24341,
+      "name": "Groot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/groot/4005-24341/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32814/",
+      "id": 32814,
+      "name": "Rocket Raccoon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rocket-raccoon/4005-32814/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61344/",
+      "id": 61344,
+      "name": "Shou-Lao the Undying",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shou-lao-the-undying/4005-61344/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-159299/",
+      "id": 159299,
+      "name": "Spyder Knight",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spyder-knight/4005-159299/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1779/",
+      "id": 1779,
+      "name": "Absorbing Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/absorbing-man/4005-1779/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1781/",
+      "id": 1781,
+      "name": "Jarvis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jarvis/4005-1781/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2106/",
+      "id": 2106,
+      "name": "Terrax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/terrax/4005-2106/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2114/",
+      "id": 2114,
+      "name": "Thing",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thing/4005-2114/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2149/",
+      "id": 2149,
+      "name": "Galactus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/galactus/4005-2149/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2205/",
+      "id": 2205,
+      "name": "Dormammu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dormammu/4005-2205/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2213/",
+      "id": 2213,
+      "name": "Baron Mordo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/baron-mordo/4005-2213/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3489/",
+      "id": 3489,
+      "name": "Abomination",
+      "siteDetailUrl": "https://comicvine.gamespot.com/abomination/4005-3489/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3534/",
+      "id": 3534,
+      "name": "Lockjaw",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lockjaw/4005-3534/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4327/",
+      "id": 4327,
+      "name": "Medusa",
+      "siteDetailUrl": "https://comicvine.gamespot.com/medusa/4005-4327/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4329/",
+      "id": 4329,
+      "name": "Black Bolt",
+      "siteDetailUrl": "https://comicvine.gamespot.com/black-bolt/4005-4329/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4944/",
+      "id": 4944,
+      "name": "Awesome Android",
+      "siteDetailUrl": "https://comicvine.gamespot.com/awesome-android/4005-4944/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4984/",
+      "id": 4984,
+      "name": "Werewolf By Night",
+      "siteDetailUrl": "https://comicvine.gamespot.com/werewolf-by-night/4005-4984/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4988/",
+      "id": 4988,
+      "name": "Man-Thing",
+      "siteDetailUrl": "https://comicvine.gamespot.com/man-thing/4005-4988/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6806/",
+      "id": 6806,
+      "name": "Gamora",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gamora/4005-6806/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6807/",
+      "id": 6807,
+      "name": "Drax the Destroyer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/drax-the-destroyer/4005-6807/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6823/",
+      "id": 6823,
+      "name": "Dragon Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dragon-man/4005-6823/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7570/",
+      "id": 7570,
+      "name": "Blade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blade/4005-7570/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7617/",
+      "id": 7617,
+      "name": "Leader",
+      "siteDetailUrl": "https://comicvine.gamespot.com/leader/4005-7617/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8667/",
+      "id": 8667,
+      "name": "Kaine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kaine/4005-8667/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10957/",
+      "id": 10957,
+      "name": "Star-Lord",
+      "siteDetailUrl": "https://comicvine.gamespot.com/star-lord/4005-10957/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10975/",
+      "id": 10975,
+      "name": "Karnak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/karnak/4005-10975/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12323/",
+      "id": 12323,
+      "name": "Ulik",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ulik/4005-12323/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13925/",
+      "id": 13925,
+      "name": "Morgan Le Fay",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morgan-le-fay/4005-13925/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13939/",
+      "id": 13939,
+      "name": "Living Mummy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/living-mummy/4005-13939/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14422/",
+      "id": 14422,
+      "name": "Whizzer (Frank)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/whizzer-frank/4005-14422/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15517/",
+      "id": 15517,
+      "name": "Blood Spider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blood-spider/4005-15517/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15779/",
+      "id": 15779,
+      "name": "Attuma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/attuma/4005-15779/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16075/",
+      "id": 16075,
+      "name": "Frankenstein",
+      "siteDetailUrl": "https://comicvine.gamespot.com/frankenstein/4005-16075/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35031/",
+      "id": 35031,
+      "name": "The Kraken",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-kraken/4005-35031/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42048/",
+      "id": 42048,
+      "name": "Tippy-Toe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tippy-toe/4005-42048/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65186/",
+      "id": 65186,
+      "name": "Dracula",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dracula/4005-65186/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-87738/",
+      "id": 87738,
+      "name": "Titus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/titus/4005-87738/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1449/",
+      "id": 1449,
+      "name": "She-Hulk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/she-hulk/4005-1449/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1466/",
+      "id": 1466,
+      "name": "Scarlet Witch",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scarlet-witch/4005-1466/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1480/",
+      "id": 1480,
+      "name": "Gwen Stacy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gwen-stacy/4005-1480/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1493/",
+      "id": 1493,
+      "name": "Moon Knight",
+      "siteDetailUrl": "https://comicvine.gamespot.com/moon-knight/4005-1493/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2115/",
+      "id": 2115,
+      "name": "Crystal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/crystal/4005-2115/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2248/",
+      "id": 2248,
+      "name": "Rick Jones",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rick-jones/4005-2248/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2251/",
+      "id": 2251,
+      "name": "Piledriver",
+      "siteDetailUrl": "https://comicvine.gamespot.com/piledriver/4005-2251/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2252/",
+      "id": 2252,
+      "name": "Wrecker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wrecker/4005-2252/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2253/",
+      "id": 2253,
+      "name": "Thunderball",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thunderball/4005-2253/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2254/",
+      "id": 2254,
+      "name": "Bulldozer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bulldozer/4005-2254/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2479/",
+      "id": 2479,
+      "name": "George Stacy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/george-stacy/4005-2479/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2501/",
+      "id": 2501,
+      "name": "Captain Ultra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/captain-ultra/4005-2501/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3316/",
+      "id": 3316,
+      "name": "Hellcat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hellcat/4005-3316/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3447/",
+      "id": 3447,
+      "name": "Maximus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/maximus/4005-3447/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4330/",
+      "id": 4330,
+      "name": "Gorgon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gorgon/4005-4330/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4333/",
+      "id": 4333,
+      "name": "Mysterio",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mysterio/4005-4333/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4456/",
+      "id": 4456,
+      "name": "John Jameson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/john-jameson/4005-4456/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4563/",
+      "id": 4563,
+      "name": "Sabretooth",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sabretooth/4005-4563/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6767/",
+      "id": 6767,
+      "name": "Montana",
+      "siteDetailUrl": "https://comicvine.gamespot.com/montana/4005-6767/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6817/",
+      "id": 6817,
+      "name": "Hammerhead",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hammerhead/4005-6817/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6828/",
+      "id": 6828,
+      "name": "Whirlwind",
+      "siteDetailUrl": "https://comicvine.gamespot.com/whirlwind/4005-6828/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7239/",
+      "id": 7239,
+      "name": "Phantom Rider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phantom-rider/4005-7239/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7606/",
+      "id": 7606,
+      "name": "Deadpool",
+      "siteDetailUrl": "https://comicvine.gamespot.com/deadpool/4005-7606/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7940/",
+      "id": 7940,
+      "name": "Destroyer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/destroyer/4005-7940/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8145/",
+      "id": 8145,
+      "name": "Fin Fang Foom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fin-fang-foom/4005-8145/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8429/",
+      "id": 8429,
+      "name": "Arcade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/arcade/4005-8429/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8692/",
+      "id": 8692,
+      "name": "Iron Mouse",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iron-mouse/4005-8692/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8693/",
+      "id": 8693,
+      "name": "Captain Americat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/captain-americat/4005-8693/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9904/",
+      "id": 9904,
+      "name": "Living Laser",
+      "siteDetailUrl": "https://comicvine.gamespot.com/living-laser/4005-9904/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10267/",
+      "id": 10267,
+      "name": "Ymir",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ymir/4005-10267/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10963/",
+      "id": 10963,
+      "name": "Blastaar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blastaar/4005-10963/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10964/",
+      "id": 10964,
+      "name": "Annihilus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/annihilus/4005-10964/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12624/",
+      "id": 12624,
+      "name": "Kangaroo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kangaroo/4005-12624/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12726/",
+      "id": 12726,
+      "name": "Mad-Dog",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mad-dog/4005-12726/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13498/",
+      "id": 13498,
+      "name": "Fancy Dan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fancy-dan/4005-13498/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14467/",
+      "id": 14467,
+      "name": "Korvac",
+      "siteDetailUrl": "https://comicvine.gamespot.com/korvac/4005-14467/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15279/",
+      "id": 15279,
+      "name": "The Burglar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-burglar/4005-15279/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18429/",
+      "id": 18429,
+      "name": "Steel Spider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/steel-spider/4005-18429/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20398/",
+      "id": 20398,
+      "name": "The Invisible Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-invisible-man/4005-20398/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27036/",
+      "id": 27036,
+      "name": "Dreamstalker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dreamstalker/4005-27036/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-30596/",
+      "id": 30596,
+      "name": "Throg",
+      "siteDetailUrl": "https://comicvine.gamespot.com/throg/4005-30596/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33176/",
+      "id": 33176,
+      "name": "Hulkbunny",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hulkbunny/4005-33176/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-34207/",
+      "id": 34207,
+      "name": "White Tiger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/white-tiger/4005-34207/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-38747/",
+      "id": 38747,
+      "name": "Ox",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ox/4005-38747/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39132/",
+      "id": 39132,
+      "name": "Merlin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/merlin/4005-39132/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40470/",
+      "id": 40470,
+      "name": "Bucky Barnes",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bucky-barnes/4005-40470/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42387/",
+      "id": 42387,
+      "name": "Khonshu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/khonshu/4005-42387/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48518/",
+      "id": 48518,
+      "name": "Skaar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skaar/4005-48518/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49203/",
+      "id": 49203,
+      "name": "Cosmo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cosmo/4005-49203/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49969/",
+      "id": 49969,
+      "name": "Mister Negative",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mister-negative/4005-49969/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53078/",
+      "id": 53078,
+      "name": "Aunt Ham",
+      "siteDetailUrl": "https://comicvine.gamespot.com/aunt-ham/4005-53078/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53621/",
+      "id": 53621,
+      "name": "Kraven",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kraven/4005-53621/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-85517/",
+      "id": 85517,
+      "name": "James Lucas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/james-lucas/4005-85517/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86502/",
+      "id": 86502,
+      "name": "Jefferson Davis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jefferson-davis/4005-86502/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-99748/",
+      "id": 99748,
+      "name": "Esther Lucas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/esther-lucas/4005-99748/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105831/",
+      "id": 105831,
+      "name": "Jemma Simmons",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jemma-simmons/4005-105831/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105832/",
+      "id": 105832,
+      "name": "Leo Fitz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/leo-fitz/4005-105832/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-124553/",
+      "id": 124553,
+      "name": "Norma Osborn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/norma-osborn/4005-124553/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-124593/",
+      "id": 124593,
+      "name": "Jack O'Lantern",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jack-olantern/4005-124593/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-126760/",
+      "id": 126760,
+      "name": "J. Jonah Jackal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/j-jonah-jackal/4005-126760/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-150279/",
+      "id": 150279,
+      "name": "Spider-Punk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-punk/4005-150279/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-153690/",
+      "id": 153690,
+      "name": "Spider-Horse",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-horse/4005-153690/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-154762/",
+      "id": 154762,
+      "name": "Mac Porter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mac-porter/4005-154762/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-170174/",
+      "id": 170174,
+      "name": "Spider-Bot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spider-bot/4005-170174/",
+      "count": "1"
+    }
+  ],
+  "countOfEpisodes": 104,
+  "dateAdded": "2013-09-24 13:35:03",
+  "dateLastUpdated": "2018-09-13 09:02:34",
+  "deck": null,
+  "description": "<p>Ultimate Spider-Man is an animated television series based on the superhero Spider-Man and is loosely based of the comic series.</p>",
+  "episodes": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-1967/",
+      "id": 1967,
+      "name": "Great Power",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-101-great-power/4070-1967/",
+      "episodeNumber": "101"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-1969/",
+      "id": 1969,
+      "name": "Great Responsibility",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-102-great-responsibility/4070-1969/",
+      "episodeNumber": "102"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-2147/",
+      "id": 2147,
+      "name": "Doomed",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-103-doomed/4070-2147/",
+      "episodeNumber": "103"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-2148/",
+      "id": 2148,
+      "name": "Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-104-venom/4070-2148/",
+      "episodeNumber": "104"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-2149/",
+      "id": 2149,
+      "name": "Flight of the Iron-Spider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-105-flight-of-the-iron-spider/4070-2149/",
+      "episodeNumber": "105"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-2166/",
+      "id": 2166,
+      "name": "Game Over",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-220-game-over/4070-2166/",
+      "episodeNumber": "220"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-2861/",
+      "id": 2861,
+      "name": "Ultimate Deadpool",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-215-ultimate-deadpool/4070-2861/",
+      "episodeNumber": "215"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3403/",
+      "id": 3403,
+      "name": "Why I Hate Gym",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-106-why-i-hate-gym/4070-3403/",
+      "episodeNumber": "106"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3404/",
+      "id": 3404,
+      "name": "Exclusive",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-107-exclusive/4070-3404/",
+      "episodeNumber": "107"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3405/",
+      "id": 3405,
+      "name": "Back in Black",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-108-back-in-black/4070-3405/",
+      "episodeNumber": "108"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3406/",
+      "id": 3406,
+      "name": "Field Trip",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-109-field-trip/4070-3406/",
+      "episodeNumber": "109"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3407/",
+      "id": 3407,
+      "name": "Freaky",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-110-freaky/4070-3407/",
+      "episodeNumber": "110"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3408/",
+      "id": 3408,
+      "name": "Venomous",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-111-venomous/4070-3408/",
+      "episodeNumber": "111"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3409/",
+      "id": 3409,
+      "name": "Me Time",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-112-me-time/4070-3409/",
+      "episodeNumber": "112"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3417/",
+      "id": 3417,
+      "name": "Strange",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-113-strange/4070-3417/",
+      "episodeNumber": "113"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3418/",
+      "id": 3418,
+      "name": "Awesome",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-114-awesome/4070-3418/",
+      "episodeNumber": "114"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3419/",
+      "id": 3419,
+      "name": "For Your Eye Only",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-115-for-your-eye-only/4070-3419/",
+      "episodeNumber": "115"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3420/",
+      "id": 3420,
+      "name": "Beetle Mania",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-116-beetle-mania/4070-3420/",
+      "episodeNumber": "116"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3421/",
+      "id": 3421,
+      "name": "Snow Day",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-117-snow-day/4070-3421/",
+      "episodeNumber": "117"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3422/",
+      "id": 3422,
+      "name": "Damage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-118-damage/4070-3422/",
+      "episodeNumber": "118"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3423/",
+      "id": 3423,
+      "name": "Home Sick Hulk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-119-home-sick-hulk/4070-3423/",
+      "episodeNumber": "119"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3424/",
+      "id": 3424,
+      "name": "Run Pig Run",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-120-run-pig-run/4070-3424/",
+      "episodeNumber": "120"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3425/",
+      "id": 3425,
+      "name": "I Am Spider-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-121-i-am-spider-man/4070-3425/",
+      "episodeNumber": "121"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3426/",
+      "id": 3426,
+      "name": "The Iron Octopus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-122-the-iron-octopus/4070-3426/",
+      "episodeNumber": "122"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3427/",
+      "id": 3427,
+      "name": "Not A Toy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-123-not-a-toy/4070-3427/",
+      "episodeNumber": "123"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3429/",
+      "id": 3429,
+      "name": "The Attack of the Beetle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-124-the-attack-of-the-beetle/4070-3429/",
+      "episodeNumber": "124"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3430/",
+      "id": 3430,
+      "name": "Revealed",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-125-revealed/4070-3430/",
+      "episodeNumber": "125"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3431/",
+      "id": 3431,
+      "name": "The Rise of the Goblin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-126-the-rise-of-the-goblin/4070-3431/",
+      "episodeNumber": "126"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3432/",
+      "id": 3432,
+      "name": "The Lizard",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-201-the-lizard/4070-3432/",
+      "episodeNumber": "201"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3434/",
+      "id": 3434,
+      "name": "Electro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-202-electro/4070-3434/",
+      "episodeNumber": "202"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3435/",
+      "id": 3435,
+      "name": "The Rhino",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-203-the-rhino/4070-3435/",
+      "episodeNumber": "203"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3437/",
+      "id": 3437,
+      "name": "Kraven the Hunter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-204-kraven-the-hunter/4070-3437/",
+      "episodeNumber": "204"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3438/",
+      "id": 3438,
+      "name": "Hawkeye",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-205-hawkeye/4070-3438/",
+      "episodeNumber": "205"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3440/",
+      "id": 3440,
+      "name": "The Sinister Six",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-206-the-sinister-six/4070-3440/",
+      "episodeNumber": "206"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3442/",
+      "id": 3442,
+      "name": "Spidah-Man!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-207-spidah-man/4070-3442/",
+      "episodeNumber": "207"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3443/",
+      "id": 3443,
+      "name": "Carnage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-208-carnage/4070-3443/",
+      "episodeNumber": "208"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3444/",
+      "id": 3444,
+      "name": "House Arrest",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-209-house-arrest/4070-3444/",
+      "episodeNumber": "209"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3445/",
+      "id": 3445,
+      "name": "The Man-Wolf",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-210-the-man-wolf/4070-3445/",
+      "episodeNumber": "210"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3446/",
+      "id": 3446,
+      "name": "Swarm",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-211-swarm/4070-3446/",
+      "episodeNumber": "211"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3447/",
+      "id": 3447,
+      "name": "Itsy Bitsy Spider-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-212-itsy-bitsy-spider-man/4070-3447/",
+      "episodeNumber": "212"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3448/",
+      "id": 3448,
+      "name": "Journey of the Iron Fist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-213-journey-of-the-iron-fist/4070-3448/",
+      "episodeNumber": "213"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3460/",
+      "id": 3460,
+      "name": "The Incredible Spider-Hulk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-214-the-incredible-spider-hulk/4070-3460/",
+      "episodeNumber": "214"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3461/",
+      "id": 3461,
+      "name": "Venom Bomb",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-216-venom-bomb/4070-3461/",
+      "episodeNumber": "216"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3462/",
+      "id": 3462,
+      "name": "Guardians of the Galaxy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-217-guardians-of-the-galaxy/4070-3462/",
+      "episodeNumber": "217"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3463/",
+      "id": 3463,
+      "name": "The Parent Trap",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-218-the-parent-trap/4070-3463/",
+      "episodeNumber": "218"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3464/",
+      "id": 3464,
+      "name": "Stan By Me",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-219-stan-by-me/4070-3464/",
+      "episodeNumber": "219"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-3465/",
+      "id": 3465,
+      "name": "Blade and the Howling Commandos Pt. 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-221-blade-and-the-howling-comm/4070-3465/",
+      "episodeNumber": "221"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-5028/",
+      "id": 5028,
+      "name": "Second Chance Hero",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-223-second-chance-hero/4070-5028/",
+      "episodeNumber": "223"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-5029/",
+      "id": 5029,
+      "name": "Sandman Returns",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-224-sandman-returns/4070-5029/",
+      "episodeNumber": "224"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-5030/",
+      "id": 5030,
+      "name": "Return of the Sinister Six",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-225-return-of-the-sinister-six/4070-5030/",
+      "episodeNumber": "225"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-5031/",
+      "id": 5031,
+      "name": "Ultimate",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-226-ultimate/4070-5031/",
+      "episodeNumber": "226"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-8648/",
+      "id": 8648,
+      "name": "Blade and the Howling Commandos Pt. 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-222-blade-and-the-howling-comm/4070-8648/",
+      "episodeNumber": "222"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-13318/",
+      "id": 13318,
+      "name": "The Return of the Guardians of the Galaxy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-313-the-return-of-the-guardian/4070-13318/",
+      "episodeNumber": "313"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-14973/",
+      "id": 14973,
+      "name": "The Spider-Verse: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-309-the-spider-verse-part-1/4070-14973/",
+      "episodeNumber": "309"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-14974/",
+      "id": 14974,
+      "name": "The Spider-Verse: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-310-the-spider-verse-part-2/4070-14974/",
+      "episodeNumber": "310"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-14975/",
+      "id": 14975,
+      "name": "The Spider-Verse: Part 3",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-311-the-spider-verse-part-3/4070-14975/",
+      "episodeNumber": "311"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-14976/",
+      "id": 14976,
+      "name": "The Spider-Verse: Part 4",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-312-the-spider-verse-part-4/4070-14976/",
+      "episodeNumber": "312"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19385/",
+      "id": 19385,
+      "name": "The Avenging Spider-Man, Part One",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-301-the-avenging-spider-man-pa/4070-19385/",
+      "episodeNumber": "301"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19386/",
+      "id": 19386,
+      "name": "The Avenging Spider-Man, Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-302-the-avenging-spider-man-pa/4070-19386/",
+      "episodeNumber": "302"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19387/",
+      "id": 19387,
+      "name": "Agent Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-303-agent-venom/4070-19387/",
+      "episodeNumber": "303"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19388/",
+      "id": 19388,
+      "name": "Cloak and Dagger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-304-cloak-and-dagger/4070-19388/",
+      "episodeNumber": "304"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19389/",
+      "id": 19389,
+      "name": "The Next Iron Spider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-305-the-next-iron-spider/4070-19389/",
+      "episodeNumber": "305"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19390/",
+      "id": 19390,
+      "name": "The Vulture",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-306-the-vulture/4070-19390/",
+      "episodeNumber": "306"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19391/",
+      "id": 19391,
+      "name": "The Savage Spider-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-307-the-savage-spider-man/4070-19391/",
+      "episodeNumber": "307"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19392/",
+      "id": 19392,
+      "name": "New Warriors",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-308-new-warriors/4070-19392/",
+      "episodeNumber": "308"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19393/",
+      "id": 19393,
+      "name": "S.H.I.E.L.D Academy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-314-shield-academy/4070-19393/",
+      "episodeNumber": "314"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19394/",
+      "id": 19394,
+      "name": "Rampaging Rhino",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-315-rampaging-rhino/4070-19394/",
+      "episodeNumber": "315"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19395/",
+      "id": 19395,
+      "name": "Ant-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-316-ant-man/4070-19395/",
+      "episodeNumber": "316"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19396/",
+      "id": 19396,
+      "name": "Burrito Run",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-317-burrito-run/4070-19396/",
+      "episodeNumber": "317"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19397/",
+      "id": 19397,
+      "name": "Inhumanity",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-318-inhumanity/4070-19397/",
+      "episodeNumber": "318"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-19398/",
+      "id": 19398,
+      "name": "Attack of the Synthezoids",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-319-attack-of-the-synthezoids/4070-19398/",
+      "episodeNumber": "319"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20532/",
+      "id": 20532,
+      "name": "The Revenge of Arnim Zola",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-320-the-revenge-of-arnim-zola/4070-20532/",
+      "episodeNumber": "320"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20548/",
+      "id": 20548,
+      "name": "Halloween Night at the Museum",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-321-halloween-night-at-the-mus/4070-20548/",
+      "episodeNumber": "321"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20549/",
+      "id": 20549,
+      "name": "Nightmare on Christmas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-322-nightmare-on-christmas/4070-20549/",
+      "episodeNumber": "322"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20550/",
+      "id": 20550,
+      "name": "Contest of Champions, Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-323-contest-of-champions-part-/4070-20550/",
+      "episodeNumber": "323"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20551/",
+      "id": 20551,
+      "name": "Contest of Champions, Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-324-contest-of-champions-part-/4070-20551/",
+      "episodeNumber": "324"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20553/",
+      "id": 20553,
+      "name": "Contest of Champions, Part 3",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-325-contest-of-champions-part-/4070-20553/",
+      "episodeNumber": "325"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20554/",
+      "id": 20554,
+      "name": "Contest of Champions, Part 4",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-326-contest-of-champions-part-/4070-20554/",
+      "episodeNumber": "326"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-20679/",
+      "id": 20679,
+      "name": "Agent Web",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-412-agent-web/4070-20679/",
+      "episodeNumber": "412"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25009/",
+      "id": 25009,
+      "name": "Lizards",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-405-lizards/4070-25009/",
+      "episodeNumber": "405"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25068/",
+      "id": 25068,
+      "name": "Hydra Attacks: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-401-hydra-attacks-part-1/4070-25068/",
+      "episodeNumber": "401"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25069/",
+      "id": 25069,
+      "name": "Hydra Attacks: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-402-hydra-attacks-part-2/4070-25069/",
+      "episodeNumber": "402"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25070/",
+      "id": 25070,
+      "name": "Miles from Home",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-403-miles-from-home/4070-25070/",
+      "episodeNumber": "403"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25071/",
+      "id": 25071,
+      "name": "Iron Vulture",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-404-iron-vulture/4070-25071/",
+      "episodeNumber": "404"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25072/",
+      "id": 25072,
+      "name": "Double Agent Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-406-double-agent-venom/4070-25072/",
+      "episodeNumber": "406"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25073/",
+      "id": 25073,
+      "name": "Beached",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-407-beached/4070-25073/",
+      "episodeNumber": "407"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25074/",
+      "id": 25074,
+      "name": "Anti-Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-408-anti-venom/4070-25074/",
+      "episodeNumber": "408"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25075/",
+      "id": 25075,
+      "name": "Force of Nature",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-409-force-of-nature/4070-25075/",
+      "episodeNumber": "409"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25076/",
+      "id": 25076,
+      "name": "The New Sinister 6: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-410-the-new-sinister-6-part-1/4070-25076/",
+      "episodeNumber": "410"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25077/",
+      "id": 25077,
+      "name": "The New Sinister 6: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-411-the-new-sinister-6-part-2/4070-25077/",
+      "episodeNumber": "411"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25078/",
+      "id": 25078,
+      "name": "The Symbiote Saga: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-413-the-symbiote-saga-part-1/4070-25078/",
+      "episodeNumber": "413"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25079/",
+      "id": 25079,
+      "name": "The Symbiote Saga: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-414-the-symbiote-saga-part-2/4070-25079/",
+      "episodeNumber": "414"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25080/",
+      "id": 25080,
+      "name": "The Symbiote Saga: Part 3",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-415-the-symbiote-saga-part-3/4070-25080/",
+      "episodeNumber": "415"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25081/",
+      "id": 25081,
+      "name": "Return to the Spider-Verse: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-416-return-to-the-spider-verse/4070-25081/",
+      "episodeNumber": "416"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25082/",
+      "id": 25082,
+      "name": "Return to the Spider-Verse: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-417-return-to-the-spider-verse/4070-25082/",
+      "episodeNumber": "417"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25083/",
+      "id": 25083,
+      "name": "Return to the Spider-Verse: Part 3",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-418-return-to-the-spider-verse/4070-25083/",
+      "episodeNumber": "418"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25084/",
+      "id": 25084,
+      "name": "Return to the Spider-Verse: Part 4",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-419-return-to-the-spider-verse/4070-25084/",
+      "episodeNumber": "419"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25085/",
+      "id": 25085,
+      "name": "Strange Little Halloween",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-420-strange-little-halloween/4070-25085/",
+      "episodeNumber": "420"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25086/",
+      "id": 25086,
+      "name": "The Spider Slayers: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-421-the-spider-slayers-part-1/4070-25086/",
+      "episodeNumber": "421"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25087/",
+      "id": 25087,
+      "name": "The Spider Slayers: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-422-the-spider-slayers-part-2/4070-25087/",
+      "episodeNumber": "422"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25088/",
+      "id": 25088,
+      "name": "The Spider Slayers: Part 3",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-423-the-spider-slayers-part-3/4070-25088/",
+      "episodeNumber": "423"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25089/",
+      "id": 25089,
+      "name": "The Moon Knight Before Christmas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-424-the-moon-knight-before-chr/4070-25089/",
+      "episodeNumber": "424"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25090/",
+      "id": 25090,
+      "name": "Graduation Day: Part 1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-425-graduation-day-part-1/4070-25090/",
+      "episodeNumber": "425"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25091/",
+      "id": 25091,
+      "name": "Graduation Day: Part 2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spider-man-426-graduation-day-part-2/4070-25091/",
+      "episodeNumber": "426"
+    }
+  ],
+  "firstEpisode": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-1967/",
+    "id": 1967,
+    "name": "Great Power",
+    "episodeNumber": "101"
+  },
+  "id": 13,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/6/67663/6608400-default.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/6/67663/6608400-default.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/6/67663/6608400-default.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/6/67663/6608400-default.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/6/67663/6608400-default.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/6608400-default.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/6/67663/6608400-default.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/6/67663/6608400-default.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/6/67663/6608400-default.jpg",
+    "imageTags": "All Images"
+  },
+  "lastEpisode": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-25090/",
+    "id": 25090,
+    "name": "Graduation Day: Part 1",
+    "episodeNumber": "425"
+  },
+  "name": "Ultimate Spider-Man",
+  "publisher": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/publisher/4010-464/",
+    "id": 464,
+    "name": "Disney"
+  },
+  "siteDetailUrl": "https://comicvine.gamespot.com/ultimate-spiderman/4075-13/",
+  "startYear": "2012-2017"
+}

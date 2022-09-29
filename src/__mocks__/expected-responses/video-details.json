@@ -1,0 +1,42 @@
+{
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/video/2300-3265/",
+  "deck": "The All New Ghost Rider is the newest addition to Agents of S.H.I.E.L.D. His character in the comic book is pretty different from his onscreen persona. Here's 8 things you need to know about the possessed hellion.",
+  "embedPlayer": "https://comicvine.gamespot.com/videos/embed/3265/",
+  "guid": "2300-3265",
+  "id": 3265,
+  "lengthSeconds": 135,
+  "name": "8 Things to Know About the All New Ghost Rider",
+  "premium": false,
+  "publishDate": "2016-09-22 16:00:00",
+  "siteDetailUrl": "https://comicvine.gamespot.com/videos/8-things-to-know-about-the-all-new-ghost-rider/2300-3265/",
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/11128/111284291/5447675-8thingsghostrider_092216_gs",
+    "imageTags": "All Images"
+  },
+  "user": null,
+  "hosts": "buddyhutton",
+  "crew": "buddyhutton",
+  "videoType": "Feature",
+  "videoShow": null,
+  "videoCategories": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/video_category/2320-3/",
+      "id": 3,
+      "name": "Feature",
+      "siteDetailUrl": "https://comicvine.gamespot.com/videos/feature/"
+    }
+  ],
+  "savedTime": null,
+  "youtubeId": "feeE0lgVR54",
+  "lowUrl": "https://static-mt-rv-v1.comicvine.com/vr/2016/09/22/8ThingsGhostRider_092216_1800.mp4",
+  "highUrl": "https://static-mt-rv-v1.comicvine.com/vr/2016/09/22/8ThingsGhostRider_092216_3200.mp4",
+  "url": "8ThingsGhostRider_092216.mp4"
+}

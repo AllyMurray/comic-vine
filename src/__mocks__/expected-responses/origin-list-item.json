@@ -1,0 +1,68 @@
+{
+  "limit": 100,
+  "numberOfPageResults": 10,
+  "numberOfTotalResults": 10,
+  "offset": 0,
+  "data": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-1/",
+      "id": 1,
+      "name": "Mutant",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mutant/4030-1/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-2/",
+      "id": 2,
+      "name": "Cyborg",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cyborg/4030-2/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-3/",
+      "id": 3,
+      "name": "Alien",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alien/4030-3/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-4/",
+      "id": 4,
+      "name": "Human",
+      "siteDetailUrl": "https://comicvine.gamespot.com/human/4030-4/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-5/",
+      "id": 5,
+      "name": "Robot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/robot/4030-5/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-6/",
+      "id": 6,
+      "name": "Radiation",
+      "siteDetailUrl": "https://comicvine.gamespot.com/radiation/4030-6/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-7/",
+      "id": 7,
+      "name": "God/Eternal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/godeternal/4030-7/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-8/",
+      "id": 8,
+      "name": "Animal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/animal/4030-8/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-9/",
+      "id": 9,
+      "name": "Other",
+      "siteDetailUrl": "https://comicvine.gamespot.com/other/4030-9/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/origin/4030-10/",
+      "id": 10,
+      "name": "Infection",
+      "siteDetailUrl": "https://comicvine.gamespot.com/infection/4030-10/"
+    }
+  ]
+}

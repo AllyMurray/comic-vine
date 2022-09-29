@@ -1,0 +1,43 @@
+{
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/publisher/4010-133/",
+  "characters": [],
+  "dateAdded": "2008-06-06 11:08:00",
+  "dateLastUpdated": "2008-06-06 20:36:10",
+  "deck": null,
+  "description": null,
+  "id": 133,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/11122/111222211/6373148-blank.png",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/11122/111222211/6373148-blank.png",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/11122/111222211/6373148-blank.png",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/11122/111222211/6373148-blank.png",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/11122/111222211/6373148-blank.png",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/11122/111222211/6373148-blank.png",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/11122/111222211/6373148-blank.png",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/11122/111222211/6373148-blank.png",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/11122/111222211/6373148-blank.png",
+    "imageTags": ",All Images,asgard,Avatars,carpediem081108,Classified: Dark Syntinel,Custom Pack,dp,Heroes/Villains,Jeff Hardy,Kurama,Mack's Gallery,Mangekyou Sharingan,Mis,My Off-Topic Shizzzzzz,My Pics,Old pics,other,Other Pictures,Pics for my Background,pics of characters i found,Sorting,Spider-Man and Etc.. Gallery,SPIRALMIND,Stuff I Made on the Computer,yeah."
+  },
+  "locationAddress": null,
+  "locationCity": null,
+  "locationState": null,
+  "name": "Aragon",
+  "siteDetailUrl": "https://comicvine.gamespot.com/aragon/4010-133/",
+  "storyArcs": [],
+  "teams": [],
+  "volumes": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/volume/4050-1539/",
+      "id": 1539,
+      "name": "Weird Tales of the Future",
+      "siteDetailUrl": "https://comicvine.gamespot.com/weird-tales-of-the-future/4050-1539/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/volume/4050-55768/",
+      "id": 55768,
+      "name": "Navy Task Force",
+      "siteDetailUrl": "https://comicvine.gamespot.com/navy-task-force/4050-55768/"
+    }
+  ]
+}

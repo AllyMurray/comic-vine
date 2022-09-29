@@ -1,0 +1,4800 @@
+{
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/power/4035-23/",
+  "characters": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1469/",
+      "id": 1469,
+      "name": "Mystique",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mystique/4005-1469/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1486/",
+      "id": 1486,
+      "name": "Venom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/venom/4005-1486/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1489/",
+      "id": 1489,
+      "name": "Flash Thompson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/flash-thompson/4005-1489/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1490/",
+      "id": 1490,
+      "name": "Carnage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/carnage/4005-1490/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1504/",
+      "id": 1504,
+      "name": "Vision",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vision/4005-1504/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1684/",
+      "id": 1684,
+      "name": "Empress",
+      "siteDetailUrl": "https://comicvine.gamespot.com/empress/4005-1684/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1702/",
+      "id": 1702,
+      "name": "Joker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/joker/4005-1702/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1776/",
+      "id": 1776,
+      "name": "Ethan Edwards",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ethan-edwards/4005-1776/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1925/",
+      "id": 1925,
+      "name": "Angela Del Toro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/angela-del-toro/4005-1925/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1944/",
+      "id": 1944,
+      "name": "Xavin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xavin/4005-1944/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2047/",
+      "id": 2047,
+      "name": "Martian Manhunter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/martian-manhunter/4005-2047/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2103/",
+      "id": 2103,
+      "name": "Turbo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/turbo/4005-2103/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2113/",
+      "id": 2113,
+      "name": "Namorita",
+      "siteDetailUrl": "https://comicvine.gamespot.com/namorita/4005-2113/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2151/",
+      "id": 2151,
+      "name": "Mr. Fantastic",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-fantastic/4005-2151/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2176/",
+      "id": 2176,
+      "name": "Selene",
+      "siteDetailUrl": "https://comicvine.gamespot.com/selene/4005-2176/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2178/",
+      "id": 2178,
+      "name": "Llyra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/llyra/4005-2178/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2205/",
+      "id": 2205,
+      "name": "Dormammu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dormammu/4005-2205/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2248/",
+      "id": 2248,
+      "name": "Rick Jones",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rick-jones/4005-2248/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2250/",
+      "id": 2250,
+      "name": "Red Skull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/red-skull/4005-2250/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2259/",
+      "id": 2259,
+      "name": "Hulkling",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hulkling/4005-2259/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2384/",
+      "id": 2384,
+      "name": "Metamorpho",
+      "siteDetailUrl": "https://comicvine.gamespot.com/metamorpho/4005-2384/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2492/",
+      "id": 2492,
+      "name": "Deathurge",
+      "siteDetailUrl": "https://comicvine.gamespot.com/deathurge/4005-2492/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2496/",
+      "id": 2496,
+      "name": "Oblivion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/oblivion/4005-2496/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2551/",
+      "id": 2551,
+      "name": "Vixen",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vixen/4005-2551/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2635/",
+      "id": 2635,
+      "name": "Mephisto",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mephisto/4005-2635/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2638/",
+      "id": 2638,
+      "name": "Malevolence",
+      "siteDetailUrl": "https://comicvine.gamespot.com/malevolence/4005-2638/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3179/",
+      "id": 3179,
+      "name": "Mr. Sinister",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-sinister/4005-3179/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3279/",
+      "id": 3279,
+      "name": "Moonstone",
+      "siteDetailUrl": "https://comicvine.gamespot.com/moonstone/4005-3279/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3282/",
+      "id": 3282,
+      "name": "Fixer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fixer/4005-3282/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3381/",
+      "id": 3381,
+      "name": "Spawn (Simmons)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spawn-simmons/4005-3381/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3409/",
+      "id": 3409,
+      "name": "Shift",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shift/4005-3409/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3481/",
+      "id": 3481,
+      "name": "Social Butterfly",
+      "siteDetailUrl": "https://comicvine.gamespot.com/social-butterfly/4005-3481/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3507/",
+      "id": 3507,
+      "name": "Odin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/odin/4005-3507/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3558/",
+      "id": 3558,
+      "name": "Ka-Zar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ka-zar/4005-3558/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3565/",
+      "id": 3565,
+      "name": "Amphibius",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amphibius/4005-3565/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3586/",
+      "id": 3586,
+      "name": "Beast Boy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/beast-boy/4005-3586/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3700/",
+      "id": 3700,
+      "name": "Hooded Claw",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hooded-claw/4005-3700/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3716/",
+      "id": 3716,
+      "name": "Renee Montoya",
+      "siteDetailUrl": "https://comicvine.gamespot.com/renee-montoya/4005-3716/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3718/",
+      "id": 3718,
+      "name": "Riddler",
+      "siteDetailUrl": "https://comicvine.gamespot.com/riddler/4005-3718/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3737/",
+      "id": 3737,
+      "name": "Amazo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amazo/4005-3737/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3763/",
+      "id": 3763,
+      "name": "Eclipso",
+      "siteDetailUrl": "https://comicvine.gamespot.com/eclipso/4005-3763/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4085/",
+      "id": 4085,
+      "name": "Nao Yut",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nao-yut/4005-4085/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4088/",
+      "id": 4088,
+      "name": "Elasti-Girl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/elasti-girl/4005-4088/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4124/",
+      "id": 4124,
+      "name": "Alex Allston",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alex-allston/4005-4124/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4125/",
+      "id": 4125,
+      "name": "Alexandra Allston",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alexandra-allston/4005-4125/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4324/",
+      "id": 4324,
+      "name": "Loki",
+      "siteDetailUrl": "https://comicvine.gamespot.com/loki/4005-4324/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4342/",
+      "id": 4342,
+      "name": "Hela",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hela/4005-4342/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4375/",
+      "id": 4375,
+      "name": "Ninjak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ninjak/4005-4375/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4423/",
+      "id": 4423,
+      "name": "Gorgeous George",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gorgeous-george/4005-4423/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4458/",
+      "id": 4458,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-4458/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4484/",
+      "id": 4484,
+      "name": "Scorpion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scorpion/4005-4484/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4598/",
+      "id": 4598,
+      "name": "Christopher Chance",
+      "siteDetailUrl": "https://comicvine.gamespot.com/christopher-chance/4005-4598/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4678/",
+      "id": 4678,
+      "name": "Livewire",
+      "siteDetailUrl": "https://comicvine.gamespot.com/livewire/4005-4678/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4937/",
+      "id": 4937,
+      "name": "Rip Hunter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rip-hunter/4005-4937/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-4994/",
+      "id": 4994,
+      "name": "Freakshow",
+      "siteDetailUrl": "https://comicvine.gamespot.com/freakshow/4005-4994/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5310/",
+      "id": 5310,
+      "name": "Trigon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/trigon/4005-5310/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5411/",
+      "id": 5411,
+      "name": "Qui-Gon Jinn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/qui-gon-jinn/4005-5411/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5515/",
+      "id": 5515,
+      "name": "Destroyer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/destroyer/4005-5515/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5569/",
+      "id": 5569,
+      "name": "Bloodshot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bloodshot/4005-5569/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5702/",
+      "id": 5702,
+      "name": "Black Orchid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/black-orchid/4005-5702/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5713/",
+      "id": 5713,
+      "name": "Creeper",
+      "siteDetailUrl": "https://comicvine.gamespot.com/creeper/4005-5713/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-5945/",
+      "id": 5945,
+      "name": "Chameleon Boy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon-boy/4005-5945/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6068/",
+      "id": 6068,
+      "name": "Marauder",
+      "siteDetailUrl": "https://comicvine.gamespot.com/marauder/4005-6068/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6141/",
+      "id": 6141,
+      "name": "Morfex",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morfex/4005-6141/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6199/",
+      "id": 6199,
+      "name": "Sister Superior",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sister-superior/4005-6199/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6270/",
+      "id": 6270,
+      "name": "Plastic Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/plastic-man/4005-6270/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6673/",
+      "id": 6673,
+      "name": "Miss Masque",
+      "siteDetailUrl": "https://comicvine.gamespot.com/miss-masque/4005-6673/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6773/",
+      "id": 6773,
+      "name": "Yekaterina",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yekaterina/4005-6773/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6804/",
+      "id": 6804,
+      "name": "Recorder Zeta-9",
+      "siteDetailUrl": "https://comicvine.gamespot.com/recorder-zeta-9/4005-6804/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-6811/",
+      "id": 6811,
+      "name": "Living Tribunal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/living-tribunal/4005-6811/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7190/",
+      "id": 7190,
+      "name": "Geomancer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/geomancer/4005-7190/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7223/",
+      "id": 7223,
+      "name": "Warlock",
+      "siteDetailUrl": "https://comicvine.gamespot.com/warlock/4005-7223/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7225/",
+      "id": 7225,
+      "name": "Enchantress",
+      "siteDetailUrl": "https://comicvine.gamespot.com/enchantress/4005-7225/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7258/",
+      "id": 7258,
+      "name": "Deathlok",
+      "siteDetailUrl": "https://comicvine.gamespot.com/deathlok/4005-7258/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7549/",
+      "id": 7549,
+      "name": "Kermit the Frog",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kermit-the-frog/4005-7549/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7604/",
+      "id": 7604,
+      "name": "Meggan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/meggan/4005-7604/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7690/",
+      "id": 7690,
+      "name": "Chuckles",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chuckles/4005-7690/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7694/",
+      "id": 7694,
+      "name": "Zandar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zandar/4005-7694/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8047/",
+      "id": 8047,
+      "name": "Shelob",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shelob/4005-8047/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8247/",
+      "id": 8247,
+      "name": "Avengelyne",
+      "siteDetailUrl": "https://comicvine.gamespot.com/avengelyne/4005-8247/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8306/",
+      "id": 8306,
+      "name": "Mastermind",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mastermind/4005-8306/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-8966/",
+      "id": 8966,
+      "name": "Radioactive Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/radioactive-man/4005-8966/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9080/",
+      "id": 9080,
+      "name": "Edward C. Burke",
+      "siteDetailUrl": "https://comicvine.gamespot.com/edward-c-burke/4005-9080/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9231/",
+      "id": 9231,
+      "name": "Lone Ranger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lone-ranger/4005-9231/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9265/",
+      "id": 9265,
+      "name": "Randall Boggs",
+      "siteDetailUrl": "https://comicvine.gamespot.com/randall-boggs/4005-9265/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9315/",
+      "id": 9315,
+      "name": "Nemesis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nemesis/4005-9315/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9589/",
+      "id": 9589,
+      "name": "Clayface (Karlo)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/clayface-karlo/4005-9589/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9865/",
+      "id": 9865,
+      "name": "Amber",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amber/4005-9865/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9972/",
+      "id": 9972,
+      "name": "Sensor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sensor/4005-9972/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10021/",
+      "id": 10021,
+      "name": "Shrewface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shrewface/4005-10021/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10167/",
+      "id": 10167,
+      "name": "Bushmaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bushmaster/4005-10167/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10206/",
+      "id": 10206,
+      "name": "Gypsy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gypsy/4005-10206/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10222/",
+      "id": 10222,
+      "name": "Spymaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spymaster/4005-10222/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10226/",
+      "id": 10226,
+      "name": "Zeus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zeus/4005-10226/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10242/",
+      "id": 10242,
+      "name": "Diablo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/diablo/4005-10242/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10280/",
+      "id": 10280,
+      "name": "Doctor Voodoo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doctor-voodoo/4005-10280/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10300/",
+      "id": 10300,
+      "name": "Beyonder",
+      "siteDetailUrl": "https://comicvine.gamespot.com/beyonder/4005-10300/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10526/",
+      "id": 10526,
+      "name": "God",
+      "siteDetailUrl": "https://comicvine.gamespot.com/god/4005-10526/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10572/",
+      "id": 10572,
+      "name": "Mondo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mondo/4005-10572/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10577/",
+      "id": 10577,
+      "name": "Bolt",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bolt/4005-10577/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-10875/",
+      "id": 10875,
+      "name": "Mercy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mercy/4005-10875/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11051/",
+      "id": 11051,
+      "name": "Zartan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zartan/4005-11051/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11105/",
+      "id": 11105,
+      "name": "Lady Jaye",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lady-jaye/4005-11105/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11321/",
+      "id": 11321,
+      "name": "Stuff",
+      "siteDetailUrl": "https://comicvine.gamespot.com/stuff/4005-11321/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11330/",
+      "id": 11330,
+      "name": "Sublime",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sublime/4005-11330/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11426/",
+      "id": 11426,
+      "name": "Senso",
+      "siteDetailUrl": "https://comicvine.gamespot.com/senso/4005-11426/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11524/",
+      "id": 11524,
+      "name": "Power-Skrull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/power-skrull/4005-11524/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11552/",
+      "id": 11552,
+      "name": "Normie Osborn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/normie-osborn/4005-11552/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11889/",
+      "id": 11889,
+      "name": "Dreadface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dreadface/4005-11889/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11892/",
+      "id": 11892,
+      "name": "Lyja",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lyja/4005-11892/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11894/",
+      "id": 11894,
+      "name": "General Kalamari",
+      "siteDetailUrl": "https://comicvine.gamespot.com/general-kalamari/4005-11894/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-11939/",
+      "id": 11939,
+      "name": "Kro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kro/4005-11939/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12013/",
+      "id": 12013,
+      "name": "Voodoo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/voodoo/4005-12013/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12547/",
+      "id": 12547,
+      "name": "Morph",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morph/4005-12547/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12620/",
+      "id": 12620,
+      "name": "Death",
+      "siteDetailUrl": "https://comicvine.gamespot.com/death/4005-12620/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12641/",
+      "id": 12641,
+      "name": "Scaleface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scaleface/4005-12641/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12686/",
+      "id": 12686,
+      "name": "Piston",
+      "siteDetailUrl": "https://comicvine.gamespot.com/piston/4005-12686/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12793/",
+      "id": 12793,
+      "name": "Voodah",
+      "siteDetailUrl": "https://comicvine.gamespot.com/voodah/4005-12793/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12801/",
+      "id": 12801,
+      "name": "Yarko the Great",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yarko-the-great/4005-12801/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12810/",
+      "id": 12810,
+      "name": "R.J. Brande",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rj-brande/4005-12810/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13224/",
+      "id": 13224,
+      "name": "Capricia",
+      "siteDetailUrl": "https://comicvine.gamespot.com/capricia/4005-13224/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13311/",
+      "id": 13311,
+      "name": "Copycat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/copycat/4005-13311/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13314/",
+      "id": 13314,
+      "name": "Nimrod",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nimrod/4005-13314/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13349/",
+      "id": 13349,
+      "name": "Legion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/legion/4005-13349/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13381/",
+      "id": 13381,
+      "name": "Foreigner",
+      "siteDetailUrl": "https://comicvine.gamespot.com/foreigner/4005-13381/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13564/",
+      "id": 13564,
+      "name": "Thrust",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thrust/4005-13564/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13780/",
+      "id": 13780,
+      "name": "Nebulon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nebulon/4005-13780/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13901/",
+      "id": 13901,
+      "name": "Artemis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/artemis/4005-13901/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-13925/",
+      "id": 13925,
+      "name": "Morgan Le Fay",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morgan-le-fay/4005-13925/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14072/",
+      "id": 14072,
+      "name": "Death Mask",
+      "siteDetailUrl": "https://comicvine.gamespot.com/death-mask/4005-14072/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14083/",
+      "id": 14083,
+      "name": "Fu Manchu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fu-manchu/4005-14083/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14122/",
+      "id": 14122,
+      "name": "Rex Mundi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rex-mundi/4005-14122/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14398/",
+      "id": 14398,
+      "name": "Faker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/faker/4005-14398/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14461/",
+      "id": 14461,
+      "name": "Scourge",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scourge/4005-14461/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14476/",
+      "id": 14476,
+      "name": "Tommy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tommy/4005-14476/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14558/",
+      "id": 14558,
+      "name": "Nebula",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nebula/4005-14558/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14563/",
+      "id": 14563,
+      "name": "Delphine Courtney",
+      "siteDetailUrl": "https://comicvine.gamespot.com/delphine-courtney/4005-14563/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14704/",
+      "id": 14704,
+      "name": "Marduk Kurios",
+      "siteDetailUrl": "https://comicvine.gamespot.com/marduk-kurios/4005-14704/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14728/",
+      "id": 14728,
+      "name": "Blackheart",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blackheart/4005-14728/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14788/",
+      "id": 14788,
+      "name": "Zodiak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zodiak/4005-14788/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14794/",
+      "id": 14794,
+      "name": "Rintrah",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rintrah/4005-14794/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-14820/",
+      "id": 14820,
+      "name": "Merlyn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/merlyn/4005-14820/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15020/",
+      "id": 15020,
+      "name": "Random",
+      "siteDetailUrl": "https://comicvine.gamespot.com/random/4005-15020/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15145/",
+      "id": 15145,
+      "name": "Scarlett McKenzie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scarlett-mckenzie/4005-15145/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15167/",
+      "id": 15167,
+      "name": "Martinique Jason",
+      "siteDetailUrl": "https://comicvine.gamespot.com/martinique-jason/4005-15167/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15212/",
+      "id": 15212,
+      "name": "Lasher",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lasher/4005-15212/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15541/",
+      "id": 15541,
+      "name": "Shang Tsung",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shang-tsung/4005-15541/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15573/",
+      "id": 15573,
+      "name": "Armageddon Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/armageddon-man/4005-15573/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15683/",
+      "id": 15683,
+      "name": "Chthon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chthon/4005-15683/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15778/",
+      "id": 15778,
+      "name": "Gaea",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gaea/4005-15778/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15809/",
+      "id": 15809,
+      "name": "Swamp Thing",
+      "siteDetailUrl": "https://comicvine.gamespot.com/swamp-thing/4005-15809/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16088/",
+      "id": 16088,
+      "name": "Raptar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raptar/4005-16088/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16210/",
+      "id": 16210,
+      "name": "Sneak-Thief",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sneak-thief/4005-16210/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16433/",
+      "id": 16433,
+      "name": "Man-E-Faces",
+      "siteDetailUrl": "https://comicvine.gamespot.com/man-e-faces/4005-16433/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16701/",
+      "id": 16701,
+      "name": "Anubis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/anubis/4005-16701/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16780/",
+      "id": 16780,
+      "name": "Comrade X",
+      "siteDetailUrl": "https://comicvine.gamespot.com/comrade-x/4005-16780/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-16941/",
+      "id": 16941,
+      "name": "Les Pretend",
+      "siteDetailUrl": "https://comicvine.gamespot.com/les-pretend/4005-16941/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-17300/",
+      "id": 17300,
+      "name": "Ernest",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ernest/4005-17300/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-17607/",
+      "id": 17607,
+      "name": "Engineer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/engineer/4005-17607/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-17624/",
+      "id": 17624,
+      "name": "Squid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/squid/4005-17624/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-17704/",
+      "id": 17704,
+      "name": "Ravana",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ravana/4005-17704/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-17769/",
+      "id": 17769,
+      "name": "Kana",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kana/4005-17769/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18010/",
+      "id": 18010,
+      "name": "Plant Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/plant-man/4005-18010/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18078/",
+      "id": 18078,
+      "name": "Super-Hip",
+      "siteDetailUrl": "https://comicvine.gamespot.com/super-hip/4005-18078/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18246/",
+      "id": 18246,
+      "name": "Abraxas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/abraxas/4005-18246/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18562/",
+      "id": 18562,
+      "name": "Metarchus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/metarchus/4005-18562/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18576/",
+      "id": 18576,
+      "name": "The Spider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-spider/4005-18576/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18611/",
+      "id": 18611,
+      "name": "The Thousand",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-thousand/4005-18611/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18620/",
+      "id": 18620,
+      "name": "Ravage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ravage/4005-18620/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18770/",
+      "id": 18770,
+      "name": "Diabolik",
+      "siteDetailUrl": "https://comicvine.gamespot.com/diabolik/4005-18770/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19181/",
+      "id": 19181,
+      "name": "Gruagach of Lough Leane",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gruagach-of-lough-leane/4005-19181/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19187/",
+      "id": 19187,
+      "name": "Cosmo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cosmo/4005-19187/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19375/",
+      "id": 19375,
+      "name": "Skrull Wolverine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrull-wolverine/4005-19375/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19772/",
+      "id": 19772,
+      "name": "Kami",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kami/4005-19772/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19832/",
+      "id": 19832,
+      "name": "Caligula Minus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/caligula-minus/4005-19832/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-19937/",
+      "id": 19937,
+      "name": "Blazing Fury",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blazing-fury/4005-19937/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20027/",
+      "id": 20027,
+      "name": "Zabyk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zabyk/4005-20027/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20028/",
+      "id": 20028,
+      "name": "Prince Dezan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/prince-dezan/4005-20028/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20093/",
+      "id": 20093,
+      "name": "Cordelia",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cordelia/4005-20093/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-20125/",
+      "id": 20125,
+      "name": "Willow",
+      "siteDetailUrl": "https://comicvine.gamespot.com/willow/4005-20125/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21133/",
+      "id": 21133,
+      "name": "Roxxas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/roxxas/4005-21133/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21211/",
+      "id": 21211,
+      "name": "Effigy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/effigy/4005-21211/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21332/",
+      "id": 21332,
+      "name": "Super-Skrull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/super-skrull/4005-21332/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21350/",
+      "id": 21350,
+      "name": "Lamia",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lamia/4005-21350/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21369/",
+      "id": 21369,
+      "name": "Daffy Duck",
+      "siteDetailUrl": "https://comicvine.gamespot.com/daffy-duck/4005-21369/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21445/",
+      "id": 21445,
+      "name": "Twelve",
+      "siteDetailUrl": "https://comicvine.gamespot.com/twelve/4005-21445/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21557/",
+      "id": 21557,
+      "name": "Marie Laveau",
+      "siteDetailUrl": "https://comicvine.gamespot.com/marie-laveau/4005-21557/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21677/",
+      "id": 21677,
+      "name": "Sultan Magus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sultan-magus/4005-21677/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21893/",
+      "id": 21893,
+      "name": "Satan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/satan/4005-21893/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21996/",
+      "id": 21996,
+      "name": "Scream",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scream/4005-21996/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22071/",
+      "id": 22071,
+      "name": "Orochi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/orochi/4005-22071/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22312/",
+      "id": 22312,
+      "name": "Girl One",
+      "siteDetailUrl": "https://comicvine.gamespot.com/girl-one/4005-22312/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22707/",
+      "id": 22707,
+      "name": "Animal Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/animal-man/4005-22707/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22784/",
+      "id": 22784,
+      "name": "Prometheus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/prometheus/4005-22784/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22892/",
+      "id": 22892,
+      "name": "Tarzan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tarzan/4005-22892/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-22895/",
+      "id": 22895,
+      "name": "Inque",
+      "siteDetailUrl": "https://comicvine.gamespot.com/inque/4005-22895/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23215/",
+      "id": 23215,
+      "name": "Tim Hunter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tim-hunter/4005-23215/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23450/",
+      "id": 23450,
+      "name": "Resurrection Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/resurrection-man/4005-23450/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23471/",
+      "id": 23471,
+      "name": "Grunge",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grunge/4005-23471/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23578/",
+      "id": 23578,
+      "name": "Caitlin Fairchild",
+      "siteDetailUrl": "https://comicvine.gamespot.com/caitlin-fairchild/4005-23578/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23636/",
+      "id": 23636,
+      "name": "Sensational Hydra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sensational-hydra/4005-23636/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23708/",
+      "id": 23708,
+      "name": "Xero",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xero/4005-23708/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-23825/",
+      "id": 23825,
+      "name": "Plyck",
+      "siteDetailUrl": "https://comicvine.gamespot.com/plyck/4005-23825/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24010/",
+      "id": 24010,
+      "name": "Llan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/llan/4005-24010/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24129/",
+      "id": 24129,
+      "name": "Hybrid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hybrid/4005-24129/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24139/",
+      "id": 24139,
+      "name": "Odo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/odo/4005-24139/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24232/",
+      "id": 24232,
+      "name": "Lucifer Morningstar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lucifer-morningstar/4005-24232/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24308/",
+      "id": 24308,
+      "name": "Lord Satanus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lord-satanus/4005-24308/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-24481/",
+      "id": 24481,
+      "name": "Arioch",
+      "siteDetailUrl": "https://comicvine.gamespot.com/arioch/4005-24481/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25082/",
+      "id": 25082,
+      "name": "Dwight McCarthy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dwight-mccarthy/4005-25082/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25158/",
+      "id": 25158,
+      "name": "Shade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shade/4005-25158/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25595/",
+      "id": 25595,
+      "name": "Isz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/isz/4005-25595/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25666/",
+      "id": 25666,
+      "name": "Spidercide",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spidercide/4005-25666/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25715/",
+      "id": 25715,
+      "name": "Volx",
+      "siteDetailUrl": "https://comicvine.gamespot.com/volx/4005-25715/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-25826/",
+      "id": 25826,
+      "name": "Pagan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pagan/4005-25826/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-26121/",
+      "id": 26121,
+      "name": "Replica",
+      "siteDetailUrl": "https://comicvine.gamespot.com/replica/4005-26121/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-26181/",
+      "id": 26181,
+      "name": "Facade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/facade/4005-26181/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-26358/",
+      "id": 26358,
+      "name": "Lady Clayface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lady-clayface/4005-26358/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-26531/",
+      "id": 26531,
+      "name": "Vranx",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vranx/4005-26531/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-26995/",
+      "id": 26995,
+      "name": "Adversary",
+      "siteDetailUrl": "https://comicvine.gamespot.com/adversary/4005-26995/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27005/",
+      "id": 27005,
+      "name": "Nyx",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nyx/4005-27005/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27075/",
+      "id": 27075,
+      "name": "Film Freak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/film-freak/4005-27075/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27436/",
+      "id": 27436,
+      "name": "Mr. Mxyzptlk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-mxyzptlk/4005-27436/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27627/",
+      "id": 27627,
+      "name": "Triax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/triax/4005-27627/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27821/",
+      "id": 27821,
+      "name": "Monkey King",
+      "siteDetailUrl": "https://comicvine.gamespot.com/monkey-king/4005-27821/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-27870/",
+      "id": 27870,
+      "name": "Lady Luger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lady-luger/4005-27870/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28118/",
+      "id": 28118,
+      "name": "Protege",
+      "siteDetailUrl": "https://comicvine.gamespot.com/protege/4005-28118/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28155/",
+      "id": 28155,
+      "name": "Samuel J. Skrull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/samuel-j-skrull/4005-28155/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28420/",
+      "id": 28420,
+      "name": "Byth",
+      "siteDetailUrl": "https://comicvine.gamespot.com/byth/4005-28420/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28670/",
+      "id": 28670,
+      "name": "Fantasma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fantasma/4005-28670/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28674/",
+      "id": 28674,
+      "name": "Tyrak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tyrak/4005-28674/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28923/",
+      "id": 28923,
+      "name": "The Shadow",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-shadow/4005-28923/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-28945/",
+      "id": 28945,
+      "name": "Dittomaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dittomaster/4005-28945/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29070/",
+      "id": 29070,
+      "name": "Slaymaster",
+      "siteDetailUrl": "https://comicvine.gamespot.com/slaymaster/4005-29070/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29194/",
+      "id": 29194,
+      "name": "Dorrek VII",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dorrek-vii/4005-29194/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29217/",
+      "id": 29217,
+      "name": "Anelle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/anelle/4005-29217/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29231/",
+      "id": 29231,
+      "name": "Gumby",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gumby/4005-29231/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29591/",
+      "id": 29591,
+      "name": "Tala",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tala/4005-29591/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29643/",
+      "id": 29643,
+      "name": "Unknown Soldier",
+      "siteDetailUrl": "https://comicvine.gamespot.com/unknown-soldier/4005-29643/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-29987/",
+      "id": 29987,
+      "name": "Lili Deneuve",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lili-deneuve/4005-29987/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-30611/",
+      "id": 30611,
+      "name": "Skeeve",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skeeve/4005-30611/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-31024/",
+      "id": 31024,
+      "name": "Chameleon Chief",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon-chief/4005-31024/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-31040/",
+      "id": 31040,
+      "name": "Masquerader",
+      "siteDetailUrl": "https://comicvine.gamespot.com/masquerader/4005-31040/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-31131/",
+      "id": 31131,
+      "name": "The Gambler",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-gambler/4005-31131/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-31297/",
+      "id": 31297,
+      "name": "Quisp",
+      "siteDetailUrl": "https://comicvine.gamespot.com/quisp/4005-31297/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-31822/",
+      "id": 31822,
+      "name": "Camille",
+      "siteDetailUrl": "https://comicvine.gamespot.com/camille/4005-31822/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32224/",
+      "id": 32224,
+      "name": "Color Kid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/color-kid/4005-32224/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32612/",
+      "id": 32612,
+      "name": "Chris King",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chris-king/4005-32612/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32721/",
+      "id": 32721,
+      "name": "Valerie Foxworth",
+      "siteDetailUrl": "https://comicvine.gamespot.com/valerie-foxworth/4005-32721/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-32866/",
+      "id": 32866,
+      "name": "Ch'i-Lin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chi-lin/4005-32866/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33303/",
+      "id": 33303,
+      "name": "Plastic Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/plastic-man/4005-33303/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33312/",
+      "id": 33312,
+      "name": "Boris Badenov",
+      "siteDetailUrl": "https://comicvine.gamespot.com/boris-badenov/4005-33312/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33762/",
+      "id": 33762,
+      "name": "Fusion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fusion/4005-33762/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33970/",
+      "id": 33970,
+      "name": "Chisel McSue",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chisel-mcsue/4005-33970/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33982/",
+      "id": 33982,
+      "name": "Magica De Spell",
+      "siteDetailUrl": "https://comicvine.gamespot.com/magica-de-spell/4005-33982/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-33993/",
+      "id": 33993,
+      "name": "Skrull X",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrull-x/4005-33993/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-34080/",
+      "id": 34080,
+      "name": "Phantom Blot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phantom-blot/4005-34080/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-34265/",
+      "id": 34265,
+      "name": "Grandpa Beagle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grandpa-beagle/4005-34265/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-34826/",
+      "id": 34826,
+      "name": "Flintheart Glomgold",
+      "siteDetailUrl": "https://comicvine.gamespot.com/flintheart-glomgold/4005-34826/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35061/",
+      "id": 35061,
+      "name": "Wraithwitch",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wraithwitch/4005-35061/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35081/",
+      "id": 35081,
+      "name": "Basil of Baker Street",
+      "siteDetailUrl": "https://comicvine.gamespot.com/basil-of-baker-street/4005-35081/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35106/",
+      "id": 35106,
+      "name": "Adam-II",
+      "siteDetailUrl": "https://comicvine.gamespot.com/adam-ii/4005-35106/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35113/",
+      "id": 35113,
+      "name": "Zirksu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zirksu/4005-35113/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35188/",
+      "id": 35188,
+      "name": "Clayface (Hagen)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/clayface-hagen/4005-35188/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-35327/",
+      "id": 35327,
+      "name": "Baroness S'Bak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/baroness-sbak/4005-35327/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36018/",
+      "id": 36018,
+      "name": "Danielle Nicolle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/danielle-nicolle/4005-36018/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36064/",
+      "id": 36064,
+      "name": "K9999",
+      "siteDetailUrl": "https://comicvine.gamespot.com/k9999/4005-36064/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36079/",
+      "id": 36079,
+      "name": "Nova Kane",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nova-kane/4005-36079/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36398/",
+      "id": 36398,
+      "name": "Laurox The Lecherous",
+      "siteDetailUrl": "https://comicvine.gamespot.com/laurox-the-lecherous/4005-36398/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36501/",
+      "id": 36501,
+      "name": "Falseface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/falseface/4005-36501/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36516/",
+      "id": 36516,
+      "name": "William Payton",
+      "siteDetailUrl": "https://comicvine.gamespot.com/william-payton/4005-36516/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-36815/",
+      "id": 36815,
+      "name": "Boss Smiley",
+      "siteDetailUrl": "https://comicvine.gamespot.com/boss-smiley/4005-36815/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-37303/",
+      "id": 37303,
+      "name": "Genghis Khan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/genghis-khan/4005-37303/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-37801/",
+      "id": 37801,
+      "name": "Jake Long",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jake-long/4005-37801/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-38339/",
+      "id": 38339,
+      "name": "Mutant-Master",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mutant-master/4005-38339/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-38926/",
+      "id": 38926,
+      "name": "Siren",
+      "siteDetailUrl": "https://comicvine.gamespot.com/siren/4005-38926/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39132/",
+      "id": 39132,
+      "name": "Merlin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/merlin/4005-39132/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39277/",
+      "id": 39277,
+      "name": "Doctor Solar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doctor-solar/4005-39277/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39435/",
+      "id": 39435,
+      "name": "Uma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/uma/4005-39435/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-39575/",
+      "id": 39575,
+      "name": "Banzai",
+      "siteDetailUrl": "https://comicvine.gamespot.com/banzai/4005-39575/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40458/",
+      "id": 40458,
+      "name": "Anole",
+      "siteDetailUrl": "https://comicvine.gamespot.com/anole/4005-40458/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40526/",
+      "id": 40526,
+      "name": "Azazel",
+      "siteDetailUrl": "https://comicvine.gamespot.com/azazel/4005-40526/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40589/",
+      "id": 40589,
+      "name": "Longstrike",
+      "siteDetailUrl": "https://comicvine.gamespot.com/longstrike/4005-40589/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40614/",
+      "id": 40614,
+      "name": "Sparda",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sparda/4005-40614/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40632/",
+      "id": 40632,
+      "name": "Helspont",
+      "siteDetailUrl": "https://comicvine.gamespot.com/helspont/4005-40632/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40783/",
+      "id": 40783,
+      "name": "Toxin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/toxin/4005-40783/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40791/",
+      "id": 40791,
+      "name": "Phage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phage/4005-40791/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40793/",
+      "id": 40793,
+      "name": "Riot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/riot/4005-40793/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40796/",
+      "id": 40796,
+      "name": "Agony",
+      "siteDetailUrl": "https://comicvine.gamespot.com/agony/4005-40796/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40808/",
+      "id": 40808,
+      "name": "The Killer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-killer/4005-40808/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40832/",
+      "id": 40832,
+      "name": "Desire of the Endless",
+      "siteDetailUrl": "https://comicvine.gamespot.com/desire-of-the-endless/4005-40832/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40925/",
+      "id": 40925,
+      "name": "Geoffrey Wilder",
+      "siteDetailUrl": "https://comicvine.gamespot.com/geoffrey-wilder/4005-40925/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41145/",
+      "id": 41145,
+      "name": "Miss Martian",
+      "siteDetailUrl": "https://comicvine.gamespot.com/miss-martian/4005-41145/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41157/",
+      "id": 41157,
+      "name": "Moonstalker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/moonstalker/4005-41157/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41204/",
+      "id": 41204,
+      "name": "Shapesmith",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shapesmith/4005-41204/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41222/",
+      "id": 41222,
+      "name": "R'Tee",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rtee/4005-41222/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41224/",
+      "id": 41224,
+      "name": "Goroth",
+      "siteDetailUrl": "https://comicvine.gamespot.com/goroth/4005-41224/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41460/",
+      "id": 41460,
+      "name": "Freddy Krueger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/freddy-krueger/4005-41460/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41535/",
+      "id": 41535,
+      "name": "Goliath",
+      "siteDetailUrl": "https://comicvine.gamespot.com/goliath/4005-41535/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41569/",
+      "id": 41569,
+      "name": "Skymax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skymax/4005-41569/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41667/",
+      "id": 41667,
+      "name": "S'Byll",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sbyll/4005-41667/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41717/",
+      "id": 41717,
+      "name": "White Martian",
+      "siteDetailUrl": "https://comicvine.gamespot.com/white-martian/4005-41717/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41756/",
+      "id": 41756,
+      "name": "Shathra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shathra/4005-41756/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41825/",
+      "id": 41825,
+      "name": "Mechagodzilla",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mechagodzilla/4005-41825/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-41867/",
+      "id": 41867,
+      "name": "Sylene",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sylene/4005-41867/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42084/",
+      "id": 42084,
+      "name": "River Tam",
+      "siteDetailUrl": "https://comicvine.gamespot.com/river-tam/4005-42084/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42133/",
+      "id": 42133,
+      "name": "Darkman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/darkman/4005-42133/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42245/",
+      "id": 42245,
+      "name": "Noob Saibot",
+      "siteDetailUrl": "https://comicvine.gamespot.com/noob-saibot/4005-42245/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42430/",
+      "id": 42430,
+      "name": "Geist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/geist/4005-42430/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42482/",
+      "id": 42482,
+      "name": "Purgatori",
+      "siteDetailUrl": "https://comicvine.gamespot.com/purgatori/4005-42482/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42543/",
+      "id": 42543,
+      "name": "D'Spayre",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dspayre/4005-42543/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42567/",
+      "id": 42567,
+      "name": "Xenophage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xenophage/4005-42567/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42609/",
+      "id": 42609,
+      "name": "R'Kin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rkin/4005-42609/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42771/",
+      "id": 42771,
+      "name": "John the Skrull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/john-the-skrull/4005-42771/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42951/",
+      "id": 42951,
+      "name": "Altwaal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/altwaal/4005-42951/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42962/",
+      "id": 42962,
+      "name": "Tulity",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tulity/4005-42962/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-42975/",
+      "id": 42975,
+      "name": "Ghost Rider 2099",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ghost-rider-2099/4005-42975/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43025/",
+      "id": 43025,
+      "name": "Appolyon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/appolyon/4005-43025/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43304/",
+      "id": 43304,
+      "name": "Offspring",
+      "siteDetailUrl": "https://comicvine.gamespot.com/offspring/4005-43304/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43353/",
+      "id": 43353,
+      "name": "Fuma Mono",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fuma-mono/4005-43353/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43537/",
+      "id": 43537,
+      "name": "Madame Mirage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/madame-mirage/4005-43537/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43658/",
+      "id": 43658,
+      "name": "Captain Dynamo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/captain-dynamo/4005-43658/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43663/",
+      "id": 43663,
+      "name": "Menagerie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/menagerie/4005-43663/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43745/",
+      "id": 43745,
+      "name": "Rikuo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rikuo/4005-43745/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44170/",
+      "id": 44170,
+      "name": "Buzz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/buzz/4005-44170/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44245/",
+      "id": 44245,
+      "name": "Yamato",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yamato/4005-44245/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44259/",
+      "id": 44259,
+      "name": "Orochimaru",
+      "siteDetailUrl": "https://comicvine.gamespot.com/orochimaru/4005-44259/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44288/",
+      "id": 44288,
+      "name": "Bloke",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bloke/4005-44288/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44370/",
+      "id": 44370,
+      "name": "Inari",
+      "siteDetailUrl": "https://comicvine.gamespot.com/inari/4005-44370/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44473/",
+      "id": 44473,
+      "name": "One-Above-All",
+      "siteDetailUrl": "https://comicvine.gamespot.com/one-above-all/4005-44473/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44512/",
+      "id": 44512,
+      "name": "Tsunade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tsunade/4005-44512/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44516/",
+      "id": 44516,
+      "name": "Kurenai Yuhi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kurenai-yuhi/4005-44516/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44523/",
+      "id": 44523,
+      "name": "Kabuto Yakushi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kabuto-yakushi/4005-44523/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44583/",
+      "id": 44583,
+      "name": "Alucard",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alucard/4005-44583/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44812/",
+      "id": 44812,
+      "name": "Reptile",
+      "siteDetailUrl": "https://comicvine.gamespot.com/reptile/4005-44812/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-44964/",
+      "id": 44964,
+      "name": "Vienna",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vienna/4005-44964/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45020/",
+      "id": 45020,
+      "name": "Zetsu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zetsu/4005-45020/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45115/",
+      "id": 45115,
+      "name": "Powergirl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/powergirl/4005-45115/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45332/",
+      "id": 45332,
+      "name": "Ixis Naugus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ixis-naugus/4005-45332/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45346/",
+      "id": 45346,
+      "name": "Espio the Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/espio-the-chameleon/4005-45346/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45368/",
+      "id": 45368,
+      "name": "Hiei",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hiei/4005-45368/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45403/",
+      "id": 45403,
+      "name": "Element Girl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/element-girl/4005-45403/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45586/",
+      "id": 45586,
+      "name": "Metamorphia",
+      "siteDetailUrl": "https://comicvine.gamespot.com/metamorphia/4005-45586/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45614/",
+      "id": 45614,
+      "name": "Chaos",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chaos/4005-45614/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45618/",
+      "id": 45618,
+      "name": "Lara the Illusionist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lara-the-illusionist/4005-45618/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45625/",
+      "id": 45625,
+      "name": "Spawn (Llanso)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/spawn-llanso/4005-45625/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45681/",
+      "id": 45681,
+      "name": "Shapeshifter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shapeshifter/4005-45681/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45713/",
+      "id": 45713,
+      "name": "Isolationist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/isolationist/4005-45713/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45829/",
+      "id": 45829,
+      "name": "Raiden",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raiden/4005-45829/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45936/",
+      "id": 45936,
+      "name": "Composite Superman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/composite-superman/4005-45936/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45948/",
+      "id": 45948,
+      "name": "Ultraman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ultraman/4005-45948/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-45993/",
+      "id": 45993,
+      "name": "Yoko Kurama",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yoko-kurama/4005-45993/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46121/",
+      "id": 46121,
+      "name": "Crusader",
+      "siteDetailUrl": "https://comicvine.gamespot.com/crusader/4005-46121/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46131/",
+      "id": 46131,
+      "name": "Prime Cotati",
+      "siteDetailUrl": "https://comicvine.gamespot.com/prime-cotati/4005-46131/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46210/",
+      "id": 46210,
+      "name": "Naraku",
+      "siteDetailUrl": "https://comicvine.gamespot.com/naraku/4005-46210/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46230/",
+      "id": 46230,
+      "name": "Gama",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gama/4005-46230/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46231/",
+      "id": 46231,
+      "name": "Princess Zelda",
+      "siteDetailUrl": "https://comicvine.gamespot.com/princess-zelda/4005-46231/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46741/",
+      "id": 46741,
+      "name": "Destrii",
+      "siteDetailUrl": "https://comicvine.gamespot.com/destrii/4005-46741/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46793/",
+      "id": 46793,
+      "name": "BloodRayne",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bloodrayne/4005-46793/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-46854/",
+      "id": 46854,
+      "name": "Hero Cruz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hero-cruz/4005-46854/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47300/",
+      "id": 47300,
+      "name": "A-Mortal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/a-mortal/4005-47300/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47301/",
+      "id": 47301,
+      "name": "Armek",
+      "siteDetailUrl": "https://comicvine.gamespot.com/armek/4005-47301/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47303/",
+      "id": 47303,
+      "name": "Primaid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/primaid/4005-47303/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47305/",
+      "id": 47305,
+      "name": "Zenturion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zenturion/4005-47305/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47361/",
+      "id": 47361,
+      "name": "Phaedra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phaedra/4005-47361/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47365/",
+      "id": 47365,
+      "name": "Night Raven",
+      "siteDetailUrl": "https://comicvine.gamespot.com/night-raven/4005-47365/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47632/",
+      "id": 47632,
+      "name": "Kif Kroker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kif-kroker/4005-47632/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47679/",
+      "id": 47679,
+      "name": "Sylar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sylar/4005-47679/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47739/",
+      "id": 47739,
+      "name": "Gordy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gordy/4005-47739/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47796/",
+      "id": 47796,
+      "name": "Harper",
+      "siteDetailUrl": "https://comicvine.gamespot.com/harper/4005-47796/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47875/",
+      "id": 47875,
+      "name": "Mystiq",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mystiq/4005-47875/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47899/",
+      "id": 47899,
+      "name": "Ra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ra/4005-47899/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47947/",
+      "id": 47947,
+      "name": "Grey Fox",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grey-fox/4005-47947/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-47959/",
+      "id": 47959,
+      "name": "Decoy Octopus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/decoy-octopus/4005-47959/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48213/",
+      "id": 48213,
+      "name": "Sam Sheepdog",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sam-sheepdog/4005-48213/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48214/",
+      "id": 48214,
+      "name": "Ralph Wolf",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ralph-wolf/4005-48214/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48355/",
+      "id": 48355,
+      "name": "Eva Kant",
+      "siteDetailUrl": "https://comicvine.gamespot.com/eva-kant/4005-48355/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48503/",
+      "id": 48503,
+      "name": "Nyarlathotep",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nyarlathotep/4005-48503/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48632/",
+      "id": 48632,
+      "name": "Michael",
+      "siteDetailUrl": "https://comicvine.gamespot.com/michael/4005-48632/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48633/",
+      "id": 48633,
+      "name": "Van",
+      "siteDetailUrl": "https://comicvine.gamespot.com/van/4005-48633/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-48634/",
+      "id": 48634,
+      "name": "Patrick",
+      "siteDetailUrl": "https://comicvine.gamespot.com/patrick/4005-48634/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49046/",
+      "id": 49046,
+      "name": "Revolutionary",
+      "siteDetailUrl": "https://comicvine.gamespot.com/revolutionary/4005-49046/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49277/",
+      "id": 49277,
+      "name": "Kanako Urashima",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kanako-urashima/4005-49277/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49405/",
+      "id": 49405,
+      "name": "The Impressionist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-impressionist/4005-49405/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-49428/",
+      "id": 49428,
+      "name": "Red X",
+      "siteDetailUrl": "https://comicvine.gamespot.com/red-x/4005-49428/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50037/",
+      "id": 50037,
+      "name": "Mega Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mega-man/4005-50037/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50189/",
+      "id": 50189,
+      "name": "Konohamaru Sarutobi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/konohamaru-sarutobi/4005-50189/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50265/",
+      "id": 50265,
+      "name": "Axel",
+      "siteDetailUrl": "https://comicvine.gamespot.com/axel/4005-50265/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50279/",
+      "id": 50279,
+      "name": "The Alternate",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-alternate/4005-50279/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50301/",
+      "id": 50301,
+      "name": "Envy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/envy/4005-50301/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50608/",
+      "id": 50608,
+      "name": "Hannibal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hannibal/4005-50608/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50657/",
+      "id": 50657,
+      "name": "Chameleon Girl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon-girl/4005-50657/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50681/",
+      "id": 50681,
+      "name": "Chaos",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chaos/4005-50681/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50741/",
+      "id": 50741,
+      "name": "Nemesis the Warlock",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nemesis-the-warlock/4005-50741/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50781/",
+      "id": 50781,
+      "name": "The Master",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-master/4005-50781/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50812/",
+      "id": 50812,
+      "name": "Bizarnage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bizarnage/4005-50812/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50834/",
+      "id": 50834,
+      "name": "Eternal Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/eternal-man/4005-50834/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-50999/",
+      "id": 50999,
+      "name": "Omega Spawn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/omega-spawn/4005-50999/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51127/",
+      "id": 51127,
+      "name": "Charlatan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/charlatan/4005-51127/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51256/",
+      "id": 51256,
+      "name": "Moss Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/moss-man/4005-51256/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51361/",
+      "id": 51361,
+      "name": "Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/predator/4005-51361/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51423/",
+      "id": 51423,
+      "name": "Mondo Gecko",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mondo-gecko/4005-51423/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51448/",
+      "id": 51448,
+      "name": "Randall Flagg",
+      "siteDetailUrl": "https://comicvine.gamespot.com/randall-flagg/4005-51448/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51483/",
+      "id": 51483,
+      "name": "Brother EYE",
+      "siteDetailUrl": "https://comicvine.gamespot.com/brother-eye/4005-51483/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-51954/",
+      "id": 51954,
+      "name": "T-1000",
+      "siteDetailUrl": "https://comicvine.gamespot.com/t-1000/4005-51954/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52039/",
+      "id": 52039,
+      "name": "Ryuk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ryuk/4005-52039/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52063/",
+      "id": 52063,
+      "name": "Scorponok",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scorponok/4005-52063/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52416/",
+      "id": 52416,
+      "name": "Lucas Caravaggio",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lucas-caravaggio/4005-52416/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52482/",
+      "id": 52482,
+      "name": "Tyro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tyro/4005-52482/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52567/",
+      "id": 52567,
+      "name": "Umbra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/umbra/4005-52567/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52802/",
+      "id": 52802,
+      "name": "Rm'Twr",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rmtwr/4005-52802/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52805/",
+      "id": 52805,
+      "name": "Rl'Nnd",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rlnnd/4005-52805/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52850/",
+      "id": 52850,
+      "name": "Chameleon Kid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon-kid/4005-52850/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-52870/",
+      "id": 52870,
+      "name": "Onyx",
+      "siteDetailUrl": "https://comicvine.gamespot.com/onyx/4005-52870/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53091/",
+      "id": 53091,
+      "name": "Adam Able",
+      "siteDetailUrl": "https://comicvine.gamespot.com/adam-able/4005-53091/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53099/",
+      "id": 53099,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-53099/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53312/",
+      "id": 53312,
+      "name": "Wallflower",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wallflower/4005-53312/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53794/",
+      "id": 53794,
+      "name": "Sailor Star Fighter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sailor-star-fighter/4005-53794/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53795/",
+      "id": 53795,
+      "name": "Sailor Star Healer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sailor-star-healer/4005-53795/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-53796/",
+      "id": 53796,
+      "name": "Sailor Star Maker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sailor-star-maker/4005-53796/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54005/",
+      "id": 54005,
+      "name": "Karma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/karma/4005-54005/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54083/",
+      "id": 54083,
+      "name": "Zeitgeist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zeitgeist/4005-54083/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54228/",
+      "id": 54228,
+      "name": "Candice Willmer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/candice-willmer/4005-54228/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54266/",
+      "id": 54266,
+      "name": "Albino",
+      "siteDetailUrl": "https://comicvine.gamespot.com/albino/4005-54266/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54341/",
+      "id": 54341,
+      "name": "Chameleon Collie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon-collie/4005-54341/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54372/",
+      "id": 54372,
+      "name": "Emerald",
+      "siteDetailUrl": "https://comicvine.gamespot.com/emerald/4005-54372/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54431/",
+      "id": 54431,
+      "name": "Catzy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/catzy/4005-54431/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54513/",
+      "id": 54513,
+      "name": "Dro'Ge",
+      "siteDetailUrl": "https://comicvine.gamespot.com/droge/4005-54513/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54514/",
+      "id": 54514,
+      "name": "Veranke",
+      "siteDetailUrl": "https://comicvine.gamespot.com/veranke/4005-54514/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54515/",
+      "id": 54515,
+      "name": "Pagon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pagon/4005-54515/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54538/",
+      "id": 54538,
+      "name": "Anuxa",
+      "siteDetailUrl": "https://comicvine.gamespot.com/anuxa/4005-54538/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54836/",
+      "id": 54836,
+      "name": "Paperdoll",
+      "siteDetailUrl": "https://comicvine.gamespot.com/paperdoll/4005-54836/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54904/",
+      "id": 54904,
+      "name": "Genie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/genie/4005-54904/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54911/",
+      "id": 54911,
+      "name": "Mighty Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mighty-man/4005-54911/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-54937/",
+      "id": 54937,
+      "name": "Elizabeth Swann",
+      "siteDetailUrl": "https://comicvine.gamespot.com/elizabeth-swann/4005-54937/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55101/",
+      "id": 55101,
+      "name": "Parasite Green",
+      "siteDetailUrl": "https://comicvine.gamespot.com/parasite-green/4005-55101/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55197/",
+      "id": 55197,
+      "name": "Brother Drive",
+      "siteDetailUrl": "https://comicvine.gamespot.com/brother-drive/4005-55197/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55198/",
+      "id": 55198,
+      "name": "Brother Think",
+      "siteDetailUrl": "https://comicvine.gamespot.com/brother-think/4005-55198/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55306/",
+      "id": 55306,
+      "name": "The Bionic Woman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-bionic-woman/4005-55306/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55316/",
+      "id": 55316,
+      "name": "Insect Queen",
+      "siteDetailUrl": "https://comicvine.gamespot.com/insect-queen/4005-55316/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55326/",
+      "id": 55326,
+      "name": "Blackout",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blackout/4005-55326/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55329/",
+      "id": 55329,
+      "name": "Mr X",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-x/4005-55329/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55448/",
+      "id": 55448,
+      "name": "Teridax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/teridax/4005-55448/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55457/",
+      "id": 55457,
+      "name": "Krika",
+      "siteDetailUrl": "https://comicvine.gamespot.com/krika/4005-55457/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55490/",
+      "id": 55490,
+      "name": "Q",
+      "siteDetailUrl": "https://comicvine.gamespot.com/q/4005-55490/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55504/",
+      "id": 55504,
+      "name": "Yoshi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yoshi/4005-55504/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55538/",
+      "id": 55538,
+      "name": "Mayuri Kurotsuchi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mayuri-kurotsuchi/4005-55538/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55702/",
+      "id": 55702,
+      "name": "Mosaic",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mosaic/4005-55702/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55761/",
+      "id": 55761,
+      "name": "Saya",
+      "siteDetailUrl": "https://comicvine.gamespot.com/saya/4005-55761/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55899/",
+      "id": 55899,
+      "name": "Mr. Bridwell",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-bridwell/4005-55899/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55923/",
+      "id": 55923,
+      "name": "Mister Who",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mister-who/4005-55923/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55950/",
+      "id": 55950,
+      "name": "Wreckage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wreckage/4005-55950/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55953/",
+      "id": 55953,
+      "name": "Landmine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/landmine/4005-55953/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55957/",
+      "id": 55957,
+      "name": "Kai",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kai/4005-55957/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55960/",
+      "id": 55960,
+      "name": "Magnitude",
+      "siteDetailUrl": "https://comicvine.gamespot.com/magnitude/4005-55960/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-55989/",
+      "id": 55989,
+      "name": "Flaw",
+      "siteDetailUrl": "https://comicvine.gamespot.com/flaw/4005-55989/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56028/",
+      "id": 56028,
+      "name": "Criti Noll",
+      "siteDetailUrl": "https://comicvine.gamespot.com/criti-noll/4005-56028/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56069/",
+      "id": 56069,
+      "name": "Cutie Honey",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cutie-honey/4005-56069/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56185/",
+      "id": 56185,
+      "name": "Gengar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gengar/4005-56185/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56191/",
+      "id": 56191,
+      "name": "Takanuva",
+      "siteDetailUrl": "https://comicvine.gamespot.com/takanuva/4005-56191/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56198/",
+      "id": 56198,
+      "name": "De'Lila",
+      "siteDetailUrl": "https://comicvine.gamespot.com/delila/4005-56198/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56215/",
+      "id": 56215,
+      "name": "Aphrodite IV",
+      "siteDetailUrl": "https://comicvine.gamespot.com/aphrodite-iv/4005-56215/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56291/",
+      "id": 56291,
+      "name": "Arbiter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/arbiter/4005-56291/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56375/",
+      "id": 56375,
+      "name": "Earthling J.J. Catingsworth the 3rd",
+      "siteDetailUrl": "https://comicvine.gamespot.com/earthling-jj-catingsworth-the-3rd/4005-56375/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56396/",
+      "id": 56396,
+      "name": "Bluestreak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bluestreak/4005-56396/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56438/",
+      "id": 56438,
+      "name": "Lord Shilling",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lord-shilling/4005-56438/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56456/",
+      "id": 56456,
+      "name": "Tentakil",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tentakil/4005-56456/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56458/",
+      "id": 56458,
+      "name": "Springer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/springer/4005-56458/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56517/",
+      "id": 56517,
+      "name": "Nogor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nogor/4005-56517/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56554/",
+      "id": 56554,
+      "name": "Dreamtime",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dreamtime/4005-56554/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56577/",
+      "id": 56577,
+      "name": "Skyppi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skyppi/4005-56577/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56632/",
+      "id": 56632,
+      "name": "Gorth",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gorth/4005-56632/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56633/",
+      "id": 56633,
+      "name": "Granok",
+      "siteDetailUrl": "https://comicvine.gamespot.com/granok/4005-56633/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56634/",
+      "id": 56634,
+      "name": "Hagar the High Judicator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hagar-the-high-judicator/4005-56634/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56641/",
+      "id": 56641,
+      "name": "Mrok",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mrok/4005-56641/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56642/",
+      "id": 56642,
+      "name": "Nenora",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nenora/4005-56642/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56643/",
+      "id": 56643,
+      "name": "Empress R'Klll",
+      "siteDetailUrl": "https://comicvine.gamespot.com/empress-rklll/4005-56643/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56645/",
+      "id": 56645,
+      "name": "Raksor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raksor/4005-56645/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56646/",
+      "id": 56646,
+      "name": "Zedrao",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zedrao/4005-56646/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56707/",
+      "id": 56707,
+      "name": "Batman Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/batman-predator/4005-56707/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56708/",
+      "id": 56708,
+      "name": "Superman Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/superman-predator/4005-56708/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56709/",
+      "id": 56709,
+      "name": "Aquaman Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/aquaman-predator/4005-56709/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56726/",
+      "id": 56726,
+      "name": "Cybersix",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cybersix/4005-56726/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56736/",
+      "id": 56736,
+      "name": "Green Lantern Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/green-lantern-predator/4005-56736/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56737/",
+      "id": 56737,
+      "name": "Flash Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/flash-predator/4005-56737/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56741/",
+      "id": 56741,
+      "name": "Plastic Man Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/plastic-man-predator/4005-56741/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56749/",
+      "id": 56749,
+      "name": "Atom Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/atom-predator/4005-56749/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56864/",
+      "id": 56864,
+      "name": "Till'all",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tillall/4005-56864/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56908/",
+      "id": 56908,
+      "name": "X'iv",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xiv/4005-56908/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56909/",
+      "id": 56909,
+      "name": "Chrell",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chrell/4005-56909/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-56916/",
+      "id": 56916,
+      "name": "Pseudos",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pseudos/4005-56916/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57025/",
+      "id": 57025,
+      "name": "PROXY",
+      "siteDetailUrl": "https://comicvine.gamespot.com/proxy/4005-57025/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57078/",
+      "id": 57078,
+      "name": "Sl'gur't",
+      "siteDetailUrl": "https://comicvine.gamespot.com/slgurt/4005-57078/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57371/",
+      "id": 57371,
+      "name": "Alex Grimond",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alex-grimond/4005-57371/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57433/",
+      "id": 57433,
+      "name": "Blacksmith",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blacksmith/4005-57433/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57658/",
+      "id": 57658,
+      "name": "Komodo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/komodo/4005-57658/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57738/",
+      "id": 57738,
+      "name": "Kirby",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kirby/4005-57738/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-57929/",
+      "id": 57929,
+      "name": "Dela Pharon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dela-pharon/4005-57929/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58121/",
+      "id": 58121,
+      "name": "Cameron",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cameron/4005-58121/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58206/",
+      "id": 58206,
+      "name": "T-1000000",
+      "siteDetailUrl": "https://comicvine.gamespot.com/t-1000000/4005-58206/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58357/",
+      "id": 58357,
+      "name": "Sly Cooper",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sly-cooper/4005-58357/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58361/",
+      "id": 58361,
+      "name": "Grand Fisher",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grand-fisher/4005-58361/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58466/",
+      "id": 58466,
+      "name": "Green Lantern of Durla",
+      "siteDetailUrl": "https://comicvine.gamespot.com/green-lantern-of-durla/4005-58466/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58615/",
+      "id": 58615,
+      "name": "Ard'Ran",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ardran/4005-58615/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58681/",
+      "id": 58681,
+      "name": "Yoshimitsu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/yoshimitsu/4005-58681/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58940/",
+      "id": 58940,
+      "name": "Replicoid",
+      "siteDetailUrl": "https://comicvine.gamespot.com/replicoid/4005-58940/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-58998/",
+      "id": 58998,
+      "name": "Mister E",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mister-e/4005-58998/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59053/",
+      "id": 59053,
+      "name": "Bel Juz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bel-juz/4005-59053/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59410/",
+      "id": 59410,
+      "name": "Runaway",
+      "siteDetailUrl": "https://comicvine.gamespot.com/runaway/4005-59410/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59604/",
+      "id": 59604,
+      "name": "Ssrov",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ssrov/4005-59604/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59810/",
+      "id": 59810,
+      "name": "Jonas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jonas/4005-59810/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59851/",
+      "id": 59851,
+      "name": "176-82",
+      "siteDetailUrl": "https://comicvine.gamespot.com/176-82/4005-59851/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-59852/",
+      "id": 59852,
+      "name": "176-84",
+      "siteDetailUrl": "https://comicvine.gamespot.com/176-84/4005-59852/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-60020/",
+      "id": 60020,
+      "name": "Tarmack",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tarmack/4005-60020/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-60231/",
+      "id": 60231,
+      "name": "Razorbeast",
+      "siteDetailUrl": "https://comicvine.gamespot.com/razorbeast/4005-60231/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-60440/",
+      "id": 60440,
+      "name": "The First Evil",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-first-evil/4005-60440/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-60535/",
+      "id": 60535,
+      "name": "Skrull Spider-Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrull-spider-man/4005-60535/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-60576/",
+      "id": 60576,
+      "name": "Jane Doe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jane-doe/4005-60576/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61005/",
+      "id": 61005,
+      "name": "Zigra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zigra/4005-61005/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61390/",
+      "id": 61390,
+      "name": "Imposter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/imposter/4005-61390/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61461/",
+      "id": 61461,
+      "name": "Ji Daggle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ji-daggle/4005-61461/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61571/",
+      "id": 61571,
+      "name": "Miss Bloss",
+      "siteDetailUrl": "https://comicvine.gamespot.com/miss-bloss/4005-61571/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61572/",
+      "id": 61572,
+      "name": "The Lost Sapphire",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-lost-sapphire/4005-61572/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61574/",
+      "id": 61574,
+      "name": "Race",
+      "siteDetailUrl": "https://comicvine.gamespot.com/race/4005-61574/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61635/",
+      "id": 61635,
+      "name": "The King",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-king/4005-61635/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61665/",
+      "id": 61665,
+      "name": "S'kaan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skaan/4005-61665/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-61834/",
+      "id": 61834,
+      "name": "Axis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/axis/4005-61834/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62301/",
+      "id": 62301,
+      "name": "Weepinbell",
+      "siteDetailUrl": "https://comicvine.gamespot.com/weepinbell/4005-62301/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62463/",
+      "id": 62463,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-62463/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62550/",
+      "id": 62550,
+      "name": "The Gleam",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-gleam/4005-62550/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62561/",
+      "id": 62561,
+      "name": "Admiral Votan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/admiral-votan/4005-62561/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62562/",
+      "id": 62562,
+      "name": "Emperor Zark",
+      "siteDetailUrl": "https://comicvine.gamespot.com/emperor-zark/4005-62562/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62624/",
+      "id": 62624,
+      "name": "Beetlejuice",
+      "siteDetailUrl": "https://comicvine.gamespot.com/beetlejuice/4005-62624/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62666/",
+      "id": 62666,
+      "name": "Blue Lama",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blue-lama/4005-62666/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62721/",
+      "id": 62721,
+      "name": "Witch",
+      "siteDetailUrl": "https://comicvine.gamespot.com/witch/4005-62721/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62790/",
+      "id": 62790,
+      "name": "Conquering Storm",
+      "siteDetailUrl": "https://comicvine.gamespot.com/conquering-storm/4005-62790/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-62816/",
+      "id": 62816,
+      "name": "Nick Carter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nick-carter/4005-62816/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63023/",
+      "id": 63023,
+      "name": "Steve Carson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/steve-carson/4005-63023/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63178/",
+      "id": 63178,
+      "name": "Sandra of the Secret Service",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sandra-of-the-secret-service/4005-63178/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63208/",
+      "id": 63208,
+      "name": "Milady Clarick de Winter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/milady-clarick-de-winter/4005-63208/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63266/",
+      "id": 63266,
+      "name": "Wuz-Wolf",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wuz-wolf/4005-63266/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63331/",
+      "id": 63331,
+      "name": "Slimeface",
+      "siteDetailUrl": "https://comicvine.gamespot.com/slimeface/4005-63331/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63343/",
+      "id": 63343,
+      "name": "False-Face",
+      "siteDetailUrl": "https://comicvine.gamespot.com/false-face/4005-63343/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63809/",
+      "id": 63809,
+      "name": "Trull The Unhuman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/trull-the-unhuman/4005-63809/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-63824/",
+      "id": 63824,
+      "name": "Tommy Jarvis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tommy-jarvis/4005-63824/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64041/",
+      "id": 64041,
+      "name": "Nyna Calixte",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nyna-calixte/4005-64041/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64062/",
+      "id": 64062,
+      "name": "Savan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/savan/4005-64062/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64291/",
+      "id": 64291,
+      "name": "Vaporeon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vaporeon/4005-64291/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64293/",
+      "id": 64293,
+      "name": "Starmie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/starmie/4005-64293/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64825/",
+      "id": 64825,
+      "name": "Tanman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tanman/4005-64825/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-64827/",
+      "id": 64827,
+      "name": "Sil",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sil/4005-64827/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65028/",
+      "id": 65028,
+      "name": "Tiger Jack",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tiger-jack/4005-65028/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65036/",
+      "id": 65036,
+      "name": "Mefisto",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mefisto/4005-65036/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65112/",
+      "id": 65112,
+      "name": "Zagor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zagor/4005-65112/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65187/",
+      "id": 65187,
+      "name": "Membrain",
+      "siteDetailUrl": "https://comicvine.gamespot.com/membrain/4005-65187/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65194/",
+      "id": 65194,
+      "name": "Integer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/integer/4005-65194/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65236/",
+      "id": 65236,
+      "name": "Wallpaper Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wallpaper-man/4005-65236/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65341/",
+      "id": 65341,
+      "name": "Creature King",
+      "siteDetailUrl": "https://comicvine.gamespot.com/creature-king/4005-65341/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65420/",
+      "id": 65420,
+      "name": "Pomoxis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pomoxis/4005-65420/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65460/",
+      "id": 65460,
+      "name": "Quink",
+      "siteDetailUrl": "https://comicvine.gamespot.com/quink/4005-65460/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65461/",
+      "id": 65461,
+      "name": "Quirk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/quirk/4005-65461/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-65721/",
+      "id": 65721,
+      "name": "Actor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/actor/4005-65721/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66029/",
+      "id": 66029,
+      "name": "The Face",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-face/4005-66029/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66039/",
+      "id": 66039,
+      "name": "Tidal Wave",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tidal-wave/4005-66039/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66083/",
+      "id": 66083,
+      "name": "Gommaflex",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gommaflex/4005-66083/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66251/",
+      "id": 66251,
+      "name": "Gein",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gein/4005-66251/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66470/",
+      "id": 66470,
+      "name": "Gwydion",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gwydion/4005-66470/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66477/",
+      "id": 66477,
+      "name": "Max Damage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/max-damage/4005-66477/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66701/",
+      "id": 66701,
+      "name": "Agent of 1,000 Faces",
+      "siteDetailUrl": "https://comicvine.gamespot.com/agent-of-1000-faces/4005-66701/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66793/",
+      "id": 66793,
+      "name": "Edouard Laslo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/edouard-laslo/4005-66793/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-66918/",
+      "id": 66918,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-66918/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67001/",
+      "id": 67001,
+      "name": "Golem",
+      "siteDetailUrl": "https://comicvine.gamespot.com/golem/4005-67001/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67021/",
+      "id": 67021,
+      "name": "Shellder",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shellder/4005-67021/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67341/",
+      "id": 67341,
+      "name": "Betty",
+      "siteDetailUrl": "https://comicvine.gamespot.com/betty/4005-67341/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67617/",
+      "id": 67617,
+      "name": "XIII",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xiii/4005-67617/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67755/",
+      "id": 67755,
+      "name": "Iktomi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iktomi/4005-67755/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67781/",
+      "id": 67781,
+      "name": "Staryu",
+      "siteDetailUrl": "https://comicvine.gamespot.com/staryu/4005-67781/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67886/",
+      "id": 67886,
+      "name": "Damali Richards",
+      "siteDetailUrl": "https://comicvine.gamespot.com/damali-richards/4005-67886/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-67994/",
+      "id": 67994,
+      "name": "Fatman, the Human Flying Saucer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fatman-the-human-flying-saucer/4005-67994/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68026/",
+      "id": 68026,
+      "name": "Jasmine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jasmine/4005-68026/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68086/",
+      "id": 68086,
+      "name": "Beatrice",
+      "siteDetailUrl": "https://comicvine.gamespot.com/beatrice/4005-68086/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68298/",
+      "id": 68298,
+      "name": "Geodude",
+      "siteDetailUrl": "https://comicvine.gamespot.com/geodude/4005-68298/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68299/",
+      "id": 68299,
+      "name": "Graveler",
+      "siteDetailUrl": "https://comicvine.gamespot.com/graveler/4005-68299/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68371/",
+      "id": 68371,
+      "name": "Imposter",
+      "siteDetailUrl": "https://comicvine.gamespot.com/imposter/4005-68371/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68473/",
+      "id": 68473,
+      "name": "Syjorgun",
+      "siteDetailUrl": "https://comicvine.gamespot.com/syjorgun/4005-68473/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68504/",
+      "id": 68504,
+      "name": "Sam Merlotte",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sam-merlotte/4005-68504/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68523/",
+      "id": 68523,
+      "name": "Grovyle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grovyle/4005-68523/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68580/",
+      "id": 68580,
+      "name": "Fantômas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fantomas/4005-68580/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-69158/",
+      "id": 69158,
+      "name": "Dewgong",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dewgong/4005-69158/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70148/",
+      "id": 70148,
+      "name": "Julian",
+      "siteDetailUrl": "https://comicvine.gamespot.com/julian/4005-70148/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70172/",
+      "id": 70172,
+      "name": "Blend",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blend/4005-70172/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70241/",
+      "id": 70241,
+      "name": "Avoe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/avoe/4005-70241/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70412/",
+      "id": 70412,
+      "name": "Herr Kleiser",
+      "siteDetailUrl": "https://comicvine.gamespot.com/herr-kleiser/4005-70412/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70843/",
+      "id": 70843,
+      "name": "Natasha Fatale",
+      "siteDetailUrl": "https://comicvine.gamespot.com/natasha-fatale/4005-70843/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70929/",
+      "id": 70929,
+      "name": "Dairou",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dairou/4005-70929/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71397/",
+      "id": 71397,
+      "name": "Swamp Thang",
+      "siteDetailUrl": "https://comicvine.gamespot.com/swamp-thang/4005-71397/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71507/",
+      "id": 71507,
+      "name": "Cole Turner",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cole-turner/4005-71507/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71555/",
+      "id": 71555,
+      "name": "Sceptile",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sceptile/4005-71555/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71808/",
+      "id": 71808,
+      "name": "Armory",
+      "siteDetailUrl": "https://comicvine.gamespot.com/armory/4005-71808/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71950/",
+      "id": 71950,
+      "name": "Red Dragon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/red-dragon/4005-71950/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72323/",
+      "id": 72323,
+      "name": "Skrull Black Bolt",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrull-black-bolt/4005-72323/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72442/",
+      "id": 72442,
+      "name": "Moka Akashiya",
+      "siteDetailUrl": "https://comicvine.gamespot.com/moka-akashiya/4005-72442/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72498/",
+      "id": 72498,
+      "name": "Lupin III",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lupin-iii/4005-72498/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72504/",
+      "id": 72504,
+      "name": "Fujiko Mine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fujiko-mine/4005-72504/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72651/",
+      "id": 72651,
+      "name": "Kit Nozawa",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kit-nozawa/4005-72651/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-72752/",
+      "id": 72752,
+      "name": "Clone Boy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/clone-boy/4005-72752/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73044/",
+      "id": 73044,
+      "name": "Fernus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fernus/4005-73044/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73385/",
+      "id": 73385,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-73385/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73720/",
+      "id": 73720,
+      "name": "War (Furius)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/war-furius/4005-73720/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73803/",
+      "id": 73803,
+      "name": "Scarlet Seal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scarlet-seal/4005-73803/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-73847/",
+      "id": 73847,
+      "name": "X the Phantom Fed",
+      "siteDetailUrl": "https://comicvine.gamespot.com/x-the-phantom-fed/4005-73847/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-74852/",
+      "id": 74852,
+      "name": "Soldier One",
+      "siteDetailUrl": "https://comicvine.gamespot.com/soldier-one/4005-74852/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-74860/",
+      "id": 74860,
+      "name": "Scarab",
+      "siteDetailUrl": "https://comicvine.gamespot.com/scarab/4005-74860/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-74862/",
+      "id": 74862,
+      "name": "The Source",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-source/4005-74862/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-74900/",
+      "id": 74900,
+      "name": "Broken Tusk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/broken-tusk/4005-74900/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-74930/",
+      "id": 74930,
+      "name": "Dark Schneider",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dark-schneider/4005-74930/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75028/",
+      "id": 75028,
+      "name": "Mimic",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mimic/4005-75028/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75043/",
+      "id": 75043,
+      "name": "Trader",
+      "siteDetailUrl": "https://comicvine.gamespot.com/trader/4005-75043/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75198/",
+      "id": 75198,
+      "name": "Arsène Lupin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/arsene-lupin/4005-75198/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75283/",
+      "id": 75283,
+      "name": "Megamind",
+      "siteDetailUrl": "https://comicvine.gamespot.com/megamind/4005-75283/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75772/",
+      "id": 75772,
+      "name": "Throckwoddle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/throckwoddle/4005-75772/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75774/",
+      "id": 75774,
+      "name": "Mortadelo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mortadelo/4005-75774/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75816/",
+      "id": 75816,
+      "name": "Application Nine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/application-nine/4005-75816/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-75834/",
+      "id": 75834,
+      "name": "Janice Em",
+      "siteDetailUrl": "https://comicvine.gamespot.com/janice-em/4005-75834/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76064/",
+      "id": 76064,
+      "name": "Vandella",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vandella/4005-76064/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76314/",
+      "id": 76314,
+      "name": "The Apparition",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-apparition/4005-76314/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76388/",
+      "id": 76388,
+      "name": "Tiamat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tiamat/4005-76388/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76435/",
+      "id": 76435,
+      "name": "The Actor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-actor/4005-76435/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76556/",
+      "id": 76556,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-76556/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76559/",
+      "id": 76559,
+      "name": "The Creature",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-creature/4005-76559/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76809/",
+      "id": 76809,
+      "name": "Pascal",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pascal/4005-76809/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-76832/",
+      "id": 76832,
+      "name": "Main Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/main-man/4005-76832/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77018/",
+      "id": 77018,
+      "name": "Katarina Kodorofsky",
+      "siteDetailUrl": "https://comicvine.gamespot.com/katarina-kodorofsky/4005-77018/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77020/",
+      "id": 77020,
+      "name": "James Heller",
+      "siteDetailUrl": "https://comicvine.gamespot.com/james-heller/4005-77020/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77150/",
+      "id": 77150,
+      "name": "Green Phoenix",
+      "siteDetailUrl": "https://comicvine.gamespot.com/green-phoenix/4005-77150/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77213/",
+      "id": 77213,
+      "name": "Mark IV",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mark-iv/4005-77213/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77250/",
+      "id": 77250,
+      "name": "Vulture (Shallot)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vulture-shallot/4005-77250/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77284/",
+      "id": 77284,
+      "name": "X of the Underground",
+      "siteDetailUrl": "https://comicvine.gamespot.com/x-of-the-underground/4005-77284/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77737/",
+      "id": 77737,
+      "name": "Element Woman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/element-woman/4005-77737/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-77876/",
+      "id": 77876,
+      "name": "G-8",
+      "siteDetailUrl": "https://comicvine.gamespot.com/g-8/4005-77876/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78138/",
+      "id": 78138,
+      "name": "Sudowoodo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sudowoodo/4005-78138/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78298/",
+      "id": 78298,
+      "name": "Cammo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cammo/4005-78298/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78337/",
+      "id": 78337,
+      "name": "The Slaver",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-slaver/4005-78337/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78339/",
+      "id": 78339,
+      "name": "Boss Barker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/boss-barker/4005-78339/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78356/",
+      "id": 78356,
+      "name": "Napoleon G. Robberson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/napoleon-g-robberson/4005-78356/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78664/",
+      "id": 78664,
+      "name": "Thurim",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thurim/4005-78664/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78690/",
+      "id": 78690,
+      "name": "Selena",
+      "siteDetailUrl": "https://comicvine.gamespot.com/selena/4005-78690/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78905/",
+      "id": 78905,
+      "name": "Houndoom",
+      "siteDetailUrl": "https://comicvine.gamespot.com/houndoom/4005-78905/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-78962/",
+      "id": 78962,
+      "name": "Smeargle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/smeargle/4005-78962/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79015/",
+      "id": 79015,
+      "name": "Life",
+      "siteDetailUrl": "https://comicvine.gamespot.com/life/4005-79015/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79100/",
+      "id": 79100,
+      "name": "Mayor Clump",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mayor-clump/4005-79100/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79269/",
+      "id": 79269,
+      "name": "Streetman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/streetman/4005-79269/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79306/",
+      "id": 79306,
+      "name": "Gigorr",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gigorr/4005-79306/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79420/",
+      "id": 79420,
+      "name": "Miles Morales",
+      "siteDetailUrl": "https://comicvine.gamespot.com/miles-morales/4005-79420/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79573/",
+      "id": 79573,
+      "name": "Dream Demon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dream-demon/4005-79573/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79664/",
+      "id": 79664,
+      "name": "Four-Armed Predator",
+      "siteDetailUrl": "https://comicvine.gamespot.com/four-armed-predator/4005-79664/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-79992/",
+      "id": 79992,
+      "name": "Questing Queen",
+      "siteDetailUrl": "https://comicvine.gamespot.com/questing-queen/4005-79992/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80064/",
+      "id": 80064,
+      "name": "Operator 5",
+      "siteDetailUrl": "https://comicvine.gamespot.com/operator-5/4005-80064/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80087/",
+      "id": 80087,
+      "name": "Lucien Gates",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lucien-gates/4005-80087/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80343/",
+      "id": 80343,
+      "name": "Liggt Daggle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/liggt-daggle/4005-80343/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80344/",
+      "id": 80344,
+      "name": "Theg Doyle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/theg-doyle/4005-80344/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80346/",
+      "id": 80346,
+      "name": "Zhay",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zhay/4005-80346/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80688/",
+      "id": 80688,
+      "name": "Alternate",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alternate/4005-80688/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80818/",
+      "id": 80818,
+      "name": "Zadixx",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zadixx/4005-80818/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-80929/",
+      "id": 80929,
+      "name": "Titanosaurus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/titanosaurus/4005-80929/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-81245/",
+      "id": 81245,
+      "name": "Neuro Nougami",
+      "siteDetailUrl": "https://comicvine.gamespot.com/neuro-nougami/4005-81245/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-81248/",
+      "id": 81248,
+      "name": "Mudman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mudman/4005-81248/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-81394/",
+      "id": 81394,
+      "name": "Rankorr",
+      "siteDetailUrl": "https://comicvine.gamespot.com/rankorr/4005-81394/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-81400/",
+      "id": 81400,
+      "name": "Salma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/salma/4005-81400/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-81828/",
+      "id": 81828,
+      "name": "Haruo Niijima",
+      "siteDetailUrl": "https://comicvine.gamespot.com/haruo-niijima/4005-81828/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82468/",
+      "id": 82468,
+      "name": "Black Beetle",
+      "siteDetailUrl": "https://comicvine.gamespot.com/black-beetle/4005-82468/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82690/",
+      "id": 82690,
+      "name": "Bowie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bowie/4005-82690/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82701/",
+      "id": 82701,
+      "name": "Gideon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gideon/4005-82701/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82768/",
+      "id": 82768,
+      "name": "Alan Mistero",
+      "siteDetailUrl": "https://comicvine.gamespot.com/alan-mistero/4005-82768/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-82857/",
+      "id": 82857,
+      "name": "Shazzan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shazzan/4005-82857/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83251/",
+      "id": 83251,
+      "name": "Raptra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raptra/4005-83251/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83371/",
+      "id": 83371,
+      "name": "D'Khan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dkhan/4005-83371/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83410/",
+      "id": 83410,
+      "name": "Porker Metallix",
+      "siteDetailUrl": "https://comicvine.gamespot.com/porker-metallix/4005-83410/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83476/",
+      "id": 83476,
+      "name": "Mania",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mania/4005-83476/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83616/",
+      "id": 83616,
+      "name": "Liss",
+      "siteDetailUrl": "https://comicvine.gamespot.com/liss/4005-83616/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83721/",
+      "id": 83721,
+      "name": "Nazum",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nazum/4005-83721/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83726/",
+      "id": 83726,
+      "name": "Skrak",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrak/4005-83726/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-83875/",
+      "id": 83875,
+      "name": "Blur",
+      "siteDetailUrl": "https://comicvine.gamespot.com/blur/4005-83875/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-84031/",
+      "id": 84031,
+      "name": "Sszzaas",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sszzaas/4005-84031/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-84070/",
+      "id": 84070,
+      "name": "Camaleão",
+      "siteDetailUrl": "https://comicvine.gamespot.com/camaleao/4005-84070/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-84724/",
+      "id": 84724,
+      "name": "Harvey Who",
+      "siteDetailUrl": "https://comicvine.gamespot.com/harvey-who/4005-84724/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-85258/",
+      "id": 85258,
+      "name": "Voodoo Clone",
+      "siteDetailUrl": "https://comicvine.gamespot.com/voodoo-clone/4005-85258/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-85781/",
+      "id": 85781,
+      "name": "Nick Necro",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nick-necro/4005-85781/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86207/",
+      "id": 86207,
+      "name": "Zane Pinchback",
+      "siteDetailUrl": "https://comicvine.gamespot.com/zane-pinchback/4005-86207/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86298/",
+      "id": 86298,
+      "name": "Apparition",
+      "siteDetailUrl": "https://comicvine.gamespot.com/apparition/4005-86298/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86545/",
+      "id": 86545,
+      "name": "Tia Jenkins",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tia-jenkins/4005-86545/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86570/",
+      "id": 86570,
+      "name": "Queen Chrysalis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/queen-chrysalis/4005-86570/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-86741/",
+      "id": 86741,
+      "name": "Apex",
+      "siteDetailUrl": "https://comicvine.gamespot.com/apex/4005-86741/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-87202/",
+      "id": 87202,
+      "name": "Princess Luna",
+      "siteDetailUrl": "https://comicvine.gamespot.com/princess-luna/4005-87202/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-87276/",
+      "id": 87276,
+      "name": "Big Momma",
+      "siteDetailUrl": "https://comicvine.gamespot.com/big-momma/4005-87276/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-87307/",
+      "id": 87307,
+      "name": "Adilgashii",
+      "siteDetailUrl": "https://comicvine.gamespot.com/adilgashii/4005-87307/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-87522/",
+      "id": 87522,
+      "name": "Magus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/magus/4005-87522/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-88011/",
+      "id": 88011,
+      "name": "Hunson Abadeer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hunson-abadeer/4005-88011/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-88345/",
+      "id": 88345,
+      "name": "Vetis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/vetis/4005-88345/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-88518/",
+      "id": 88518,
+      "name": "Black Orchid (Garcia)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/black-orchid-garcia/4005-88518/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-88774/",
+      "id": 88774,
+      "name": "Bartuzan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bartuzan/4005-88774/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-89811/",
+      "id": 89811,
+      "name": "Peeta Mellark",
+      "siteDetailUrl": "https://comicvine.gamespot.com/peeta-mellark/4005-89811/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90077/",
+      "id": 90077,
+      "name": "Cyrax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cyrax/4005-90077/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90078/",
+      "id": 90078,
+      "name": "Sektor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sektor/4005-90078/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90246/",
+      "id": 90246,
+      "name": "Bobby Tisdell",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bobby-tisdell/4005-90246/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90267/",
+      "id": 90267,
+      "name": "Andi Benton",
+      "siteDetailUrl": "https://comicvine.gamespot.com/andi-benton/4005-90267/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90962/",
+      "id": 90962,
+      "name": "Sister Midnight",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sister-midnight/4005-90962/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-90963/",
+      "id": 90963,
+      "name": "DarkAlien",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dark-alien/4005-90963/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91047/",
+      "id": 91047,
+      "name": "Siri",
+      "siteDetailUrl": "https://comicvine.gamespot.com/siri/4005-91047/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91205/",
+      "id": 91205,
+      "name": "Mother",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mother/4005-91205/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91271/",
+      "id": 91271,
+      "name": "Super-Skrull Alpha",
+      "siteDetailUrl": "https://comicvine.gamespot.com/super-skrull-alpha/4005-91271/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91285/",
+      "id": 91285,
+      "name": "Kiera Cameron",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kiera-cameron/4005-91285/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91527/",
+      "id": 91527,
+      "name": "Shelly Finkelstein",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shelly-finkelstein/4005-91527/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91533/",
+      "id": 91533,
+      "name": "Felicia Valentine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/felicia-valentine/4005-91533/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91560/",
+      "id": 91560,
+      "name": "Megalith",
+      "siteDetailUrl": "https://comicvine.gamespot.com/megalith/4005-91560/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91606/",
+      "id": 91606,
+      "name": "Xotai",
+      "siteDetailUrl": "https://comicvine.gamespot.com/xotai/4005-91606/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91608/",
+      "id": 91608,
+      "name": "Dr. Julianne Quinn",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dr-julianne-quinn/4005-91608/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91610/",
+      "id": 91610,
+      "name": "Dreamstalker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dreamstalker/4005-91610/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91864/",
+      "id": 91864,
+      "name": "Waxman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/waxman/4005-91864/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91928/",
+      "id": 91928,
+      "name": "A'monn A'mokk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amonn-amokk/4005-91928/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-91929/",
+      "id": 91929,
+      "name": "A'morr",
+      "siteDetailUrl": "https://comicvine.gamespot.com/amorr/4005-91929/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-92659/",
+      "id": 92659,
+      "name": "Presto-Change'o",
+      "siteDetailUrl": "https://comicvine.gamespot.com/presto-change-o/4005-92659/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-92681/",
+      "id": 92681,
+      "name": "Ricky Rainbow",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ricky-rainbow/4005-92681/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-92866/",
+      "id": 92866,
+      "name": "Pica",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pica/4005-92866/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-93123/",
+      "id": 93123,
+      "name": "Raze",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raze/4005-93123/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-93200/",
+      "id": 93200,
+      "name": "K'Thron",
+      "siteDetailUrl": "https://comicvine.gamespot.com/k-thron/4005-93200/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-94254/",
+      "id": 94254,
+      "name": "Krrish",
+      "siteDetailUrl": "https://comicvine.gamespot.com/krrish/4005-94254/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-95245/",
+      "id": 95245,
+      "name": "Daring Do",
+      "siteDetailUrl": "https://comicvine.gamespot.com/daring-do/4005-95245/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-95394/",
+      "id": 95394,
+      "name": "Ariel Masters",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ariel-masters/4005-95394/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-95824/",
+      "id": 95824,
+      "name": "Hate-Monger (Construct)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hatemonger-construct/4005-95824/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-95842/",
+      "id": 95842,
+      "name": "Dean Ambrose",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dean-ambrose/4005-95842/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-97525/",
+      "id": 97525,
+      "name": "Nilin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nilin/4005-97525/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-97923/",
+      "id": 97923,
+      "name": "Hades IX",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hades-ix/4005-97923/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-99084/",
+      "id": 99084,
+      "name": "Marcus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/marcus/4005-99084/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-99913/",
+      "id": 99913,
+      "name": "Hermes IX",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hermes-ix/4005-99913/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-100117/",
+      "id": 100117,
+      "name": "Joshua Black",
+      "siteDetailUrl": "https://comicvine.gamespot.com/joshua-black/4005-100117/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-100359/",
+      "id": 100359,
+      "name": "Forest Devil",
+      "siteDetailUrl": "https://comicvine.gamespot.com/forest-devil/4005-100359/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-100614/",
+      "id": 100614,
+      "name": "Genesect",
+      "siteDetailUrl": "https://comicvine.gamespot.com/genesect/4005-100614/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-102695/",
+      "id": 102695,
+      "name": "Shun Kazami",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shun-kazami/4005-102695/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105425/",
+      "id": 105425,
+      "name": "B.I.O.N.",
+      "siteDetailUrl": "https://comicvine.gamespot.com/b-i-o-n/4005-105425/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-106332/",
+      "id": 106332,
+      "name": "Inner Sea",
+      "siteDetailUrl": "https://comicvine.gamespot.com/inner-sea/4005-106332/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-106656/",
+      "id": 106656,
+      "name": "The Quiet Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-quiet-man/4005-106656/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-107474/",
+      "id": 107474,
+      "name": "Light-Stepper",
+      "siteDetailUrl": "https://comicvine.gamespot.com/light-stepper/4005-107474/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-108581/",
+      "id": 108581,
+      "name": "Kid Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kid-chameleon/4005-108581/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-108635/",
+      "id": 108635,
+      "name": "Uncle Grandpa",
+      "siteDetailUrl": "https://comicvine.gamespot.com/uncle-grandpa/4005-108635/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-108733/",
+      "id": 108733,
+      "name": "Furiosa",
+      "siteDetailUrl": "https://comicvine.gamespot.com/furiosa/4005-108733/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-109924/",
+      "id": 109924,
+      "name": "Kamacuras",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kamacuras/4005-109924/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-110096/",
+      "id": 110096,
+      "name": "The Poet",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-poet/4005-110096/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-111198/",
+      "id": 111198,
+      "name": "Korosensei",
+      "siteDetailUrl": "https://comicvine.gamespot.com/korosensei/4005-111198/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-114213/",
+      "id": 114213,
+      "name": "Sramian Snitch",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sramian-snitch/4005-114213/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-114580/",
+      "id": 114580,
+      "name": "Prometheus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/prometheus/4005-114580/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-117711/",
+      "id": 117711,
+      "name": "Artemis Gordon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/artemis-gordon/4005-117711/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-119155/",
+      "id": 119155,
+      "name": "Jane Jones",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jane-jones/4005-119155/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-119827/",
+      "id": 119827,
+      "name": "Tsuyu Asui",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tsuyu-asui/4005-119827/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-119982/",
+      "id": 119982,
+      "name": "Fab",
+      "siteDetailUrl": "https://comicvine.gamespot.com/fab/4005-119982/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-122760/",
+      "id": 122760,
+      "name": "Dr. Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dr-chameleon/4005-122760/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-123321/",
+      "id": 123321,
+      "name": "Touya",
+      "siteDetailUrl": "https://comicvine.gamespot.com/touya/4005-123321/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-124024/",
+      "id": 124024,
+      "name": "Merlin the Magician",
+      "siteDetailUrl": "https://comicvine.gamespot.com/merlin-the-magician/4005-124024/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-124240/",
+      "id": 124240,
+      "name": "Question (Trinity of Sin)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/question-trinity-of-sin/4005-124240/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-126658/",
+      "id": 126658,
+      "name": "Dead Water",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dead-water/4005-126658/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-129524/",
+      "id": 129524,
+      "name": "Crypsis",
+      "siteDetailUrl": "https://comicvine.gamespot.com/crypsis/4005-129524/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-134265/",
+      "id": 134265,
+      "name": "The Last Enemy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-last-enemy/4005-134265/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-134315/",
+      "id": 134315,
+      "name": "Kareem",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kareem/4005-134315/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-137897/",
+      "id": 137897,
+      "name": "Sombra",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sombra/4005-137897/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-140532/",
+      "id": 140532,
+      "name": "Skrull Ms. Marvel",
+      "siteDetailUrl": "https://comicvine.gamespot.com/skrull-ms-marvel/4005-140532/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-140641/",
+      "id": 140641,
+      "name": "Tordenkakerlakk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tordenkakerlakk/4005-140641/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-140763/",
+      "id": 140763,
+      "name": "Saint Cyrus Leviticus",
+      "siteDetailUrl": "https://comicvine.gamespot.com/saint-cyrus-leviticus/4005-140763/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-144136/",
+      "id": 144136,
+      "name": "Valla",
+      "siteDetailUrl": "https://comicvine.gamespot.com/valla/4005-144136/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-144709/",
+      "id": 144709,
+      "name": "Madame Charade",
+      "siteDetailUrl": "https://comicvine.gamespot.com/madame-charade/4005-144709/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-146251/",
+      "id": 146251,
+      "name": "The Skull",
+      "siteDetailUrl": "https://comicvine.gamespot.com/the-skull/4005-146251/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-146725/",
+      "id": 146725,
+      "name": "Kolonel Kool",
+      "siteDetailUrl": "https://comicvine.gamespot.com/kolonel-kool/4005-146725/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-147759/",
+      "id": 147759,
+      "name": "Harry Force",
+      "siteDetailUrl": "https://comicvine.gamespot.com/harry-force/4005-147759/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-149187/",
+      "id": 149187,
+      "name": "Mt'Nox",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mtnox/4005-149187/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-149238/",
+      "id": 149238,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-149238/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-151211/",
+      "id": 151211,
+      "name": "Swerve",
+      "siteDetailUrl": "https://comicvine.gamespot.com/swerve/4005-151211/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-152053/",
+      "id": 152053,
+      "name": "Green Lantern of Sector 1582",
+      "siteDetailUrl": "https://comicvine.gamespot.com/green-lantern-of-sector-1582/4005-152053/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-154903/",
+      "id": 154903,
+      "name": "Roger",
+      "siteDetailUrl": "https://comicvine.gamespot.com/roger/4005-154903/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-155386/",
+      "id": 155386,
+      "name": "Doppelgangsta",
+      "siteDetailUrl": "https://comicvine.gamespot.com/doppelgangsta/4005-155386/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-157013/",
+      "id": 157013,
+      "name": "Raptor Prime",
+      "siteDetailUrl": "https://comicvine.gamespot.com/raptor-prime/4005-157013/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-157178/",
+      "id": 157178,
+      "name": "Abrax",
+      "siteDetailUrl": "https://comicvine.gamespot.com/abrax/4005-157178/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-158054/",
+      "id": 158054,
+      "name": "Tristram Maurer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tristram-maurer/4005-158054/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-160394/",
+      "id": 160394,
+      "name": "Mr. Mimico",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mr-mimico/4005-160394/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-160415/",
+      "id": 160415,
+      "name": "Lay-Z-Boy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/lay-z-boy/4005-160415/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-160417/",
+      "id": 160417,
+      "name": "Naked Blue Girl",
+      "siteDetailUrl": "https://comicvine.gamespot.com/naked-blue-girl/4005-160417/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-161190/",
+      "id": 161190,
+      "name": "Germān Aguilar",
+      "siteDetailUrl": "https://comicvine.gamespot.com/german-aguilar/4005-161190/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-162862/",
+      "id": 162862,
+      "name": "A1",
+      "siteDetailUrl": "https://comicvine.gamespot.com/a1/4005-162862/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-162863/",
+      "id": 162863,
+      "name": "A2",
+      "siteDetailUrl": "https://comicvine.gamespot.com/a2/4005-162863/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-165547/",
+      "id": 165547,
+      "name": "Greyback",
+      "siteDetailUrl": "https://comicvine.gamespot.com/greyback/4005-165547/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-165656/",
+      "id": 165656,
+      "name": "Composite Batman/Superman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/composite-batmansuperman/4005-165656/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-166269/",
+      "id": 166269,
+      "name": "Chameleon",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chameleon/4005-166269/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-167213/",
+      "id": 167213,
+      "name": "Murmur",
+      "siteDetailUrl": "https://comicvine.gamespot.com/murmur/4005-167213/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-167741/",
+      "id": 167741,
+      "name": "Camille Phoenix",
+      "siteDetailUrl": "https://comicvine.gamespot.com/camille-phoenix/4005-167741/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-170055/",
+      "id": 170055,
+      "name": "Dr. Jonathan Jacobo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dr-jonathan-jacobo/4005-170055/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-170176/",
+      "id": 170176,
+      "name": "Bren Waters",
+      "siteDetailUrl": "https://comicvine.gamespot.com/bren-waters/4005-170176/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-171871/",
+      "id": 171871,
+      "name": "Third Cosmos",
+      "siteDetailUrl": "https://comicvine.gamespot.com/third-cosmos/4005-171871/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-174429/",
+      "id": 174429,
+      "name": "Redstone",
+      "siteDetailUrl": "https://comicvine.gamespot.com/redstone/4005-174429/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-175498/",
+      "id": 175498,
+      "name": "Charles Cameo",
+      "siteDetailUrl": "https://comicvine.gamespot.com/charles-cameo/4005-175498/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-176629/",
+      "id": 176629,
+      "name": "White Ninja",
+      "siteDetailUrl": "https://comicvine.gamespot.com/white-ninja/4005-176629/"
+    }
+  ],
+  "dateAdded": "2008-06-06 11:28:15",
+  "dateLastUpdated": "2008-06-06 11:28:15",
+  "description": "<p>A chameleon is any character that has the ability to blend into their surrounding by changing the color and texture of their skin either through a natural ability or mechanical device. It is often confused (and at the same time paired) with shape changing, which is the ability to transform your body into another shape. Chameleons tend to be villanous more often the good, using their camoflouge skills to sneak or gain access to a restricted area. Characters with this ability tend to have mixed personalities and have a hard time defining themselves in any one way.</p>",
+  "id": 23,
+  "name": "Chameleon",
+  "siteDetailUrl": "https://comicvine.gamespot.com/characters/?wikiSlug=chameleon&wikiTypeId=4035&wikiId=23&powers%5B%5D=23"
+}

@@ -1,0 +1,205 @@
+{
+  "airDate": "2013-09-24",
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/episode/4070-1/",
+  "characterCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7258/",
+      "id": 7258,
+      "name": "Deathlok",
+      "siteDetailUrl": "https://comicvine.gamespot.com/deathlok/4005-7258/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105833/",
+      "id": 105833,
+      "name": "Grant Ward",
+      "siteDetailUrl": "https://comicvine.gamespot.com/grant-ward/4005-105833/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2267/",
+      "id": 2267,
+      "name": "Hulk",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hulk/4005-2267/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-1455/",
+      "id": 1455,
+      "name": "Iron Man",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iron-man/4005-1455/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105831/",
+      "id": 105831,
+      "name": "Jemma Simmons",
+      "siteDetailUrl": "https://comicvine.gamespot.com/jemma-simmons/4005-105831/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105832/",
+      "id": 105832,
+      "name": "Leo Fitz",
+      "siteDetailUrl": "https://comicvine.gamespot.com/leo-fitz/4005-105832/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-40824/",
+      "id": 40824,
+      "name": "Maria  Hill",
+      "siteDetailUrl": "https://comicvine.gamespot.com/maria-hill/4005-40824/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-105830/",
+      "id": 105830,
+      "name": "Melinda May",
+      "siteDetailUrl": "https://comicvine.gamespot.com/melinda-may/4005-105830/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-92680/",
+      "id": 92680,
+      "name": "Michael Peterson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/michael-peterson/4005-92680/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-70860/",
+      "id": 70860,
+      "name": "Phil Coulson",
+      "siteDetailUrl": "https://comicvine.gamespot.com/phil-coulson/4005-70860/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43174/",
+      "id": 43174,
+      "name": "Quake",
+      "siteDetailUrl": "https://comicvine.gamespot.com/quake/4005-43174/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-2268/",
+      "id": 2268,
+      "name": "Thor",
+      "siteDetailUrl": "https://comicvine.gamespot.com/thor/4005-2268/"
+    }
+  ],
+  "characterDiedIn": [],
+  "conceptCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-56409/",
+      "id": 56409,
+      "name": "Espionage",
+      "siteDetailUrl": "https://comicvine.gamespot.com/espionage/4015-56409/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-56089/",
+      "id": 56089,
+      "name": "Marvel Cinematic Universe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/marvel-cinematic-universe/4015-56089/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-57333/",
+      "id": 57333,
+      "name": "Secret Headquarters",
+      "siteDetailUrl": "https://comicvine.gamespot.com/secret-headquarters/4015-57333/"
+    }
+  ],
+  "dateAdded": "2013-09-23 15:21:46",
+  "dateLastUpdated": "2014-12-14 07:26:58",
+  "deck": null,
+  "description": "<p><em>After the events of <strong>The Avengers</strong>, S.H.I.E.L.D. Agent Phil Coulson assembles a small team of agents to investigate a mysterious group called the Rising Tide. In doing so, they encounter Mike Peterson (J. August Richards), an ordinary man who has acquired superhuman powers.</em></p>",
+  "episodeNumber": "101",
+  "firstAppearanceCharacters": null,
+  "firstAppearanceConcepts": null,
+  "firstAppearanceLocations": null,
+  "firstAppearanceObjects": null,
+  "firstAppearanceStoryarcs": null,
+  "firstAppearanceTeams": null,
+  "hasStaffReview": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/review/1900-2214/",
+    "id": 2214,
+    "name": "Marvel's Agents of S.H.I.E.L.D. - Episode 101 'Pilot' Review",
+    "siteDetailUrl": "https://comicvine.gamespot.com/reviews/marvel-s-agents-of-s-h-i-e-l-d-episode-101-pilot/1900-2214/"
+  },
+  "id": 1,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/7/76663/3330523-marvels-agents-of-shield.jpg",
+    "imageTags": "All Images"
+  },
+  "locationCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/location/4020-57225/",
+      "id": 57225,
+      "name": "Manhattan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/manhattan/4020-57225/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/location/4020-56052/",
+      "id": 56052,
+      "name": "Paris",
+      "siteDetailUrl": "https://comicvine.gamespot.com/paris/4020-56052/"
+    }
+  ],
+  "name": "Pilot",
+  "objectCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-50737/",
+      "id": 50737,
+      "name": "Captain America's Shield",
+      "siteDetailUrl": "https://comicvine.gamespot.com/captain-americas-shield/4055-50737/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-57296/",
+      "id": 57296,
+      "name": "Chitauri Gun",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chitauri-gun/4055-57296/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-57416/",
+      "id": 57416,
+      "name": "Iron Man Armor Mk. VI",
+      "siteDetailUrl": "https://comicvine.gamespot.com/iron-man-armor-mk-vi/4055-57416/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-40971/",
+      "id": 40971,
+      "name": "Mjolnir",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mjolnir/4055-40971/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-55891/",
+      "id": 55891,
+      "name": "S.H.I.E.L.D. Flying Car",
+      "siteDetailUrl": "https://comicvine.gamespot.com/s-h-i-e-l-d-flying-car/4055-55891/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-40700/",
+      "id": 40700,
+      "name": "S.H.I.E.L.D. Helicarrier",
+      "siteDetailUrl": "https://comicvine.gamespot.com/s-h-i-e-l-d-helicarrier/4055-40700/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4055-55976/",
+      "id": 55976,
+      "name": "Super Soldier Serum",
+      "siteDetailUrl": "https://comicvine.gamespot.com/super-soldier-serum/4055-55976/"
+    }
+  ],
+  "series": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/series/4075-1/",
+    "id": 1,
+    "name": "Agents of S.H.I.E.L.D.",
+    "siteDetailUrl": "https://comicvine.gamespot.com/agents-of-s-h-i-e-l-d/4075-1/"
+  },
+  "siteDetailUrl": "https://comicvine.gamespot.com/agents-of-shield-101-pilot/4070-1/",
+  "storyArcCredits": [],
+  "teamCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/team/4060-3775/",
+      "id": 3775,
+      "name": "S.H.I.E.L.D.",
+      "siteDetailUrl": "https://comicvine.gamespot.com/shield/4060-3775/"
+    }
+  ]
+}

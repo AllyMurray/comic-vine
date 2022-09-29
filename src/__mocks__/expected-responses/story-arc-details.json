@@ -1,0 +1,65 @@
+{
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/story_arc/4045-40800/",
+  "countOfIsssueAppearances": 0,
+  "dateAdded": "2008-06-06 11:27:51",
+  "dateLastUpdated": "2013-03-01 13:32:33",
+  "deck": "The Blue Beetle, Ted Kord, has discovered something that has endangered his life, and the lives of others. Maxwell Lord has betrayed his former superhero colleagues, and plans to destroy them all.",
+  "description": "<h2>Collected Editions</h2><ul><li><a data-ref-id=\"4000-190552\" href=\"/booster-gold-52-pick-up-52-pick-up/4000-190552/\" slug=\"booster-gold-52-pick-up-52-pick-up\">Booster Gold: 52 Pick-Up</a></li><li><a data-ref-id=\"4050-18121\" href=\"/jla-earth-2/4050-18121/\" slug=\"jla-earth-2\">JLA: Earth-2</a></li><li><a data-ref-id=\"4050-22611\" href=\"/supergirl-beyond-good-and-evil/4050-22611/\" slug=\"supergirl-beyond-good-and-evil\">Supergirl: Beyond Good and Evil</a></li><li><a data-ref-id=\"4000-271014\" href=\"/wonder-woman-missions-end-missions-end/4000-271014/\" slug=\"wonder-woman-missions-end-missions-end\">Wonder Woman: Mission's End</a></li></ul><h2>Related Issues</h2><ul><li><a data-ref-id=\"4050-31460\" href=\"/batman-legends-of-the-dark-knight-special/4050-31460/\" slug=\"batman-legends-of-the-dark-knight-special\">Batman: Legends of the Dark Knight Special</a></li></ul><h2>Non-U.S. Editions</h2><ul><li><span><span><a data-ref-id=\"4000-286224\" href=\"/contagem-regressiva-para-crise-infinita-edicao-especial-/4000-286224/\" slug=\"contagem-regressiva-para-crise-infinita-edicao-especial-\">Contagem Regressiva para Crise Infinita - Edição Especial</a></span> (Brazil)</span></li></ul><h2>Novelization</h2><table class=\"t-editor full-width\"><tbody><tr><td><figure data-align=\"left\" data-embed-type=\"image\" data-img-src=\"https://static.comicvine.com/uploads/original/6/67663/2132301-countdown.jpg\" data-ref-id=\"1300-2132301\" data-size=\"medium\" data-ratio=\"1.4971098265896\"><a class=\"fluid-height\" style=\"padding-bottom:149.7%\" href=\"https://static.comicvine.com/uploads/original/6/67663/2132301-countdown.jpg\" data-ref-id=\"1300-2132301\"><img alt=\"No Caption Provided\" src=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132301-countdown.jpg\" srcset=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132301-countdown.jpg 173w\" sizes=\"(max-width: 173px) 100vw, 173px\" data-width=\"173\"></a></figure></td><td><blockquote><i>Cosmic legend has it that when the primordial gods of antiquity perished in some bygone cataclysm, the universe gave birth to a new breed of gods who reigned from two eternally warring worlds, the heavenly New Genesis and the hellish Apokolips. Now, a vast conspiracy of evil is determined to eradicate the New Gods, stealing their souls to wield universal power that can destroy all of reality.</i></blockquote><blockquote><i>At the end of an age in which time, space, and reality may bow before such sinister forces, the fate of the Earth lies in the hands of five unlikely super heroes who have one destiny to fulfill: to save the world at all costs, regardless of the consequences.</i></blockquote><blockquote>Written By: Greg Cox</blockquote><blockquote>Publisher: Ace Trade (July, 2009)</blockquote><blockquote>ISBN-10: 0441017185</blockquote></td></tr></tbody></table>",
+  "episodes": [],
+  "firstAppearedInEpisode": null,
+  "firstAppearedInIssue": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-107912/",
+    "id": 107912,
+    "name": null,
+    "issueNumber": "1"
+  },
+  "id": 40800,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/54/81244-99319-countdown-to-infinit.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/54/81244-99319-countdown-to-infinit.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/54/81244-99319-countdown-to-infinit.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/54/81244-99319-countdown-to-infinit.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/0/54/81244-99319-countdown-to-infinit.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/0/54/81244-99319-countdown-to-infinit.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/54/81244-99319-countdown-to-infinit.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/0/54/81244-99319-countdown-to-infinit.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/0/54/81244-99319-countdown-to-infinit.jpg",
+    "imageTags": "All Images,Countdown to Infinite Crisis"
+  },
+  "issues": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-107912/",
+      "id": 107912,
+      "name": "",
+      "siteDetailUrl": "https://comicvine.gamespot.com/countdown-to-infinite-crisis-1/4000-107912/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-107684/",
+      "id": 107684,
+      "name": "Affirmative Defense (Sacrifice, Aftermath)",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wonder-woman-220-affirmative-defense-sacrifice-aft/4000-107684/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-107685/",
+      "id": 107685,
+      "name": "Pride of the Amazons",
+      "siteDetailUrl": "https://comicvine.gamespot.com/wonder-woman-221-pride-of-the-amazons/4000-107685/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-265983/",
+      "id": 265983,
+      "name": "Truth and Consequences!; Snapshot: Redemption!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dc-universe-legacies-10-truth-and-consequences-sna/4000-265983/"
+    }
+  ],
+  "movies": [],
+  "name": "Countdown to Infinite Crisis",
+  "publisher": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/publisher/4010-10/",
+    "id": 10,
+    "name": "DC Comics",
+    "siteDetailUrl": "https://comicvine.gamespot.com/dc-comics/4010-10/"
+  },
+  "siteDetailUrl": "https://comicvine.gamespot.com/countdown-to-infinite-crisis/4045-40800/"
+}

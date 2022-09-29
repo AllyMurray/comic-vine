@@ -1,0 +1,379 @@
+{
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/volume/4050-1141/",
+  "characters": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-43451/",
+      "id": 43451,
+      "name": "Cindy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy/4005-43451/",
+      "count": "12"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-7620/",
+      "id": 7620,
+      "name": "Margie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/margie/4005-7620/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-3316/",
+      "id": 3316,
+      "name": "Hellcat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hellcat/4005-3316/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12727/",
+      "id": 12727,
+      "name": "Nancy Brown",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nancy-brown/4005-12727/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12730/",
+      "id": 12730,
+      "name": "Dorothy Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dorothy-walker/4005-12730/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12726/",
+      "id": 12726,
+      "name": "Mad-Dog",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mad-dog/4005-12726/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12731/",
+      "id": 12731,
+      "name": "Joshua Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/joshua-walker/4005-12731/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68013/",
+      "id": 68013,
+      "name": "Little Lizzie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/little-lizzie/4005-68013/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9375/",
+      "id": 9375,
+      "name": "Tessie the Typist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tessie-the-typist/4005-9375/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-9687/",
+      "id": 9687,
+      "name": "Georgie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/georgie/4005-9687/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12722/",
+      "id": 12722,
+      "name": "Hedy Wolfe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hedy-wolfe/4005-12722/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-12739/",
+      "id": 12739,
+      "name": "Mickey Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mickey-walker/4005-12739/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-15288/",
+      "id": 15288,
+      "name": "Willie Lumpkin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/willie-lumpkin/4005-15288/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-18526/",
+      "id": 18526,
+      "name": "Millie the Model",
+      "siteDetailUrl": "https://comicvine.gamespot.com/millie-the-model/4005-18526/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-68014/",
+      "id": 68014,
+      "name": "Hedy De Vine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hedy-de-vine/4005-68014/",
+      "count": "1"
+    }
+  ],
+  "countOfIssues": 12,
+  "dateAdded": "2008-06-06 11:08:04",
+  "dateLastUpdated": "2009-12-14 20:20:43",
+  "deck": null,
+  "description": "<p>Numbered 27 to 38 for a total of 12 issues. Series continued from <a data-ref-id=\"4050-946\" href=\"/krazy-komics/4050-946/\" slug=\"krazy-komics\">   Krazy Komics</a> and continues into <a data-ref-id=\"4050-1346\" href=\"/cindy-smith/4050-1346/\" slug=\"cindy-smith\">   Cindy Smith</a>.</p>",
+  "firstIssue": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90603/",
+    "id": 90603,
+    "name": "Her Caveman Rave-Man!",
+    "issueNumber": "27"
+  },
+  "id": 1141,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/0/4/57608-1141-90603-1-cindy-comics.jpg",
+    "imageTags": "All Images"
+  },
+  "issues": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90603/",
+      "id": 90603,
+      "name": "Her Caveman Rave-Man!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-27-her-caveman-rave-man/4000-90603/",
+      "issueNumber": "27"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90604/",
+      "id": 90604,
+      "name": "Oh! Those Clothes!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-28-oh-those-clothes/4000-90604/",
+      "issueNumber": "28"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90605/",
+      "id": 90605,
+      "name": "Meet Casanova Jones",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-29-meet-casanova-jones/4000-90605/",
+      "issueNumber": "29"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90606/",
+      "id": 90606,
+      "name": "Just A Model Gal!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-30-just-a-model-gal/4000-90606/",
+      "issueNumber": "30"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90607/",
+      "id": 90607,
+      "name": "Sandra Gets Stuck!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-31-sandra-gets-stuck/4000-90607/",
+      "issueNumber": "31"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90608/",
+      "id": 90608,
+      "name": "Willful Women!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-32-willful-women/4000-90608/",
+      "issueNumber": "32"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90609/",
+      "id": 90609,
+      "name": "Photo Frame-Up!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-33-photo-frame-up/4000-90609/",
+      "issueNumber": "33"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90610/",
+      "id": 90610,
+      "name": "Strong Stuff!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-34-strong-stuff/4000-90610/",
+      "issueNumber": "34"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90611/",
+      "id": 90611,
+      "name": "Hedy's Hound!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-35-hedys-hound/4000-90611/",
+      "issueNumber": "35"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90612/",
+      "id": 90612,
+      "name": "The Missing House",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-36-the-missing-house/4000-90612/",
+      "issueNumber": "36"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90613/",
+      "id": 90613,
+      "name": "",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-37/4000-90613/",
+      "issueNumber": "37"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90614/",
+      "id": 90614,
+      "name": "The Old Maid!",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics-38-the-old-maid/4000-90614/",
+      "issueNumber": "38"
+    }
+  ],
+  "lastIssue": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-90614/",
+    "id": 90614,
+    "name": "The Old Maid!",
+    "issueNumber": "38"
+  },
+  "name": "Cindy Comics",
+  "objects": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-43451/",
+      "id": 43451,
+      "name": "Cindy",
+      "siteDetailUrl": "https://comicvine.gamespot.com/cindy/4005-43451/",
+      "count": "12"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-7620/",
+      "id": 7620,
+      "name": "Margie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/margie/4005-7620/",
+      "count": "10"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-3316/",
+      "id": 3316,
+      "name": "Hellcat",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hellcat/4005-3316/",
+      "count": "4"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12727/",
+      "id": 12727,
+      "name": "Nancy Brown",
+      "siteDetailUrl": "https://comicvine.gamespot.com/nancy-brown/4005-12727/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12730/",
+      "id": 12730,
+      "name": "Dorothy Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/dorothy-walker/4005-12730/",
+      "count": "3"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12726/",
+      "id": 12726,
+      "name": "Mad-Dog",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mad-dog/4005-12726/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12731/",
+      "id": 12731,
+      "name": "Joshua Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/joshua-walker/4005-12731/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-68013/",
+      "id": 68013,
+      "name": "Little Lizzie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/little-lizzie/4005-68013/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-9375/",
+      "id": 9375,
+      "name": "Tessie the Typist",
+      "siteDetailUrl": "https://comicvine.gamespot.com/tessie-the-typist/4005-9375/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-9687/",
+      "id": 9687,
+      "name": "Georgie",
+      "siteDetailUrl": "https://comicvine.gamespot.com/georgie/4005-9687/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12722/",
+      "id": 12722,
+      "name": "Hedy Wolfe",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hedy-wolfe/4005-12722/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-12739/",
+      "id": 12739,
+      "name": "Mickey Walker",
+      "siteDetailUrl": "https://comicvine.gamespot.com/mickey-walker/4005-12739/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-15288/",
+      "id": 15288,
+      "name": "Willie Lumpkin",
+      "siteDetailUrl": "https://comicvine.gamespot.com/willie-lumpkin/4005-15288/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-18526/",
+      "id": 18526,
+      "name": "Millie the Model",
+      "siteDetailUrl": "https://comicvine.gamespot.com/millie-the-model/4005-18526/",
+      "count": "1"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/object/4005-68014/",
+      "id": 68014,
+      "name": "Hedy De Vine",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hedy-de-vine/4005-68014/",
+      "count": "1"
+    }
+  ],
+  "people": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-7619/",
+      "id": 7619,
+      "name": "Morris Weiss",
+      "siteDetailUrl": "https://comicvine.gamespot.com/morris-weiss/4040-7619/",
+      "count": "7"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-36196/",
+      "id": 36196,
+      "name": "Ken Bald",
+      "siteDetailUrl": "https://comicvine.gamespot.com/ken-bald/4040-36196/",
+      "count": "6"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-3909/",
+      "id": 3909,
+      "name": "Harvey Kurtzman",
+      "siteDetailUrl": "https://comicvine.gamespot.com/harvey-kurtzman/4040-3909/",
+      "count": "5"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-42202/",
+      "id": 42202,
+      "name": "Al Jaffee",
+      "siteDetailUrl": "https://comicvine.gamespot.com/al-jaffee/4040-42202/",
+      "count": "2"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-40467/",
+      "id": 40467,
+      "name": "Stan Lee",
+      "siteDetailUrl": "https://comicvine.gamespot.com/stan-lee/4040-40467/",
+      "count": "1"
+    }
+  ],
+  "publisher": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/publisher/4010-21/",
+    "id": 21,
+    "name": "Timely"
+  },
+  "siteDetailUrl": "https://comicvine.gamespot.com/cindy-comics/4050-1141/",
+  "startYear": "1947"
+}

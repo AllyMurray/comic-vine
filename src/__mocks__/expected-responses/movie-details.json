@@ -1,0 +1,65 @@
+{
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/movie/4025-31/",
+  "boxOfficeRevenue": "104454762",
+  "budget": "80000000",
+  "characters": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-71575/",
+      "id": 71575,
+      "name": "Eliot Ness",
+      "siteDetailUrl": "https://comicvine.gamespot.com/eliot-ness/4005-71575/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-159708/",
+      "id": 159708,
+      "name": "Michael O'Sullivan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/michael-osullivan/4005-159708/"
+    }
+  ],
+  "concepts": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-55702/",
+      "id": 55702,
+      "name": "Organized Crime",
+      "siteDetailUrl": "https://comicvine.gamespot.com/organized-crime/4015-55702/"
+    }
+  ],
+  "dateAdded": "2009-07-08 16:35:16",
+  "dateLastUpdated": "2013-06-03 16:54:46",
+  "deck": "Tom Hanks stars in this adaptation of the graphic novel that focuses on a small boy's reaction to his hit-man father's profession.",
+  "description": "<br />",
+  "distributor": null,
+  "hasStaffReview": null,
+  "id": 31,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/2/869074-road_to_perdition.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/2/869074-road_to_perdition.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/2/869074-road_to_perdition.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/2/869074-road_to_perdition.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/0/2/869074-road_to_perdition.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/0/2/869074-road_to_perdition.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/2/869074-road_to_perdition.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/0/2/869074-road_to_perdition.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/0/2/869074-road_to_perdition.jpg",
+    "imageTags": "All Images"
+  },
+  "locations": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/location/4020-55728/",
+      "id": 55728,
+      "name": "Chicago",
+      "siteDetailUrl": "https://comicvine.gamespot.com/chicago/4020-55728/"
+    }
+  ],
+  "name": "Road to Perdition",
+  "objects": [],
+  "producers": null,
+  "rating": "4",
+  "releaseDate": "2013-06-03 16:54:46",
+  "runtime": "117",
+  "siteDetailUrl": "https://comicvine.gamespot.com/road-to-perdition/4025-31/",
+  "studios": null,
+  "teams": [],
+  "totalRevenue": "181001478",
+  "writers": null
+}

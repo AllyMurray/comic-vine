@@ -1,0 +1,104 @@
+{
+  "aliases": null,
+  "apiDetailUrl": "https://comicvine.gamespot.com/api/issue/4000-44/",
+  "associatedImages": [],
+  "characterCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/character/4005-21893/",
+      "id": 21893,
+      "name": "Satan",
+      "siteDetailUrl": "https://comicvine.gamespot.com/satan/4005-21893/"
+    }
+  ],
+  "characterDiedIn": [],
+  "conceptCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-55939/",
+      "id": 55939,
+      "name": "Horror",
+      "siteDetailUrl": "https://comicvine.gamespot.com/horror/4015-55939/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-56442/",
+      "id": 56442,
+      "name": "Sadism",
+      "siteDetailUrl": "https://comicvine.gamespot.com/sadism/4015-56442/"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/concept/4015-56161/",
+      "id": 56161,
+      "name": "Torture",
+      "siteDetailUrl": "https://comicvine.gamespot.com/torture/4015-56161/"
+    }
+  ],
+  "coverDate": "1952-11-30",
+  "dateAdded": "2008-06-06 11:10:20",
+  "dateLastUpdated": "2016-12-14 18:14:06",
+  "deck": null,
+  "description": null,
+  "firstAppearanceCharacters": null,
+  "firstAppearanceConcepts": null,
+  "firstAppearanceLocations": null,
+  "firstAppearanceObjects": null,
+  "firstAppearanceStoryarcs": null,
+  "firstAppearanceTeams": null,
+  "hasStaffReview": false,
+  "id": 44,
+  "image": {
+    "iconUrl": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/43-1536-44-1-weird-terror.jpg",
+    "mediumUrl": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/43-1536-44-1-weird-terror.jpg",
+    "screenUrl": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/43-1536-44-1-weird-terror.jpg",
+    "screenLargeUrl": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/43-1536-44-1-weird-terror.jpg",
+    "smallUrl": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/43-1536-44-1-weird-terror.jpg",
+    "superUrl": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/43-1536-44-1-weird-terror.jpg",
+    "thumbUrl": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/43-1536-44-1-weird-terror.jpg",
+    "tinyUrl": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/43-1536-44-1-weird-terror.jpg",
+    "originalUrl": "https://comicvine.gamespot.com/a/uploads/original/0/4/43-1536-44-1-weird-terror.jpg",
+    "imageTags": "All Images"
+  },
+  "issueNumber": "2",
+  "locationCredits": [],
+  "name": null,
+  "objectCredits": [],
+  "personCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-6609/",
+      "id": 6609,
+      "name": "Don Heck",
+      "siteDetailUrl": "https://comicvine.gamespot.com/don-heck/4040-6609/",
+      "role": "artist"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-43649/",
+      "id": 43649,
+      "name": "H.C. Kiefer",
+      "siteDetailUrl": "https://comicvine.gamespot.com/hc-kiefer/4040-43649/",
+      "role": "cover"
+    },
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/person/4040-2625/",
+      "id": 2625,
+      "name": "Pete Morisi",
+      "siteDetailUrl": "https://comicvine.gamespot.com/pete-morisi/4040-2625/",
+      "role": "artist"
+    }
+  ],
+  "siteDetailUrl": "https://comicvine.gamespot.com/weird-terror-2/4000-44/",
+  "storeDate": null,
+  "storyArcCredits": [],
+  "teamCredits": [
+    {
+      "apiDetailUrl": "https://comicvine.gamespot.com/api/team/4060-59088/",
+      "id": 59088,
+      "name": "Gnomes",
+      "siteDetailUrl": "https://comicvine.gamespot.com/gnomes/4060-59088/"
+    }
+  ],
+  "teamDisbandedIn": [],
+  "volume": {
+    "apiDetailUrl": "https://comicvine.gamespot.com/api/volume/4050-1536/",
+    "id": 1536,
+    "name": "Weird Terror",
+    "siteDetailUrl": "https://comicvine.gamespot.com/weird-terror/4050-1536/"
+  }
+}
