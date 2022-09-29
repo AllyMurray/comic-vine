@@ -63,7 +63,7 @@ export class UrlBuilder {
     if (filter) {
       const snakeCaseFilter = convertCamelCaseToSnakeCase<any>(filter);
       const filterParams = Object.entries<any>(snakeCaseFilter).map(
-        ([key, value]) => `${key}:${encodeURIComponent(value)}`
+        ([key, value]) => `${key}:${value}`,
       );
 
       return { name: 'filter', value: filterParams.join(',') };
@@ -72,13 +72,13 @@ export class UrlBuilder {
 
   private buildUrl(
     urlInput: string,
-    queryParams: Array<QueryParam | undefined>
+    queryParams: Array<QueryParam | undefined>,
   ) {
     const url = new URL(urlInput, this.baseUrl);
     const urlSearchParams = new URLSearchParams(
       queryParams
         .filter(isDefined)
-        .map<[string, string]>((param) => [param.name, param.value.toString()])
+        .map<[string, string]>((param) => [param.name, param.value.toString()]),
     );
 
     url.search = urlSearchParams.toString();
@@ -95,7 +95,7 @@ export class UrlBuilder {
   retrieve<Key>(
     resourceType: ResourceType,
     id: number,
-    options?: RetrieveOptions<Key>
+    options?: RetrieveOptions<Key>,
   ) {
     const resource = getResource(resourceType);
     const urlInput = `${resource.detailName}/${resourceType}-${id}`;
@@ -114,7 +114,7 @@ export class UrlBuilder {
    */
   list<Resource, FilterType>(
     resourceType: ResourceType,
-    options?: ListOptions<Resource, FilterType>
+    options?: ListOptions<Resource, FilterType>,
   ) {
     const urlInput = getResource(resourceType).listName;
     const queryParams = [
