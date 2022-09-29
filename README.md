@@ -137,3 +137,39 @@ const comicVine = new ComicVine('your-api-key-here');
   }
 })();
 ```
+
+### Pagination
+
+The Comic Vine API supports pagination, this library currently just exposes the properties returned by the API. In a future version this will be updated to make pagination easier to use.
+
+The following example fetches all volumes of the Boys with 20 items per page, it will continue making requests until all results are retrieved.
+
+```js
+import ComicVine from 'comic-vine';
+const comicVine = new ComicVine('your-api-key-here');
+
+(async () => {
+  try {
+    const limit = 20;
+    const volumes = [];
+    let hasMoreResults = true;
+    let pageNumber = 0;
+    do {
+      pageNumber++;
+      const page = await comicVine.volume.list({
+        filter: { name: 'The Boys' },
+        limit,
+        offset: limit * pageNumber - limit,
+      });
+      volumes.push(...page.data);
+      hasMoreResults = volumes.length < page.numberOfTotalResults;
+    } while (hasMoreResults);
+
+    console.log(`Number of requests made to Comic Vine: ${pageNumber}`); // 2
+    console.log(`Total volumes: ${volumes.length}`); // 35
+    console.log(volumes); // An array of volume objects
+  } catch (error) {
+    console.error(error);
+  }
+})();
+```
