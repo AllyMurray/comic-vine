@@ -4,6 +4,6 @@ type KeysMatching<T, V> = {
 
 type PickMatching<T, V> = Pick<T, KeysMatching<T, V>>;
 
-type PickFilters<T> = PickMatching<T, number> & PickMatching<T, string | null>;
-
-// type CharacterListFilter = PickFilters<BaseCharacter>;
+export type PickFilters<T> = Partial<
+  PickMatching<T, number> & PickMatching<T, string | null>
+>;
