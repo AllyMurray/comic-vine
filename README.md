@@ -188,6 +188,32 @@ const comicVine = new ComicVine('your-api-key-here');
 })();
 ```
 
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/AllyMurray/comic-vine.git
+```
+
+Go to the project directory
+
+```bash
+  cd comic-vine
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run the tests
+
+```bash
+  npm run test
+```
+
 ## Authors
 
 - [@AllyMurray](https://github.com/AllyMurray)
