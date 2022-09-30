@@ -6,7 +6,7 @@ export interface BaseOptions<FieldKey> {
   fieldList?: FieldKey[];
 }
 
-export interface RetrieveOptions<FieldKey> extends BaseOptions<FieldKey> {}
+export type RetrieveOptions<FieldKey> = BaseOptions<FieldKey>;
 
 export interface ListOptions<FieldKey, Filter> extends BaseOptions<FieldKey> {
   /**
