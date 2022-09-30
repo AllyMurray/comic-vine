@@ -1,9 +1,10 @@
 {
-  "name": "comic-vine",
+  "name": "@ally-murray/comic-vine",
   "version": "0.0.0-development",
   "description": "A JS/TS client for the Comic Vine API",
   "keywords": [
     "comic",
+    "comics",
     "comic-vine",
     "metadata"
   ],
