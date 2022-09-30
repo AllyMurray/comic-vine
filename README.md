@@ -3,6 +3,16 @@
 The Comic Vine library provides convenient access to the [Comic Vine API](https://comicvine.gamespot.com/api) from
 applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
 
+## Roadmap
+
+- Automatic Pagination
+
+- Expandable responses
+
+- Cached responses
+
+- Rate limiting
+
 ## Comic Vine Resources
 
 [Comic Vine resources list](https://comicvine.gamespot.com/api/documentation)
