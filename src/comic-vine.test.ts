@@ -1,6 +1,6 @@
 import type { ValueOf } from './types';
 
-import { ComicVine } from '.';
+import ComicVine from '.';
 import * as resources from './resources/resource-list';
 
 describe('ComicVine', () => {
