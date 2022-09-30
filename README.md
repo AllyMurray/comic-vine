@@ -11,27 +11,27 @@ The library exposes an object for each Comic Vine resource, the object names are
 
 The following table lists the resources that have been implemented and how the `retrieve` and `list` methods map to the API. Most resources are a direct mapping but `object` has been mapped to `thing`, this is due to `object` being a reserved word in JS and `thing` matches the Comic Vine wiki.
 
-| Library resource | Retrieve Method | List Method      |
-| ---------------- | --------------- | ---------------- |
-| character        | character       | characters       |
-| concept          | concept         | concepts         |
-| episode          | episode         | episodes         |
-| issue            | issue           | issues           |
-| location         | location        | locations        |
-| movie            | movie           | movies           |
-| origin           | origin          | origins          |
-| person           | person          | people           |
-| power            | power           | powers           |
-| promo            | promo           | promos           |
-| publisher        | publisher       | publishers       |
-| series           | series          | series_list      |
-| storyArc         | story_arc       | story_arcs       |
-| team             | team            | teams            |
-| thing            | object          | object           |
-| video            | video           | videos           |
-| videoCategory    | video_category  | video_categories |
-| videoType        | video_type      | video_types      |
-| volume           | volume          | volumes          |
+| Library resource object | Retrieve Method API Resource | List Method API Resource |
+| ----------------------- | ---------------------------- | ------------------------ |
+| character               | character                    | characters               |
+| concept                 | concept                      | concepts                 |
+| episode                 | episode                      | episodes                 |
+| issue                   | issue                        | issues                   |
+| location                | location                     | locations                |
+| movie                   | movie                        | movies                   |
+| origin                  | origin                       | origins                  |
+| person                  | person                       | people                   |
+| power                   | power                        | powers                   |
+| promo                   | promo                        | promos                   |
+| publisher               | publisher                    | publishers               |
+| series                  | series                       | series_list              |
+| storyArc                | story_arc                    | story_arcs               |
+| team                    | team                         | teams                    |
+| thing                   | object                       | object                   |
+| video                   | video                        | videos                   |
+| videoCategory           | video_category               | video_categories         |
+| videoType               | video_type                   | video_types              |
+| volume                  | volume                       | volumes                  |
 
 ## Installation
 
@@ -43,9 +43,9 @@ npm install comic-vine
 yarn add comic-vine
 ```
 
-## Usage
+## Usage/Examples
 
-### Initialize
+### Initialization
 
 The package needs to be configured with your API key, [Grab an API key](https://comicvine.gamespot.com/api). Require it with the key's value:
 
@@ -132,6 +132,9 @@ const comicVine = new ComicVine('your-api-key-here');
     // In JS dateAdded will be undefined at runtime
     // in TS the compiler will produce an error because it wasn't in the fieldList
     console.log(issue.dateAdded);
+
+    // An object containing the id, name and description properties
+    console.log(issue);
   } catch (error) {
     console.error(error);
   }
