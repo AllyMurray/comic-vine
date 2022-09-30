@@ -187,3 +187,7 @@ const comicVine = new ComicVine('your-api-key-here');
   }
 })();
 ```
+
+## Authors
+
+- [@AllyMurray](https://github.com/AllyMurray)
