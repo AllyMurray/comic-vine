@@ -48,9 +48,9 @@ The following table lists the resources that have been implemented and how the `
 Install the package with:
 
 ```sh
-npm install comic-vine
+npm install comic-vine-sdk
 # or
-yarn add comic-vine
+yarn add comic-vine-sdk
 ```
 
 ## Usage/Examples
@@ -60,7 +60,7 @@ yarn add comic-vine
 The package needs to be configured with your API key, [Grab an API key](https://comicvine.gamespot.com/api). Require it with the key's value:
 
 ```js
-const ComicVine = require('comic-vine');
+const ComicVine = require('comic-vine-sdk');
 const comicVine = new ComicVine('your-api-key-here');
 
 comicVine.publisher
@@ -72,7 +72,7 @@ comicVine.publisher
 Or using ES modules and `async`/`await`:
 
 ```js
-import ComicVine from 'comic-vine';
+import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
@@ -90,7 +90,7 @@ const comicVine = new ComicVine('your-api-key-here');
 All resources have a retrieve method, the following example retrieves a publisher
 
 ```js
-import ComicVine from 'comic-vine';
+import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
@@ -108,13 +108,13 @@ const comicVine = new ComicVine('your-api-key-here');
 All resources have a retrieve method, the following example retrieves a list of publishers
 
 ```js
-import ComicVine from 'comic-vine';
+import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
   try {
     const publishers = await comicVine.publisher.list();
-    console.log(publisher.data);
+    console.log(publishers.data);
   } catch (error) {
     console.error(error);
   }
@@ -128,7 +128,7 @@ When making a request it's likely that only certain properties are required. Bot
 When using TypeScript this is type safe, the return type is narrowed to the field list so that intellisense only displays the properties available in the response.
 
 ```js
-import ComicVine from 'comic-vine';
+import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
@@ -159,7 +159,7 @@ The Comic Vine API supports pagination, this library currently just exposes the 
 The following example fetches all volumes of the Boys with 20 items per page, it will continue making requests until all results are retrieved.
 
 ```js
-import ComicVine from 'comic-vine';
+import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
