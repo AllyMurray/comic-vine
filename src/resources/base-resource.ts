@@ -14,21 +14,21 @@ export abstract class BaseResource<Resource, ResourceListItem> {
 
   async retrieve<FieldKey extends keyof Resource>(
     id: number,
-    options?: RetrieveOptions<FieldKey>,
+    options?: RetrieveOptions<FieldKey>
   ) {
     type ReturnType<T> = T extends object ? Pick<Resource, FieldKey> : Resource;
 
     const url = this.urlBuilder.retrieve(this.resourceType, id, options);
     const fieldList = options?.fieldList;
     const response = await this.httpClient.get<ReturnType<typeof fieldList>>(
-      url,
+      url
     );
 
     return response.results;
   }
 
   async list<FieldKey extends keyof ResourceListItem>(
-    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>,
+    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>
   ) {
     type ReturnType<T> = T extends object
       ? Pick<ResourceListItem, FieldKey>
@@ -37,7 +37,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     const url = this.urlBuilder.list(this.resourceType, options);
     const fieldList = options?.fieldList;
     const response = await this.httpClient.get<ReturnType<typeof fieldList>[]>(
-      url,
+      url
     );
 
     return {

@@ -1,1 +1,16 @@
-{"error":"OK","limit":1,"offset":0,"number_of_page_results":1,"number_of_total_results":1,"status_code":1,"results":{"api_detail_url":"https://comicvine.gamespot.com/api/video_type/12/","site_detail_url":"https://comicvine.gamespot.com/videos/mystery-art-challenge/","deck":"Comic artists are given the challenge of drawing a familiar character and a random object.","id":12,"name":"Mystery Art Challenge"},"version":"1.0"}
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "api_detail_url": "https://comicvine.gamespot.com/api/video_type/12/",
+    "site_detail_url": "https://comicvine.gamespot.com/videos/mystery-art-challenge/",
+    "deck": "Comic artists are given the challenge of drawing a familiar character and a random object.",
+    "id": 12,
+    "name": "Mystery Art Challenge"
+  },
+  "version": "1.0"
+}
