@@ -7,9 +7,6 @@ import expectedRetrieveResult from '../__mocks__/expected-responses/issue-detail
 import apiListResponse from '../__mocks__/api-response/issue-list-item.json';
 import expectedListResult from '../__mocks__/expected-responses/issue-list-item.json';
 
-// TODO: RenameExpected response from issue list item to issue list
-// TODO: Generate tests for all resources
-
 const baseUrl = 'https://comicvine.gamespot.com/api';
 
 const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
