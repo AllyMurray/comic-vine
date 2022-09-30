@@ -50,7 +50,8 @@ yarn add comic-vine
 The package needs to be configured with your API key, [Grab an API key](https://comicvine.gamespot.com/api). Require it with the key's value:
 
 ```js
-const comicVine = require('comic-vine')('your-api-key-here');
+const ComicVine = require('comic-vine');
+const comicVine = new ComicVine('your-api-key-here');
 
 comicVine.publisher
   .retrieve(1859)
