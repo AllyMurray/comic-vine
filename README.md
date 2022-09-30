@@ -53,7 +53,7 @@ The package needs to be configured with your API key, [Grab an API key](https://
 const comicVine = require('comic-vine')('your-api-key-here');
 
 comicVine.publisher
-  .retrieve({ id: 1859 })
+  .retrieve(1859)
   .then((customer) => console.log(customer.id))
   .catch((error) => console.error(error));
 ```
