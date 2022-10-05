@@ -32,8 +32,8 @@
   "scripts": {
     "build": "run-s build:**",
     "build:clean": "rimraf dist",
-    "build:esm": "tsc -p tsconfig.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "tsc -p tsconfig.cjs.build.json",
     "build:package-json": "bash ./scripts/create-package-json",
     "test": "jest",
     "format": "prettier ./src --write",
