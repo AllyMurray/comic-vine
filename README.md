@@ -1,7 +1,6 @@
-# Comic Vine Library
+# Comic Vine SDK
 
-The Comic Vine library provides convenient access to the [Comic Vine API](https://comicvine.gamespot.com/api) from
-applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
+The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine-api] from server side applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
 
 ## Roadmap
 
@@ -15,33 +14,33 @@ applications written in JavaScript/TypeScript. The API provides full access to t
 
 ## Comic Vine Resources
 
-[Comic Vine resources list](https://comicvine.gamespot.com/api/documentation)
+[Comic Vine resources list][comic-vine-docs]
 
 The library exposes an object for each Comic Vine resource, the object names are singular and expose a retrieve method that maps to the singular resource and a list method that maps to the plural resource.
 
 The following table lists the resources that have been implemented and how the `retrieve` and `list` methods map to the API. Most resources are a direct mapping but `object` has been mapped to `thing`, this is due to `object` being a reserved word in JS and `thing` matches the Comic Vine wiki.
 
-| Library resource object | Retrieve Method API Resource | List Method API Resource |
-| ----------------------- | ---------------------------- | ------------------------ |
-| character               | character                    | characters               |
-| concept                 | concept                      | concepts                 |
-| episode                 | episode                      | episodes                 |
-| issue                   | issue                        | issues                   |
-| location                | location                     | locations                |
-| movie                   | movie                        | movies                   |
-| origin                  | origin                       | origins                  |
-| person                  | person                       | people                   |
-| power                   | power                        | powers                   |
-| promo                   | promo                        | promos                   |
-| publisher               | publisher                    | publishers               |
-| series                  | series                       | series_list              |
-| storyArc                | story_arc                    | story_arcs               |
-| team                    | team                         | teams                    |
-| thing                   | object                       | object                   |
-| video                   | video                        | videos                   |
-| videoCategory           | video_category               | video_categories         |
-| videoType               | video_type                   | video_types              |
-| volume                  | volume                       | volumes                  |
+| Library resource object | Retrieve Method API Resource          | List Method API Resource                  |
+| ----------------------- | ------------------------------------- | ----------------------------------------- |
+| character               | [character][character-docs]           | [characters][characters-docs]             |
+| concept                 | [concept][concept-docs]               | [concepts][concepts-docs]                 |
+| episode                 | [episode][episode-docs]               | [episodes][episodes-docs]                 |
+| issue                   | [issue][issue-docs]                   | [issues][issues-docs]                     |
+| location                | [location][location-docs]             | [locations][locations-docs]               |
+| movie                   | [movie][movie-docs]                   | [movies][movies-docs]                     |
+| origin                  | [origin][origin-docs]                 | [origins][origins-docs]                   |
+| person                  | [person][person-docs]                 | [people][people-docs]                     |
+| power                   | [power][power-docs]                   | [powers][powers-docs]                     |
+| promo                   | [promo][promo-docs]                   | [promos][promos-docs]                     |
+| publisher               | [publisher][publisher-docs]           | [publishers][publishers-docs]             |
+| series                  | [series][series-docs]                 | [series_list][series-list-docs]           |
+| storyArc                | [story_arc][story-arc-docs]           | [story_arcs][story-arcs-docs]             |
+| team                    | [team][team-docs]                     | [teams][teams-docs]                       |
+| thing                   | [object][object-docs]                 | [objects][objects-docs]                   |
+| video                   | [video][video-docs]                   | [videos][videos-docs]                     |
+| videoCategory           | [video_category][video-category-docs] | [video_categories][video-categories-docs] |
+| videoType               | [video_type][video-type-docs]         | [video_types][video-types-docs]           |
+| volume                  | [volume][volume-docs]                 | [volumes][volumes-docs]                   |
 
 ## Installation
 
@@ -57,7 +56,7 @@ yarn add comic-vine-sdk
 
 ### Initialization
 
-The package needs to be configured with your API key, [Grab an API key](https://comicvine.gamespot.com/api). Require it with the key's value:
+The package needs to be configured with your API key, [Grab an API key][comic-vine-api]. Require it with the key's value:
 
 ```js
 const ComicVine = require('comic-vine-sdk');
@@ -217,3 +216,44 @@ Run the tests
 ## Authors
 
 - [@AllyMurray](https://github.com/AllyMurray)
+
+[comic-vine-api]: https://comicvine.gamespot.com/api
+[comic-vine-docs]: https://comicvine.gamespot.com/api/documentation
+[character-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-2
+[characters-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-3
+[concept-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-6
+[concepts-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-7
+[episode-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-8
+[episodes-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-9
+[issue-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-10
+[issues-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-11
+[location-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-12
+[locations-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-13
+[movie-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-14
+[movies-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-15
+[object-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-16
+[objects-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-17
+[origin-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-18
+[origins-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-19
+[person-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-20
+[people-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-21
+[power-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-22
+[powers-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-23
+[promo-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-24
+[promos-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-25
+[publisher-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-26
+[publishers-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-27
+[series-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-28
+[series-list-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-29
+[story-arc-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-31
+[story-arcs-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-32
+[team-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-33
+[teams-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-34
+[video-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-36
+[videos-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-37
+[video-type-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-38
+[video-types-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-39
+[video-category-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-40
+[video-categories-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-41
+[volume-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-42
+[volumes-docs]: https://comicvine.gamespot.com/api/documentation#toc-0-43
