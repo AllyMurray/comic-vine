@@ -2,6 +2,30 @@
 
 The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine-api] from server side applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Roadmap](#roadmap)
+- [Comic Vine Resources](#comic-vine-resources)
+- [Usage/Examples](#usageexamples)
+  - [Initialization](#initialization)
+  - [Fetch a single resource](#fetch-a-single-resource)
+  - [Fetch a resource list](#fetch-a-resource-list)
+  - [Limit the fields in the response payload](#limit-the-fields-in-the-response-payload)
+  - [Pagination](#pagination)
+- [Run Locally](#run-locally)
+- [Authors](#authors)
+
+## Installation
+
+Install the package with:
+
+```sh
+npm install comic-vine-sdk
+# or
+yarn add comic-vine-sdk
+```
+
 ## Roadmap
 
 - Automatic Pagination
@@ -41,16 +65,6 @@ The following table lists the resources that have been implemented and how the `
 | videoCategory           | [video_category][video-category-docs] | [video_categories][video-categories-docs] |
 | videoType               | [video_type][video-type-docs]         | [video_types][video-types-docs]           |
 | volume                  | [volume][volume-docs]                 | [volumes][volumes-docs]                   |
-
-## Installation
-
-Install the package with:
-
-```sh
-npm install comic-vine-sdk
-# or
-yarn add comic-vine-sdk
-```
 
 ## Usage/Examples
 
