@@ -17,7 +17,7 @@ export interface CharacterDetails {
   /**
    * A date, if one exists, that the character was born on. Not an origin date.
    */
-  birth: null;
+  birth: null | string;
   /**
    * List of characters that are enemies with this character.
    */
@@ -33,7 +33,7 @@ export interface CharacterDetails {
   /**
    * List of the real life people who created this character.
    */
-  creators: any[];
+  creators: Array<SiteResource>;
   /**
    * Date the character was added to Comic Vine.
    */
@@ -107,7 +107,7 @@ export interface CharacterDetails {
   /**
    * List of teams that are friends with this character.
    */
-  teamFriends: any[];
+  teamFriends: Array<SiteResource>;
   /**
    * List of teams this character is a member of.
    */
