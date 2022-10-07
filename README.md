@@ -31,6 +31,10 @@ yarn add comic-vine-sdk
 
 This package does not currently work in a web browser, the Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. The recommended approach would be to use it server side, however, in a future update an option to set the baseUrl will be added. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
 
+## TypeScript Typings
+
+There's a good change you may find an issue with the typings in the API response objects. They were generated using sample data from the API, if you find a problem [open an issue](https://github.com/AllyMurray/comic-vine/issues/new) detailing the problem along with the request details so I can add that request to the sample dataset. While you wait for it to be fixed add `// @ts-expect-error` above the line causing the problem. This will allow you to compile in the meantime but will flag when the problem has been fixed.
+
 ## Roadmap
 
 - Add option to set baseUrl when initializing the library
