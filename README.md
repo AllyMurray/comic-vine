@@ -5,6 +5,7 @@ The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine
 ## Table of Contents
 
 - [Installation](#installation)
+- [Browser Support](#browser-support)
 - [Roadmap](#roadmap)
 - [Comic Vine Resources](#comic-vine-resources)
 - [Usage/Examples](#usageexamples)
@@ -26,7 +27,13 @@ npm install comic-vine-sdk
 yarn add comic-vine-sdk
 ```
 
+## Browser support
+
+This package does not currently work in a web browser, the Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. The recommended approach would be to use it server side, however, in a future update an option to set the baseUrl will be added. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
+
 ## Roadmap
+
+- Add option to set baseUrl when initializing the library
 
 - Automatic Pagination
 
