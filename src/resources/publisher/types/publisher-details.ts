@@ -4,7 +4,7 @@ export interface PublisherDetails {
   /**
    * List of aliases the publisher is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the publisher detail resource.
    */
@@ -60,7 +60,7 @@ export interface PublisherDetails {
   /**
    * List of story arcs tied to this publisher.
    */
-  storyArcs: any[];
+  storyArcs: Array<SiteResource>;
   /**
    * List of teams this publisher is a member of.
    */

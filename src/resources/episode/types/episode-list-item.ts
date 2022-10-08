@@ -8,7 +8,7 @@ export interface EpisodeListItem {
   /**
    * List of aliases the episode is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the episode detail resource.
    */
@@ -30,7 +30,7 @@ export interface EpisodeListItem {
    */
   description: null | string;
   episodeNumber: string;
-  hasStaffReview: SiteResource;
+  hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the episode.
    */
@@ -51,9 +51,4 @@ export interface EpisodeListItem {
    * URL pointing to the episode on Giant Bomb.
    */
   siteDetailUrl: string;
-}
-
-export enum ImageTags {
-  AllImages = 'All Images',
-  AllImagesXFiles = 'All Images,X Files',
 }

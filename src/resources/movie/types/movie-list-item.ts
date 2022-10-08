@@ -30,7 +30,7 @@ export interface MovieListItem {
    */
   description: null | string;
   distributor: null;
-  hasStaffReview: null;
+  hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the movie.
    */

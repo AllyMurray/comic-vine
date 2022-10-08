@@ -62,8 +62,3 @@ export interface VolumeListItem {
    */
   startYear: string;
 }
-
-export enum ImageTags {
-  AllImages = 'All Images',
-  AllImagesComicBookCovers = 'All Images,Comic book covers',
-}

@@ -13,7 +13,7 @@ export interface PersonListItem {
    * A date, if one exists, that the person was born on. Not an origin date.
    */
   birth: Date | null;
-  countOfIsssueAppearances: null;
+  countOfIsssueAppearances: null | unknown;
   /**
    * Country the person resides in.
    */

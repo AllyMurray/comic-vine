@@ -8,13 +8,13 @@ export interface EpisodeDetails {
   /**
    * List of aliases the episode is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the episode detail resource.
    */
   apiDetailUrl: string;
   characterCredits: Array<SiteResource>;
-  characterDiedIn: any[];
+  characterDiedIn: Array<unknown>;
   conceptCredits: Array<SiteResource>;
   /**
    * Date the episode was added to Comic Vine.
@@ -39,28 +39,28 @@ export interface EpisodeDetails {
   /**
    * A list of characters in which this episode is the first appearance of the character.
    */
-  firstAppearanceCharacters: null;
+  firstAppearanceCharacters: null | unknown;
   /**
    * A list of concepts in which this episode is the first appearance of the concept.
    */
-  firstAppearanceConcepts: null;
+  firstAppearanceConcepts: null | unknown;
   /**
    * A list of locations in which this episode is the first appearance of the location.
    */
-  firstAppearanceLocations: null;
+  firstAppearanceLocations: null | unknown;
   /**
    * A list of things in which this episode is the first appearance of the object.
    */
-  firstAppearanceObjects: null;
+  firstAppearanceObjects: null | unknown;
   /**
    * A list of storyarcs in which this episode is the first appearance of the story arc.
    */
-  firstAppearanceStoryarcs: null;
+  firstAppearanceStoryarcs: null | unknown;
   /**
    * A list of teams in which this episode is the first appearance of the team.
    */
-  firstAppearanceTeams: null;
-  hasStaffReview: SiteResource;
+  firstAppearanceTeams: null | unknown;
+  hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the episode.
    */
@@ -83,6 +83,6 @@ export interface EpisodeDetails {
    * URL pointing to the episode on Giant Bomb.
    */
   siteDetailUrl: string;
-  storyArcCredits: any[];
+  storyArcCredits: Array<SiteResource>;
   teamCredits: Array<SiteResource>;
 }

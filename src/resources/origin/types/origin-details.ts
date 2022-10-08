@@ -6,7 +6,7 @@ export interface OriginDetails {
    */
   apiDetailUrl: string;
   characters: Array<ApiResource>;
-  characterSet: null;
+  characterSet: null | unknown;
   /**
    * Unique ID of the origin.
    */
@@ -15,7 +15,7 @@ export interface OriginDetails {
    * Name of the origin.
    */
   name: string;
-  profiles: any[];
+  profiles: Array<unknown>;
   /**
    * URL pointing to the origin on Giant Bomb.
    */

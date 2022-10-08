@@ -4,7 +4,7 @@ export interface PowerDetails {
   /**
    * List of aliases the power is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the power detail resource.
    */

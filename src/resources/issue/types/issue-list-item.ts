@@ -1,15 +1,15 @@
-import { SiteResource, Image } from '../../common-types';
+import { AssociatedImage, SiteResource, Image } from '../../common-types';
 
 export interface IssueListItem {
   /**
    * List of aliases the issue is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the issue detail resource.
    */
   apiDetailUrl: string;
-  associatedImages: AssociatedImage[];
+  associatedImages: Array<AssociatedImage>;
   /**
    * The publish date printed on the cover of an issue.
    */
@@ -25,12 +25,12 @@ export interface IssueListItem {
   /**
    * Brief summary of the issue.
    */
-  deck: null;
+  deck: null | unknown;
   /**
    * Description of the issue.
    */
   description: null | string;
-  hasStaffReview: boolean;
+  hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the issue.
    */
@@ -59,15 +59,4 @@ export interface IssueListItem {
    * The volume this issue is a part of.
    */
   volume: SiteResource;
-}
-
-export interface AssociatedImage {
-  caption: null;
-  id: number;
-  imageTags: ImageTags;
-  originalUrl: string;
-}
-
-export enum ImageTags {
-  AllImages = 'All Images',
 }

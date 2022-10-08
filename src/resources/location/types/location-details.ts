@@ -58,6 +58,6 @@ export interface LocationDetails {
    * The first year this location appeared in comics.
    */
   startYear: string;
-  storyArcCredits: any[];
+  storyArcCredits: Array<unknown>;
   volumeCredits: Array<SiteResource>;
 }

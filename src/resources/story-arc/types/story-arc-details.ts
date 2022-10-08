@@ -1,10 +1,15 @@
-import { IssueApiResource, SiteResource, Image } from '../../common-types';
+import {
+  SiteResource,
+  EpisodeApiResource,
+  IssueApiResource,
+  Image,
+} from '../../common-types';
 
 export interface StoryArcDetails {
   /**
    * List of aliases the story_arc is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the story_arc detail resource.
    */
@@ -26,8 +31,8 @@ export interface StoryArcDetails {
    * Description of the story_arc.
    */
   description: string;
-  episodes: any[];
-  firstAppearedInEpisode: null;
+  episodes: Array<SiteResource>;
+  firstAppearedInEpisode: EpisodeApiResource;
   /**
    * Issue where the story_arc made its first appearance.
    */
@@ -47,7 +52,7 @@ export interface StoryArcDetails {
   /**
    * Movies the story_arc was in.
    */
-  movies: any[];
+  movies?: Array<unknown>;
   /**
    * Name of the story_arc.
    */

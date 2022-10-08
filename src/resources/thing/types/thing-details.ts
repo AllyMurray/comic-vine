@@ -4,7 +4,7 @@ export interface ThingDetails {
   /**
    * List of aliases the thing is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the thing detail resource.
    */

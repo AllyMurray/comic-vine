@@ -1,6 +1,7 @@
 import {
   SiteResource,
   PersonCreditSiteResource,
+  AssociatedImage,
   Image,
 } from '../../common-types';
 
@@ -8,14 +9,14 @@ export interface IssueDetails {
   /**
    * List of aliases the issue is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the issue detail resource.
    */
   apiDetailUrl: string;
-  associatedImages: any[];
+  associatedImages: Array<AssociatedImage>;
   characterCredits: Array<SiteResource>;
-  characterDiedIn: any[];
+  characterDiedIn: Array<SiteResource>;
   conceptCredits: Array<SiteResource>;
   /**
    * The publish date printed on the cover of an issue.
@@ -32,36 +33,36 @@ export interface IssueDetails {
   /**
    * Brief summary of the issue.
    */
-  deck: null;
+  deck: null | string;
   /**
    * Description of the issue.
    */
-  description: null;
+  description: null | string;
   /**
    * A list of characters in which this issue is the first appearance of the character.
    */
-  firstAppearanceCharacters: null;
+  firstAppearanceCharacters: null | unknown;
   /**
    * A list of concepts in which this issue is the first appearance of the concept.
    */
-  firstAppearanceConcepts: null;
+  firstAppearanceConcepts: null | unknown;
   /**
    * A list of locations in which this issue is the first appearance of the location.
    */
-  firstAppearanceLocations: null;
+  firstAppearanceLocations: null | unknown;
   /**
    * A list of things in which this issue is the first appearance of the object.
    */
-  firstAppearanceObjects: null;
+  firstAppearanceObjects: null | unknown;
   /**
    * A list of storyarcs in which this issue is the first appearance of the story arc.
    */
-  firstAppearanceStoryarcs: null;
+  firstAppearanceStoryarcs: null | unknown;
   /**
    * A list of teams in which this issue is the first appearance of the team.
    */
-  firstAppearanceTeams: null;
-  hasStaffReview: boolean;
+  firstAppearanceTeams: null | unknown;
+  hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the issue.
    */
@@ -74,12 +75,12 @@ export interface IssueDetails {
    * The number assigned to the issue within the volume set.
    */
   issueNumber: string;
-  locationCredits: any[];
+  locationCredits: Array<SiteResource>;
   /**
    * Name of the issue.
    */
   name: null | string;
-  objectCredits: any[];
+  objectCredits: Array<SiteResource>;
   personCredits: Array<PersonCreditSiteResource>;
   /**
    * URL pointing to the issue on Giant Bomb.
@@ -88,10 +89,10 @@ export interface IssueDetails {
   /**
    * The date the issue was first sold in stores.
    */
-  storeDate: null;
-  storyArcCredits: any[];
+  storeDate: Date | null;
+  storyArcCredits: Array<SiteResource>;
   teamCredits: Array<SiteResource>;
-  teamDisbandedIn: any[];
+  teamDisbandedIn: Array<SiteResource>;
   /**
    * The volume this issue is a part of.
    */

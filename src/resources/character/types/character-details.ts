@@ -70,7 +70,7 @@ export interface CharacterDetails {
   /**
    * List of issues this character died in.
    */
-  issuesDiedIn: any[];
+  issuesDiedIn: Array<SiteResource>;
   /**
    * Movies the character was in.
    */

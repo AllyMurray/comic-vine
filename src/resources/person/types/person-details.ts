@@ -13,7 +13,7 @@ export interface PersonDetails {
    * A date, if one exists, that the person was born on. Not an origin date.
    */
   birth: Date | null;
-  countOfIsssueAppearances: null;
+  countOfIsssueAppearances: null | unknown;
   /**
    * Country the person resides in.
    */
@@ -33,7 +33,7 @@ export interface PersonDetails {
   /**
    * Date this person died on.
    */
-  death: null;
+  death: null | unknown;
   /**
    * Brief summary of the person.
    */
@@ -45,7 +45,7 @@ export interface PersonDetails {
   /**
    * The email of this person.
    */
-  email: null;
+  email: null | unknown;
   /**
    * Gender of the person. Available options are: Male, Female, Other
    */
@@ -53,7 +53,7 @@ export interface PersonDetails {
   /**
    * City or town the person resides in.
    */
-  hometown: null;
+  hometown: null | unknown;
   /**
    * Unique ID of the person.
    */

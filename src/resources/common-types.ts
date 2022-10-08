@@ -38,6 +38,13 @@ export interface Death {
   timezone: string;
 }
 
+export interface AssociatedImage {
+  caption: null;
+  id: number;
+  imageTags: string;
+  originalUrl: string;
+}
+
 export interface Image {
   iconUrl: string;
   mediumUrl: string;

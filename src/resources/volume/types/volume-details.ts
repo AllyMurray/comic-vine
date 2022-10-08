@@ -10,7 +10,7 @@ export interface VolumeDetails {
   /**
    * List of aliases the volume is known by. A \n (newline) seperates each alias.
    */
-  aliases: null;
+  aliases: null | string;
   /**
    * URL pointing to the volume detail resource.
    */
