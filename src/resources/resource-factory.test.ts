@@ -6,7 +6,10 @@ import * as resources from './resource-list';
 
 describe('ResourceFactory', () => {
   const httpClient = HttpClientFactory.createClient();
-  const urlBuilder = HttpClientFactory.createUrlBuilder('mock-api-key');
+  const urlBuilder = HttpClientFactory.createUrlBuilder(
+    'mock-api-key',
+    'https://mock-base-url/'
+  );
   const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 
   type FactoryInput = keyof typeof resources;

@@ -3,7 +3,7 @@ interface ErrorDetails {
   help: string;
 }
 
-export abstract class ComicVineError extends Error {
+export abstract class BaseError extends Error {
   public help: string;
 
   constructor(details: ErrorDetails) {

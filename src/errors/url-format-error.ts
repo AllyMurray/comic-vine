@@ -1,6 +1,6 @@
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
-export class ComicVineUrlFormatError extends ComicVineError {
+export class ComicVineUrlFormatError extends BaseError {
   constructor() {
     super({
       message: 'The url for the request was not in the correct format',

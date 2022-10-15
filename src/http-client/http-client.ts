@@ -9,9 +9,9 @@ import {
   ComicVineUnauthorizedError,
   ComicVineUrlFormatError,
   ComicVineSubscriberOnlyError,
-  ComicVineGenericError,
+  ComicVineGenericRequestError,
 } from '../errors';
-import { ComicVineError } from '../errors/comic-vine-error';
+import { BaseError } from '../errors/base-error';
 
 export class HttpClient implements HttpClientContract {
   private _http;
@@ -42,7 +42,7 @@ export class HttpClient implements HttpClientContract {
   }
 
   private generateClientError(err: any) {
-    if (err instanceof ComicVineError) {
+    if (err instanceof BaseError) {
       return err;
     }
 
@@ -52,7 +52,7 @@ export class HttpClient implements HttpClientContract {
     }
 
     const errorMessage = error.response?.data?.message;
-    return new ComicVineGenericError(
+    return new ComicVineGenericRequestError(
       `${error.message}${errorMessage ? `, ${errorMessage}` : ''}`
     );
   }

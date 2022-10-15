@@ -1,6 +1,6 @@
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
-export class ComicVineUnauthorizedError extends ComicVineError {
+export class ComicVineUnauthorizedError extends BaseError {
   constructor() {
     super({
       message: 'Unauthorized response received when calling the Comic Vine API',

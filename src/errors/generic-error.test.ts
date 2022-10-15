@@ -1,35 +1,35 @@
-import { ComicVineGenericError } from '.';
-import { ComicVineError } from './comic-vine-error';
+import { GenericError } from '.';
+import { BaseError } from './base-error';
 
-describe('ComicVineGenericError', () => {
+describe('GenericError', () => {
   const errorMessage = 'Test error message';
   test('should be instanceof ComicVineError', () => {
-    const comicVineGenericError = new ComicVineGenericError();
-    expect(comicVineGenericError).toBeInstanceOf(ComicVineError);
+    const genericError = new GenericError();
+    expect(genericError).toBeInstanceOf(BaseError);
   });
-  test('should be instanceof ComicVineGenericError', () => {
-    const comicVineGenericError = new ComicVineGenericError();
-    expect(comicVineGenericError).toBeInstanceOf(ComicVineGenericError);
+  test('should be instanceof GenericError', () => {
+    const genericError = new GenericError();
+    expect(genericError).toBeInstanceOf(GenericError);
   });
   test('should have correct name', () => {
-    const comicVineGenericError = new ComicVineGenericError();
-    expect(comicVineGenericError.name).toBe('ComicVineGenericError');
+    const genericError = new GenericError();
+    expect(genericError.name).toBe('GenericError');
   });
   test('should have correct message when no errorMessage is provided', () => {
-    const comicVineGenericError = new ComicVineGenericError();
-    expect(comicVineGenericError.message).toBe(
-      'Request to comic vine failed: Unknown Error'
+    const genericError = new GenericError();
+    expect(genericError.message).toBe(
+      'An unexpected error occurred: Unknown Error'
     );
   });
   test('should have correct message when an errorMessage is provided', () => {
-    const comicVineGenericError = new ComicVineGenericError(errorMessage);
-    expect(comicVineGenericError.message).toBe(
-      'Request to comic vine failed: Test error message'
+    const genericError = new GenericError(errorMessage);
+    expect(genericError.message).toBe(
+      'An unexpected error occurred: Test error message'
     );
   });
   test('should have correct help', () => {
-    const comicVineGenericError = new ComicVineGenericError();
-    expect(comicVineGenericError.help).toBe(
+    const genericError = new GenericError();
+    expect(genericError.help).toBe(
       'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues'
     );
   });

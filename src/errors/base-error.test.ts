@@ -1,6 +1,6 @@
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
-class TestComicVineError extends ComicVineError {}
+class TestComicVineError extends BaseError {}
 function throwTestComicVineError() {
   throw new TestComicVineError({
     message: 'Test message',
@@ -8,7 +8,7 @@ function throwTestComicVineError() {
   });
 }
 
-describe('ComicVineError', () => {
+describe('BaseError', () => {
   test('should have correct error message', () => {
     expect.assertions(1);
     try {

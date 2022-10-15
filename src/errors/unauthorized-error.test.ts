@@ -1,10 +1,10 @@
 import { ComicVineUnauthorizedError } from '.';
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
 describe('ComicVineUnauthorizedError', () => {
-  test('should be instanceof ComicVineError', () => {
+  test('should be instanceof BaseError', () => {
     const comicVineUnauthorizedError = new ComicVineUnauthorizedError();
-    expect(comicVineUnauthorizedError).toBeInstanceOf(ComicVineError);
+    expect(comicVineUnauthorizedError).toBeInstanceOf(BaseError);
   });
   test('should be instanceof ComicVineUnauthorizedError', () => {
     const comicVineUnauthorizedError = new ComicVineUnauthorizedError();

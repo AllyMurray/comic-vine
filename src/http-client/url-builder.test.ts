@@ -2,8 +2,10 @@ import { UrlBuilder } from './url-builder';
 import { ResourceType } from '../resources';
 
 const mockApiKey = 'mock-api-key';
-const getUrlBuilder = () => {
-  return new UrlBuilder(mockApiKey);
+const getUrlBuilder = (
+  baseUrl: string = 'https://comicvine.gamespot.com/api/'
+) => {
+  return new UrlBuilder(mockApiKey, baseUrl);
 };
 
 describe('UrlBuilder', () => {

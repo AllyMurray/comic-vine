@@ -3,7 +3,7 @@ import { HttpClient } from './http-client';
 import {
   ComicJsonpCallbackMissingError,
   ComicVineFilterError,
-  ComicVineGenericError,
+  ComicVineGenericRequestError,
   ComicVineObjectNotFoundError,
   ComicVineSubscriberOnlyError,
   ComicVineUnauthorizedError,
@@ -147,7 +147,7 @@ describe('HttpClient', () => {
     ).rejects.toThrowError(new ComicVineUnauthorizedError());
   });
 
-  test('should throw a ComicVineGenericError when an unknown error has occurred', async () => {
+  test('should throw a ComicVineGenericRequestError when an unknown error has occurred', async () => {
     // Arrange
     const errorMessage = 'An unknown error has occurred';
     nock(baseUrl).get('/unknown-error').reply(500, {
@@ -158,13 +158,13 @@ describe('HttpClient', () => {
     await expect(
       httpClient.get(`${baseUrl}/unknown-error`)
     ).rejects.toThrowError(
-      new ComicVineGenericError(
+      new ComicVineGenericRequestError(
         `Request failed with status code 500, ${errorMessage}`
       )
     );
   });
 
-  test('should throw a ComicVineGenericError when an unknown error has occurred and there is no response data', async () => {
+  test('should throw a ComicVineGenericRequestError when an unknown error has occurred and there is no response data', async () => {
     // Arrange
     nock(baseUrl).get('/unknown-error').reply(500);
 
@@ -172,17 +172,19 @@ describe('HttpClient', () => {
     await expect(
       httpClient.get(`${baseUrl}/unknown-error`)
     ).rejects.toThrowError(
-      new ComicVineGenericError(`Request failed with status code 500`)
+      new ComicVineGenericRequestError(`Request failed with status code 500`)
     );
   });
 
-  test('should throw a ComicVineGenericError when the request fails and there is no response', async () => {
+  test('should throw a ComicVineGenericRequestError when the request fails and there is no response', async () => {
     // Arrange
     nock(baseUrl).get('/failed-request').replyWithError('Complete failure');
 
     // Act/Assert
     await expect(
       httpClient.get(`${baseUrl}/failed-request`)
-    ).rejects.toThrowError(new ComicVineGenericError(`Complete failure`));
+    ).rejects.toThrowError(
+      new ComicVineGenericRequestError(`Complete failure`)
+    );
   });
 });

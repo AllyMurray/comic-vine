@@ -1,10 +1,10 @@
 import { ComicVineUrlFormatError } from '.';
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
 describe('ComicVineUrlFormatError', () => {
-  test('should be instanceof ComicVineError', () => {
+  test('should be instanceof BaseError', () => {
     const comicVineUrlFormatError = new ComicVineUrlFormatError();
-    expect(comicVineUrlFormatError).toBeInstanceOf(ComicVineError);
+    expect(comicVineUrlFormatError).toBeInstanceOf(BaseError);
   });
   test('should be instanceof ComicVineUrlFormatError', () => {
     const comicVineUrlFormatError = new ComicVineUrlFormatError();

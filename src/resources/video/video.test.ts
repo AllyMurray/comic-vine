@@ -4,7 +4,10 @@ import { Video } from './video';
 
 describe('Video', () => {
   const httpClient = HttpClientFactory.createClient();
-  const urlBuilder = HttpClientFactory.createUrlBuilder('mock-api-key');
+  const urlBuilder = HttpClientFactory.createUrlBuilder(
+    'mock-api-key',
+    'https://mock-base-url/'
+  );
 
   it('should have the correct resource type', () => {
     const resource = new Video(httpClient, urlBuilder);

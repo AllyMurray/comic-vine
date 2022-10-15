@@ -1,3 +1,4 @@
+import { userOptions, loadOptions } from './options';
 import { HttpClientFactory } from './http-client';
 import { ResourceFactory } from './resources';
 
@@ -22,9 +23,13 @@ export class ComicVine {
   private _videoType;
   private _volume;
 
-  constructor(key: string) {
+  constructor(key: string, options?: userOptions) {
+    const _options = loadOptions(options);
     const httpClient = HttpClientFactory.createClient();
-    const urlBuilder = HttpClientFactory.createUrlBuilder(key);
+    const urlBuilder = HttpClientFactory.createUrlBuilder(
+      key,
+      _options.baseUrl
+    );
     const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 
     this._character = resourceFactory.create('Character');

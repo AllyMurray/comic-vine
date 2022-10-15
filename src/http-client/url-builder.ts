@@ -12,9 +12,7 @@ interface QueryParam {
 }
 
 export class UrlBuilder {
-  private baseUrl = 'https://comicvine.gamespot.com/api/';
-
-  constructor(private apiKey: string) {}
+  constructor(private apiKey: string, private baseUrl: string) {}
 
   private getParam(key: string, value: string | number | undefined) {
     if (value) {

@@ -6,7 +6,7 @@ export class HttpClientFactory {
     return new HttpClient();
   }
 
-  public static createUrlBuilder(apiKey: string) {
-    return new UrlBuilder(apiKey);
+  public static createUrlBuilder(apiKey: string, baseUrl: string) {
+    return new UrlBuilder(apiKey, baseUrl);
   }
 }

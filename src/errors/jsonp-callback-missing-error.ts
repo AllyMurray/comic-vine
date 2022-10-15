@@ -1,6 +1,6 @@
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
-export class ComicJsonpCallbackMissingError extends ComicVineError {
+export class ComicJsonpCallbackMissingError extends BaseError {
   constructor() {
     super({
       message: 'JSONP format requires a callback',

@@ -1,10 +1,10 @@
 import { ComicJsonpCallbackMissingError } from '.';
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
 describe('ComicJsonpCallbackMissingError', () => {
-  test('should be instanceof ComicVineError', () => {
+  test('should be instanceof BaseError', () => {
     const comicJsonpCallbackMissingError = new ComicJsonpCallbackMissingError();
-    expect(comicJsonpCallbackMissingError).toBeInstanceOf(ComicVineError);
+    expect(comicJsonpCallbackMissingError).toBeInstanceOf(BaseError);
   });
   test('should be instanceof ComicJsonpCallbackMissingError', () => {
     const comicJsonpCallbackMissingError = new ComicJsonpCallbackMissingError();

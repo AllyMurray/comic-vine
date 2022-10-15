@@ -7,7 +7,7 @@ import expectedRetrieveResult from '../__mocks__/expected-responses/issue-detail
 import apiListResponse from '../__mocks__/api-response/issue-list-item.json';
 import expectedListResult from '../__mocks__/expected-responses/issue-list-item.json';
 
-const baseUrl = 'https://comicvine.gamespot.com/api';
+const baseUrl = 'https://comicvine.gamespot.com/api/';
 
 const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
   return Object.assign(
@@ -19,7 +19,10 @@ const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
 describe('Issue', () => {
   const MOCK_SUCCESSFUL_ISSUE_ID = 1;
   const httpClient = HttpClientFactory.createClient();
-  const urlBuilder = HttpClientFactory.createUrlBuilder('mock-api-key');
+  const urlBuilder = HttpClientFactory.createUrlBuilder(
+    'mock-api-key',
+    baseUrl
+  );
 
   describe('retrieve', () => {
     it('should return the full resource when a successful request is made', async () => {

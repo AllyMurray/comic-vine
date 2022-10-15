@@ -1,11 +1,10 @@
 import { ComicVineFilterError } from '.';
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
 describe('ComicVineFilterError', () => {
-  const errorMessage = 'Test error message';
-  test('should be instanceof ComicVineError', () => {
+  test('should be instanceof BaseError', () => {
     const comicVineFilterError = new ComicVineFilterError();
-    expect(comicVineFilterError).toBeInstanceOf(ComicVineError);
+    expect(comicVineFilterError).toBeInstanceOf(BaseError);
   });
   test('should be instanceof ComicVineFilterError', () => {
     const comicVineFilterError = new ComicVineFilterError();

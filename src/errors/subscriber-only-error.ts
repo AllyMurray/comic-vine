@@ -1,6 +1,6 @@
-import { ComicVineError } from './comic-vine-error';
+import { BaseError } from './base-error';
 
-export class ComicVineSubscriberOnlyError extends ComicVineError {
+export class ComicVineSubscriberOnlyError extends BaseError {
   constructor() {
     super({
       message: 'The requested video is for subscribers only',
