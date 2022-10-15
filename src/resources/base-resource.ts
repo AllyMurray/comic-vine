@@ -27,7 +27,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     return response.results;
   }
 
-  async list<FieldKey extends keyof ResourceListItem>(
+  private async fetchPage<FieldKey extends keyof ResourceListItem>(
     options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>
   ) {
     type ReturnType<T> = T extends object
@@ -47,5 +47,47 @@ export abstract class BaseResource<Resource, ResourceListItem> {
       offset: response.offset,
       data: response.results,
     };
+  }
+
+  list<FieldKey extends keyof ResourceListItem>(
+    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>
+  ) {
+    // Proxy the call to this.fetchPage so that we can close over `this`, allowing access in the iterator
+    const fetchPage = (options?: Parameters<typeof this.fetchPage>[0]) =>
+      this.fetchPage.call(this, options);
+    const dataFetchPromise = fetchPage(options);
+
+    const asyncIterator = {
+      async *[Symbol.asyncIterator]() {
+        const defaultPageSize = 100;
+        const limit = options?.limit ?? defaultPageSize;
+        let page = options?.offset ? options.offset / limit : 1;
+        let hasMoreResults = true;
+        let response = await dataFetchPromise;
+
+        do {
+          for (const resource of response.data) {
+            yield resource;
+          }
+
+          hasMoreResults =
+            response.limit + response.offset < response.numberOfTotalResults;
+
+          if (hasMoreResults) {
+            response = await fetchPage({
+              limit,
+              offset: response.numberOfPageResults * ++page,
+            });
+          }
+        } while (hasMoreResults);
+      },
+    };
+
+    const promiseWithAsyncIterator = Object.assign(
+      dataFetchPromise,
+      asyncIterator
+    );
+
+    return promiseWithAsyncIterator;
   }
 }
