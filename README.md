@@ -5,11 +5,11 @@ The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine
 ## Table of Contents
 
 - [Installation](#installation)
-- [Browser Support](#browser-support)
 - [Roadmap](#roadmap)
 - [Comic Vine Resources](#comic-vine-resources)
 - [Usage/Examples](#usageexamples)
   - [Initialization](#initialization)
+  - [Options](#options)
   - [Fetch a single resource](#fetch-a-single-resource)
   - [Fetch a resource list](#fetch-a-resource-list)
   - [Limit the fields in the response payload](#limit-the-fields-in-the-response-payload)
@@ -27,17 +27,11 @@ npm install comic-vine-sdk
 yarn add comic-vine-sdk
 ```
 
-## Browser support
-
-This package does not currently work in a web browser, the Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. The recommended approach would be to use it server side, however, in a future update an option to set the baseUrl will be added. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
-
 ## TypeScript Typings
 
 There's a good change you may find an issue with the typings in the API response objects. They were generated using sample data from the API, if you find a problem [open an issue](https://github.com/AllyMurray/comic-vine/issues/new) detailing the problem along with the request details so I can add that request to the sample dataset. While you wait for it to be fixed add `// @ts-expect-error` above the line causing the problem. This will allow you to compile in the meantime but will flag when the problem has been fixed.
 
 ## Roadmap
-
-- Add option to set baseUrl when initializing the library
 
 - Automatic Pagination
 
@@ -98,6 +92,42 @@ Or using ES modules and `async`/`await`:
 ```js
 import ComicVine from 'comic-vine-sdk';
 const comicVine = new ComicVine('your-api-key-here');
+
+(async () => {
+  try {
+    const publisher = await comicVine.publisher.retrieve(1859);
+    console.log(publisher.name);
+  } catch (error) {
+    console.error(error);
+  }
+})();
+```
+
+### Options
+
+The second parameter of the constructor accepts options to configure the library
+
+```js
+new ComicVine('your-api-key-here', options);
+```
+
+### `baseUrl`
+
+**Type: <code>string | undefined</code>**
+
+**Default: https://comicvine.gamespot.com/api/**
+
+If using the package in node then leave this as the default value. The Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
+
+```js
+import ComicVine from 'comic-vine-sdk';
+
+// This is just an example, to try it out you would
+// have to visit (https://cors-anywhere.herokuapp.com)
+// to request temporary access.
+const comicVine = new ComicVine('your-api-key-here', {
+  baseUrl: 'https://cors-anywhere.herokuapp.com/https://www.comicvine.com/api/',
+});
 
 (async () => {
   try {
