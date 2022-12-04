@@ -251,7 +251,7 @@ const comicVine = new ComicVine('your-api-key-here');
   try {
     const listOptions = {
       filter: { name: 'The Boys' },
-      limit,
+      limit: 50,
     };
 
     let issueNames = [];
