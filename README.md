@@ -34,8 +34,6 @@ There's a good change you may find an issue with the typings in the API response
 
 ## Roadmap
 
-- Automatic Pagination
-
 - Expandable responses
 
 - Cached responses
