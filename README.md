@@ -211,7 +211,7 @@ const comicVine = new ComicVine('your-api-key-here');
 
 The Comic Vine API provides offset based pagination, this is done by providing a `limit` and `offset` in the request. The `limit` is the number of items to be returned in one page and the offset is the number of items to skip.
 
-To fetch a page with 50 results and then move to hte next page:
+To fetch a page with 50 results and then move to the next page:
 
 ```js
 import ComicVine from 'comic-vine-sdk';
