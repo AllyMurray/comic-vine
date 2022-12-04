@@ -7,106 +7,417 @@
   "status_code": 1,
   "results": {
     "aliases": null,
-    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-44/",
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-319366/",
     "associated_images": [],
     "character_credits": [
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-21893/",
-        "id": 21893,
-        "name": "Satan",
-        "site_detail_url": "https://comicvine.gamespot.com/satan/4005-21893/"
-      }
-    ],
-    "character_died_in": [],
-    "concept_credits": [
-      {
-        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-55939/",
-        "id": 55939,
-        "name": "Horror",
-        "site_detail_url": "https://comicvine.gamespot.com/horror/4015-55939/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-20577/",
+        "id": 20577,
+        "name": "Ant-Man (Lang)",
+        "site_detail_url": "https://comicvine.gamespot.com/ant-man-lang/4005-20577/"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56442/",
-        "id": 56442,
-        "name": "Sadism",
-        "site_detail_url": "https://comicvine.gamespot.com/sadism/4015-56442/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1462/",
+        "id": 1462,
+        "name": "Beast",
+        "site_detail_url": "https://comicvine.gamespot.com/beast/4005-1462/"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56161/",
-        "id": 56161,
-        "name": "Torture",
-        "site_detail_url": "https://comicvine.gamespot.com/torture/4015-56161/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1442/",
+        "id": 1442,
+        "name": "Captain America",
+        "site_detail_url": "https://comicvine.gamespot.com/captain-america/4005-1442/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-21561/",
+        "id": 21561,
+        "name": "Carol Danvers",
+        "site_detail_url": "https://comicvine.gamespot.com/carol-danvers/4005-21561/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40516/",
+        "id": 40516,
+        "name": "Cassie Lang",
+        "site_detail_url": "https://comicvine.gamespot.com/cassie-lang/4005-40516/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1460/",
+        "id": 1460,
+        "name": "Colossus",
+        "site_detail_url": "https://comicvine.gamespot.com/colossus/4005-1460/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1459/",
+        "id": 1459,
+        "name": "Cyclops",
+        "site_detail_url": "https://comicvine.gamespot.com/cyclops/4005-1459/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1468/",
+        "id": 1468,
+        "name": "Doctor Doom",
+        "site_detail_url": "https://comicvine.gamespot.com/doctor-doom/4005-1468/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1457/",
+        "id": 1457,
+        "name": "Emma Frost",
+        "site_detail_url": "https://comicvine.gamespot.com/emma-frost/4005-1457/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1499/",
+        "id": 1499,
+        "name": "Gambit",
+        "site_detail_url": "https://comicvine.gamespot.com/gambit/4005-1499/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1475/",
+        "id": 1475,
+        "name": "Hawkeye",
+        "site_detail_url": "https://comicvine.gamespot.com/hawkeye/4005-1475/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2259/",
+        "id": 2259,
+        "name": "Hulkling",
+        "site_detail_url": "https://comicvine.gamespot.com/hulkling/4005-2259/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1464/",
+        "id": 1464,
+        "name": "Iceman",
+        "site_detail_url": "https://comicvine.gamespot.com/iceman/4005-1464/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2263/",
+        "id": 2263,
+        "name": "Iron Lad",
+        "site_detail_url": "https://comicvine.gamespot.com/iron-lad/4005-2263/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1455/",
+        "id": 1455,
+        "name": "Iron Man",
+        "site_detail_url": "https://comicvine.gamespot.com/iron-man/4005-1455/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2265/",
+        "id": 2265,
+        "name": "Jessica Jones",
+        "site_detail_url": "https://comicvine.gamespot.com/jessica-jones/4005-2265/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2262/",
+        "id": 2262,
+        "name": "Kate Bishop",
+        "site_detail_url": "https://comicvine.gamespot.com/kate-bishop/4005-2262/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1450/",
+        "id": 1450,
+        "name": "Luke Cage",
+        "site_detail_url": "https://comicvine.gamespot.com/luke-cage/4005-1450/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-7910/",
+        "id": 7910,
+        "name": "Madrox",
+        "site_detail_url": "https://comicvine.gamespot.com/madrox/4005-7910/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1441/",
+        "id": 1441,
+        "name": "Magneto",
+        "site_detail_url": "https://comicvine.gamespot.com/magneto/4005-1441/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2258/",
+        "id": 2258,
+        "name": "Patriot",
+        "site_detail_url": "https://comicvine.gamespot.com/patriot/4005-2258/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1467/",
+        "id": 1467,
+        "name": "Quicksilver",
+        "site_detail_url": "https://comicvine.gamespot.com/quicksilver/4005-1467/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-10988/",
+        "id": 10988,
+        "name": "Rictor",
+        "site_detail_url": "https://comicvine.gamespot.com/rictor/4005-10988/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1446/",
+        "id": 1446,
+        "name": "Rogue",
+        "site_detail_url": "https://comicvine.gamespot.com/rogue/4005-1446/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1466/",
+        "id": 1466,
+        "name": "Scarlet Witch",
+        "site_detail_url": "https://comicvine.gamespot.com/scarlet-witch/4005-1466/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2156/",
+        "id": 2156,
+        "name": "Shatterstar",
+        "site_detail_url": "https://comicvine.gamespot.com/shatterstar/4005-2156/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40518/",
+        "id": 40518,
+        "name": "Speed",
+        "site_detail_url": "https://comicvine.gamespot.com/speed/4005-40518/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1443/",
+        "id": 1443,
+        "name": "Spider-Man",
+        "site_detail_url": "https://comicvine.gamespot.com/spider-man/4005-1443/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1444/",
+        "id": 1444,
+        "name": "Storm",
+        "site_detail_url": "https://comicvine.gamespot.com/storm/4005-1444/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-7599/",
+        "id": 7599,
+        "name": "Strong Guy",
+        "site_detail_url": "https://comicvine.gamespot.com/strong-guy/4005-7599/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1504/",
+        "id": 1504,
+        "name": "Vision",
+        "site_detail_url": "https://comicvine.gamespot.com/vision/4005-1504/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40505/",
+        "id": 40505,
+        "name": "Wiccan",
+        "site_detail_url": "https://comicvine.gamespot.com/wiccan/4005-40505/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1440/",
+        "id": 1440,
+        "name": "Wolverine",
+        "site_detail_url": "https://comicvine.gamespot.com/wolverine/4005-1440/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1465/",
+        "id": 1465,
+        "name": "Wonder Man",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-man/4005-1465/"
       }
     ],
-    "cover_date": "1952-11-30",
-    "date_added": "2008-06-06 11:10:20",
-    "date_last_updated": "2016-12-14 18:14:06",
+    "character_died_in": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1504/",
+        "id": 1504,
+        "name": "Vision",
+        "site_detail_url": "https://comicvine.gamespot.com/vision/4005-1504/"
+      }
+    ],
+    "concept_credits": [],
+    "cover_date": "2012-05-01",
+    "date_added": "2012-03-06 16:58:16",
+    "date_last_updated": "2013-03-14 05:01:51",
     "deck": null,
-    "description": null,
+    "description": "<p><i>The big climax that sets the stage big time for what is to come in 2012! - Deaths and departures! The final fate of the Scarlet Witch. A new lineup and a new direction for the Young Avengers.</i></p>",
     "first_appearance_characters": null,
     "first_appearance_concepts": null,
     "first_appearance_locations": null,
     "first_appearance_objects": null,
     "first_appearance_storyarcs": null,
     "first_appearance_teams": null,
-    "has_staff_review": false,
-    "id": 44,
+    "has_staff_review": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/review/1900-607/",
+      "id": 607,
+      "name": "Avengers: The Children's Crusade #9 Review",
+      "site_detail_url": "https://comicvine.gamespot.com/reviews/avengers-the-childrens-crusade-9/1900-607/"
+    },
+    "id": 319366,
     "image": {
-      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/43-1536-44-1-weird-terror.jpg",
-      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/43-1536-44-1-weird-terror.jpg",
-      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/43-1536-44-1-weird-terror.jpg",
-      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/43-1536-44-1-weird-terror.jpg",
-      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/43-1536-44-1-weird-terror.jpg",
-      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/43-1536-44-1-weird-terror.jpg",
-      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/43-1536-44-1-weird-terror.jpg",
-      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/43-1536-44-1-weird-terror.jpg",
-      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/4/43-1536-44-1-weird-terror.jpg",
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/11/110017/2232078-www.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/11/110017/2232078-www.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/11/110017/2232078-www.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/11/110017/2232078-www.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/11/110017/2232078-www.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/11/110017/2232078-www.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/11/110017/2232078-www.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/11/110017/2232078-www.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/11/110017/2232078-www.jpg",
       "image_tags": "All Images"
     },
-    "issue_number": "2",
-    "location_credits": [],
+    "issue_number": "9",
+    "location_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-41036/",
+        "id": 41036,
+        "name": "Avengers Mansion",
+        "site_detail_url": "https://comicvine.gamespot.com/avengers-mansion/4020-41036/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-41183/",
+        "id": 41183,
+        "name": "New York City",
+        "site_detail_url": "https://comicvine.gamespot.com/new-york-city/4020-41183/"
+      }
+    ],
     "name": null,
-    "object_credits": [],
+    "object_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-50737/",
+        "id": 50737,
+        "name": "Captain America's Shield",
+        "site_detail_url": "https://comicvine.gamespot.com/captain-americas-shield/4055-50737/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-50749/",
+        "id": 50749,
+        "name": "Iron Man Armor",
+        "site_detail_url": "https://comicvine.gamespot.com/iron-man-armor/4055-50749/"
+      }
+    ],
     "person_credits": [
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-6609/",
-        "id": 6609,
-        "name": "Don Heck",
-        "site_detail_url": "https://comicvine.gamespot.com/don-heck/4040-6609/",
-        "role": "artist"
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-56587/",
+        "id": 56587,
+        "name": "Alan Fine",
+        "site_detail_url": "https://comicvine.gamespot.com/alan-fine/4040-56587/",
+        "role": "production"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-43649/",
-        "id": 43649,
-        "name": "H.C. Kiefer",
-        "site_detail_url": "https://comicvine.gamespot.com/hc-kiefer/4040-43649/",
-        "role": "cover"
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-40596/",
+        "id": 40596,
+        "name": "Allan Heinberg",
+        "site_detail_url": "https://comicvine.gamespot.com/allan-heinberg/4040-40596/",
+        "role": "writer"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-2625/",
-        "id": 2625,
-        "name": "Pete Morisi",
-        "site_detail_url": "https://comicvine.gamespot.com/pete-morisi/4040-2625/",
-        "role": "artist"
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-23115/",
+        "id": 23115,
+        "name": "Axel Alonso",
+        "site_detail_url": "https://comicvine.gamespot.com/axel-alonso/4040-23115/",
+        "role": "editor"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-41781/",
+        "id": 41781,
+        "name": "Cory Petit",
+        "site_detail_url": "https://comicvine.gamespot.com/cory-petit/4040-41781/",
+        "role": "letterer"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-41596/",
+        "id": 41596,
+        "name": "Dan Buckley",
+        "site_detail_url": "https://comicvine.gamespot.com/dan-buckley/4040-41596/",
+        "role": "other"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-2256/",
+        "id": 2256,
+        "name": "Jim Cheung",
+        "site_detail_url": "https://comicvine.gamespot.com/jim-cheung/4040-2256/",
+        "role": "penciler, inker, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-1537/",
+        "id": 1537,
+        "name": "Joe Quesada",
+        "site_detail_url": "https://comicvine.gamespot.com/joe-quesada/4040-1537/",
+        "role": "other"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-2066/",
+        "id": 2066,
+        "name": "Justin Ponsor",
+        "site_detail_url": "https://comicvine.gamespot.com/justin-ponsor/4040-2066/",
+        "role": "colorist, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-47471/",
+        "id": 47471,
+        "name": "Lauren Sankovitch",
+        "site_detail_url": "https://comicvine.gamespot.com/lauren-sankovitch/4040-47471/",
+        "role": "editor"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-1774/",
+        "id": 1774,
+        "name": "Mark Morales",
+        "site_detail_url": "https://comicvine.gamespot.com/mark-morales/4040-1774/",
+        "role": "inker"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-41609/",
+        "id": 41609,
+        "name": "Tom Brevoort",
+        "site_detail_url": "https://comicvine.gamespot.com/tom-brevoort/4040-41609/",
+        "role": "editor"
       }
     ],
-    "site_detail_url": "https://comicvine.gamespot.com/weird-terror-2/4000-44/",
-    "store_date": null,
-    "story_arc_credits": [],
+    "site_detail_url": "https://comicvine.gamespot.com/avengers-the-childrens-crusade-9/4000-319366/",
+    "store_date": "2012-03-07",
+    "story_arc_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-56177/",
+        "id": 56177,
+        "name": "The Children's Crusade",
+        "site_detail_url": "https://comicvine.gamespot.com/the-childrens-crusade/4045-56177/"
+      }
+    ],
     "team_credits": [
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-59088/",
-        "id": 59088,
-        "name": "Gnomes",
-        "site_detail_url": "https://comicvine.gamespot.com/gnomes/4060-59088/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-3806/",
+        "id": 3806,
+        "name": "Avengers",
+        "site_detail_url": "https://comicvine.gamespot.com/avengers/4060-3806/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-4296/",
+        "id": 4296,
+        "name": "Sentinels",
+        "site_detail_url": "https://comicvine.gamespot.com/sentinels/4060-4296/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-24131/",
+        "id": 24131,
+        "name": "X-Factor",
+        "site_detail_url": "https://comicvine.gamespot.com/x-factor/4060-24131/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-3173/",
+        "id": 3173,
+        "name": "X-Men",
+        "site_detail_url": "https://comicvine.gamespot.com/x-men/4060-3173/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-40426/",
+        "id": 40426,
+        "name": "Young Avengers",
+        "site_detail_url": "https://comicvine.gamespot.com/young-avengers/4060-40426/"
       }
     ],
-    "team_disbanded_in": [],
+    "team_disbanded_in": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-40426/",
+        "id": 40426,
+        "name": "Young Avengers",
+        "site_detail_url": "https://comicvine.gamespot.com/young-avengers/4060-40426/"
+      }
+    ],
     "volume": {
-      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-1536/",
-      "id": 1536,
-      "name": "Weird Terror",
-      "site_detail_url": "https://comicvine.gamespot.com/weird-terror/4050-1536/"
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-34241/",
+      "id": 34241,
+      "name": "Avengers: The Children's Crusade",
+      "site_detail_url": "https://comicvine.gamespot.com/avengers-the-childrens-crusade/4050-34241/"
     }
   },
   "version": "1.0"

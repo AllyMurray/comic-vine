@@ -1,6 +1,6 @@
 # Comic Vine SDK
 
-The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine-api] from server side applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
+The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine-api] from applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
 
 ## Table of Contents
 
@@ -14,6 +14,7 @@ The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine
   - [Fetch a resource list](#fetch-a-resource-list)
   - [Limit the fields in the response payload](#limit-the-fields-in-the-response-payload)
   - [Pagination](#pagination)
+    - [Auto Pagination](#auto-pagination)
 - [Run Locally](#run-locally)
 - [Authors](#authors)
 
@@ -117,7 +118,9 @@ new ComicVine('your-api-key-here', options);
 
 **Default: https://comicvine.gamespot.com/api/**
 
-If using the package in node then leave this as the default value. The Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
+If using this package in node this should not need set, the default value will work.
+
+If using the package in a web browser then The Comic Vine API does not allow [cross-origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests. This option could be used to proxy the request assuming you have some safe way for the web client to fetch your api key, you don't want to send the api key to the browser in your JS bundle.
 
 ```js
 import ComicVine from 'comic-vine-sdk';
@@ -208,9 +211,9 @@ const comicVine = new ComicVine('your-api-key-here');
 
 ### Pagination
 
-The Comic Vine API supports pagination, this library currently just exposes the properties returned by the API. In a future version this will be updated to make pagination easier to use.
+The Comic Vine API provides offset based pagination, this is done by providing a `limit` and `offset` in the request. The `limit` is the number of items to be returned in one page and the offset is the number of items to skip.
 
-The following example fetches all volumes of the Boys with 20 items per page, it will continue making requests until all results are retrieved.
+To fetch a page with 50 results and then move to hte next page:
 
 ```js
 import ComicVine from 'comic-vine-sdk';
@@ -218,24 +221,48 @@ const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
   try {
-    const limit = 20;
-    const volumes = [];
-    let hasMoreResults = true;
-    let pageNumber = 0;
-    do {
-      pageNumber++;
-      const page = await comicVine.volume.list({
-        filter: { name: 'The Boys' },
-        limit,
-        offset: limit * pageNumber - limit,
-      });
-      volumes.push(...page.data);
-      hasMoreResults = volumes.length < page.numberOfTotalResults;
-    } while (hasMoreResults);
+    const limit: 50;
+    const filter: { name: 'The Boys' },
 
-    console.log(`Number of requests made to Comic Vine: ${pageNumber}`); // 2
-    console.log(`Total volumes: ${volumes.length}`); // 35
-    console.log(volumes); // An array of volume objects
+    // Retrieve the first 50 issues of The Boys (Page 1)
+    const issuesPage1 = await comicVine.issue.list({ limit, filter });
+    console.log(`Total issues: ${issuesPage1.data.length}`);
+    console.log(issuesPage1.data.map(issue => issue.name).join(', '));
+
+    // Retrieve the next 50 issues of The Boys (Page 2)
+    const issuesPage2 = await comicVine.issue.list({ limit, filter, offset: 50 });
+    console.log(`Total issues: ${issuesPage2.data.length}`);
+    console.log(issuesPage2.data.map(issue => issue.name).join(', '));
+  } catch (error) {
+    console.error(error);
+  }
+})();
+```
+
+#### Auto Pagination
+
+This feature allows calling any list method on a resource with `for await...of` rather than having to track the offset for making subsequent requests.
+
+It will make the first request and return an item from that response on each iteration, when there are no more items to return it will automatically fetch the next page from the API. This will continue until all pages have been retrieved.
+
+```js
+import ComicVine from 'comic-vine-sdk';
+const comicVine = new ComicVine('your-api-key-here');
+
+(async () => {
+  try {
+    const listOptions = {
+      filter: { name: 'The Boys' },
+      limit,
+    };
+
+    let issueNames = [];
+    for await (const issue of comicVine.issue.list(listOptions)) {
+      issueName.push(issue.name);
+    }
+
+    console.log(`Total issues: ${issueNames.length}`);
+    console.log(issueNames);
   } catch (error) {
     console.error(error);
   }

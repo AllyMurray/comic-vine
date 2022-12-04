@@ -7,68 +7,589 @@
   "status_code": 1,
   "results": {
     "aliases": null,
-    "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-40800/",
+    "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-40764/",
     "count_of_isssue_appearances": 0,
     "date_added": "2008-06-06 11:27:51",
-    "date_last_updated": "2013-03-01 13:32:33",
-    "deck": "The Blue Beetle, Ted Kord, has discovered something that has endangered his life, and the lives of others. Maxwell Lord has betrayed his former superhero colleagues, and plans to destroy them all.",
-    "description": "<h2>Collected Editions</h2><ul><li><a data-ref-id=\"4000-190552\" href=\"/booster-gold-52-pick-up-52-pick-up/4000-190552/\" slug=\"booster-gold-52-pick-up-52-pick-up\">Booster Gold: 52 Pick-Up</a></li><li><a data-ref-id=\"4050-18121\" href=\"/jla-earth-2/4050-18121/\" slug=\"jla-earth-2\">JLA: Earth-2</a></li><li><a data-ref-id=\"4050-22611\" href=\"/supergirl-beyond-good-and-evil/4050-22611/\" slug=\"supergirl-beyond-good-and-evil\">Supergirl: Beyond Good and Evil</a></li><li><a data-ref-id=\"4000-271014\" href=\"/wonder-woman-missions-end-missions-end/4000-271014/\" slug=\"wonder-woman-missions-end-missions-end\">Wonder Woman: Mission's End</a></li></ul><h2>Related Issues</h2><ul><li><a data-ref-id=\"4050-31460\" href=\"/batman-legends-of-the-dark-knight-special/4050-31460/\" slug=\"batman-legends-of-the-dark-knight-special\">Batman: Legends of the Dark Knight Special</a></li></ul><h2>Non-U.S. Editions</h2><ul><li><span><span><a data-ref-id=\"4000-286224\" href=\"/contagem-regressiva-para-crise-infinita-edicao-especial-/4000-286224/\" slug=\"contagem-regressiva-para-crise-infinita-edicao-especial-\">Contagem Regressiva para Crise Infinita - Edição Especial</a></span> (Brazil)</span></li></ul><h2>Novelization</h2><table class=\"t-editor full-width\"><tbody><tr><td><figure data-align=\"left\" data-embed-type=\"image\" data-img-src=\"https://static.comicvine.com/uploads/original/6/67663/2132301-countdown.jpg\" data-ref-id=\"1300-2132301\" data-size=\"medium\" data-ratio=\"1.4971098265896\"><a class=\"fluid-height\" style=\"padding-bottom:149.7%\" href=\"https://static.comicvine.com/uploads/original/6/67663/2132301-countdown.jpg\" data-ref-id=\"1300-2132301\"><img alt=\"No Caption Provided\" src=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132301-countdown.jpg\" srcset=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132301-countdown.jpg 173w\" sizes=\"(max-width: 173px) 100vw, 173px\" data-width=\"173\"></a></figure></td><td><blockquote><i>Cosmic legend has it that when the primordial gods of antiquity perished in some bygone cataclysm, the universe gave birth to a new breed of gods who reigned from two eternally warring worlds, the heavenly New Genesis and the hellish Apokolips. Now, a vast conspiracy of evil is determined to eradicate the New Gods, stealing their souls to wield universal power that can destroy all of reality.</i></blockquote><blockquote><i>At the end of an age in which time, space, and reality may bow before such sinister forces, the fate of the Earth lies in the hands of five unlikely super heroes who have one destiny to fulfill: to save the world at all costs, regardless of the consequences.</i></blockquote><blockquote>Written By: Greg Cox</blockquote><blockquote>Publisher: Ace Trade (July, 2009)</blockquote><blockquote>ISBN-10: 0441017185</blockquote></td></tr></tbody></table>",
-    "episodes": [],
-    "first_appeared_in_episode": null,
-    "first_appeared_in_issue": {
-      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-107912/",
-      "id": 107912,
-      "name": null,
-      "issue_number": "1"
+    "date_last_updated": "2018-04-28 00:30:27",
+    "deck": "Crisis on Infinite Earths was one of the biggest events in the DCU. It erased the DC Multiverse and rebooted many DC Heroes' origins. It mark's the end of the Silver and Bronze Ages of Comic Books.",
+    "description": "<p>In addition to the 12-part maxi series the following titles were part of the official crossover:</p><ul><li><a href=\"/all-star-squadron/4050-3070/\" data-ref-id=\"4050-3070\">All-Star Squadron</a> #50-56 (#60 unofficial)</li><li><a href=\"/amethyst/4050-3437/\" data-ref-id=\"4050-3437\">Amethyst</a> #13</li><li><a href=\"/blue-devil/4050-3307/\" data-ref-id=\"4050-3307\">Blue Devil</a> #17-18</li><li><a href=\"/dc-comics-presents/4050-2943/\" data-ref-id=\"4050-2943\">DC Comics Presents</a> #86-88 (#78, 95 unofficial)</li><li><a href=\"/detective-comics/4050-18058/\" data-ref-id=\"4050-18058\">Detective Comics</a> (#558 unofficial)</li><li><a href=\"/the-fury-of-firestorm/4050-3115/\" data-ref-id=\"4050-3115\">Fury of Firestorm</a> #41-42</li><li><a href=\"/green-lantern/4050-2839/\" data-ref-id=\"4050-2839\">Green Lantern</a> #194-195, 198 (#196 unofficial)</li><li><a href=\"/infinity-inc/4050-3308/\" data-ref-id=\"4050-3308\">Infinity, Inc</a>. #18-20, <a href=\"/infinity-inc-annual/4050-3448/\" data-ref-id=\"4050-3448\">Annual</a> #1, #21-24 (#25 unofficial)</li><li><a href=\"/justice-league-of-america/4050-2014/\" data-ref-id=\"4050-2014\">Justice League of America</a> #244-245, <a href=\"/justice-league-of-america-annual/4050-23371/\" data-ref-id=\"4050-23371\">Annual</a> #3</li><li><a href=\"/legion-of-super-heroes-1984/4050-3310/\" data-ref-id=\"4050-3310\">Legion of Super-Heroes</a> #18 (#16 unofficial)</li><li><a href=\"/losers-special/4050-23372/\" data-ref-id=\"4050-23372\">Losers Special</a> #1</li><li><a href=\"/the-new-teen-titans-vol-2/4050-3316/\" data-ref-id=\"4050-3316\">New Teen Titans</a> #13-14</li><li><a href=\"/the-omega-men/4050-3199/\" data-ref-id=\"4050-3199\">Omega Men</a> #31 (#33 unofficial)</li><li><a href=\"/superman/4050-773/\" data-ref-id=\"4050-773\">Superman</a> #414-415 (#413 unofficial)</li><li><a href=\"/swamp-thing/4050-3465/\" data-ref-id=\"4050-3465\">Swamp Thing</a> #46, (#44 unofficial)</li><li><a href=\"/wonder-woman/4050-18525/\" data-ref-id=\"4050-18525\">Wonder Woman</a> #327-329</li></ul><h2>Collected Editions</h2><ul><li><a href=\"/absolute-crisis-on-infinite-earths/4050-25048/\" data-ref-id=\"4050-25048\">Absolute Crisis On Infinite Earths</a></li><li><a href=\"/crisis-on-infinite-earths/4050-25735/\" data-ref-id=\"4050-25735\">Crisis on Infinite Earths</a></li></ul><h2>Related Items</h2><ul><li><a href=\"/dc-spotlight-/4000-177271/\" data-ref-id=\"4000-177271\">DC Spotlight</a></li><li><a href=\"/history-of-the-dc-universe-book-two/4000-27540/\" data-ref-id=\"4000-27540\">History of the DC Universe #2</a></li><li><a href=\"/jla-in-crisis-secret-files-and-origins/4050-30656/\" data-ref-id=\"4050-30656\">JLA in Crisis Secret Files and Origins</a></li><li><a href=\"/millennium-edition-crisis-on-infinite-earths-1/4050-32753/\" data-ref-id=\"4050-32753\">Millennium Edition: Crisis On Infinite Earths</a></li><li><a href=\"/official-crisis-on-infinite-earths-crossover-index/4050-23432/\" data-ref-id=\"4050-23432\">Official Crisis On Infinite Earths Crossover Index</a></li><li><a href=\"/the-life-story-of-the-flash/4050-33879/\" data-ref-id=\"4050-33879\">The Life Story of The Flash</a></li><li><a href=\"/the-official-crisis-on-infinite-earths-index/4050-23278/\" data-ref-id=\"4050-23278\">The Official Crisis on Infinite Earths Index</a></li></ul><h2>Non-U.S. Editions</h2><ul><li><a href=\"/crise-nas-infinitas-terras-/4000-286242/\" data-ref-id=\"4000-286242\">Crise nas Infinitas Terras #1</a></li><li><a href=\"/crise-nas-infinitas-terras-/4000-286243/\" data-ref-id=\"4000-286243\">Crise nas Infinitas Terras #2</a></li><li><a href=\"https://comicvine.gamespot.com/justice-league-of-america-crisis-7-band-7-1983-198/4000-667901/\">Justice League of America: Crisis - Band 7: 1983-1985</a> (Germany)</li></ul><h2>Novelization</h2><table><tbody><tr><td><figure data-align=\"left\" data-img-src=\"https://static.comicvine.com/uploads/original/6/67663/2132315-crisis.jpg\" data-ref-id=\"1300-2132315\" data-size=\"medium\" data-ratio=\"1.5706806282723\" data-width=\"191\" data-embed-type=\"image\" style=\"width: 191px\"><a class=\"fluid-height\" style=\"padding-bottom:157.1%\" href=\"https://static.comicvine.com/uploads/original/6/67663/2132315-crisis.jpg\" data-ref-id=\"1300-2132315\"><img alt=\"No Caption Provided\" src=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132315-crisis.jpg\" srcset=\"https://comicvine.gamespot.com/a/uploads/original/6/67663/2132315-crisis.jpg 191w\" sizes=\"(max-width: 191px) 100vw, 191px\" data-width=\"191\"></a></figure></td><td><blockquote><i>A spectacular and original novel based on the epic comics series that forever changed the universe of Superman and Batman by the man who created the original tale! Trapped in a timeless limbo, Barry Allen, the Flash, can only watch in silent and helpless horror as, one by one, countless universes fade from existence in order to feed the insatiable need for power of the Anti-Monitor, a being from the anti-matter universe of Qward. Under the guidance of the Monitor, his benevolent opposite, the super-heroes and villains of all realities are brought together for a last, desperate stand against the forces that promise the literal end of all existence.</i></blockquote><blockquote><ul><li>Written By: Marv Wolfman</li><li>Publisher: Ibooks (April, 2007)</li><li>ISBN-10: 1596873434</li><li>ISBN-13: 978-1596873438</li></ul></blockquote></td></tr></tbody></table>",
+    "episodes": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-29962/",
+        "id": 29962,
+        "name": "You Have Saved This City  ",
+        "site_detail_url": "https://comicvine.gamespot.com/arrow-722-you-have-saved-this-city/4070-29962/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31538/",
+        "id": 31538,
+        "name": "A Flash of the Lightning ",
+        "site_detail_url": "https://comicvine.gamespot.com/the-flash-602-a-flash-of-the-lightning/4070-31538/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31539/",
+        "id": 31539,
+        "name": "Starling City ",
+        "site_detail_url": "https://comicvine.gamespot.com/arrow-801-starling-city/4070-31539/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31783/",
+        "id": 31783,
+        "name": "The Last Temptation of Barry Allen, Pt. 2  ",
+        "site_detail_url": "https://comicvine.gamespot.com/the-flash-608-the-last-temptation-of-barry-allen-p/4070-31783/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31782/",
+        "id": 31782,
+        "name": "Purgatory  ",
+        "site_detail_url": "https://comicvine.gamespot.com/arrow-807-purgatory/4070-31782/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31798/",
+        "id": 31798,
+        "name": "Crisis on Infinite Earths: Part One ",
+        "site_detail_url": "https://comicvine.gamespot.com/supergirl-509-crisis-on-infinite-earths-part-one/4070-31798/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31810/",
+        "id": 31810,
+        "name": "Crisis on Infinite Earths: Part Two  ",
+        "site_detail_url": "https://comicvine.gamespot.com/batwoman-109-crisis-on-infinite-earths-part-two/4070-31810/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31811/",
+        "id": 31811,
+        "name": "The Book of Resistance: Chapter Four: Third Stone From the Sun  ",
+        "site_detail_url": "https://comicvine.gamespot.com/black-lightning-309-the-book-of-resistance-chapter/4070-31811/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-31813/",
+        "id": 31813,
+        "name": "Crisis on Infinite Earths: Part Three  ",
+        "site_detail_url": "https://comicvine.gamespot.com/the-flash-609-crisis-on-infinite-earths-part-three/4070-31813/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-32035/",
+        "id": 32035,
+        "name": "Crisis on Infinite Earths: Part Five ",
+        "site_detail_url": "https://comicvine.gamespot.com/legends-of-tomorrow-501-crisis-on-infinite-earths-/4070-32035/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-32034/",
+        "id": 32034,
+        "name": "Crisis on Infinite Earths: Part Four",
+        "site_detail_url": "https://comicvine.gamespot.com/arrow-808-crisis-on-infinite-earths-part-four/4070-32034/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/episodes/4070-32330/",
+        "id": 32330,
+        "name": "Deus Lex Machina ",
+        "site_detail_url": "https://comicvine.gamespot.com/supergirl-517-deus-lex-machina/4070-32330/"
+      }
+    ],
+    "first_appeared_in_episode": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_episode/4070-29962/",
+      "id": 29962,
+      "name": "You Have Saved This City  ",
+      "episode_number": "722"
     },
-    "id": 40800,
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-109965/",
+      "id": 109965,
+      "name": "Doctor Cyber's Revenge! / The Final Blackout",
+      "issue_number": "321"
+    },
+    "id": 40764,
     "image": {
-      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/54/81244-99319-countdown-to-infinit.jpg",
-      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/54/81244-99319-countdown-to-infinit.jpg",
-      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/54/81244-99319-countdown-to-infinit.jpg",
-      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/54/81244-99319-countdown-to-infinit.jpg",
-      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/54/81244-99319-countdown-to-infinit.jpg",
-      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/54/81244-99319-countdown-to-infinit.jpg",
-      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/54/81244-99319-countdown-to-infinit.jpg",
-      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/54/81244-99319-countdown-to-infinit.jpg",
-      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/54/81244-99319-countdown-to-infinit.jpg",
-      "image_tags": "All Images,Countdown to Infinite Crisis"
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/2532/150510-140433-crisis-on-infinite-e.jpg",
+      "image_tags": "All Images,gallery"
     },
     "issues": [
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-107912/",
-        "id": 107912,
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-109965/",
+        "id": 109965,
+        "name": "Doctor Cyber's Revenge! / The Final Blackout",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-321-doctor-cyber-s-revenge-the-final-/4000-109965/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25207/",
+        "id": 25207,
+        "name": "The Triad",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-78-the-triad/4000-25207/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25335/",
+        "id": 25335,
+        "name": "The Summoning",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-1-the-summoning/4000-25335/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25441/",
+        "id": 25441,
+        "name": "Time and Time Again",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-2-time-and-time-again/4000-25441/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25532/",
+        "id": 25532,
+        "name": "Oblivion Upon Us",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-3-oblivion-upon-us/4000-25532/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25638/",
+        "id": 25638,
+        "name": "And Thus Shall the World Die!",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-4-and-thus-shall-the-wor/4000-25638/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25734/",
+        "id": 25734,
+        "name": "Worlds in Limbo",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-5-worlds-in-limbo/4000-25734/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25834/",
+        "id": 25834,
+        "name": "3 Earths! 3 Deaths!",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-6-3-earths-3-deaths/4000-25834/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25842/",
+        "id": 25842,
+        "name": "Helix Goes To Hollywood!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-18-helix-goes-to-hollywood/4000-25842/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-109971/",
+        "id": 109971,
+        "name": "A World in Chaos!",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-327-a-world-in-chaos/4000-109971/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25919/",
+        "id": 25919,
+        "name": "Crisis Point",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-50-crisis-point/4000-25919/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25926/",
+        "id": 25926,
+        "name": "Beyond the Silent Night",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-7-beyond-the-silent-nigh/4000-25926/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25938/",
+        "id": 25938,
+        "name": "Crisis",
+        "site_detail_url": "https://comicvine.gamespot.com/the-new-teen-titans-13-crisis/4000-25938/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25925/",
+        "id": 25925,
+        "name": "Fish out of Water",
+        "site_detail_url": "https://comicvine.gamespot.com/blue-devil-17-fish-out-of-water/4000-25925/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25933/",
+        "id": 25933,
+        "name": "Last Crisis on Earth-Two!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-19-last-crisis-on-earth-two/4000-25933/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25939/",
+        "id": 25939,
+        "name": "In Transit",
+        "site_detail_url": "https://comicvine.gamespot.com/the-omega-men-31-in-transit/4000-25939/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25927/",
+        "id": 25927,
+        "name": "Into the Valley of the Shadow...!",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-86-into-the-valley-of-the-shado/4000-25927/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26041/",
+        "id": 26041,
+        "name": "Baptism",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-16-baptism/4000-26041/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26040/",
+        "id": 26040,
+        "name": "The Final Crisis",
+        "site_detail_url": "https://comicvine.gamespot.com/justice-league-of-america-244-the-final-crisis/4000-26040/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26049/",
+        "id": 26049,
+        "name": "Superman -- Your World is Mine!",
+        "site_detail_url": "https://comicvine.gamespot.com/superman-413-superman-your-world-is-mine/4000-26049/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26025/",
+        "id": 26025,
+        "name": "The Monster Society of Evil",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-51-the-monster-society-of-evil/4000-26025/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26031/",
+        "id": 26031,
+        "name": "A Flash of the Lightning",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-8-a-flash-of-the-lightni/4000-26031/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26043/",
+        "id": 26043,
+        "name": "The Light Within...the Dark Without!",
+        "site_detail_url": "https://comicvine.gamespot.com/the-new-teen-titans-14-the-light-withinthe-dark-wi/4000-26043/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26030/",
+        "id": 26030,
+        "name": "The Last Parallel World Story",
+        "site_detail_url": "https://comicvine.gamespot.com/blue-devil-18-the-last-parallel-world-story/4000-26030/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26037/",
+        "id": 26037,
+        "name": "5",
+        "site_detail_url": "https://comicvine.gamespot.com/green-lantern-194-5/4000-26037/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26039/",
+        "id": 26039,
+        "name": "Crisis on Infinitors' Earth",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-20-crisis-on-infinitors-earth/4000-26039/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26028/",
+        "id": 26028,
+        "name": "Red Skies",
+        "site_detail_url": "https://comicvine.gamespot.com/batman-389-red-skies/4000-26028/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26035/",
+        "id": 26035,
+        "name": "Storm Warning",
+        "site_detail_url": "https://comicvine.gamespot.com/the-fury-of-firestorm-41-storm-warning/4000-26035/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-113011/",
+        "id": 113011,
+        "name": "The Bleeding Night / Zen and the Art of Dying",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-556-the-bleeding-night-zen-and-th/4000-113011/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26033/",
+        "id": 26033,
+        "name": "Year of the Comet; The Origin of Superboy-Prime!",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-87-year-of-the-comet-the-origin/4000-26033/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26132/",
+        "id": 26132,
+        "name": "From Fear To Eternity/Shanghaied Into Hyperspace! Interlude One",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-52-from-fear-to-eternityshanghai/4000-26132/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26138/",
+        "id": 26138,
+        "name": "War Zone",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-9-war-zone/4000-26138/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-140269/",
+        "id": 140269,
+        "name": "Losers Die Twice!",
+        "site_detail_url": "https://comicvine.gamespot.com/losers-special-1-losers-die-twice/4000-140269/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-25053/",
+        "id": 25053,
+        "name": "Green Dreams & Precious Illusions",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-annual-1-green-dreams-precious-illusi/4000-25053/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26137/",
+        "id": 26137,
+        "name": "Ice Cream, You Scream! / In the Multiverse / Guest Star / Still in the Multiverse! / Dear Pen Pal...",
+        "site_detail_url": "https://comicvine.gamespot.com/blue-devil-19-ice-cream-you-scream-in-the-multiver/4000-26137/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26142/",
+        "id": 26142,
+        "name": "4",
+        "site_detail_url": "https://comicvine.gamespot.com/green-lantern-195-4/4000-26142/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26144/",
+        "id": 26144,
+        "name": "Shadows at Midnight!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-21-shadows-at-midnight/4000-26144/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26145/",
+        "id": 26145,
+        "name": "The Long Road Home",
+        "site_detail_url": "https://comicvine.gamespot.com/justice-league-of-america-245-the-long-road-home/4000-26145/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-140268/",
+        "id": 140268,
+        "name": "Force of Nature",
+        "site_detail_url": "https://comicvine.gamespot.com/justice-league-of-america-annual-3-force-of-nature/4000-140268/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-109972/",
+        "id": 109972,
+        "name": "To Everything a Season...",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-328-to-everything-a-season/4000-109972/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26149/",
+        "id": 26149,
+        "name": "Storm Warnings / Vega Demon with the Healing Hand",
+        "site_detail_url": "https://comicvine.gamespot.com/the-omega-men-33-storm-warnings-vega-demon-with-th/4000-26149/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26134/",
+        "id": 26134,
+        "name": "Women Dark and Dangerous",
+        "site_detail_url": "https://comicvine.gamespot.com/batman-390-women-dark-and-dangerous/4000-26134/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26154/",
+        "id": 26154,
+        "name": "Revenge is Life -- Death to Superman!",
+        "site_detail_url": "https://comicvine.gamespot.com/superman-414-revenge-is-life-death-to-superman/4000-26154/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26141/",
+        "id": 26141,
+        "name": "A Long Night's Journey into Day",
+        "site_detail_url": "https://comicvine.gamespot.com/the-fury-of-firestorm-42-a-long-nights-journey-int/4000-26141/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-113012/",
+        "id": 113012,
+        "name": "Still Beating / The Pursuit of Wisdom",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-557-still-beating-the-pursuit-of-/4000-113012/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26140/",
+        "id": 26140,
+        "name": "Prophecy of the Demon-Plague!",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-88-prophecy-of-the-demon-plague/4000-26140/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26347/",
+        "id": 26347,
+        "name": "Death at the Dawn of Time!; The Monitor Tapes...",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-10-death-at-the-dawn-of-/4000-26347/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26341/",
+        "id": 26341,
+        "name": "Worlds in Turmoil",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-53-worlds-in-turmoil/4000-26341/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26356/",
+        "id": 26356,
+        "name": "Has Anyone Noticed a Crisis Going On?",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-18-has-anyone-noticed-a-cri/4000-26356/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26352/",
+        "id": 26352,
+        "name": "3",
+        "site_detail_url": "https://comicvine.gamespot.com/green-lantern-196-3/4000-26352/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26354/",
+        "id": 26354,
+        "name": "Uncivil Wars!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-22-uncivil-wars/4000-26354/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26343/",
+        "id": 26343,
+        "name": "Death Comes as the End!",
+        "site_detail_url": "https://comicvine.gamespot.com/batman-391-death-comes-as-the-end/4000-26343/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26366/",
+        "id": 26366,
+        "name": "Supergirl: Bride of -- X?",
+        "site_detail_url": "https://comicvine.gamespot.com/superman-415-supergirl-bride-of-x/4000-26366/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-113013/",
+        "id": 113013,
+        "name": "Strange Loves / Believe everything I Hear",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-558-strange-loves-believe-everyth/4000-113013/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26452/",
+        "id": 26452,
+        "name": "Aftershock",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-11-aftershock/4000-26452/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26445/",
+        "id": 26445,
+        "name": "The Hand of Fate",
+        "site_detail_url": "https://comicvine.gamespot.com/amethyst-princess-of-gemworld-13-the-hand-of-fate/4000-26445/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26456/",
+        "id": 26456,
+        "name": "2",
+        "site_detail_url": "https://comicvine.gamespot.com/green-lantern-197-2/4000-26456/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26458/",
+        "id": 26458,
+        "name": "Feithera by Stormlight!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-23-feithera-by-stormlight/4000-26458/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26444/",
+        "id": 26444,
+        "name": "The Crisis Comes to 1942! (And Vice Versa)",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-54-the-crisis-comes-to-1942-and-/4000-26444/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26549/",
+        "id": 26549,
+        "name": "Crisis at Canaveral/Shanghaied Into Space! Interlude Two",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-55-crisis-at-canaveralshanghaied/4000-26549/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26556/",
+        "id": 26556,
+        "name": "Final Crisis",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths-12-final-crisis/4000-26556/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26562/",
+        "id": 26562,
+        "name": "\"1/ 0\"",
+        "site_detail_url": "https://comicvine.gamespot.com/green-lantern-198-1-0/4000-26562/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26564/",
+        "id": 26564,
+        "name": "Back From the Future!",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-24-back-from-the-future/4000-26564/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-109973/",
+        "id": 109973,
+        "name": "Of Gods and Men",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-329-of-gods-and-men/4000-109973/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26575/",
+        "id": 26575,
+        "name": "Revelations",
+        "site_detail_url": "https://comicvine.gamespot.com/swamp-thing-46-revelations/4000-26575/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26641/",
+        "id": 26641,
+        "name": "The Sinister Secret of the Sixth Sense!; \"Shanghaied Into Hyperspace!\"-Interlude Three",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-56-the-sinister-secret-of-the-si/4000-26641/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26655/",
+        "id": 26655,
+        "name": "Business As Usual...",
+        "site_detail_url": "https://comicvine.gamespot.com/infinity-inc-25-business-as-usual/4000-26655/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26839/",
+        "id": 26839,
+        "name": "The Challenge of the Volt Lord",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-94-the-challenge-of-the-volt-lo/4000-26839/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-26941/",
+        "id": 26941,
+        "name": "The Big Kill!",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-comics-presents-95-the-big-kill/4000-26941/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-27031/",
+        "id": 27031,
+        "name": "The End of the Beginning",
+        "site_detail_url": "https://comicvine.gamespot.com/all-star-squadron-60-the-end-of-the-beginning/4000-27031/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-150946/",
+        "id": 150946,
+        "name": "The Untold Story",
+        "site_detail_url": "https://comicvine.gamespot.com/legends-of-the-dc-universe-crisis-on-infinite-eart/4000-150946/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-76361/",
+        "id": 76361,
+        "name": "The Quick and the Dead",
+        "site_detail_url": "https://comicvine.gamespot.com/deadman-dead-again-1-the-quick-and-the-dead/4000-76361/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-51441/",
+        "id": 51441,
+        "name": "Crisis",
+        "site_detail_url": "https://comicvine.gamespot.com/jla-incarnations-5-crisis/4000-51441/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-80574/",
+        "id": 80574,
+        "name": "Stealing Thunder, Prologue",
+        "site_detail_url": "https://comicvine.gamespot.com/jsa-32-stealing-thunder-prologue/4000-80574/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-472853/",
+        "id": 472853,
         "name": "",
-        "site_detail_url": "https://comicvine.gamespot.com/countdown-to-infinite-crisis-1/4000-107912/"
+        "site_detail_url": "https://comicvine.gamespot.com/clasicos-dc-nuevos-titanes-21/4000-472853/"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-107684/",
-        "id": 107684,
-        "name": "Affirmative Defense (Sacrifice, Aftermath)",
-        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-220-affirmative-defense-sacrifice-aft/4000-107684/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-129019/",
+        "id": 129019,
+        "name": "Let There Be Lightning",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-universe-0-let-there-be-lightning/4000-129019/"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-107685/",
-        "id": 107685,
-        "name": "Pride of the Amazons",
-        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman-221-pride-of-the-amazons/4000-107685/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-234645/",
+        "id": 234645,
+        "name": "Crisis!; Snapshot: Resistance",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-universe-legacies-5-crisis-snapshot-resistance/4000-234645/"
       },
       {
-        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-265983/",
-        "id": 265983,
-        "name": "Truth and Consequences!; Snapshot: Redemption!",
-        "site_detail_url": "https://comicvine.gamespot.com/dc-universe-legacies-10-truth-and-consequences-sna/4000-265983/"
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-239025/",
+        "id": 239025,
+        "name": "Aftermath!; Snapshot: Revision!",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-universe-legacies-6-aftermath-snapshot-revision/4000-239025/"
       }
     ],
-    "movies": [],
-    "name": "Countdown to Infinite Crisis",
+    "name": "Crisis on Infinite Earths",
     "publisher": {
       "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-10/",
       "id": 10,
       "name": "DC Comics",
       "site_detail_url": "https://comicvine.gamespot.com/dc-comics/4010-10/"
     },
-    "site_detail_url": "https://comicvine.gamespot.com/countdown-to-infinite-crisis/4045-40800/"
+    "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths/4045-40764/"
   },
   "version": "1.0"
 }
