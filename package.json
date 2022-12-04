@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.2",
+    "@semantic-release/git": "10.0.1",
     "@types/clone-deep": "4.0.1",
     "@types/jest": "29.1.1",
     "@types/node": "16.11.59",
