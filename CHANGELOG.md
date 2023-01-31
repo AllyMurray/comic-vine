@@ -1,3 +1,9 @@
+## [1.2.4](https://github.com/AllyMurray/comic-vine/compare/v1.2.3...v1.2.4) (2023-01-31)
+
+### Bug Fixes
+
+- :package: publish typings to npm ([f132dd6](https://github.com/AllyMurray/comic-vine/commit/f132dd6e3d8a2983e5e8b20434c6d491123503e4))
+
 ## [1.2.3](https://github.com/AllyMurray/comic-vine/compare/v1.2.2...v1.2.3) (2023-01-22)
 
 ### Bug Fixes

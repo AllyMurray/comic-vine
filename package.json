@@ -1,6 +1,6 @@
 {
   "name": "comic-vine-sdk",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A JS/TS client for the Comic Vine API",
   "keywords": [
     "comic",
