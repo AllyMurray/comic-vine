@@ -47,7 +47,7 @@
   "dependencies": {
     "axios": "0.27.2",
     "clone-deep": "4.0.1",
-    "zod": "3.20.5"
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.2",
