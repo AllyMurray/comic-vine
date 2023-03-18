@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/AllyMurray/comic-vine/compare/v1.2.4...v1.2.5) (2023-03-18)
+
+### Bug Fixes
+
+- upgrade zod from 3.20.2 to 3.20.5 ([31755e7](https://github.com/AllyMurray/comic-vine/commit/31755e711b7a61fced6da6554461b45f4db43046))
+- upgrade zod from 3.20.5 to 3.20.6 ([4c32d5b](https://github.com/AllyMurray/comic-vine/commit/4c32d5b8f8d94da50a1a4c456f360dbe9d53beaf))
+
 ## [1.2.4](https://github.com/AllyMurray/comic-vine/compare/v1.2.3...v1.2.4) (2023-01-31)
 
 ### Bug Fixes
