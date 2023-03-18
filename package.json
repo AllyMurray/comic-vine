@@ -1,5 +1,6 @@
 {
   "name": "comic-vine-sdk",
+  "version": "1.2.5",
   "description": "A JS/TS client for the Comic Vine API",
   "repository": {
     "type": "git",
@@ -80,7 +81,6 @@
   "main": "lib/cjs/index.js",
   "license": "MIT",
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
-  "version": "0.0.0",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
