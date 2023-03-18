@@ -15,7 +15,7 @@ describe('getResource', () => {
   });
 
   test('should throw error when resource not found', () => {
-    const UnknownResource = 9999;
+    const UnknownResource = 9999 as ResourceType;
     expect(() => getResource(UnknownResource)).toThrow(
       new Error(`Resource type (${UnknownResource}) not found`)
     );
