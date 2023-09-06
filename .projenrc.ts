@@ -21,6 +21,14 @@ const project = new TypeScriptNpmPackage({
     'vitest',
   ],
   projenrcTs: true,
+  tsconfig: {
+    compilerOptions: {
+      module: 'Node16',
+      target: 'ES2020',
+      // @ts-expect-error types is missing from compilerOptions
+      types: ['vitest/globals'],
+    },
+  },
   gitignore: ['.DS_Store', '*yalc*', 'test-reports'],
   jest: false,
   repository: `${repository}.git`,
