@@ -1,4 +1,4 @@
-import ComicVine from './index.js';
+import { ComicVine } from './comic-vine.js';
 import * as resources from './resources/resource-list.js';
 import type { ValueOf } from './types/index.js';
 
