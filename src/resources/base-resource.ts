@@ -54,8 +54,8 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>,
   ) {
     // Proxy the call to this.fetchPage so that we can close over `this`, allowing access in the iterator
-    const fetchPage = (options?: Parameters<typeof this.fetchPage>[0]) =>
-      this.fetchPage.call(this, options);
+    const fetchPage = (opts?: Parameters<typeof this.fetchPage>[0]) =>
+      this.fetchPage.call(this, opts);
     const fetchPagePromise = fetchPage(options);
 
     const asyncIterator = {

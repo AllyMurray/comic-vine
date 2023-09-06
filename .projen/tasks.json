@@ -78,9 +78,6 @@
       "description": "Only compile",
       "steps": [
         {
-          "exec": "tsc --project tsconfig.build.types.json"
-        },
-        {
           "exec": "tsc --project tsconfig.build.esm.json"
         },
         {

@@ -22,11 +22,13 @@ const project = new TypeScriptNpmPackage({
   ],
   projenrcTs: true,
   tsconfig: {
+    exclude: ['node_modules'],
     compilerOptions: {
       module: 'Node16',
       target: 'ES2020',
       // @ts-expect-error types is missing from compilerOptions
       types: ['vitest/globals'],
+      skipLibCheck: true,
     },
   },
   gitignore: ['.DS_Store', '*yalc*', 'test-reports'],
@@ -55,6 +57,19 @@ const project = new TypeScriptNpmPackage({
 project.npmrc.addConfig('save-exact', 'true');
 
 project.testTask.prependExec('vitest --dir=src', { receiveArgs: true });
+
+project.eslint?.addOverride({
+  files: ['*.test.ts'],
+  rules: {
+    'dot-notation': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
+  },
+});
 
 project.synth();
 

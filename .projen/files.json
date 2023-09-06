@@ -20,7 +20,6 @@
     "scripts/create-package-json.ts",
     "tsconfig.build.cjs.json",
     "tsconfig.build.esm.json",
-    "tsconfig.build.types.json",
     "tsconfig.dev.json",
     "tsconfig.json"
   ],

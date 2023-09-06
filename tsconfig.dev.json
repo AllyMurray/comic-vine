@@ -26,7 +26,8 @@
     "target": "ES2020",
     "types": [
       "vitest/globals"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": [
     ".projenrc.js",
@@ -36,6 +37,7 @@
     "projenrc/**/*.ts"
   ],
   "exclude": [
+    "node_modules",
     "node_modules"
   ],
   "ts-node": {

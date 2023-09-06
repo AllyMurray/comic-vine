@@ -4,7 +4,10 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Movie', () => {
   const httpClient = HttpClientFactory.createClient();
-  const urlBuilder = HttpClientFactory.createUrlBuilder('mock-api-key', 'https://mock-base-url/');
+  const urlBuilder = HttpClientFactory.createUrlBuilder(
+    'mock-api-key',
+    'https://mock-base-url/',
+  );
 
   it('should have the correct resource type', () => {
     const resource = new Movie(httpClient, urlBuilder);
