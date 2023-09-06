@@ -1,5 +1,6 @@
 import nock from 'nock';
-import { HttpClient } from './http-client';
+import { HttpClient } from './http-client.js';
+import { StatusCode } from './status-code.js';
 import {
   ComicJsonpCallbackMissingError,
   ComicVineFilterError,
@@ -8,8 +9,7 @@ import {
   ComicVineSubscriberOnlyError,
   ComicVineUnauthorizedError,
   ComicVineUrlFormatError,
-} from '../errors';
-import { StatusCode } from './status-code';
+} from '../errors/index.js';
 
 const baseUrl = 'https://comicvine.gamespot.com/api';
 
@@ -24,7 +24,7 @@ interface SnakeCaseResponse {
 }
 
 const getMockResponse = (
-  overrides: Partial<SnakeCaseResponse>
+  overrides: Partial<SnakeCaseResponse>,
 ): SnakeCaseResponse => {
   return {
     error: 'OK',
@@ -73,7 +73,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/filter-error`)
+      httpClient.get(`${baseUrl}/filter-error`),
     ).rejects.toThrowError(new ComicVineFilterError());
   });
 
@@ -86,7 +86,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(httpClient.get(`${baseUrl}/jsonp-error`)).rejects.toThrowError(
-      new ComicJsonpCallbackMissingError()
+      new ComicJsonpCallbackMissingError(),
     );
   });
 
@@ -99,7 +99,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/object-not-found-error`)
+      httpClient.get(`${baseUrl}/object-not-found-error`),
     ).rejects.toThrowError(new ComicVineObjectNotFoundError());
   });
 
@@ -112,7 +112,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/subscriber-only-video`)
+      httpClient.get(`${baseUrl}/subscriber-only-video`),
     ).rejects.toThrowError(new ComicVineSubscriberOnlyError());
   });
 
@@ -125,7 +125,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/url-format-error`)
+      httpClient.get(`${baseUrl}/url-format-error`),
     ).rejects.toThrowError(new ComicVineUrlFormatError());
   });
 
@@ -143,7 +143,7 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/unauthorized`)
+      httpClient.get(`${baseUrl}/unauthorized`),
     ).rejects.toThrowError(new ComicVineUnauthorizedError());
   });
 
@@ -156,11 +156,11 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/unknown-error`)
+      httpClient.get(`${baseUrl}/unknown-error`),
     ).rejects.toThrowError(
       new ComicVineGenericRequestError(
-        `Request failed with status code 500, ${errorMessage}`
-      )
+        `Request failed with status code 500, ${errorMessage}`,
+      ),
     );
   });
 
@@ -170,9 +170,9 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/unknown-error`)
+      httpClient.get(`${baseUrl}/unknown-error`),
     ).rejects.toThrowError(
-      new ComicVineGenericRequestError(`Request failed with status code 500`)
+      new ComicVineGenericRequestError(`Request failed with status code 500`),
     );
   });
 
@@ -182,9 +182,9 @@ describe('HttpClient', () => {
 
     // Act/Assert
     await expect(
-      httpClient.get(`${baseUrl}/failed-request`)
+      httpClient.get(`${baseUrl}/failed-request`),
     ).rejects.toThrowError(
-      new ComicVineGenericRequestError(`Complete failure`)
+      new ComicVineGenericRequestError(`Complete failure`),
     );
   });
 });

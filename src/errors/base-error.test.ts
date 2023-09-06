@@ -1,4 +1,4 @@
-import { BaseError } from './base-error';
+import { BaseError } from './base-error.js';
 
 class TestComicVineError extends BaseError {}
 function throwTestComicVineError() {
@@ -43,7 +43,7 @@ describe('BaseError', () => {
         throwTestComicVineError();
       } catch (error) {
         expect((error as TestComicVineError).stack?.split('\n')[0]).toBe(
-          'TestComicVineError: Test message'
+          'TestComicVineError: Test message',
         );
       }
     });
@@ -56,7 +56,7 @@ describe('BaseError', () => {
         expect(
           (error as TestComicVineError).stack
             ?.split('\n')[1]
-            .indexOf('throwTestComicVineError')
+            .indexOf('throwTestComicVineError'),
         ).toBe(7);
       }
     });

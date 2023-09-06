@@ -1,2 +1,2 @@
-export * from './character-details';
-export * from './character-list-item';
+export * from './character-details.js';
+export * from './character-list-item.js';

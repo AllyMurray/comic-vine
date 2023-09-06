@@ -23,7 +23,7 @@ describe('loadOptions', () => {
   });
 
   it('should return the default values when no options are provided', async () => {
-    const optionsModule = await import('./index');
+    const optionsModule = await import('./index.js');
 
     const options = optionsModule.loadOptions();
 
@@ -33,30 +33,30 @@ describe('loadOptions', () => {
   });
 
   it('should through if validation fails', async () => {
-    const optionsModule = await import('./index');
+    const optionsModule = await import('./index.js');
 
     expect(() =>
-      optionsModule.loadOptions({ baseUrl: '@not-a-valid-url' })
+      optionsModule.loadOptions({ baseUrl: '@not-a-valid-url' }),
     ).toThrow('Property: baseUrl, Problem: Invalid url');
   });
 
   it('should through if there is an unexpected error with an error message', async () => {
     mockError('not a Zod validation error');
-    const optionsModule = await import('./index');
+    const optionsModule = await import('./index.js');
     expect(() =>
       optionsModule.loadOptions({
         baseUrl: 'https://comicvine.gamespot.com/api/',
-      })
+      }),
     ).toThrow('An unexpected error occurred: not a Zod validation error');
   });
 
   it('should through if there is an unexpected error with no error message', async () => {
     mockError();
-    const optionsModule = await import('./index');
+    const optionsModule = await import('./index.js');
     expect(() =>
       optionsModule.loadOptions({
         baseUrl: 'https://comicvine.gamespot.com/api/',
-      })
+      }),
     ).toThrow('An unexpected error occurred: Unknown Error');
   });
 });

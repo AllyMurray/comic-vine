@@ -1,1 +1,1 @@
-export * from './episode';
+export * from './episode.js';

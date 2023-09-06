@@ -1,1 +1,1 @@
-export * from './video-type';
+export * from './video-type.js';

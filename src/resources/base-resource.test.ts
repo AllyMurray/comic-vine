@@ -1,29 +1,27 @@
-import nock from 'nock';
 import cloneDeep from 'clone-deep';
-import { HttpClientFactory } from '../http-client';
-import { Issue } from './issue/issue';
-
-import apiRetrieveResponse from '../__mocks__/api-response/issue-details.json';
-import expectedRetrieveResult from '../__mocks__/expected-responses/issue-details.json';
-
-import apiListResponse from '../__mocks__/api-response/issue-list.json';
-import expectedListResult from '../__mocks__/expected-responses/issue-list.json';
-
-import apiListAutoPaginationResponseNoLimitNoOffset from '../__mocks__/api-response/issue-list-auto-pagination-no-limit-or-offset.json';
-import expectedAutoPaginationResponseNoLimitNoOffset from '../__mocks__/expected-responses/issue-list-auto-pagination-no-limit-or-offset.json';
-
-import apiListAutoPaginationResponseLimit50 from '../__mocks__/api-response/issue-list-auto-pagination-limit-50.json';
-import expectedAutoPaginationResponseLimit50 from '../__mocks__/expected-responses/issue-list-auto-pagination-limit-50.json';
+import nock from 'nock';
+import { Issue } from './issue/index.js';
 
 import apiErrorInUrlFormatResponse from '../__mocks__/api-error-response/error-in-url-format-response.json';
-import { ComicVineUrlFormatError } from '../errors';
+import apiRetrieveResponse from '../__mocks__/api-response/issue-details.json';
+import apiListAutoPaginationResponseLimit50 from '../__mocks__/api-response/issue-list-auto-pagination-limit-50.json';
+import apiListAutoPaginationResponseNoLimitNoOffset from '../__mocks__/api-response/issue-list-auto-pagination-no-limit-or-offset.json';
+import apiListResponse from '../__mocks__/api-response/issue-list.json';
+import expectedRetrieveResult from '../__mocks__/expected-responses/issue-details.json';
+
+import expectedAutoPaginationResponseLimit50 from '../__mocks__/expected-responses/issue-list-auto-pagination-limit-50.json';
+import expectedAutoPaginationResponseNoLimitNoOffset from '../__mocks__/expected-responses/issue-list-auto-pagination-no-limit-or-offset.json';
+import expectedListResult from '../__mocks__/expected-responses/issue-list.json';
+
+import { ComicVineUrlFormatError } from '../errors/index.js';
+import { HttpClientFactory } from '../http-client/index.js';
 
 const baseUrl = 'https://comicvine.gamespot.com/api/';
 
 const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
   return Object.assign(
     {},
-    ...properties.map((prop) => ({ [prop]: obj[prop] }))
+    ...properties.map((prop) => ({ [prop]: obj[prop] })),
   );
 };
 
@@ -32,7 +30,7 @@ describe('Issue', () => {
   const httpClient = HttpClientFactory.createClient();
   const urlBuilder = HttpClientFactory.createUrlBuilder(
     'mock-api-key',
-    baseUrl
+    baseUrl,
   );
 
   describe('retrieve', () => {
@@ -62,7 +60,7 @@ describe('Issue', () => {
       };
       nock(baseUrl)
         .get(
-          '/issue/4000-1?format=json&api_key=mock-api-key&field_list=id%2Cname'
+          '/issue/4000-1?format=json&api_key=mock-api-key&field_list=id%2Cname',
         )
         .reply(200, mockApiResponse);
       const issue = new Issue(httpClient, urlBuilder);
@@ -97,13 +95,13 @@ describe('Issue', () => {
       const expectedResult = {
         ...cloneDeep(expectedListResult),
         data: apiListResponse.results.map((item) =>
-          pickProperties(item, ['id', 'name'])
+          pickProperties(item, ['id', 'name']),
         ),
       };
       const mockApiResponse = {
         ...cloneDeep(apiListResponse),
         results: apiListResponse.results.map((item) =>
-          pickProperties(item, ['id', 'name'])
+          pickProperties(item, ['id', 'name']),
         ),
       };
       nock(baseUrl)
@@ -132,7 +130,7 @@ describe('Issue', () => {
 
       // Assert
       expect(response).toStrictEqual(
-        expectedAutoPaginationResponseLimit50.page1
+        expectedAutoPaginationResponseLimit50.page1,
       );
     });
 
@@ -148,7 +146,7 @@ describe('Issue', () => {
 
       // Assert
       expect(response).toStrictEqual(
-        expectedAutoPaginationResponseNoLimitNoOffset.page2
+        expectedAutoPaginationResponseNoLimitNoOffset.page2,
       );
     });
 
@@ -161,7 +159,7 @@ describe('Issue', () => {
 
       // Act / Assert
       await expect(() => issue.list()).rejects.toBeInstanceOf(
-        ComicVineUrlFormatError
+        ComicVineUrlFormatError,
       );
     });
 

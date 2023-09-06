@@ -1,4 +1,4 @@
-import { StatusCode } from '../http-client/status-code';
+import { StatusCode } from '../http-client/status-code.js';
 
 export interface Response<Result> {
   // A text string representing the status_code

@@ -1,6 +1,6 @@
-import { userOptions, loadOptions } from './options';
-import { HttpClientFactory } from './http-client';
-import { ResourceFactory } from './resources';
+import { HttpClientFactory } from './http-client/index.js';
+import { userOptions, loadOptions } from './options/index.js';
+import { ResourceFactory } from './resources/index.js';
 
 export class ComicVine {
   private _character;
@@ -28,7 +28,7 @@ export class ComicVine {
     const httpClient = HttpClientFactory.createClient();
     const urlBuilder = HttpClientFactory.createUrlBuilder(
       key,
-      _options.baseUrl
+      _options.baseUrl,
     );
     const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 

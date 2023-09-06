@@ -1,7 +1,6 @@
-import type { ValueOf } from './types';
-
-import ComicVine from '.';
-import * as resources from './resources/resource-list';
+import ComicVine from './comic-vine.js';
+import * as resources from './resources/resource-list.js';
+import type { ValueOf } from './types/index.js';
 
 describe('ComicVine', () => {
   const mockApiKey = 'mock-api-key';
@@ -41,6 +40,6 @@ describe('ComicVine', () => {
     (resourceProperty, ResourceType) => {
       const comicVine = new ComicVine(mockApiKey);
       expect(comicVine[resourceProperty]).toBeInstanceOf(ResourceType);
-    }
+    },
   );
 });

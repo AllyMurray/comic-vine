@@ -1,4 +1,7 @@
-import { convertCamelCaseToSnakeCase, convertSnakeCaseToCamelCase } from '.';
+import {
+  convertCamelCaseToSnakeCase,
+  convertSnakeCaseToCamelCase,
+} from './case-converter.js';
 
 describe('case-converter', () => {
   let camelCaseObject: Object;

@@ -1,10 +1,7 @@
-import { ResourceType } from '..';
-import { CharacterDetails, CharacterListItem } from './types';
-import { BaseResource } from '../base-resource';
+import { CharacterDetails, CharacterListItem } from './types/index.js';
+import { ResourceType } from '../resource-type.js';
+import { BaseResource } from '../base-resource.js';
 
-export class Character extends BaseResource<
-  CharacterDetails,
-  CharacterListItem
-> {
+export class Character extends BaseResource<CharacterDetails, CharacterListItem> {
   protected resourceType: ResourceType = ResourceType.Character;
 }

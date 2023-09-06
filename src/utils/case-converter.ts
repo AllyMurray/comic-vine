@@ -1,4 +1,4 @@
-import { isObject } from './is-object';
+import { isObject } from './is-object.js';
 
 export const toCamelCase = (str: string): string => {
   return str.replace(/([-_][a-z])/gi, ($1) => {
@@ -22,7 +22,7 @@ const convertCase = (caseConverter: CaseConverter, object: any): object => {
     return newObject;
   } else if (Array.isArray(object)) {
     return object.map((arrayElement) =>
-      convertCase(caseConverter, arrayElement)
+      convertCase(caseConverter, arrayElement),
     );
   }
 
@@ -30,13 +30,13 @@ const convertCase = (caseConverter: CaseConverter, object: any): object => {
 };
 
 export const convertSnakeCaseToCamelCase = <ReturnType>(
-  object: any
+  object: any,
 ): ReturnType => {
   return convertCase(toCamelCase, object) as any as ReturnType;
 };
 
 export const convertCamelCaseToSnakeCase = <ReturnType>(
-  object: any
+  object: any,
 ): ReturnType => {
   return convertCase(toSnakeCase, object) as any as ReturnType;
 };

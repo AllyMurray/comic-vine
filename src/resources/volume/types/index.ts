@@ -1,2 +1,2 @@
-export * from './volume-details';
-export * from './volume-list-item';
+export * from './volume-details.js';
+export * from './volume-list-item.js';

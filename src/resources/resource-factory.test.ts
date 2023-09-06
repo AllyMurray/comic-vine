@@ -1,14 +1,13 @@
-import type { ValueOf } from '../types';
-
-import { HttpClientFactory } from '../http-client';
-import { ResourceFactory } from './resource-factory';
-import * as resources from './resource-list';
+import { ResourceFactory } from './resource-factory.js';
+import * as resources from './resource-list.js';
+import { HttpClientFactory } from '../http-client/index.js';
+import type { ValueOf } from '../types/index.js';
 
 describe('ResourceFactory', () => {
   const httpClient = HttpClientFactory.createClient();
   const urlBuilder = HttpClientFactory.createUrlBuilder(
     'mock-api-key',
-    'https://mock-base-url/'
+    'https://mock-base-url/',
   );
   const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 
@@ -41,13 +40,13 @@ describe('ResourceFactory', () => {
     (factoryInput, expectedReturnType) => {
       const resource = resourceFactory.create(factoryInput);
       expect(resource).toBeInstanceOf(expectedReturnType);
-    }
+    },
   );
 
   it('should return throw if the resource is not implemented', () => {
     const notImplementedResourceType = 'Unknown' as any;
     expect(() => resourceFactory.create(notImplementedResourceType)).toThrow(
-      'Unknown resource not implemented'
+      'Unknown resource not implemented',
     );
   });
 });

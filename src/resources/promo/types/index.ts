@@ -1,2 +1,2 @@
-export * from './promo-details';
-export * from './promo-list-item';
+export * from './promo-details.js';
+export * from './promo-list-item.js';

@@ -1,17 +1,20 @@
-import * as resources from './resource-list';
-import { HttpClient, UrlBuilder } from '../types';
+import * as resources from './resource-list.js';
+import { HttpClient, UrlBuilder } from '../types/index.js';
 
 export class ResourceFactory {
   private _resources = { ...resources };
 
-  constructor(private httpClient: HttpClient, private urlBuilder: UrlBuilder) {}
+  constructor(
+    private httpClient: HttpClient,
+    private urlBuilder: UrlBuilder,
+  ) {}
 
   public create<T extends keyof typeof this._resources>(
-    name: T
-  ): InstanceType<typeof this._resources[T]>;
+    name: T,
+  ): InstanceType<(typeof this._resources)[T]>;
   public create(
-    name: keyof typeof this._resources
-  ): InstanceType<typeof this._resources[keyof typeof this._resources]> {
+    name: keyof typeof this._resources,
+  ): InstanceType<(typeof this._resources)[keyof typeof this._resources]> {
     if (!this._resources[name]) {
       throw new Error(`${name} resource not implemented`);
     }

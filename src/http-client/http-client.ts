@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { Response, HttpClient as HttpClientContract } from '../types';
-import { convertSnakeCaseToCamelCase } from '../utils';
-import { StatusCode } from './status-code';
+import { StatusCode } from './status-code.js';
+import { BaseError } from '../errors/base-error.js';
 import {
   ComicVineFilterError,
   ComicJsonpCallbackMissingError,
@@ -10,8 +9,9 @@ import {
   ComicVineUrlFormatError,
   ComicVineSubscriberOnlyError,
   ComicVineGenericRequestError,
-} from '../errors';
-import { BaseError } from '../errors/base-error';
+} from '../errors/index.js';
+import { Response, HttpClient as HttpClientContract } from '../types/index.js';
+import { convertSnakeCaseToCamelCase } from '../utils/case-converter.js';
 
 export class HttpClient implements HttpClientContract {
   private _http;
@@ -53,7 +53,7 @@ export class HttpClient implements HttpClientContract {
 
     const errorMessage = error.response?.data?.message;
     return new ComicVineGenericRequestError(
-      `${error.message}${errorMessage ? `, ${errorMessage}` : ''}`
+      `${error.message}${errorMessage ? `, ${errorMessage}` : ''}`,
     );
   }
 

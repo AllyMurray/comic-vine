@@ -1,1 +1,1 @@
-export * from './story-arc';
+export * from './story-arc.js';

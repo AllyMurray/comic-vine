@@ -1,34 +1,36 @@
+import { ResourceType } from './resource-type.js';
 import type {
   RetrieveOptions,
   ListOptions,
   HttpClient,
   UrlBuilder,
   PickFilters,
-} from '../types';
-import { ResourceType } from './resource-type';
+} from '../types/index.js';
 
 export abstract class BaseResource<Resource, ResourceListItem> {
   protected abstract resourceType: ResourceType;
 
-  constructor(private httpClient: HttpClient, private urlBuilder: UrlBuilder) {}
+  constructor(
+    private httpClient: HttpClient,
+    private urlBuilder: UrlBuilder,
+  ) {}
 
   async retrieve<FieldKey extends keyof Resource>(
     id: number,
-    options?: RetrieveOptions<FieldKey>
+    options?: RetrieveOptions<FieldKey>,
   ) {
     type ReturnType<T> = T extends object ? Pick<Resource, FieldKey> : Resource;
 
     const url = this.urlBuilder.retrieve(this.resourceType, id, options);
     const fieldList = options?.fieldList;
-    const response = await this.httpClient.get<ReturnType<typeof fieldList>>(
-      url
-    );
+    const response =
+      await this.httpClient.get<ReturnType<typeof fieldList>>(url);
 
     return response.results;
   }
 
   private async fetchPage<FieldKey extends keyof ResourceListItem>(
-    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>
+    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>,
   ) {
     type ReturnType<T> = T extends object
       ? Pick<ResourceListItem, FieldKey>
@@ -36,9 +38,8 @@ export abstract class BaseResource<Resource, ResourceListItem> {
 
     const url = this.urlBuilder.list(this.resourceType, options);
     const fieldList = options?.fieldList;
-    const response = await this.httpClient.get<ReturnType<typeof fieldList>[]>(
-      url
-    );
+    const response =
+      await this.httpClient.get<ReturnType<typeof fieldList>[]>(url);
 
     return {
       limit: response.limit,
@@ -50,7 +51,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
   }
 
   list<FieldKey extends keyof ResourceListItem>(
-    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>
+    options?: ListOptions<FieldKey, PickFilters<ResourceListItem>>,
   ) {
     // Proxy the call to this.fetchPage so that we can close over `this`, allowing access in the iterator
     const fetchPage = (options?: Parameters<typeof this.fetchPage>[0]) =>
@@ -85,7 +86,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
 
     const promiseWithAsyncIterator = Object.assign(
       fetchPagePromise,
-      asyncIterator
+      asyncIterator,
     );
 
     return promiseWithAsyncIterator;

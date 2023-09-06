@@ -1,4 +1,4 @@
-import { GenericError } from './generic-error';
+import { GenericError } from './generic-error.js';
 
 export const customError = (error: unknown) => {
   if (error instanceof Error) {

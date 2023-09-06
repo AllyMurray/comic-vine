@@ -1,1 +1,1 @@
-export * from './video-category';
+export * from './video-category.js';

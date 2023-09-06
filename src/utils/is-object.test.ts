@@ -1,4 +1,4 @@
-import { isObject } from '.';
+import { isObject } from './is-object.js';
 
 describe('isObject', () => {
   test('should return true when the input is an object', () => {

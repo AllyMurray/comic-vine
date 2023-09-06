@@ -1,1 +1,1 @@
-export * from './promo';
+export * from './promo.js';

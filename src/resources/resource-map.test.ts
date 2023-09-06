@@ -1,4 +1,4 @@
-import { getResource, ResourceType } from '.';
+import { getResource, ResourceType } from './index.js';
 
 describe('getResource', () => {
   test('should return values for Character', () => {
@@ -17,7 +17,7 @@ describe('getResource', () => {
   test('should throw error when resource not found', () => {
     const UnknownResource = 9999 as ResourceType;
     expect(() => getResource(UnknownResource)).toThrow(
-      new Error(`Resource type (${UnknownResource}) not found`)
+      new Error(`Resource type (${UnknownResource}) not found`),
     );
   });
 });

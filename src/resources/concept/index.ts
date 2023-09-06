@@ -1,1 +1,1 @@
-export * from './concept';
+export * from './concept.js';

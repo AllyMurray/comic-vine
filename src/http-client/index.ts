@@ -1,1 +1,1 @@
-export * from './http-client-factory';
+export * from './http-client-factory.js';

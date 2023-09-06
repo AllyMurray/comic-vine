@@ -1,5 +1,5 @@
-import { GenericError } from '.';
-import { BaseError } from './base-error';
+import { BaseError } from './base-error.js';
+import { GenericError } from './generic-error.js';
 
 describe('GenericError', () => {
   const errorMessage = 'Test error message';
@@ -18,19 +18,19 @@ describe('GenericError', () => {
   test('should have correct message when no errorMessage is provided', () => {
     const genericError = new GenericError();
     expect(genericError.message).toBe(
-      'An unexpected error occurred: Unknown Error'
+      'An unexpected error occurred: Unknown Error',
     );
   });
   test('should have correct message when an errorMessage is provided', () => {
     const genericError = new GenericError(errorMessage);
     expect(genericError.message).toBe(
-      'An unexpected error occurred: Test error message'
+      'An unexpected error occurred: Test error message',
     );
   });
   test('should have correct help', () => {
     const genericError = new GenericError();
     expect(genericError.help).toBe(
-      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues'
+      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues',
     );
   });
 });

@@ -1,5 +1,5 @@
 import { z, ZodError } from 'zod';
-import { customError, OptionsValidationError } from '../errors';
+import { customError, OptionsValidationError } from '../errors/index.js';
 
 const options = z.object({
   /**
@@ -26,7 +26,7 @@ export const loadOptions = (userOptions?: userOptions) => {
       const validationError = error.issues[0];
       throw new OptionsValidationError(
         validationError.path,
-        validationError.message
+        validationError.message,
       );
     }
     throw customError(error);

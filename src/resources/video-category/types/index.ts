@@ -1,2 +1,2 @@
-export * from './video-category-details';
-export * from './video-category-list-item';
+export * from './video-category-details.js';
+export * from './video-category-list-item.js';

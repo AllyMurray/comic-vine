@@ -1,4 +1,4 @@
-import { BaseError } from './base-error';
+import { BaseError } from './base-error.js';
 
 /**
  * @deprecated will be removed in the next major version, use ComicVineGenericRequestError instead!

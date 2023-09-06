@@ -1,2 +1,2 @@
-export * from './origin-details';
-export * from './origin-list-item';
+export * from './origin-details.js';
+export * from './origin-list-item.js';

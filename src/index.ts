@@ -1,3 +1,3 @@
-import { ComicVine } from './comic-vine';
+import { ComicVine } from './comic-vine.js';
 
 export default ComicVine;

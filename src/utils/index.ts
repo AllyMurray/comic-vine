@@ -1,2 +1,2 @@
-export * from './case-converter';
-export * from './is-object';
+export * from './case-converter.js';
+export * from './is-object.js';

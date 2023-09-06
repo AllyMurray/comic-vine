@@ -1,5 +1,5 @@
-import { ComicVineUrlFormatError } from '.';
-import { BaseError } from './base-error';
+import { BaseError } from './base-error.js';
+import { ComicVineUrlFormatError } from './url-format-error.js';
 
 describe('ComicVineUrlFormatError', () => {
   test('should be instanceof BaseError', () => {
@@ -17,13 +17,13 @@ describe('ComicVineUrlFormatError', () => {
   test('should have correct message', () => {
     const comicVineUrlFormatError = new ComicVineUrlFormatError();
     expect(comicVineUrlFormatError.message).toBe(
-      'The url for the request was not in the correct format'
+      'The url for the request was not in the correct format',
     );
   });
   test('should have correct help', () => {
     const comicVineUrlFormatError = new ComicVineUrlFormatError();
     expect(comicVineUrlFormatError.help).toBe(
-      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues'
+      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues',
     );
   });
 });

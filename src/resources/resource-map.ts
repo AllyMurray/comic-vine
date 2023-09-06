@@ -1,4 +1,4 @@
-import { ResourceType } from './resource-type';
+import { ResourceType } from './resource-type.js';
 
 interface Resource {
   detailName: string;

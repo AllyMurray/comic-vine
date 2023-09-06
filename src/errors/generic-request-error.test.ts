@@ -1,5 +1,5 @@
-import { ComicVineGenericRequestError } from '.';
-import { BaseError } from './base-error';
+import { BaseError } from './base-error.js';
+import { ComicVineGenericRequestError } from './generic-request-error.js';
 
 describe('ComicVineGenericRequestError', () => {
   const errorMessage = 'Test error message';
@@ -10,33 +10,33 @@ describe('ComicVineGenericRequestError', () => {
   test('should be instanceof ComicVineGenericRequestError', () => {
     const comicVineGenericRequestError = new ComicVineGenericRequestError();
     expect(comicVineGenericRequestError).toBeInstanceOf(
-      ComicVineGenericRequestError
+      ComicVineGenericRequestError,
     );
   });
   test('should have correct name', () => {
     const comicVineGenericRequestError = new ComicVineGenericRequestError();
     expect(comicVineGenericRequestError.name).toBe(
-      'ComicVineGenericRequestError'
+      'ComicVineGenericRequestError',
     );
   });
   test('should have correct message when no errorMessage is provided', () => {
     const comicVineGenericRequestError = new ComicVineGenericRequestError();
     expect(comicVineGenericRequestError.message).toBe(
-      'Request to comic vine failed: Unknown Error'
+      'Request to comic vine failed: Unknown Error',
     );
   });
   test('should have correct message when an errorMessage is provided', () => {
     const comicVineGenericRequestError = new ComicVineGenericRequestError(
-      errorMessage
+      errorMessage,
     );
     expect(comicVineGenericRequestError.message).toBe(
-      'Request to comic vine failed: Test error message'
+      'Request to comic vine failed: Test error message',
     );
   });
   test('should have correct help', () => {
     const comicVineGenericRequestError = new ComicVineGenericRequestError();
     expect(comicVineGenericRequestError.help).toBe(
-      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues'
+      'Please open a Github issue with steps to reproduce: https://github.com/AllyMurray/comic-vine/issues',
     );
   });
 });

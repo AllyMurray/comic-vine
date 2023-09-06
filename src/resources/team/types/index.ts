@@ -1,2 +1,2 @@
-export * from './team-details';
-export * from './team-list-item';
+export * from './team-details.js';
+export * from './team-list-item.js';

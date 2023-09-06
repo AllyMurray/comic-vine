@@ -1,2 +1,2 @@
-export * from './publisher-details';
-export * from './publisher-list-item';
+export * from './publisher-details.js';
+export * from './publisher-list-item.js';

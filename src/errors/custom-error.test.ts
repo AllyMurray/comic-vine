@@ -1,4 +1,4 @@
-import { customError } from './custom-error';
+import { customError } from './custom-error.js';
 
 describe('Catch Error', () => {
   it(`should use the error message if the input is an instance of Error`, () => {

@@ -1,5 +1,5 @@
-import { HttpClient } from './http-client';
-import { UrlBuilder } from './url-builder';
+import { HttpClient } from './http-client.js';
+import { UrlBuilder } from './url-builder.js';
 
 export class HttpClientFactory {
   public static createClient() {

@@ -1,1 +1,1 @@
-export * from './volume';
+export * from './volume.js';

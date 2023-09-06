@@ -1,1 +1,1 @@
-export * from './series';
+export * from './series.js';

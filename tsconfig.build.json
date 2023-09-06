@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/index.cjs.ts"],
-  "compilerOptions": {
-    "outDir": "dist/mjs"
-  }
-}

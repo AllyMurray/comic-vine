@@ -1,3 +1,3 @@
-export * from './resource-factory';
-export * from './resource-map';
-export * from './resource-type';
+export * from './resource-factory.js';
+export * from './resource-map.js';
+export * from './resource-type.js';
