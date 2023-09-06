@@ -20,6 +20,7 @@ const project = new TypeScriptNpmPackage({
     'rimraf',
     'vitest',
   ],
+  minMajorVersion: 1,
   projenrcTs: true,
   tsconfig: {
     compilerOptions: {
