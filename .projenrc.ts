@@ -18,15 +18,11 @@ const project = new TypeScriptNpmPackage({
     'lint-staged',
     'nock',
     'rimraf',
+    'vitest',
   ],
   projenrcTs: true,
-  gitignore: ['.DS_Store', '*yalc*'],
-  jestOptions: {
-    jestConfig: {
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    },
-  },
-
+  gitignore: ['.DS_Store', '*yalc*', 'test-reports'],
+  jest: false,
   repository: `${repository}.git`,
   bugsUrl: `${repository}/issues`,
   homepage: `${repository}#readme`,
@@ -49,6 +45,8 @@ const project = new TypeScriptNpmPackage({
 });
 
 project.npmrc.addConfig('save-exact', 'true');
+
+project.testTask.prependExec('vitest --dir=src', { receiveArgs: true });
 
 project.synth();
 

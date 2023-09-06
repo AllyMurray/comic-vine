@@ -1,16 +1,16 @@
-const mockError = (message?: string) => {
-  jest.mock('zod', () => {
-    const originalModule = jest.requireActual('zod');
+const mockError = async (message?: string) => {
+  await vi.mock('zod', async () => {
+    const originalModule = await vi.importActual('zod');
     return {
       __esModule: true,
       ...originalModule,
       z: {
         ...originalModule.z,
-        object: jest.fn(() => ({
-          parse: jest.fn(() => {
+        object: vi.fn(() => ({
+          parse: vi.fn(() => {
             throw new Error(message);
           }),
-          optional: jest.fn(),
+          optional: vi.fn(),
         })),
       },
     };
@@ -19,7 +19,7 @@ const mockError = (message?: string) => {
 
 describe('loadOptions', () => {
   afterEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   it('should return the default values when no options are provided', async () => {
@@ -41,7 +41,7 @@ describe('loadOptions', () => {
   });
 
   it('should through if there is an unexpected error with an error message', async () => {
-    mockError('not a Zod validation error');
+    await mockError('not a Zod validation error');
     const optionsModule = await import('./index.js');
     expect(() =>
       optionsModule.loadOptions({
@@ -51,7 +51,7 @@ describe('loadOptions', () => {
   });
 
   it('should through if there is an unexpected error with no error message', async () => {
-    mockError();
+    await mockError();
     const optionsModule = await import('./index.js');
     expect(() =>
       optionsModule.loadOptions({

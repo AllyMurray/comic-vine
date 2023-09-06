@@ -195,20 +195,11 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "jest --passWithNoTests --updateSnapshot",
+          "exec": "vitest --dir=src",
           "receiveArgs": true
         },
         {
           "spawn": "eslint"
-        }
-      ]
-    },
-    "test:watch": {
-      "name": "test:watch",
-      "description": "Run jest in watch mode",
-      "steps": [
-        {
-          "exec": "jest --watch"
         }
       ]
     },
@@ -239,13 +230,13 @@
           "exec": "pnpm update npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@ally-murray/projen-modules,@types/clone-deep,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,commander,commitizen,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,husky,jest,jest-junit,lint-staged,nock,npm-check-updates,prettier,projen,rimraf,standard-version,ts-jest,ts-node,typescript,axios,clone-deep,zod"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@ally-murray/projen-modules,@types/clone-deep,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,commander,commitizen,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,husky,lint-staged,nock,npm-check-updates,prettier,projen,rimraf,standard-version,ts-node,typescript,vitest,axios,clone-deep,zod"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @ally-murray/projen-modules @types/clone-deep @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commander commitizen eslint-config-prettier eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint husky jest jest-junit lint-staged nock npm-check-updates prettier projen rimraf standard-version ts-jest ts-node typescript axios clone-deep zod"
+          "exec": "pnpm update @ally-murray/projen-modules @types/clone-deep @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commander commitizen eslint-config-prettier eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint husky lint-staged nock npm-check-updates prettier projen rimraf standard-version ts-node typescript vitest axios clone-deep zod"
         },
         {
           "exec": "npx projen"
