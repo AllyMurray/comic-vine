@@ -22,7 +22,6 @@ const project = new TypeScriptNpmPackage({
   ],
   projenrcTs: true,
   tsconfig: {
-    exclude: ['node_modules'],
     compilerOptions: {
       module: 'Node16',
       target: 'ES2020',

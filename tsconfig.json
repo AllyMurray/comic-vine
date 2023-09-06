@@ -34,9 +34,7 @@
   "include": [
     "src/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": [],
   "ts-node": {
     "esm": true
   }
