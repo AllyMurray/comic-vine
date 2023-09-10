@@ -30,7 +30,7 @@
     "organization": false
   },
   "devDependencies": {
-    "@ally-murray/projen-modules": "^0.0.11",
+    "@ally-murray/projen-modules": "^0.0.13",
     "@types/clone-deep": "^4.0.2",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^6",
