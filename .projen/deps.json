@@ -5,12 +5,8 @@
       "type": "build"
     },
     {
-      "name": "@types/clone-deep",
-      "type": "build"
-    },
-    {
       "name": "@types/node",
-      "version": "^16",
+      "version": "^18",
       "type": "build"
     },
     {
@@ -104,10 +100,6 @@
     },
     {
       "name": "axios",
-      "type": "runtime"
-    },
-    {
-      "name": "clone-deep",
       "type": "runtime"
     },
     {

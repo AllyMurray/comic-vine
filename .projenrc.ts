@@ -6,11 +6,11 @@ const project = new TypeScriptNpmPackage({
   description: 'A JS/TS client for the Comic Vine API',
   defaultReleaseBranch: 'main',
   minMajorVersion: 1,
+  minNodeVersion: '18.0.0',
   repository: 'https://github.com/AllyMurray/comic-vine',
-  deps: ['axios', 'clone-deep', 'zod'],
+  deps: ['axios', 'zod'],
   devDeps: [
     '@ally-murray/projen-modules',
-    '@types/clone-deep',
     'commitizen',
     'husky',
     'lint-staged',

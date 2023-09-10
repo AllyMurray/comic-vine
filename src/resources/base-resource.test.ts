@@ -1,4 +1,3 @@
-import cloneDeep from 'clone-deep';
 import nock from 'nock';
 import { Issue } from './issue/index.js';
 
@@ -55,7 +54,7 @@ describe('Issue', () => {
         'name',
       ]);
       const mockApiResponse = {
-        ...cloneDeep(apiRetrieveResponse),
+        ...structuredClone(apiRetrieveResponse),
         results: pickProperties(apiRetrieveResponse.results, ['id', 'name']),
       };
       nock(baseUrl)
@@ -93,13 +92,13 @@ describe('Issue', () => {
     it('should return the correct properties when the field list is specified', async () => {
       // Arrange
       const expectedResult = {
-        ...cloneDeep(expectedListResult),
+        ...structuredClone(expectedListResult),
         data: apiListResponse.results.map((item) =>
           pickProperties(item, ['id', 'name']),
         ),
       };
       const mockApiResponse = {
-        ...cloneDeep(apiListResponse),
+        ...structuredClone(apiListResponse),
         results: apiListResponse.results.map((item) =>
           pickProperties(item, ['id', 'name']),
         ),
