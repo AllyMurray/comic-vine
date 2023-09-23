@@ -25,3 +25,4 @@
 /tsconfig.build.esm.json linguist-generated
 /tsconfig.dev.json linguist-generated
 /tsconfig.json linguist-generated
+/vitest.config.js linguist-generated
