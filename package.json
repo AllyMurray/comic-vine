@@ -30,7 +30,7 @@
     "organization": false
   },
   "devDependencies": {
-    "@ally-murray/projen-modules": "^0.0.16",
+    "@ally-murray/projen-modules": "^0.0.17",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -47,7 +47,7 @@
     "nock": "^13.3.3",
     "npm-check-updates": "^16",
     "prettier": "^3.0.3",
-    "projen": "0.73.15",
+    "projen": "0.73.30",
     "rimraf": "^5.0.1",
     "standard-version": "^9",
     "ts-node": "^10.9.1",
