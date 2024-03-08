@@ -4,6 +4,8 @@ permissions-backup.acl
 /dist/changelog.md
 /dist/version.txt
 /.mergify.yml
+/.prettierignore
+/.prettierrc.json
 /test/
 /tsconfig.dev.json
 /src/
@@ -18,5 +20,9 @@ dist
 /.projenrc.js
 tsconfig.tsbuildinfo
 /.eslintrc.json
-/tsconfig.build.esm.json
-/tsconfig.build.cjs.json
+tsup.config.ts
+.nvmrc
+vitest.config.ts
+.projenrc.ts
+/.gitattributes
+/.projenrc.ts
