@@ -78,16 +78,7 @@
       "description": "Only compile",
       "steps": [
         {
-          "exec": "tsc --project tsconfig.build.esm.json"
-        },
-        {
-          "exec": "ts-node ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module"
-        },
-        {
-          "exec": "tsc --project tsconfig.build.cjs.json"
-        },
-        {
-          "exec": "ts-node ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs"
+          "exec": "npx tsup"
         }
       ]
     },
@@ -96,7 +87,7 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "exec": "TS_NODE_PROJECT=tsconfig.dev.json node --no-warnings --loader ts-node/esm .projenrc.ts"
         }
       ]
     },
@@ -117,7 +108,8 @@
       "description": "Runs eslint against the codebase",
       "steps": [
         {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools projenrc .projenrc.ts"
+          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools projenrc .projenrc.ts",
+          "receiveArgs": true
         }
       ]
     },
@@ -147,7 +139,7 @@
           "exec": "mkdir -p dist/js"
         },
         {
-          "exec": "mv $(npm pack) dist/js/"
+          "exec": "mv $(pnpm pack) dist/js/"
         }
       ]
     },
@@ -193,11 +185,19 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "vitest --dir=src",
+          "exec": "vitest --dir=src --coverage",
           "receiveArgs": true
         },
         {
           "spawn": "eslint"
+        }
+      ]
+    },
+    "test:watch": {
+      "name": "test:watch",
+      "steps": [
+        {
+          "exec": "vitest --dir=src --coverage --watch"
         }
       ]
     },
@@ -225,16 +225,13 @@
       },
       "steps": [
         {
-          "exec": "pnpm update npm-check-updates"
-        },
-        {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@ally-murray/projen-modules,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,commander,commitizen,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,husky,lint-staged,nock,npm-check-updates,prettier,projen,rimraf,standard-version,ts-node,typescript,vitest,axios,zod"
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@ally-murray/projen-modules,@vitest/coverage-v8,commitizen,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,husky,lint-staged,nock,prettier,projen,rimraf,ts-node,tsup,typescript,vitest,axios,zod"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @ally-murray/projen-modules @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commander commitizen eslint-config-prettier eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint husky lint-staged nock npm-check-updates prettier projen rimraf standard-version ts-node typescript vitest axios zod"
+          "exec": "pnpm update @ally-murray/projen-modules @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commitizen constructs eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint husky lint-staged nock prettier projen rimraf standard-version ts-node tsup typescript vitest axios zod"
         },
         {
           "exec": "npx projen"

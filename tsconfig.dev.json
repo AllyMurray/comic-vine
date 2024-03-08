@@ -8,9 +8,9 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "lib": [
-      "es2019"
+      "ES2023"
     ],
-    "module": "Node16",
+    "module": "NodeNext",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -23,14 +23,15 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "stripInternal": true,
-    "target": "ES2020",
+    "target": "ES2022",
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "nodenext",
     "skipLibCheck": true,
     "types": [
       "vitest/globals"
     ]
   },
   "include": [
-    ".projenrc.js",
     "src/**/*.ts",
     "test/**/*.ts",
     ".projenrc.ts",
@@ -38,8 +39,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "ts-node": {
-    "esm": true
-  }
+  ]
 }
