@@ -15,9 +15,6 @@ importers:
         specifier: ^3.22.2
         version: 3.22.2
     devDependencies:
-      '@ally-murray/projen-modules':
-        specifier: ^0.0.13
-        version: 0.0.13(projen@0.73.15)
       '@types/node':
         specifier: ^18
         version: 18.17.15
@@ -87,12 +84,6 @@ packages:
   '@aashutoshrathi/word-wrap@1.2.6':
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
-
-  '@ally-murray/projen-modules@0.0.13':
-    resolution: {integrity: sha512-oi9k73/z7FwQN8MKsDo+S7k7eSVmGCutPTiE4tlIH5CoUEhP3KOO0Kr+KQWQ5p2yC04AP5m201WbnbDevZFGPQ==}
-    engines: {node: '>= 18.0.0'}
-    peerDependencies:
-      projen: 0.73.15
 
   '@babel/code-frame@7.22.13':
     resolution: {integrity: sha512-XktuhWlJ5g+3TJXc5upd9Ks1HutSArik6jf2eAjYFyIOf4ej3RN+184cZbzDvbPnuTJIUhPKKJE3cIsYTiAT3w==}
@@ -2490,25 +2481,6 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
 
-  projen@0.73.15:
-    resolution: {integrity: sha512-mSQAXPi/VIIn0PB+gEAT4xegoRCbDZV6lfeSTFbR2weLUs84nq6xNMgmMowDtFk2VNXdX0fA20UFqiD1HI4/VQ==}
-    engines: {node: '>= 14.0.0'}
-    hasBin: true
-    bundledDependencies:
-      - '@iarna/toml'
-      - case
-      - chalk
-      - comment-json
-      - conventional-changelog-config-spec
-      - fast-json-patch
-      - glob
-      - ini
-      - semver
-      - shx
-      - xmlbuilder2
-      - yaml
-      - yargs
-
   promise-inflight@1.0.1:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
     peerDependencies:
@@ -3297,10 +3269,6 @@ packages:
 snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
-
-  '@ally-murray/projen-modules@0.0.13(projen@0.73.15)':
-    dependencies:
-      projen: 0.73.15
 
   '@babel/code-frame@7.22.13':
     dependencies:
@@ -5960,8 +5928,6 @@ snapshots:
   process-nextick-args@2.0.1: {}
 
   progress@2.0.3: {}
-
-  projen@0.73.15: {}
 
   promise-inflight@1.0.1: {}
 
