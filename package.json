@@ -6,7 +6,7 @@
     "url": "https://github.com/AllyMurray/comic-vine.git"
   },
   "scripts": {
-    "build": "npm run pre-compile && npm run compile && npm run post-compile && npm run test && npm run package",
+    "build": "npm run compile && npm run test && npm run package",
     "compile": "tsc --project tsconfig.build.esm.json && ts-node ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && ts-node ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
     "eslint": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src test build-tools",
     "install:ci": "pnpm i --frozen-lockfile",
