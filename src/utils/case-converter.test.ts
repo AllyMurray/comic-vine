@@ -4,8 +4,8 @@ import {
 } from './case-converter.js';
 
 describe('case-converter', () => {
-  let camelCaseObject: Object;
-  let snakeCaseObject: Object;
+  let camelCaseObject: object;
+  let snakeCaseObject: object;
 
   beforeEach(() => {
     camelCaseObject = {

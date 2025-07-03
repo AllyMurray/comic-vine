@@ -22,9 +22,9 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     type ReturnType<T> = T extends object ? Pick<Resource, FieldKey> : Resource;
 
     const url = this.urlBuilder.retrieve(this.resourceType, id, options);
-    const fieldList = options?.fieldList;
-    const response =
-      await this.httpClient.get<ReturnType<typeof fieldList>>(url);
+    const _fieldList = options?.fieldList;
+    type ResponseType = ReturnType<typeof _fieldList>;
+    const response = await this.httpClient.get<ResponseType>(url);
 
     return response.results;
   }
@@ -37,9 +37,9 @@ export abstract class BaseResource<Resource, ResourceListItem> {
       : ResourceListItem;
 
     const url = this.urlBuilder.list(this.resourceType, options);
-    const fieldList = options?.fieldList;
-    const response =
-      await this.httpClient.get<ReturnType<typeof fieldList>[]>(url);
+    const _fieldList = options?.fieldList;
+    type ResponseType = ReturnType<typeof _fieldList>;
+    const response = await this.httpClient.get<ResponseType[]>(url);
 
     return {
       limit: response.limit,

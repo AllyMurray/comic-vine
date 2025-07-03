@@ -18,8 +18,10 @@ export class HttpClient implements HttpClientContract {
 
   constructor() {
     this._http = axios.create({
-      transformResponse: (data: any) => {
-        return data ? convertSnakeCaseToCamelCase(JSON.parse(data)) : undefined;
+      transformResponse: (data: unknown) => {
+        return data
+          ? convertSnakeCaseToCamelCase(JSON.parse(data as string))
+          : undefined;
       },
     });
   }
@@ -41,12 +43,12 @@ export class HttpClient implements HttpClientContract {
     }
   }
 
-  private generateClientError(err: any) {
+  private generateClientError(err: unknown) {
     if (err instanceof BaseError) {
       return err;
     }
 
-    const error = err as AxiosError<any>;
+    const error = err as AxiosError<{ message?: string }>;
     if (error.response?.status === 401) {
       return new ComicVineUnauthorizedError();
     }

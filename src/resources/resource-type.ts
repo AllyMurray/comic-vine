@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum ResourceType {
   Character = 4005,
   Concept = 4015,

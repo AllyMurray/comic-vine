@@ -44,7 +44,7 @@ describe('ResourceFactory', () => {
   );
 
   it('should return throw if the resource is not implemented', () => {
-    const notImplementedResourceType = 'Unknown' as any;
+    const notImplementedResourceType = 'Unknown' as keyof typeof resources;
     expect(() => resourceFactory.create(notImplementedResourceType)).toThrow(
       'Unknown resource not implemented',
     );

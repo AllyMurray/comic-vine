@@ -63,7 +63,8 @@ describe('BaseError', () => {
 
     test('should successfully create an error object when captureStackTrace is undefined', () => {
       const cacheCaptureStackTrace = Error.captureStackTrace;
-      (Error.captureStackTrace as any) = undefined;
+      (Error.captureStackTrace as typeof Error.captureStackTrace | undefined) =
+        undefined;
       const error = new TestComicVineError({
         message: 'Test message',
         help: 'Help message',

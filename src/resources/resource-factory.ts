@@ -18,6 +18,10 @@ export class ResourceFactory {
     if (!this._resources[name]) {
       throw new Error(`${name} resource not implemented`);
     }
-    return new (this._resources[name] as any)(this.httpClient, this.urlBuilder);
+    const ResourceClass = this._resources[name] as new (
+      httpClient: HttpClient,
+      urlBuilder: UrlBuilder,
+    ) => InstanceType<(typeof this._resources)[keyof typeof this._resources]>;
+    return new ResourceClass(this.httpClient, this.urlBuilder);
   }
 }

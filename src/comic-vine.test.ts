@@ -10,8 +10,7 @@ describe('ComicVine', () => {
     expect(comicVine).toBeInstanceOf(ComicVine);
   });
 
-  const comicVineInstance = new ComicVine(mockApiKey);
-  type ComicVineProperty = keyof typeof comicVineInstance;
+  type ComicVineProperty = keyof ComicVine;
   type ResourceClass = ValueOf<typeof resources>;
   const resourceList: Array<[ComicVineProperty, ResourceClass]> = [
     ['character', resources.Character],

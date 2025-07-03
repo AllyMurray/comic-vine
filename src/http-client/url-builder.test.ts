@@ -28,9 +28,13 @@ describe('UrlBuilder', () => {
       const urlBuilder = getUrlBuilder();
 
       // Act
-      const url = urlBuilder.retrieve<any>(ResourceType.Character, 1, {
-        fieldList: ['testField1', 'testField2'],
-      });
+      const url = urlBuilder.retrieve<'testField1' | 'testField2'>(
+        ResourceType.Character,
+        1,
+        {
+          fieldList: ['testField1', 'testField2'],
+        },
+      );
 
       //Assert
       expect(url).toBe(
