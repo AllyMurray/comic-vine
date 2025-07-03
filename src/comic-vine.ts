@@ -1,27 +1,46 @@
 import { HttpClientFactory } from './http-client/index.js';
 import { userOptions, loadOptions } from './options/index.js';
 import { ResourceFactory } from './resources/index.js';
+import * as resources from './resources/resource-list.js';
 
-export class ComicVine {
-  private _character;
-  private _concept;
-  private _episode;
-  private _issue;
-  private _location;
-  private _movie;
-  private _origin;
-  private _person;
-  private _power;
-  private _promo;
-  private _publisher;
-  private _series;
-  private _storyArc;
-  private _team;
-  private _thing;
-  private _video;
-  private _videoCategory;
-  private _videoType;
-  private _volume;
+function classNameToPropertyName(className: string): string {
+  return className.charAt(0).toLowerCase() + className.slice(1);
+}
+
+type ResourceInstance = ReturnType<ResourceFactory['create']>;
+
+// Create resource property type mapping dynamically
+type ResourcePropertyMap = {
+  [K in keyof typeof resources as Uncapitalize<K>]: InstanceType<
+    (typeof resources)[K]
+  >;
+};
+
+export class ComicVine implements ResourcePropertyMap {
+  private resourceFactory: ResourceFactory;
+  private resourceCache = new Map<string, ResourceInstance>();
+  private resourceNames: string[];
+
+  // TypeScript property declarations for static typing (will be provided by Proxy)
+  declare readonly character: ResourcePropertyMap['character'];
+  declare readonly concept: ResourcePropertyMap['concept'];
+  declare readonly episode: ResourcePropertyMap['episode'];
+  declare readonly issue: ResourcePropertyMap['issue'];
+  declare readonly location: ResourcePropertyMap['location'];
+  declare readonly movie: ResourcePropertyMap['movie'];
+  declare readonly origin: ResourcePropertyMap['origin'];
+  declare readonly person: ResourcePropertyMap['person'];
+  declare readonly power: ResourcePropertyMap['power'];
+  declare readonly promo: ResourcePropertyMap['promo'];
+  declare readonly publisher: ResourcePropertyMap['publisher'];
+  declare readonly series: ResourcePropertyMap['series'];
+  declare readonly storyArc: ResourcePropertyMap['storyArc'];
+  declare readonly team: ResourcePropertyMap['team'];
+  declare readonly thing: ResourcePropertyMap['thing'];
+  declare readonly video: ResourcePropertyMap['video'];
+  declare readonly videoCategory: ResourcePropertyMap['videoCategory'];
+  declare readonly videoType: ResourcePropertyMap['videoType'];
+  declare readonly volume: ResourcePropertyMap['volume'];
 
   constructor(key: string, options?: userOptions) {
     const _options = loadOptions(options);
@@ -30,102 +49,72 @@ export class ComicVine {
       key,
       _options.baseUrl,
     );
-    const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
+    this.resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 
-    this._character = resourceFactory.create('Character');
-    this._concept = resourceFactory.create('Concept');
-    this._episode = resourceFactory.create('Episode');
-    this._issue = resourceFactory.create('Issue');
-    this._location = resourceFactory.create('Location');
-    this._movie = resourceFactory.create('Movie');
-    this._origin = resourceFactory.create('Origin');
-    this._person = resourceFactory.create('Person');
-    this._power = resourceFactory.create('Power');
-    this._promo = resourceFactory.create('Promo');
-    this._publisher = resourceFactory.create('Publisher');
-    this._series = resourceFactory.create('Series');
-    this._storyArc = resourceFactory.create('StoryArc');
-    this._team = resourceFactory.create('Team');
-    this._thing = resourceFactory.create('Thing');
-    this._video = resourceFactory.create('Video');
-    this._videoCategory = resourceFactory.create('VideoCategory');
-    this._videoType = resourceFactory.create('VideoType');
-    this._volume = resourceFactory.create('Volume');
+    // Discover available resources dynamically
+    this.resourceNames = Object.keys(resources);
+
+    // Return a proxy that provides lazy loading with full type safety
+    return new Proxy(this, {
+      get(target, prop: string | symbol) {
+        if (typeof prop === 'string' && target.isResourceProperty(prop)) {
+          return target.getResource(prop);
+        }
+        return Reflect.get(target, prop);
+      },
+    }) as ComicVine;
   }
 
-  get character() {
-    return this._character;
+  private isResourceProperty(prop: string): boolean {
+    // Check if this property corresponds to a known resource
+    const className = prop.charAt(0).toUpperCase() + prop.slice(1);
+    return this.resourceNames.includes(className);
   }
 
-  get concept() {
-    return this._concept;
+  private getResource(propertyName: string): ResourceInstance {
+    // Lazy loading: create resource only when first accessed
+    if (!this.resourceCache.has(propertyName)) {
+      const className =
+        propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+      try {
+        const resource = this.resourceFactory.create(
+          className as keyof typeof resources,
+        );
+        this.resourceCache.set(propertyName, resource);
+      } catch (error) {
+        throw new Error(`Failed to create resource '${className}': ${error}`);
+      }
+    }
+    return this.resourceCache.get(propertyName)!;
   }
 
-  get episode() {
-    return this._episode;
+  getAvailableResources(): string[] {
+    return this.resourceNames.map((name) => classNameToPropertyName(name));
   }
 
-  get issue() {
-    return this._issue;
+  hasResource(resourceName: string): boolean {
+    return this.isResourceProperty(resourceName);
   }
 
-  get location() {
-    return this._location;
+  getResourceByName(resourceName: string): ResourceInstance | undefined {
+    if (!this.isResourceProperty(resourceName)) {
+      return undefined;
+    }
+    return this.getResource(resourceName);
   }
 
-  get movie() {
-    return this._movie;
+  isResourceLoaded(resourceName: string): boolean {
+    return this.resourceCache.has(resourceName);
   }
 
-  get origin() {
-    return this._origin;
-  }
-
-  get person() {
-    return this._person;
-  }
-
-  get power() {
-    return this._power;
-  }
-
-  get promo() {
-    return this._promo;
-  }
-
-  get publisher() {
-    return this._publisher;
-  }
-
-  get series() {
-    return this._series;
-  }
-
-  get storyArc() {
-    return this._storyArc;
-  }
-
-  get team() {
-    return this._team;
-  }
-
-  get thing() {
-    return this._thing;
-  }
-
-  get video() {
-    return this._video;
-  }
-
-  get videoCategory() {
-    return this._videoCategory;
-  }
-
-  get videoType() {
-    return this._videoType;
-  }
-
-  get volume() {
-    return this._volume;
+  getCacheStats(): {
+    total: number;
+    loaded: number;
+    loadedResources: string[];
+  } {
+    const total = this.resourceNames.length;
+    const loaded = this.resourceCache.size;
+    const loadedResources = Array.from(this.resourceCache.keys());
+    return { total, loaded, loadedResources };
   }
 }
