@@ -1,10 +1,21 @@
 # Comic Vine SDK
 
+[![NPM Version](https://img.shields.io/npm/v/comic-vine-sdk)](https://www.npmjs.com/package/comic-vine-sdk)
+[![License](https://img.shields.io/npm/l/comic-vine-sdk)](https://github.com/AllyMurray/comic-vine/blob/main/LICENSE)
+[![Node.js Version](https://img.shields.io/node/v/comic-vine-sdk)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
+
 The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine-api] from applications written in JavaScript/TypeScript. The API provides full access to the structured-wiki content.
 
 ## Table of Contents
 
+- [Requirements](#requirements)
 - [Installation](#installation)
+- [Quick Start](#quick-start)
+- [API Key Security](#api-key-security)
+- [Rate Limiting](#rate-limiting)
+- [Error Handling](#error-handling)
+- [Advanced Usage](#advanced-usage)
 - [Roadmap](#roadmap)
 - [Comic Vine Resources](#comic-vine-resources)
 - [Usage/Examples](#usageexamples)
@@ -18,19 +29,426 @@ The Comic Vine SDK provides convenient access to the [Comic Vine API][comic-vine
 - [Run Locally](#run-locally)
 - [Authors](#authors)
 
+## Requirements
+
+- Node.js 20.0.0 or higher
+- npm, yarn, or pnpm
+
 ## Installation
 
-Install the package with:
+Choose your preferred package manager:
+
+**pnpm**
+
+```sh
+pnpm add comic-vine-sdk
+```
+
+**npm**
 
 ```sh
 npm install comic-vine-sdk
-# or
+```
+
+**yarn**
+
+```sh
 yarn add comic-vine-sdk
+```
+
+## Quick Start
+
+```js
+import ComicVine from 'comic-vine-sdk';
+
+// Initialize the client
+const comicVine = new ComicVine('your-api-key-here');
+
+// Fetch a single publisher
+const publisher = await comicVine.publisher.retrieve(1859);
+console.log(publisher.name);
+
+// Fetch a list of issues
+const issues = await comicVine.issue.list({ limit: 10 });
+console.log(issues.data.map((issue) => issue.name));
+
+// Fetch with field limiting
+const limitedIssue = await comicVine.issue.retrieve(1234, {
+  fieldList: ['id', 'name', 'description'],
+});
+console.log(limitedIssue.name);
+```
+
+## API Key Security
+
+⚠️ **Important**: Never expose your API key in client-side code or commit it to version control.
+
+### Environment Variables (Recommended)
+
+**Create a .env file:**
+
+```bash
+# .env file
+COMIC_VINE_API_KEY=your-api-key-here
+```
+
+**Use in your application:**
+
+```js
+import ComicVine from 'comic-vine-sdk';
+
+const comicVine = new ComicVine(process.env.COMIC_VINE_API_KEY);
+```
+
+### Browser Usage
+
+The Comic Vine API doesn't support CORS. For browser usage, you'll need:
+
+- A backend proxy to make API calls
+- Server-side API key storage (never send keys to the browser)
+
+**Example proxy setup:**
+
+```js
+// Backend API route (Express.js example)
+app.get('/api/comic-vine/publisher/:id', async (req, res) => {
+  try {
+    const comicVine = new ComicVine(process.env.COMIC_VINE_API_KEY);
+    const publisher = await comicVine.publisher.retrieve(req.params.id);
+    res.json(publisher);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 ```
 
 ## TypeScript Typings
 
-There's a good change you may find an issue with the typings in the API response objects. They were generated using sample data from the API, if you find a problem [open an issue](https://github.com/AllyMurray/comic-vine/issues/new) detailing the problem along with the request details so I can add that request to the sample dataset. While you wait for it to be fixed add `// @ts-expect-error` above the line causing the problem. This will allow you to compile in the meantime but will flag when the problem has been fixed.
+There's a good chance you may find an issue with the typings in the API response objects. They were generated using sample data from the API, if you find a problem [open an issue](https://github.com/AllyMurray/comic-vine/issues/new) detailing the problem along with the request details so I can add that request to the sample dataset. While you wait for it to be fixed add `// @ts-expect-error` above the line causing the problem. This will allow you to compile in the meantime but will flag when the problem has been fixed.
+
+## Rate Limiting
+
+The Comic Vine API implements rate limiting to ensure fair usage and API health for all users.
+
+> ⚠️ **Note**: This library will soon include built-in solutions for caching, request deduplication, and rate limiting. The examples below are temporary workarounds until these features are available.
+
+### Limits
+
+- **200 requests per resource per hour** - Official limit per user
+- **Velocity detection** - Prevents too many requests per second
+- **Temporary blocks** - May occur if limits are exceeded
+
+### Best Practices
+
+**Cache responses** to avoid duplicate requests:
+
+```js
+// Example: Simple in-memory cache
+const cache = new Map();
+
+async function getCachedPublisher(id) {
+  const cacheKey = `publisher-${id}`;
+
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey);
+  }
+
+  const publisher = await comicVine.publisher.retrieve(id);
+  cache.set(cacheKey, publisher);
+
+  return publisher;
+}
+```
+
+**Implement delays** between requests:
+
+```js
+// Example: Add delay between requests
+async function fetchMultipleIssues(ids) {
+  const issues = [];
+
+  for (const id of ids) {
+    const issue = await comicVine.issue.retrieve(id);
+    issues.push(issue);
+
+    // Wait 100ms between requests
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  return issues;
+}
+```
+
+**Use pagination wisely**:
+
+```js
+// Instead of making many small requests
+const issues = await comicVine.issue.list({ limit: 100 }); // Better
+// Rather than
+const issues = await comicVine.issue.list({ limit: 10 }); // Less efficient
+```
+
+## Error Handling
+
+The Comic Vine SDK provides specific error types to help you handle different failure scenarios gracefully.
+
+### Error Types
+
+All errors extend the base `BaseError` class and include:
+
+- `message`: Human-readable error description
+- `help`: Guidance on how to resolve the issue
+
+**Common Error Types:**
+
+| Error Type                     | When It Occurs          | How to Handle                    |
+| ------------------------------ | ----------------------- | -------------------------------- |
+| `ComicVineUnauthorizedError`   | Invalid API key         | Check your API key               |
+| `ComicVineObjectNotFoundError` | Resource doesn't exist  | Verify the resource ID           |
+| `OptionsValidationError`       | Invalid request options | Check your parameters            |
+| `ComicVineGenericRequestError` | API request failed      | Retry or check API status        |
+| `ComicVineSubscriberOnlyError` | Premium content access  | Requires Comic Vine subscription |
+
+### Basic Error Handling
+
+**Simple try-catch:**
+
+```js
+import ComicVine from 'comic-vine-sdk';
+
+const comicVine = new ComicVine('your-api-key-here');
+
+try {
+  const publisher = await comicVine.publisher.retrieve(999999);
+  console.log(publisher.name);
+} catch (error) {
+  console.error('Error:', error.message);
+  console.error('Help:', error.help);
+}
+```
+
+### Specific Error Handling
+
+**Handle different error types:**
+
+```js
+import ComicVine, {
+  ComicVineUnauthorizedError,
+  ComicVineObjectNotFoundError,
+  OptionsValidationError,
+} from 'comic-vine-sdk';
+
+const comicVine = new ComicVine('your-api-key-here');
+
+try {
+  const issue = await comicVine.issue.retrieve(999999);
+} catch (error) {
+  if (error instanceof ComicVineUnauthorizedError) {
+    console.error(
+      'Invalid API key. Get one from: https://comicvine.gamespot.com/api/',
+    );
+  } else if (error instanceof ComicVineObjectNotFoundError) {
+    console.error('Issue not found. Please check the ID.');
+  } else if (error instanceof OptionsValidationError) {
+    console.error('Invalid request parameters:', error.message);
+  } else {
+    console.error('Unexpected error:', error.message);
+  }
+}
+```
+
+### Robust Error Handling with Retry
+
+**Implement retry logic for transient errors:**
+
+```js
+async function fetchWithRetry(fetchFn, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await fetchFn();
+    } catch (error) {
+      // Don't retry on client errors
+      if (
+        error instanceof ComicVineUnauthorizedError ||
+        error instanceof ComicVineObjectNotFoundError ||
+        error instanceof OptionsValidationError
+      ) {
+        throw error;
+      }
+
+      // Retry on server errors
+      if (attempt === maxRetries) {
+        throw error;
+      }
+
+      // Wait before retrying (exponential backoff)
+      const delay = Math.pow(2, attempt) * 1000;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
+// Usage
+try {
+  const publisher = await fetchWithRetry(() =>
+    comicVine.publisher.retrieve(1859),
+  );
+  console.log(publisher.name);
+} catch (error) {
+  console.error('Failed after retries:', error.message);
+}
+```
+
+### Error Handling in Lists
+
+**Handle errors when processing multiple items:**
+
+```js
+async function fetchMultipleIssues(ids) {
+  const results = [];
+  const errors = [];
+
+  for (const id of ids) {
+    try {
+      const issue = await comicVine.issue.retrieve(id);
+      results.push({ id, issue });
+    } catch (error) {
+      errors.push({ id, error: error.message });
+    }
+  }
+
+  return { results, errors };
+}
+
+// Usage
+const { results, errors } = await fetchMultipleIssues([1, 2, 999999]);
+console.log(`Successfully fetched: ${results.length}`);
+console.log(`Errors: ${errors.length}`);
+```
+
+## Advanced Usage
+
+### Available Filters
+
+Common filter options for list methods:
+
+**Filter by name:**
+
+```js
+const issues = await comicVine.issue.list({
+  filter: { name: 'The Boys' },
+});
+```
+
+**Filter by date range:**
+
+```js
+const recentIssues = await comicVine.issue.list({
+  filter: {
+    date_added: '2024-01-01 00:00:00|2024-12-31 23:59:59',
+  },
+});
+```
+
+**Multiple filters:**
+
+```js
+const filteredIssues = await comicVine.issue.list({
+  filter: {
+    name: 'Spider-Man',
+    date_added: '2024-01-01 00:00:00|2024-12-31 23:59:59',
+  },
+});
+```
+
+**Publisher-specific content:**
+
+```js
+const marvelIssues = await comicVine.issue.list({
+  filter: {
+    publisher: 'Marvel Comics',
+  },
+  limit: 50,
+});
+```
+
+### Common Field Lists
+
+**Minimal issue data:**
+
+```js
+const lightIssue = await comicVine.issue.retrieve(1234, {
+  fieldList: ['id', 'name', 'issue_number'],
+});
+```
+
+**Full issue details:**
+
+```js
+const fullIssue = await comicVine.issue.retrieve(1234, {
+  fieldList: ['id', 'name', 'description', 'cover_date', 'image', 'volume'],
+});
+```
+
+**Character essentials:**
+
+```js
+const character = await comicVine.character.retrieve(1234, {
+  fieldList: ['id', 'name', 'description', 'image', 'publisher', 'powers'],
+});
+```
+
+**Publisher overview:**
+
+```js
+const publisher = await comicVine.publisher.retrieve(1234, {
+  fieldList: [
+    'id',
+    'name',
+    'description',
+    'image',
+    'date_added',
+    'location_city',
+  ],
+});
+```
+
+### Sorting and Ordering
+
+**Sort by date (newest first):**
+
+```js
+const recentIssues = await comicVine.issue.list({
+  sort: 'date_added:desc',
+  limit: 10,
+});
+```
+
+**Sort by name:**
+
+```js
+const sortedCharacters = await comicVine.character.list({
+  sort: 'name:asc',
+  limit: 100,
+});
+```
+
+### Complex Queries
+
+**Combine multiple options:**
+
+```js
+const complexQuery = await comicVine.issue.list({
+  filter: {
+    name: 'Spider-Man',
+    date_added: '2024-01-01 00:00:00|2024-12-31 23:59:59',
+  },
+  fieldList: ['id', 'name', 'issue_number', 'cover_date', 'image'],
+  sort: 'cover_date:desc',
+  limit: 25,
+  offset: 0,
+});
+```
 
 ## Roadmap
 
@@ -82,7 +500,7 @@ const comicVine = new ComicVine('your-api-key-here');
 
 comicVine.publisher
   .retrieve(1859)
-  .then((customer) => console.log(customer.id))
+  .then((publisher) => console.log(publisher.id))
   .catch((error) => console.error(error));
 ```
 
@@ -160,7 +578,7 @@ const comicVine = new ComicVine('your-api-key-here');
 
 ### Fetch a resource list
 
-All resources have a retrieve method, the following example retrieves a list of publishers
+All resources have a list method, the following example retrieves a list of publishers
 
 ```js
 import ComicVine from 'comic-vine-sdk';
@@ -188,7 +606,7 @@ const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
   try {
-    const issue = await comicVine.issue.retrieve(id, {
+    const issue = await comicVine.issue.retrieve(1234, {
       fieldList: ['id', 'name', 'description'],
     });
 
@@ -219,18 +637,22 @@ const comicVine = new ComicVine('your-api-key-here');
 
 (async () => {
   try {
-    const limit: 50;
-    const filter: { name: 'The Boys' },
+    const limit = 50;
+    const filter = { name: 'The Boys' };
 
     // Retrieve the first 50 issues of The Boys (Page 1)
     const issuesPage1 = await comicVine.issue.list({ limit, filter });
     console.log(`Total issues: ${issuesPage1.data.length}`);
-    console.log(issuesPage1.data.map(issue => issue.name).join(', '));
+    console.log(issuesPage1.data.map((issue) => issue.name).join(', '));
 
     // Retrieve the next 50 issues of The Boys (Page 2)
-    const issuesPage2 = await comicVine.issue.list({ limit, filter, offset: 50 });
+    const issuesPage2 = await comicVine.issue.list({
+      limit,
+      filter,
+      offset: 50,
+    });
     console.log(`Total issues: ${issuesPage2.data.length}`);
-    console.log(issuesPage2.data.map(issue => issue.name).join(', '));
+    console.log(issuesPage2.data.map((issue) => issue.name).join(', '));
   } catch (error) {
     console.error(error);
   }
@@ -256,7 +678,7 @@ const comicVine = new ComicVine('your-api-key-here');
 
     let issueNames = [];
     for await (const issue of comicVine.issue.list(listOptions)) {
-      issueName.push(issue.name);
+      issueNames.push(issue.name);
     }
 
     console.log(`Total issues: ${issueNames.length}`);
