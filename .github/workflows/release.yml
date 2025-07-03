@@ -10,7 +10,8 @@ jobs:
     permissions:
       contents: write
     outputs:
-      latest_commit: ${{ steps.git_remote.outputs.latest_commit }}
+      new_version_created: ${{ steps.check_version.outputs.new_version_created }}
+      version_tag: ${{ steps.check_version.outputs.version_tag }}
     env:
       CI: 'true'
     steps:
@@ -30,17 +31,30 @@ jobs:
           node-version: 20.x
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Get current version before release
+        id: before_version
+        run: echo "version=$(git describe --tags --abbrev=0 2>/dev/null || echo 'none')" >> $GITHUB_OUTPUT
       - name: release
         run: npm run release
-      - name: Check for new commits
-        id: git_remote
-        run: echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT
+      - name: Check if new version was created
+        id: check_version
+        run: |
+          CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo 'none')
+          PREVIOUS_TAG="${{ steps.before_version.outputs.version }}"
+          if [ "$CURRENT_TAG" != "$PREVIOUS_TAG" ]; then
+            echo "new_version_created=true" >> $GITHUB_OUTPUT
+            echo "version_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+            echo "✅ New version created: $CURRENT_TAG"
+          else
+            echo "new_version_created=false" >> $GITHUB_OUTPUT
+            echo "❌ No new version created"
+          fi
       - name: Backup artifact permissions
-        if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
+        if: ${{ steps.check_version.outputs.new_version_created == 'true' }}
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
+        if: ${{ steps.check_version.outputs.new_version_created == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: build-artifact
@@ -51,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: needs.release.outputs.latest_commit == github.sha
+    if: needs.release.outputs.new_version_created == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,9 +86,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Get the latest tag created by standard-version
-          TAG=$(git describe --tags --abbrev=0)
-          # Create GitHub release with auto-generated notes
+          # Use the version tag from the release job
+          TAG="${{ needs.release.outputs.version_tag }}"
+          echo "Creating GitHub release for $TAG"
           gh release create $TAG --generate-notes || echo "Release may already exist"
   release_npm:
     name: Publish to npm
@@ -82,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: needs.release.outputs.latest_commit == github.sha
+    if: needs.release.outputs.new_version_created == 'true'
     steps:
       - uses: actions/setup-node@v4
         with:
