@@ -27,11 +27,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.0.0
+          node-version: 20.x
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: release
         run: npm run release
+        # env:
+        #   NODE_OPTIONS: '--max-old-space-size=8192'
       - name: Check for new commits
         id: git_remote
         run: echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT
@@ -55,7 +57,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.0.0
+          node-version: 20.x
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -80,7 +82,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.0.0
+          node-version: 20.x
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
