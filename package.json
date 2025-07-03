@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm run compile && npm run test && npm run package",
-    "compile": "tsc --project tsconfig.build.esm.json && ts-node ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && ts-node ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
+    "compile": "tsc --project tsconfig.build.esm.json && tsx ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && tsx ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
     "lint": "eslint --fix src && prettier --write .",
     "install:ci": "pnpm i --frozen-lockfile",
     "package": "mkdir -p dist/js && mv $(npm pack) dist/js/",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "20",
-    "commander": "11.0.0",
+    "commander": "14.0.0",
     "commitizen": "4.3.1",
     "eslint": "9",
     "eslint-config-prettier": "10.1.5",
@@ -39,7 +39,7 @@
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
     "standard-version": "9",
-    "ts-node": "10.9.2",
+    "tsx": "4.20.3",
     "typescript": "5.8.3",
     "typescript-eslint": "8",
     "vitest": "3.2.4"
