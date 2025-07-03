@@ -32,8 +32,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: release
         run: npm run release
-        # env:
-        #   NODE_OPTIONS: '--max-old-space-size=8192'
       - name: Check for new commits
         id: git_remote
         run: echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT
@@ -55,6 +53,10 @@ jobs:
       contents: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
@@ -69,9 +71,11 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF: ${{ github.ref }}
-        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q "Release.tag_name already exists" $errout; then cat $errout; exit $exitcode; fi
+        run: |
+          # Get the latest tag created by standard-version
+          TAG=$(git describe --tags --abbrev=0)
+          # Create GitHub release with auto-generated notes
+          gh release create $TAG --generate-notes || echo "Release may already exist"
   release_npm:
     name: Publish to npm
     needs: release

@@ -12,7 +12,7 @@
     "install:ci": "pnpm i --frozen-lockfile",
     "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
     "prepare": "husky",
-    "release": "rm -fr dist && npm run build",
+    "release": "rm -fr dist && standard-version && npm run build",
     "test": "vitest --dir=src && npm run lint",
     "test:run": "vitest run --dir=src && npm run lint",
     "watch": "tsc --build -w"
@@ -71,7 +71,7 @@
   "main": "lib/cjs/index.js",
   "license": "MIT",
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
-  "version": "0.0.0",
+  "version": "1.2.8",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
