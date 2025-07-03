@@ -10,7 +10,7 @@
     "compile": "tsc --project tsconfig.build.esm.json && tsx ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && tsx ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
     "lint": "eslint --fix src && prettier --write .",
     "install:ci": "pnpm i --frozen-lockfile",
-    "package": "mkdir -p dist/js && mv $(npm pack) dist/js/",
+    "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
     "prepare": "husky",
     "release": "rm -fr dist && npm run build",
     "test": "vitest --dir=src && npm run lint",
