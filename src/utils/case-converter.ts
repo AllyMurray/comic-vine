@@ -11,12 +11,18 @@ export const toSnakeCase = (str: string) =>
 
 type CaseConverter = (str: string) => string;
 
-const convertCase = (caseConverter: CaseConverter, object: any): object => {
+const convertCase = (
+  caseConverter: CaseConverter,
+  object: unknown,
+): unknown => {
   if (isObject(object)) {
-    const newObject: any = {};
+    const newObject: Record<string, unknown> = {};
 
-    Object.keys(object).forEach((key) => {
-      newObject[caseConverter(key)] = convertCase(caseConverter, object[key]);
+    Object.keys(object as Record<string, unknown>).forEach((key) => {
+      newObject[caseConverter(key)] = convertCase(
+        caseConverter,
+        (object as Record<string, unknown>)[key],
+      );
     });
 
     return newObject;
@@ -30,13 +36,13 @@ const convertCase = (caseConverter: CaseConverter, object: any): object => {
 };
 
 export const convertSnakeCaseToCamelCase = <ReturnType>(
-  object: any,
+  object: unknown,
 ): ReturnType => {
-  return convertCase(toCamelCase, object) as any as ReturnType;
+  return convertCase(toCamelCase, object) as ReturnType;
 };
 
 export const convertCamelCaseToSnakeCase = <ReturnType>(
-  object: any,
+  object: unknown,
 ): ReturnType => {
-  return convertCase(toSnakeCase, object) as any as ReturnType;
+  return convertCase(toSnakeCase, object) as ReturnType;
 };

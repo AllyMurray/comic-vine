@@ -20,7 +20,7 @@ interface SnakeCaseResponse {
   number_of_page_results: number;
   number_of_total_results: number;
   statusCode: StatusCode;
-  results: any;
+  results: unknown;
 }
 
 const getMockResponse = (

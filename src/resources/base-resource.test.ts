@@ -232,7 +232,7 @@ describe('Issue', () => {
         }
       } catch (error) {
         // Assert
-        console.log((error as any).message);
+        console.log((error as Error).message);
         expect(error).toBeInstanceOf(ComicVineUrlFormatError);
       }
     });

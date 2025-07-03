@@ -1,6 +1,6 @@
-import { PublisherDetails, PublisherListItem } from './types/index.js';
 import { BaseResource } from '../base-resource.js';
 import { ResourceType } from '../resource-type.js';
+import { PublisherDetails, PublisherListItem } from './types/index.js';
 
 export class Publisher extends BaseResource<
   PublisherDetails,
