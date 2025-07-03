@@ -18,12 +18,10 @@ jobs:
           ref: main
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: '9'
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.0.0
+          node-version: 20.0.0
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Upgrade dependencies
