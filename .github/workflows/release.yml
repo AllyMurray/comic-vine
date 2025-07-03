@@ -23,7 +23,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
           version: '9'
       - name: Setup Node.js
