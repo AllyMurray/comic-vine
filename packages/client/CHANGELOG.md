@@ -1,5 +1,11 @@
 # @comic-vine/client
 
+## 0.0.6
+
+### Patch Changes
+
+- 5fd429e: test github release
+
 ## 0.0.5
 
 ### Patch Changes
