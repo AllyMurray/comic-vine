@@ -29,36 +29,30 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build packages
         run: npx turbo build
-      # - name: Setup npm authentication
-      #   run: |
-      #     # Create .npmrc in both home directory and workspace
-      #     cat << EOF > "$HOME/.npmrc"
-      #     //registry.npmjs.org/:_authToken=$NPM_TOKEN
-      #     EOF
-      #     cat << EOF > ".npmrc"
-      #     //registry.npmjs.org/:_authToken=$NPM_TOKEN
-      #     EOF
-      #     # Verify npm authentication
-      #     npm whoami || (echo "npm authentication failed" && exit 1)
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm release
-          title: 'chore: release packages'
-          commit: 'chore: release packages'
+      - name: Version packages and publish
+        run: |
+          # Apply version changes
+          npx changeset version
+          # Commit version changes
+          git add .
+          git commit -m "chore: version packages" || echo "No changes to commit"
+          # Publish packages
+          pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create GitHub Release
-        if: steps.changesets.outputs.published == 'true'
+      - name: Push version changes
+        run: |
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub Release
         run: |
           # Create GitHub releases for published packages
-          echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | .name + "@" + .version' | while read package; do
-            echo "Creating GitHub release for $package"
-            gh release create "v$package" --generate-notes || echo "Release may already exist"
-          done
+          # Get the version from package.json
+          PACKAGE_VERSION=$(node -p "require('./packages/client/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./packages/client/package.json').name")
+          echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
+          gh release create "v$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
