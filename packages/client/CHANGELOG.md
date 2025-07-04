@@ -1,5 +1,11 @@
 # @comic-vine/client
 
+## 0.0.4
+
+### Patch Changes
+
+- 4e59d64: force release
+
 ## 0.0.3
 
 ### Patch Changes
