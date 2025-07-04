@@ -29,30 +29,22 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build packages
         run: npx turbo build
-      - name: Version packages and publish
-        run: |
-          # Apply version changes
-          npx changeset version
-          # Commit version changes
-          git add .
-          git commit -m "chore: version packages" || echo "No changes to commit"
-          # Publish packages
-          pnpm release
+      - name: Publish packages
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npx changeset publish
+          commit: 'chore: release packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Push version changes
-        run: |
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create GitHub Release
+        if: steps.changesets.outputs.published == 'true'
         run: |
-          # Create GitHub releases for published packages
-          # Get the version from package.json
-          PACKAGE_VERSION=$(node -p "require('./packages/client/package.json').version")
-          PACKAGE_NAME=$(node -p "require('./packages/client/package.json').name")
-          echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
-          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME v$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
+          echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | .name + "@" + .version' | while read package; do
+            echo "Creating GitHub release for $package"
+            gh release create "$package" --title "$package" --generate-notes || echo "Release may already exist"
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
