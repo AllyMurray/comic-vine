@@ -27,11 +27,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
-        run: turbo build
+        run: npx turbo build
       - name: Test
-        run: turbo test:run
+        run: npx turbo test:run
       - name: Lint
-        run: turbo lint
+        run: npx turbo lint
       - name: Find mutations
         id: self_mutation
         run: |-
