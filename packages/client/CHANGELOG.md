@@ -1,5 +1,11 @@
 # @comic-vine/client
 
+## 0.0.7
+
+### Patch Changes
+
+- cea7493: update docs for monorepo
+
 ## 0.0.6
 
 ### Patch Changes
