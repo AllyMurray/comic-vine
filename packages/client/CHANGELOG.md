@@ -1,0 +1,10 @@
+# @comic-vine/client
+
+## 0.0.3
+
+### Patch Changes
+
+- 34bb1a2: force deployment
+- 612b27b: further pipeline testing
+- cac216e: another pipeline test
+- 94287a5: testing release pipeline
