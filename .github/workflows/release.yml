@@ -53,6 +53,6 @@ jobs:
           PACKAGE_VERSION=$(node -p "require('./packages/client/package.json').version")
           PACKAGE_NAME=$(node -p "require('./packages/client/package.json').name")
           echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
-          gh release create "v$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
+          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME v$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
