@@ -1,34 +1,28 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "alwaysStrict": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "lib": ["es2019"],
-    "module": "Node16",
-    "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "stripInternal": true,
     "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
     "skipLibCheck": true,
-    "types": ["vitest/globals"]
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": [],
-  "ts-node": {
-    "esm": true
-  }
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/client/tsconfig.json"
+    }
+  ]
 }

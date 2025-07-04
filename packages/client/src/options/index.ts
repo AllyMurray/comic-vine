@@ -24,10 +24,13 @@ export const loadOptions = (userOptions?: userOptions) => {
   } catch (error: unknown) {
     if (error instanceof ZodError) {
       const validationError = error.issues[0];
-      throw new OptionsValidationError(
-        validationError.path,
-        validationError.message,
-      );
+      if (validationError) {
+        throw new OptionsValidationError(
+          validationError.path,
+          validationError.message,
+        );
+      }
+      throw new OptionsValidationError([], 'Unknown validation error');
     }
     throw customError(error);
   }

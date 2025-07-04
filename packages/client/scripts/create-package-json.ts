@@ -9,7 +9,7 @@ program
   .option('--moduleType <string>', 'The module type, cjs or esm')
   .option(
     '--packageJsonType <string>',
-    'The package.json type, either commonjs or module'
+    'The package.json type, either commonjs or module',
   );
 program.parse();
 
@@ -24,6 +24,6 @@ fs.writeFileSync(
       type,
     },
     null,
-    2
-  )
+    2,
+  ),
 );

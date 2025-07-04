@@ -52,8 +52,7 @@ export default tseslint.config(
           devDependencies: [
             '**/test/**',
             '**/build-tools/**',
-            '.projenrc.ts',
-            'projenrc/**/*.ts',
+            '**/vitest.config.ts',
           ],
           optionalDependencies: false,
           peerDependencies: true,
@@ -143,15 +142,6 @@ export default tseslint.config(
     },
   },
 
-  // Configuration for .projenrc.ts
-  {
-    files: ['.projenrc.ts'],
-    rules: {
-      '@typescript-eslint/no-require-imports': 'off',
-      'import/no-extraneous-dependencies': 'off',
-    },
-  },
-
   // Global ignores
   {
     ignores: [
@@ -160,9 +150,9 @@ export default tseslint.config(
       'node_modules/',
       '*.generated.ts',
       'coverage',
-      'scripts/create-package-json.ts',
-      '!.projenrc.ts',
-      '!projenrc/**/*.ts',
+      'packages/**/lib/**',
+      'packages/**/dist/**',
+      'packages/**/scripts/create-package-json.ts',
     ],
   },
 );

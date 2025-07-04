@@ -1,21 +1,22 @@
 {
-  "name": "comic-vine-sdk",
-  "description": "A JS/TS client for the Comic Vine API",
+  "name": "comic-vine-monorepo",
+  "description": "Comic Vine monorepo containing SDK and related packages",
   "repository": {
     "type": "git",
     "url": "https://github.com/AllyMurray/comic-vine.git"
   },
   "scripts": {
-    "build": "npm run compile && npm run test && npm run package",
-    "compile": "tsc --project tsconfig.build.esm.json && tsx ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && tsx ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
-    "lint": "eslint --fix src && prettier --write .",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:run": "turbo run test:run",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev --parallel",
+    "clean": "turbo run clean",
     "install:ci": "pnpm i --frozen-lockfile",
-    "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
     "prepare": "husky",
-    "release": "rm -fr dist && standard-version && npm run build",
-    "test": "vitest --dir=src && npm run lint",
-    "test:run": "vitest run --dir=src && npm run lint",
-    "watch": "tsc --build -w"
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build && changeset publish"
   },
   "author": {
     "name": "Ally Murray",
@@ -23,8 +24,8 @@
     "organization": false
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@types/node": "20",
-    "commander": "14.0.0",
     "commitizen": "4.3.1",
     "eslint": "9",
     "eslint-config-prettier": "10.1.5",
@@ -35,64 +36,32 @@
     "globals": "16.3.0",
     "husky": "9.1.7",
     "lint-staged": "16.1.2",
-    "nock": "14.0.5",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
-    "standard-version": "9",
-    "tsx": "4.20.3",
+    "turbo": "^2.0.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8",
-    "vitest": "3.2.4"
+    "typescript-eslint": "8"
   },
-  "dependencies": {
-    "axios": "1.10.0",
-    "zod": "3.25.71"
+  "pnpm": {
+    "overrides": {
+      "typescript": "5.8.3"
+    }
   },
-  "pnpm": {},
-  "keywords": [
-    "comic",
-    "comic-metadata",
-    "comic-vine",
-    "comic-vine-api",
-    "comic-vine-client",
-    "comic-vine-javascript",
-    "comic-vine-js",
-    "comic-vine-node",
-    "comic-vine-nodejs",
-    "comic-vine-sdk",
-    "comic-vine-ts",
-    "comic-vine-typescript",
-    "comics",
-    "metadata"
-  ],
   "engines": {
     "node": ">= 20.0.0"
   },
-  "main": "lib/cjs/index.js",
   "license": "MIT",
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
   "version": "1.3.1",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
-  "types": "lib/cjs/index.d.ts",
-  "type": "module",
-  "module": "lib/esm/index.js",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./lib/esm/index.d.ts",
-        "default": "./lib/esm/index.js"
-      },
-      "require": {
-        "types": "./lib/cjs/index.d.ts",
-        "default": "./lib/cjs/index.js"
-      }
-    }
-  },
   "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
   "lint-staged": {
     "*.{ts,json,md}": "prettier --write",
     "*.ts": "eslint --fix"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
