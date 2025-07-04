@@ -39,19 +39,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish packages
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm release
+        run: |
+          # Publish packages directly
+          pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub Release
-        if: steps.changesets.outputs.published == 'true'
         run: |
-          echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | .name + "@" + .version' | while read package; do
-            echo "Creating GitHub release for $package"
-            gh release create "$package" --title "$package" --generate-notes || echo "Release may already exist"
-          done
+          # Get the version from package.json
+          PACKAGE_VERSION=$(node -p "require('./packages/client/package.json').version")
+          PACKAGE_NAME=$(node -p "require('./packages/client/package.json').name")
+          echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
+          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME@$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
