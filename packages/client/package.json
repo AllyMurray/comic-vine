@@ -13,7 +13,7 @@
     "test": "vitest --dir=src",
     "test:run": "vitest run --dir=src",
     "dev": "tsc --build -w",
-    "clean": "rimraf lib dist"
+    "clean": "rimraf lib dist node_modules .turbo"
   },
   "author": {
     "name": "Ally Murray",
@@ -74,6 +74,10 @@
   },
   "main": "lib/cjs/index.js",
   "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "lib/**"
+  ],
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
   "version": "0.0.0",
   "bugs": {

@@ -5,14 +5,14 @@
     "type": "git",
     "url": "https://github.com/AllyMurray/comic-vine.git"
   },
+  "private": true,
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "test:run": "turbo run test:run",
     "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev": "turbo run dev --parallel",
-    "clean": "turbo run clean",
-    "install:ci": "pnpm i --frozen-lockfile",
+    "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -52,7 +52,6 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
-  "version": "1.3.1",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
