@@ -3,7 +3,7 @@
   "description": "A JS/TS client for the Comic Vine API",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AllyMurray/comic-vine.git"
+    "url": "git+https://github.com/AllyMurray/comic-vine.git"
   },
   "scripts": {
     "build": "npm run compile && npm run test && npm run package",
