@@ -79,7 +79,7 @@
     "lib/**"
   ],
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
