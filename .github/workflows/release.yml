@@ -29,13 +29,20 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build packages
         run: npx turbo build
+      - name: Version packages
+        run: |
+          # Apply version changes and commit them
+          npx changeset version
+          git add .
+          git commit -m "chore: release packages" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish packages
         id: changesets
         uses: changesets/action@v1
         with:
-          version: npx changeset version
-          publish: npx changeset publish
-          commit: 'chore: release packages'
+          publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
