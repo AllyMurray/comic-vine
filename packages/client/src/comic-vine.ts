@@ -1,5 +1,6 @@
 import { HttpClientFactory } from './http-client/index.js';
 import { userOptions, loadOptions } from './options/index.js';
+import type { ResourceInterface } from './resources/base-resource.js';
 import { ResourceFactory } from './resources/index.js';
 import * as resources from './resources/resource-list.js';
 import {
@@ -16,7 +17,8 @@ function classNameToPropertyName(className: string): string {
   return className.charAt(0).toLowerCase() + className.slice(1);
 }
 
-type ResourceInstance = ReturnType<ResourceFactory['create']>;
+type ResourceInstance = ReturnType<ResourceFactory['create']> &
+  ResourceInterface;
 
 // Create resource property type mapping dynamically
 type ResourcePropertyMap = {
@@ -216,15 +218,9 @@ export class ComicVine implements ResourcePropertyMap {
         params,
         resourceName,
         async () => {
-          // Call the original retrieve method with proper type handling
-          // We need to cast to unknown to work around the union type issue
-          // This is safe because we control the input parameters
-          const originalRetrieve = (
-            resource as unknown as {
-              retrieve: (...args: Array<unknown>) => unknown;
-            }
-          ).retrieve;
-          return originalRetrieve.call(resource, id, options) as Promise<T>;
+          // All resources implement ResourceInterface, so we can safely access retrieve method
+          // Cast needed because interface returns Promise<unknown> but we need Promise<T>
+          return resource.retrieve(id, options) as Promise<T>;
         },
       );
     };
@@ -235,10 +231,9 @@ export class ComicVine implements ResourcePropertyMap {
       const endpoint = `${resourceName}/list`;
       const params = options;
 
-      // Get the original list result (which has both Promise and AsyncIterable)
-      const originalResult = (
-        resource as unknown as { list: (...args: Array<unknown>) => unknown }
-      ).list(options);
+      // All resources implement ResourceInterface, so we can safely access list method
+      // No casting needed since the type system guarantees this
+      const originalResult = resource.list(options);
 
       // For list methods, we need to handle both the Promise and AsyncIterable
       const wrappedPromise = this.executeWithStores(
@@ -255,17 +250,13 @@ export class ComicVine implements ResourcePropertyMap {
           await wrappedPromise;
 
           // Then delegate to the original result's iterator
+          // Since originalResult is known to be an AsyncIterable, we can safely yield from it
           if (
             originalResult &&
             typeof originalResult === 'object' &&
             Symbol.asyncIterator in originalResult
           ) {
-            const iterator = (originalResult as Record<symbol, unknown>)[
-              Symbol.asyncIterator
-            ];
-            if (typeof iterator === 'function') {
-              yield* iterator.call(originalResult);
-            }
+            yield* originalResult;
           }
         },
       };

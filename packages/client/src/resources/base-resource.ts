@@ -7,7 +7,17 @@ import type {
   PickFilters,
 } from '../types/index.js';
 
-export abstract class BaseResource<Resource, ResourceListItem> {
+// Common interface that all resources must implement
+export interface ResourceInterface {
+  retrieve(id: number, options?: Record<string, unknown>): Promise<unknown>;
+  list(
+    options?: Record<string, unknown>,
+  ): Promise<unknown> & AsyncIterable<unknown>;
+}
+
+export abstract class BaseResource<Resource, ResourceListItem>
+  implements ResourceInterface
+{
   protected abstract resourceType: ResourceType;
 
   constructor(
