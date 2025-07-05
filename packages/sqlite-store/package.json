@@ -20,9 +20,9 @@
     "organization": false
   },
   "devDependencies": {
-    "@comic-vine/eslint-config": "workspace:*",
-    "@comic-vine/tsup-config": "workspace:*",
-    "@comic-vine/vitest-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/vitest-config": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "20",
     "better-sqlite3": "11.10.0",

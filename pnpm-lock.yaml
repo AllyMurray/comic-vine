@@ -44,13 +44,13 @@ importers:
         specifier: 3.25.71
         version: 3.25.71
     devDependencies:
-      '@comic-vine/eslint-config':
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@comic-vine/tsup-config':
+      '@repo/tsup-config':
         specifier: workspace:*
         version: link:../tsup-config
-      '@comic-vine/vitest-config':
+      '@repo/vitest-config':
         specifier: workspace:*
         version: link:../vitest-config
       '@types/node':
@@ -105,13 +105,13 @@ importers:
         specifier: workspace:*
         version: link:../client
     devDependencies:
-      '@comic-vine/eslint-config':
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@comic-vine/tsup-config':
+      '@repo/tsup-config':
         specifier: workspace:*
         version: link:../tsup-config
-      '@comic-vine/vitest-config':
+      '@repo/vitest-config':
         specifier: workspace:*
         version: link:../vitest-config
       '@types/node':
@@ -172,13 +172,13 @@ importers:
         specifier: ^0.33.0
         version: 0.33.0(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)
     devDependencies:
-      '@comic-vine/eslint-config':
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@comic-vine/tsup-config':
+      '@repo/tsup-config':
         specifier: workspace:*
         version: link:../tsup-config
-      '@comic-vine/vitest-config':
+      '@repo/vitest-config':
         specifier: workspace:*
         version: link:../vitest-config
       '@types/better-sqlite3':

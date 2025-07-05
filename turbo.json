@@ -1,28 +1,28 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "@comic-vine/tsup-config#build": {
+    "@repo/tsup-config#build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
-    "@comic-vine/vitest-config#build": {
+    "@repo/vitest-config#build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
     "build": {
-      "dependsOn": ["^build", "@comic-vine/tsup-config#build"],
+      "dependsOn": ["^build", "@repo/tsup-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["lib/**", "dist/**"]
     },
     "test": {
-      "dependsOn": ["^build", "@comic-vine/vitest-config#build"],
+      "dependsOn": ["^build", "@repo/vitest-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**"]
     },
     "test:run": {
-      "dependsOn": ["^build", "@comic-vine/vitest-config#build"],
+      "dependsOn": ["^build", "@repo/vitest-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**"]
     },

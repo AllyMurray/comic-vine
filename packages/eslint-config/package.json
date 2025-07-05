@@ -1,5 +1,5 @@
 {
-  "name": "@comic-vine/eslint-config",
+  "name": "@repo/eslint-config",
   "version": "0.0.1",
   "private": true,
   "type": "module",

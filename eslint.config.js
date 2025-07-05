@@ -5,7 +5,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
-import { baseConfig } from '@comic-vine/eslint-config/base';
+import { baseConfig } from '@repo/eslint-config/base';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [

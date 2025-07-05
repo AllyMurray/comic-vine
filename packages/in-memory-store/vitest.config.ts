@@ -1,4 +1,4 @@
-import { sharedVitestConfig } from '@comic-vine/vitest-config';
+import { sharedVitestConfig } from '@repo/vitest-config';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({

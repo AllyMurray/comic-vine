@@ -20,9 +20,9 @@
     "organization": false
   },
   "devDependencies": {
-    "@comic-vine/eslint-config": "workspace:*",
-    "@comic-vine/tsup-config": "workspace:*",
-    "@comic-vine/vitest-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/vitest-config": "workspace:*",
     "@types/node": "20",
     "nock": "14.0.5",
     "tsup": "8.5.0",
