@@ -1,4 +1,6 @@
 ---
+description: Always use TypeScript types and avoid using any or unknown unless necessary
+globs: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx']
 alwaysApply: true
 ---
 
@@ -9,7 +11,8 @@ alwaysApply: true
 ### Never use `any` type
 
 - Always use proper TypeScript types
-- Use `unknown` when the type is truly unknown
+- Use `unknown` **only** when the type is genuinely unknown at compile time
+- **Never use `unknown` as a way to bypass type safety** - always use proper type narrowing
 - Use union types when multiple types are possible
 - Use generics when types need to be parameterized
 - Use type assertions sparingly and only when absolutely necessary
@@ -17,13 +20,15 @@ alwaysApply: true
 ### Never use forceful casting
 
 - Avoid using `as` type assertions unless absolutely necessary
+- **Never cast from `unknown` without proper type checking first**
 - Use type guards instead of casting
 - Use proper type narrowing techniques
 - If casting is unavoidable, add detailed comments explaining why
 
 ### Preferred approaches:
 
-- Use `unknown` instead of `any`
+- Use `unknown` **only** when you truly don't know the type (e.g., JSON.parse, external APIs)
+- **Always narrow `unknown` types using type guards** before using them
 - Use type guards: `if (typeof x === 'string')`
 - Use `in` operator: `if ('property' in obj)`
 - Use `instanceof` checks: `if (obj instanceof SomeClass)`
@@ -38,12 +43,23 @@ function badFunction(param: any): any {}
 
 // ❌ Don't forcefully cast
 const result = data as SomeType;
+
+// ❌ Don't use unknown as a type escape hatch
+function badUnknownUsage(data: unknown): SomeType {
+  return data as SomeType; // This defeats the purpose of unknown!
+}
+
+// ❌ Don't use unknown when you know the type
+function badParameterType(param: unknown): string {
+  // If you know it should be a string, type it as string!
+  return param as string;
+}
 ```
 
 ### Examples of what TO do:
 
 ```typescript
-// ✅ Use unknown and type guards
+// ✅ Use unknown with proper type narrowing
 function goodFunction(param: unknown): string {
   if (typeof param === 'string') {
     return param;
@@ -51,17 +67,27 @@ function goodFunction(param: unknown): string {
   throw new Error('Expected string');
 }
 
-// ✅ Use proper generics
+// ✅ Use proper generics when types are known
 function genericFunction<T>(param: T): T {
   return param;
 }
+
+// ✅ Use unknown for truly unknown data (like JSON parsing)
+function parseApiResponse(jsonString: string): User | null {
+  const data: unknown = JSON.parse(jsonString);
+
+  // Proper type checking before using
+  if (
+    typeof data === 'object' &&
+    data !== null &&
+    'id' in data &&
+    'name' in data &&
+    typeof data.id === 'number' &&
+    typeof data.name === 'string'
+  ) {
+    return { id: data.id, name: data.name };
+  }
+
+  return null;
+}
 ```
-
-## Enforcement
-
-These rules should be followed at all times. If you encounter a situation where you think `any` or casting is necessary, first explore all other TypeScript features and patterns before considering it.
-description:
-globs:
-alwaysApply: false
-
----

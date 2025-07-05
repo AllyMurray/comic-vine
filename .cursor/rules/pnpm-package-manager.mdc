@@ -1,11 +1,6 @@
 ---
-description:
-globs:
-alwaysApply: false
----
----
 description: Always use pnpm for package management in this project
-globs: ["package.json", "pnpm-lock.yaml", "**/*.ts", "**/*.js", "**/*.md"]
+globs: ['package.json', 'pnpm-lock.yaml', '**/*.ts', '**/*.js', '**/*.md']
 alwaysApply: true
 ---
 
