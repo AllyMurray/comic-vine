@@ -6,13 +6,12 @@
     "url": "git+https://github.com/AllyMurray/comic-vine.git"
   },
   "scripts": {
-    "build": "npm run compile && npm run test && npm run package",
-    "compile": "tsc --project tsconfig.build.esm.json && tsx ./scripts/create-package-json.ts --moduleType=\"esm\" --packageJsonType=module && tsc --project tsconfig.build.cjs.json && tsx ./scripts/create-package-json.ts --moduleType=\"cjs\" --packageJsonType=commonjs",
+    "build": "tsup && npm run test && npm run package",
     "lint": "eslint --fix src && prettier --write .",
     "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
-    "test": "vitest --dir=src",
-    "test:run": "vitest run --dir=src",
-    "dev": "tsc --build -w",
+    "test": "vitest run --dir=src",
+    "test:watch": "vitest --dir=src",
+    "dev": "tsup --watch",
     "clean": "rimraf lib dist node_modules .turbo"
   },
   "author": {
@@ -22,7 +21,6 @@
   },
   "devDependencies": {
     "@types/node": "20",
-    "commander": "14.0.0",
     "eslint": "9",
     "eslint-config-prettier": "10.1.5",
     "eslint-import-resolver-node": "0.3.9",
@@ -33,6 +31,7 @@
     "nock": "14.0.5",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
+    "tsup": "8.5.0",
     "tsx": "4.20.3",
     "typescript": "5.8.3",
     "typescript-eslint": "8",
@@ -72,7 +71,7 @@
   "engines": {
     "node": ">= 20.0.0"
   },
-  "main": "lib/cjs/index.js",
+  "main": "lib/index.cjs",
   "license": "MIT",
   "sideEffects": false,
   "files": [
@@ -83,18 +82,18 @@
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
-  "types": "lib/cjs/index.d.ts",
+  "types": "lib/index.d.ts",
   "type": "module",
-  "module": "lib/esm/index.js",
+  "module": "lib/index.js",
   "exports": {
     ".": {
       "import": {
-        "types": "./lib/esm/index.d.ts",
-        "default": "./lib/esm/index.js"
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
       },
       "require": {
-        "types": "./lib/cjs/index.d.ts",
-        "default": "./lib/cjs/index.js"
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
       }
     }
   },

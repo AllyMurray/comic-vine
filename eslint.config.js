@@ -53,6 +53,7 @@ export default tseslint.config(
             '**/test/**',
             '**/build-tools/**',
             '**/vitest.config.ts',
+            '**/tsup.config.ts',
           ],
           optionalDependencies: false,
           peerDependencies: true,

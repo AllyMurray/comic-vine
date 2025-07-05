@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/AllyMurray/comic-vine.git"
   },
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "turbo run build",
