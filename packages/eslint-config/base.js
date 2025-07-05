@@ -74,6 +74,12 @@ export const baseConfig = [
           varsIgnorePattern: '^_',
         },
       ],
+      '@typescript-eslint/array-type': [
+        'error',
+        {
+          default: 'generic',
+        },
+      ],
     },
   },
   // Configuration for TypeScript files

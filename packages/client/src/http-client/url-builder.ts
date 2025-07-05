@@ -57,7 +57,7 @@ export class UrlBuilder {
     return undefined;
   }
 
-  private getFieldListParams<Key>(fieldList: Key[] | undefined) {
+  private getFieldListParams<Key>(fieldList: Array<Key> | undefined) {
     if (fieldList) {
       return {
         name: 'field_list',

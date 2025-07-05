@@ -74,7 +74,7 @@ export class InMemoryCacheStore implements CacheStore {
    */
   cleanup(): void {
     const now = Date.now();
-    const toDelete: string[] = [];
+    const toDelete: Array<string> = [];
 
     for (const [hash, item] of this.cache) {
       if (now > item.expiresAt) {

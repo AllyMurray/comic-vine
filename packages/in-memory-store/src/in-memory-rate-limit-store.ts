@@ -1,7 +1,7 @@
 import { RateLimitStore } from '@comic-vine/client';
 
 interface RateLimitInfo {
-  requests: number[];
+  requests: Array<number>;
   limit: number;
   windowMs: number;
   resetTime: number;

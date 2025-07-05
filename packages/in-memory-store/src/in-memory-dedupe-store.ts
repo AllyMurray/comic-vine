@@ -182,7 +182,7 @@ export class InMemoryDedupeStore implements DedupeStore {
     }
 
     const now = Date.now();
-    const toDelete: string[] = [];
+    const toDelete: Array<string> = [];
 
     for (const [hash, job] of this.jobs) {
       if (now - job.createdAt > this.jobTimeoutMs) {

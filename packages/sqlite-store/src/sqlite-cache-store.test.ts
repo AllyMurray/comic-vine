@@ -238,7 +238,7 @@ describe('SQLiteCacheStore', () => {
 
   describe('concurrent access', () => {
     it('should handle many concurrent operations', async () => {
-      const promises: Promise<void>[] = [];
+      const promises: Array<Promise<void>> = [];
 
       // Set 50 values concurrently
       for (let i = 0; i < 50; i++) {
@@ -248,7 +248,7 @@ describe('SQLiteCacheStore', () => {
       await Promise.all(promises);
 
       // Get all values
-      const getPromises: Promise<unknown>[] = [];
+      const getPromises: Array<Promise<unknown>> = [];
       for (let i = 0; i < 50; i++) {
         getPromises.push(store.get(`key${i}`));
       }

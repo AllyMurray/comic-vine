@@ -39,7 +39,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     const url = this.urlBuilder.list(this.resourceType, options);
     const _fieldList = options?.fieldList;
     type ResponseType = ReturnType<typeof _fieldList>;
-    const response = await this.httpClient.get<ResponseType[]>(url);
+    const response = await this.httpClient.get<Array<ResponseType>>(url);
 
     return {
       limit: response.limit,

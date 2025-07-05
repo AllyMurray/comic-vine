@@ -251,7 +251,7 @@ describe('SQLiteDedupeStore', () => {
 
   describe('concurrent access', () => {
     it('should handle many concurrent jobs', async () => {
-      const promises: Promise<string>[] = [];
+      const promises: Array<Promise<string>> = [];
 
       // Create 50 jobs
       for (let i = 0; i < 50; i++) {
@@ -261,7 +261,7 @@ describe('SQLiteDedupeStore', () => {
       await Promise.all(promises);
 
       // Complete all jobs
-      const completePromises: Promise<void>[] = [];
+      const completePromises: Array<Promise<void>> = [];
       for (let i = 0; i < 50; i++) {
         completePromises.push(store.complete(`hash${i}`, `value${i}`));
       }

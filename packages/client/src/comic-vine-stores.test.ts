@@ -98,7 +98,7 @@ class _MockDedupeStore implements DedupeStore {
 }
 
 class _MockRateLimitStore implements RateLimitStore {
-  private requests = new Map<string, number[]>();
+  private requests = new Map<string, Array<number>>();
   private shouldBlock = false;
 
   async canProceed(_resource: string): Promise<boolean> {

@@ -43,7 +43,7 @@ export interface ComicVineClientOptions {
 export class ComicVine implements ResourcePropertyMap {
   private resourceFactory: ResourceFactory;
   private resourceCache = new Map<string, ResourceInstance>();
-  private resourceNames: string[];
+  private resourceNames: Array<string>;
   private stores: StoreOptions;
   private clientOptions: Required<ComicVineClientOptions>;
 
@@ -131,7 +131,7 @@ export class ComicVine implements ResourcePropertyMap {
     return this.resourceCache.get(propertyName)!;
   }
 
-  getAvailableResources(): string[] {
+  getAvailableResources(): Array<string> {
     return this.resourceNames.map((name) => classNameToPropertyName(name));
   }
 
@@ -153,7 +153,7 @@ export class ComicVine implements ResourcePropertyMap {
   getCacheStats(): {
     total: number;
     loaded: number;
-    loadedResources: string[];
+    loadedResources: Array<string>;
   } {
     const total = this.resourceNames.length;
     const loaded = this.resourceCache.size;
@@ -220,7 +220,9 @@ export class ComicVine implements ResourcePropertyMap {
           // We need to cast to unknown to work around the union type issue
           // This is safe because we control the input parameters
           const originalRetrieve = (
-            resource as unknown as { retrieve: (...args: unknown[]) => unknown }
+            resource as unknown as {
+              retrieve: (...args: Array<unknown>) => unknown;
+            }
           ).retrieve;
           return originalRetrieve.call(resource, id, options) as Promise<T>;
         },
@@ -235,7 +237,7 @@ export class ComicVine implements ResourcePropertyMap {
 
       // Get the original list result (which has both Promise and AsyncIterable)
       const originalResult = (
-        resource as unknown as { list: (...args: unknown[]) => unknown }
+        resource as unknown as { list: (...args: Array<unknown>) => unknown }
       ).list(options);
 
       // For list methods, we need to handle both the Promise and AsyncIterable

@@ -200,7 +200,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   async getStats(): Promise<{
     totalRequests: number;
     uniqueResources: number;
-    rateLimitedResources: string[];
+    rateLimitedResources: Array<string>;
   }> {
     if (this.isDestroyed) {
       throw new Error('Rate limit store has been destroyed');
@@ -216,7 +216,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
       .groupBy(rateLimitTable.resource);
 
     const uniqueResources = resourcesResult.length;
-    const rateLimitedResources: string[] = [];
+    const rateLimitedResources: Array<string> = [];
 
     // Check which resources are currently rate limited
     for (const { resource } of resourcesResult) {

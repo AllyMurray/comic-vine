@@ -3,7 +3,7 @@ import { InMemoryDedupeStore } from './in-memory-dedupe-store.js';
 
 describe('InMemoryDedupeStore', () => {
   let store: InMemoryDedupeStore;
-  let unhandledRejections: Error[] = [];
+  let unhandledRejections: Array<Error> = [];
 
   beforeEach(() => {
     store = new InMemoryDedupeStore();
@@ -323,7 +323,7 @@ describe('InMemoryDedupeStore', () => {
     });
 
     it('should handle many concurrent jobs', async () => {
-      const promises: Promise<string>[] = [];
+      const promises: Array<Promise<string>> = [];
 
       // Create 100 jobs
       for (let i = 0; i < 100; i++) {
@@ -333,7 +333,7 @@ describe('InMemoryDedupeStore', () => {
       await Promise.all(promises);
 
       // Complete all jobs
-      const completePromises: Promise<void>[] = [];
+      const completePromises: Array<Promise<void>> = [];
       for (let i = 0; i < 100; i++) {
         completePromises.push(store.complete(`hash${i}`, `value${i}`));
       }
