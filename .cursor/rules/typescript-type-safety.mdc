@@ -1,0 +1,63 @@
+# TypeScript Type Safety Rules
+
+## Type Safety Rules
+
+### Never use `any` type
+
+- Always use proper TypeScript types
+- Use `unknown` when the type is truly unknown
+- Use union types when multiple types are possible
+- Use generics when types need to be parameterized
+- Use type assertions sparingly and only when absolutely necessary
+
+### Never use forceful casting
+
+- Avoid using `as` type assertions unless absolutely necessary
+- Use type guards instead of casting
+- Use proper type narrowing techniques
+- If casting is unavoidable, add detailed comments explaining why
+
+### Preferred approaches:
+
+- Use `unknown` instead of `any`
+- Use type guards: `if (typeof x === 'string')`
+- Use `in` operator: `if ('property' in obj)`
+- Use `instanceof` checks: `if (obj instanceof SomeClass)`
+- Use discriminated unions with literal types
+- Use proper generic constraints
+
+### Examples of what NOT to do:
+
+```typescript
+// ❌ Don't use any
+function badFunction(param: any): any {}
+
+// ❌ Don't forcefully cast
+const result = data as SomeType;
+```
+
+### Examples of what TO do:
+
+```typescript
+// ✅ Use unknown and type guards
+function goodFunction(param: unknown): string {
+  if (typeof param === 'string') {
+    return param;
+  }
+  throw new Error('Expected string');
+}
+
+// ✅ Use proper generics
+function genericFunction<T>(param: T): T {
+  return param;
+}
+```
+
+## Enforcement
+
+These rules should be followed at all times. If you encounter a situation where you think `any` or casting is necessary, first explore all other TypeScript features and patterns before considering it.
+description:
+globs:
+alwaysApply: false
+
+---
