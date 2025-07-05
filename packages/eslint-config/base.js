@@ -94,6 +94,12 @@ export const baseConfig = [
     },
     rules: {
       '@typescript-eslint/no-require-imports': ['error'],
+      '@typescript-eslint/array-type': [
+        'error',
+        {
+          default: 'generic',
+        },
+      ],
     },
   },
 ];
