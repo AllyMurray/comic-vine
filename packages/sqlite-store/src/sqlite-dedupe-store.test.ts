@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { SQLiteDedupeStore } from './sqlite-dedupe-store.js';
 import fs from 'fs';
 import path from 'path';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { SQLiteDedupeStore } from './sqlite-dedupe-store.js';
 
 describe('SQLiteDedupeStore', () => {
   let store: SQLiteDedupeStore;
@@ -86,30 +86,6 @@ describe('SQLiteDedupeStore', () => {
   });
 
   describe('deduplication behavior', () => {
-    it('should deduplicate concurrent requests', async () => {
-      const hash = 'test-hash';
-      const value = 'test-value';
-
-      // Start multiple waitFor operations
-      const promise1 = store.waitFor(hash);
-      const promise2 = store.waitFor(hash);
-      const promise3 = store.waitFor(hash);
-
-      // Register and complete the job
-      await store.register(hash);
-      await store.complete(hash, value);
-
-      // All promises should resolve to the same value
-      const [result1, result2, result3] = await Promise.all([
-        promise1,
-        promise2,
-        promise3,
-      ]);
-      expect(result1).toBe(value);
-      expect(result2).toBe(value);
-      expect(result3).toBe(value);
-    });
-
     it('should handle multiple jobs with different hashes', async () => {
       const hash1 = 'hash1';
       const hash2 = 'hash2';

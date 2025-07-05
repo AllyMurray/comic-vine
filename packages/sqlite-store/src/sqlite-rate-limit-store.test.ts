@@ -1,10 +1,10 @@
+import fs from 'fs';
+import path from 'path';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
   SQLiteRateLimitStore,
   type RateLimitConfig,
 } from './sqlite-rate-limit-store.js';
-import fs from 'fs';
-import path from 'path';
 
 describe('SQLiteRateLimitStore', () => {
   let store: SQLiteRateLimitStore;

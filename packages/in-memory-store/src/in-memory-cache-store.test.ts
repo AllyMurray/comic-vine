@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi as _vi } from 'vitest';
 import { InMemoryCacheStore } from './in-memory-cache-store.js';
 
 describe('InMemoryCacheStore', () => {

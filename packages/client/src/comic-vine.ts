@@ -10,6 +10,9 @@ import {
 } from './stores/index.js';
 
 function classNameToPropertyName(className: string): string {
+  if (!className) {
+    return '';
+  }
   return className.charAt(0).toLowerCase() + className.slice(1);
 }
 
@@ -167,7 +170,7 @@ export class ComicVine implements ResourcePropertyMap {
 
   async getRateLimitStatus(resourceName: string) {
     if (this.stores.rateLimit) {
-      return await this.stores.rateLimit.getStatus(resourceName);
+      return this.stores.rateLimit.getStatus(resourceName);
     }
     return null;
   }
@@ -182,7 +185,10 @@ export class ComicVine implements ResourcePropertyMap {
     return !!(this.stores.cache || this.stores.dedupe || this.stores.rateLimit);
   }
 
-  private createWrappedResource(resource: any, resourceName: string) {
+  private createWrappedResource(
+    resource: ResourceInstance,
+    resourceName: string,
+  ) {
     // Create a proxy that wraps the resource methods
     return new Proxy(resource, {
       get: (target, prop: string | symbol) => {
@@ -197,31 +203,47 @@ export class ComicVine implements ResourcePropertyMap {
     });
   }
 
-  private wrapRetrieveMethod(resource: any, resourceName: string) {
-    return async (id: number, options: any = {}) => {
+  private wrapRetrieveMethod(resource: ResourceInstance, resourceName: string) {
+    return async <T>(
+      id: number,
+      options: Record<string, unknown> = {},
+    ): Promise<T> => {
       const endpoint = `${resourceName}/retrieve`;
       const params = { id, ...options };
 
-      return this.executeWithStores(endpoint, params, resourceName, () =>
-        resource.retrieve(id, options),
+      return this.executeWithStores(
+        endpoint,
+        params,
+        resourceName,
+        async () => {
+          // Call the original retrieve method with proper type handling
+          // We need to cast to unknown to work around the union type issue
+          // This is safe because we control the input parameters
+          const originalRetrieve = (
+            resource as unknown as { retrieve: (...args: unknown[]) => unknown }
+          ).retrieve;
+          return originalRetrieve.call(resource, id, options) as Promise<T>;
+        },
       );
     };
   }
 
-    private wrapListMethod(resource: any, resourceName: string) {
-    return (options: any = {}) => {
+  private wrapListMethod(resource: ResourceInstance, resourceName: string) {
+    return (options: Record<string, unknown> = {}) => {
       const endpoint = `${resourceName}/list`;
       const params = options;
 
       // Get the original list result (which has both Promise and AsyncIterable)
-      const originalResult = resource.list(options);
+      const originalResult = (
+        resource as unknown as { list: (...args: unknown[]) => unknown }
+      ).list(options);
 
       // For list methods, we need to handle both the Promise and AsyncIterable
       const wrappedPromise = this.executeWithStores(
         endpoint,
         params,
         resourceName,
-        () => originalResult,
+        async () => originalResult,
       );
 
       // Create async iterator that delegates to the original result's iterator
@@ -231,8 +253,17 @@ export class ComicVine implements ResourcePropertyMap {
           await wrappedPromise;
 
           // Then delegate to the original result's iterator
-          if (originalResult && typeof originalResult[Symbol.asyncIterator] === 'function') {
-            yield* originalResult;
+          if (
+            originalResult &&
+            typeof originalResult === 'object' &&
+            Symbol.asyncIterator in originalResult
+          ) {
+            const iterator = (originalResult as Record<symbol, unknown>)[
+              Symbol.asyncIterator
+            ];
+            if (typeof iterator === 'function') {
+              yield* iterator.call(originalResult);
+            }
           }
         },
       };
@@ -243,7 +274,7 @@ export class ComicVine implements ResourcePropertyMap {
 
   private async executeWithStores<T>(
     endpoint: string,
-    params: Record<string, any>,
+    params: Record<string, unknown>,
     resourceName: string,
     executeFn: () => Promise<T>,
   ): Promise<T> {
@@ -254,7 +285,9 @@ export class ComicVine implements ResourcePropertyMap {
       if (this.stores.cache) {
         const cachedResult = await this.stores.cache.get(hash);
         if (cachedResult !== undefined) {
-          return cachedResult;
+          // We know the cached result should be of type T, but stores return unknown
+          // This is a safe cast because we control what goes into the cache
+          return cachedResult as T;
         }
       }
 
@@ -262,7 +295,8 @@ export class ComicVine implements ResourcePropertyMap {
       if (this.stores.dedupe) {
         const existingResult = await this.stores.dedupe.waitFor(hash);
         if (existingResult !== undefined) {
-          return existingResult;
+          // Same safe cast - we control what goes into dedupe storage
+          return existingResult as T;
         }
 
         // Register this request

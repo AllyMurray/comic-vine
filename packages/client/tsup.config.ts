@@ -1,17 +1,7 @@
 import { defineConfig } from 'tsup';
+import { sharedTsupConfig } from '@comic-vine/tsup-config';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true,
-  splitting: false,
-  sourcemap: true,
-  clean: true,
-  outDir: 'lib',
-  treeshake: true,
-  minify: false,
-  target: 'es2015',
-  tsconfig: './tsconfig.json',
-  cjsInterop: true,
-  skipNodeModulesBundle: true,
+  ...sharedTsupConfig,
+  // Add package-specific overrides here if needed
 });

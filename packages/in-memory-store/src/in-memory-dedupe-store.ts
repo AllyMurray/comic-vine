@@ -1,12 +1,15 @@
-import { DedupeStore } from '@comic-vine/client';
 import { randomUUID } from 'crypto';
+import { DedupeStore } from '@comic-vine/client';
 
 interface DedupeJob {
   jobId: string;
-  promise: Promise<any>;
-  resolve: (value: any) => void;
-  reject: (error: Error) => void;
+  promise: Promise<unknown>;
+  resolve: (value: unknown) => void;
+  reject: (reason: unknown) => void;
   createdAt: number;
+  completed: boolean;
+  result?: unknown;
+  error?: Error;
 }
 
 export class InMemoryDedupeStore implements DedupeStore {
@@ -14,6 +17,7 @@ export class InMemoryDedupeStore implements DedupeStore {
   private readonly jobTimeoutMs: number;
   private cleanupInterval?: NodeJS.Timeout;
   private totalJobsProcessed: number = 0;
+  private destroyed: boolean = false;
 
   constructor(
     options: { jobTimeoutMs?: number; cleanupIntervalMs?: number } = {},
@@ -28,24 +32,38 @@ export class InMemoryDedupeStore implements DedupeStore {
     }
   }
 
-  async waitFor(hash: string): Promise<any | undefined> {
+  async waitFor(hash: string): Promise<unknown | undefined> {
+    if (this.destroyed) {
+      return undefined;
+    }
+
     const job = this.jobs.get(hash);
     if (!job) {
       return undefined;
     }
 
-    // Check if job has expired
-    if (Date.now() - job.createdAt > this.jobTimeoutMs) {
-      this.jobs.delete(hash);
+    // Check if job has expired and trigger cleanup manually if needed
+    if (
+      this.jobTimeoutMs > 0 &&
+      Date.now() - job.createdAt > this.jobTimeoutMs
+    ) {
+      this.cleanup();
       return undefined;
+    }
+
+    // If job is already completed, return the result or throw the error
+    if (job.completed) {
+      if (job.error) {
+        return undefined; // Return undefined for failed jobs instead of throwing
+      }
+      return job.result;
     }
 
     try {
       return await job.promise;
-    } catch (error) {
-      // If the job failed, remove it from the map
-      this.jobs.delete(hash);
-      throw error;
+    } catch {
+      // The job promise was rejected, return undefined for failed jobs
+      return undefined;
     }
   }
 
@@ -59,10 +77,10 @@ export class InMemoryDedupeStore implements DedupeStore {
 
     // Create a new job
     const jobId = randomUUID();
-    let resolve: (value: any) => void;
-    let reject: (error: Error) => void;
+    let resolve: (value: unknown) => void;
+    let reject: (reason: unknown) => void;
 
-    const promise = new Promise<any>((res, rej) => {
+    const promise = new Promise<unknown>((res, rej) => {
       resolve = res;
       reject = rej;
     });
@@ -73,27 +91,29 @@ export class InMemoryDedupeStore implements DedupeStore {
       resolve: resolve!,
       reject: reject!,
       createdAt: Date.now(),
+      completed: false,
     };
 
     this.jobs.set(hash, job);
+    this.totalJobsProcessed++;
     return jobId;
   }
 
-  async complete(hash: string, value: any): Promise<void> {
+  async complete(hash: string, value: unknown): Promise<void> {
     const job = this.jobs.get(hash);
-    if (job) {
+    if (job && !job.completed) {
+      job.completed = true;
+      job.result = value;
       job.resolve(value);
-      this.jobs.delete(hash);
-      this.totalJobsProcessed++;
     }
   }
 
   async fail(hash: string, error: Error): Promise<void> {
     const job = this.jobs.get(hash);
-    if (job) {
+    if (job && !job.completed) {
+      job.completed = true;
+      job.error = error;
       job.reject(error);
-      this.jobs.delete(hash);
-      this.totalJobsProcessed++;
     }
   }
 
@@ -103,13 +123,17 @@ export class InMemoryDedupeStore implements DedupeStore {
       return false;
     }
 
-    // Check if job has expired
-    if (Date.now() - job.createdAt > this.jobTimeoutMs) {
-      this.jobs.delete(hash);
+    // Check if job has expired (only if timeout is enabled) and trigger cleanup
+    if (
+      this.jobTimeoutMs > 0 &&
+      Date.now() - job.createdAt > this.jobTimeoutMs
+    ) {
+      this.cleanup();
       return false;
     }
 
-    return true;
+    // Return false if job is completed
+    return !job.completed;
   }
 
   /**
@@ -124,19 +148,24 @@ export class InMemoryDedupeStore implements DedupeStore {
     const now = Date.now();
     let expiredJobs = 0;
     let oldestJobAgeMs = 0;
+    let activeJobs = 0;
 
-    for (const [hash, job] of this.jobs) {
+    for (const [_hash, job] of this.jobs) {
       const ageMs = now - job.createdAt;
-      if (ageMs > this.jobTimeoutMs) {
+      if (this.jobTimeoutMs > 0 && ageMs > this.jobTimeoutMs) {
         expiredJobs++;
       }
       if (ageMs > oldestJobAgeMs) {
         oldestJobAgeMs = ageMs;
       }
+      // Only count jobs that are not completed as active
+      if (!job.completed) {
+        activeJobs++;
+      }
     }
 
     return {
-      activeJobs: this.jobs.size,
+      activeJobs,
       totalJobsProcessed: this.totalJobsProcessed,
       expiredJobs,
       oldestJobAgeMs,
@@ -147,15 +176,25 @@ export class InMemoryDedupeStore implements DedupeStore {
    * Clean up expired jobs
    */
   cleanup(): void {
+    // Skip cleanup if timeout is disabled
+    if (this.jobTimeoutMs <= 0) {
+      return;
+    }
+
     const now = Date.now();
     const toDelete: string[] = [];
 
     for (const [hash, job] of this.jobs) {
       if (now - job.createdAt > this.jobTimeoutMs) {
-        // Reject the expired job
-        job.reject(new Error('Job timeout: Request took too long to complete'));
+        if (!job.completed) {
+          // Reject the expired job
+          job.completed = true;
+          job.error = new Error(
+            'Job timeout: Request took too long to complete',
+          );
+          job.reject(job.error);
+        }
         toDelete.push(hash);
-        this.totalJobsProcessed++;
       }
     }
 
@@ -169,9 +208,12 @@ export class InMemoryDedupeStore implements DedupeStore {
    */
   clear(): void {
     // Reject all pending jobs
-    for (const [hash, job] of this.jobs) {
-      job.reject(new Error('DedupeStore cleared'));
-      this.totalJobsProcessed++;
+    for (const [_hash, job] of this.jobs) {
+      if (!job.completed) {
+        job.completed = true;
+        job.error = new Error('DedupeStore cleared');
+        job.reject(job.error);
+      }
     }
     this.jobs.clear();
   }
@@ -185,5 +227,6 @@ export class InMemoryDedupeStore implements DedupeStore {
       this.cleanupInterval = undefined;
     }
     this.clear();
+    this.destroyed = true;
   }
 }

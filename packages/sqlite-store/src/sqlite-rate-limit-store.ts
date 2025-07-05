@@ -1,7 +1,7 @@
 import { RateLimitStore } from '@comic-vine/client';
-import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
-import { eq, and, gte, lt } from 'drizzle-orm';
 import Database from 'better-sqlite3';
+import { and, eq, gte, count, sql, lt } from 'drizzle-orm';
+import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { rateLimitTable } from './schema.js';
 
 export interface RateLimitConfig {
@@ -15,10 +15,11 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   private db: BetterSQLite3Database;
   private defaultConfig: RateLimitConfig;
   private resourceConfigs = new Map<string, RateLimitConfig>();
+  private isDestroyed = false;
 
   constructor(
     databasePath: string = ':memory:',
-    defaultConfig: RateLimitConfig = { limit: 100, windowMs: 60000 }, // 100 requests per minute
+    defaultConfig: RateLimitConfig = { limit: 60, windowMs: 60000 },
     resourceConfigs: Map<string, RateLimitConfig> = new Map(),
   ) {
     const sqlite = new Database(databasePath);
@@ -30,16 +31,20 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   }
 
   async canProceed(resource: string): Promise<boolean> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
+
     const config = this.resourceConfigs.get(resource) || this.defaultConfig;
     const now = Date.now();
     const windowStart = now - config.windowMs;
 
-    // Clean up old entries first
+    // Clean up expired entries
     await this.cleanupExpiredRequests(resource, windowStart);
 
-    // Count current requests in the window
+    // Count current requests in window
     const result = await this.db
-      .select({ count: 'count(*)' })
+      .select({ count: count() })
       .from(rateLimitTable)
       .where(
         and(
@@ -48,13 +53,16 @@ export class SQLiteRateLimitStore implements RateLimitStore {
         ),
       );
 
-    const currentRequests = result[0]?.count || 0;
-    return currentRequests < config.limit;
+    const currentCount = (result[0] as { count?: number })?.count || 0;
+    return currentCount < config.limit;
   }
 
   async record(resource: string): Promise<void> {
-    const now = Date.now();
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
 
+    const now = Date.now();
     await this.db.insert(rateLimitTable).values({
       resource,
       timestamp: now,
@@ -66,6 +74,10 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     resetTime: Date;
     limit: number;
   }> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
+
     const config = this.resourceConfigs.get(resource) || this.defaultConfig;
     const now = Date.now();
     const windowStart = now - config.windowMs;
@@ -75,7 +87,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
 
     // Count current requests in the window
     const result = await this.db
-      .select({ count: 'count(*)' })
+      .select({ count: count() })
       .from(rateLimitTable)
       .where(
         and(
@@ -84,7 +96,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
         ),
       );
 
-    const currentRequests = result[0]?.count || 0;
+    const currentRequests = (result[0]?.count as number) || 0;
     const remaining = Math.max(0, config.limit - currentRequests);
 
     // Calculate reset time (when the window resets)
@@ -98,13 +110,26 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   }
 
   async reset(resource: string): Promise<void> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
     await this.db
       .delete(rateLimitTable)
       .where(eq(rateLimitTable.resource, resource));
   }
 
   async getWaitTime(resource: string): Promise<number> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
+
     const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+
+    // Handle zero limit edge case
+    if (config.limit === 0) {
+      return config.windowMs; // Always return window time for zero limit
+    }
+
     const now = Date.now();
     const windowStart = now - config.windowMs;
 
@@ -113,7 +138,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
 
     // Count current requests in the window
     const countResult = await this.db
-      .select({ count: 'count(*)' })
+      .select({ count: count() })
       .from(rateLimitTable)
       .where(
         and(
@@ -122,7 +147,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
         ),
       );
 
-    const currentRequests = countResult[0]?.count || 0;
+    const currentRequests = (countResult[0]?.count as number) || 0;
 
     if (currentRequests < config.limit) {
       return 0;
@@ -145,7 +170,11 @@ export class SQLiteRateLimitStore implements RateLimitStore {
       return 0;
     }
 
-    const oldestTimestamp = oldestResult[0].timestamp;
+    const oldestTimestamp = oldestResult[0]?.timestamp;
+    if (oldestTimestamp === undefined) {
+      return 0;
+    }
+
     const timeUntilOldestExpires = oldestTimestamp + config.windowMs - now;
 
     return Math.max(0, timeUntilOldestExpires);
@@ -173,8 +202,12 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     uniqueResources: number;
     rateLimitedResources: string[];
   }> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
+
     const totalResult = await this.db
-      .select({ count: 'count(*)' })
+      .select({ count: count() })
       .from(rateLimitTable);
 
     const resourcesResult = await this.db
@@ -194,7 +227,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     }
 
     return {
-      totalRequests: totalResult[0]?.count || 0,
+      totalRequests: (totalResult[0]?.count as number) || 0,
       uniqueResources,
       rateLimitedResources,
     };
@@ -204,6 +237,9 @@ export class SQLiteRateLimitStore implements RateLimitStore {
    * Clean up all rate limit data
    */
   async clear(): Promise<void> {
+    if (this.isDestroyed) {
+      throw new Error('Rate limit store has been destroyed');
+    }
     await this.db.delete(rateLimitTable);
   }
 
@@ -231,8 +267,22 @@ export class SQLiteRateLimitStore implements RateLimitStore {
    * Close the database connection
    */
   async close(): Promise<void> {
+    // Mark as destroyed
+    this.isDestroyed = true;
+
     // Close the SQLite connection
-    (this.db as any).close?.();
+    (this.db as unknown as { close?: () => void }).close?.();
+  }
+
+  /**
+   * Alias for close() to match test expectations
+   */
+  destroy(): void {
+    // Mark as destroyed
+    this.isDestroyed = true;
+
+    // Close the SQLite connection
+    (this.db as unknown as { close?: () => void }).close?.();
   }
 
   private async cleanupExpiredRequests(
@@ -251,7 +301,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
 
   private initializeDatabase(): void {
     // Create tables if they don't exist
-    this.db.run(`
+    this.db.run(sql`
       CREATE TABLE IF NOT EXISTS rate_limits (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         resource TEXT NOT NULL,
@@ -259,10 +309,14 @@ export class SQLiteRateLimitStore implements RateLimitStore {
       )
     `);
 
-    // Create index on resource and timestamp for efficient queries
-    this.db.run(`
-      CREATE INDEX IF NOT EXISTS idx_rate_limits_resource_timestamp
-      ON rate_limits(resource, timestamp)
+    // Create index on resource for efficient lookups
+    this.db.run(sql`
+      CREATE INDEX IF NOT EXISTS idx_rate_limit_resource ON rate_limits(resource)
+    `);
+
+    // Create index on timestamp for efficient cleanup
+    this.db.run(sql`
+      CREATE INDEX IF NOT EXISTS idx_rate_limit_timestamp ON rate_limits(timestamp)
     `);
   }
 }

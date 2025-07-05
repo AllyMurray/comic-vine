@@ -1,16 +1,32 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { InMemoryDedupeStore } from './in-memory-dedupe-store.js';
 
 describe('InMemoryDedupeStore', () => {
   let store: InMemoryDedupeStore;
+  let unhandledRejections: Error[] = [];
 
   beforeEach(() => {
     store = new InMemoryDedupeStore();
+    unhandledRejections = [];
+
+    // Catch any unhandled rejections
+    process.on('unhandledRejection', (error: Error) => {
+      if (
+        error.message.includes('DedupeStore cleared') ||
+        error.message.includes('Test error')
+      ) {
+        unhandledRejections.push(error);
+      }
+    });
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     if (store) {
+      // Wait a bit to allow any pending promises to settle
+      await new Promise((resolve) => setTimeout(resolve, 10));
       store.destroy();
+      // Wait a bit more for cleanup to complete
+      await new Promise((resolve) => setTimeout(resolve, 10));
     }
   });
 
@@ -51,10 +67,14 @@ describe('InMemoryDedupeStore', () => {
       const error = new Error('Test error');
 
       await store.register(hash);
+
+      // Start waiting for the job before failing it
+      const waitPromise = store.waitFor(hash).catch(() => undefined);
+
       await store.fail(hash, error);
 
       // Failed jobs should not be available
-      const result = await store.waitFor(hash);
+      const result = await waitPromise;
       expect(result).toBeUndefined();
     });
 
@@ -79,13 +99,15 @@ describe('InMemoryDedupeStore', () => {
       const hash = 'test-hash';
       const value = 'test-value';
 
-      // Start multiple waitFor operations
+      // Register the job first
+      await store.register(hash);
+
+      // Start multiple waitFor operations that should all wait for the same job
       const promise1 = store.waitFor(hash);
       const promise2 = store.waitFor(hash);
       const promise3 = store.waitFor(hash);
 
-      // Register and complete the job
-      await store.register(hash);
+      // Complete the job
       await store.complete(hash, value);
 
       // All promises should resolve to the same value
@@ -138,22 +160,32 @@ describe('InMemoryDedupeStore', () => {
       const error = new Error('Test error');
 
       await store.register(hash);
+
+      // Start waiting for the job before failing it
+      const waitPromise = store.waitFor(hash).catch(() => undefined);
+
       await store.fail(hash, error);
 
       const isInProgress = await store.isInProgress(hash);
       expect(isInProgress).toBe(false);
 
-      const result = await store.waitFor(hash);
+      const result = await waitPromise;
       expect(result).toBeUndefined();
     });
   });
 
   describe('timeout handling', () => {
     it('should handle job timeouts', async () => {
-      const timeoutStore = new InMemoryDedupeStore({ timeoutMs: 10 });
+      const timeoutStore = new InMemoryDedupeStore({
+        jobTimeoutMs: 10,
+        cleanupIntervalMs: 5,
+      });
       const hash = 'test-hash';
 
       await timeoutStore.register(hash);
+
+      // Start waiting for the job to catch the timeout rejection
+      const waitPromise = timeoutStore.waitFor(hash).catch(() => undefined);
 
       // Wait for timeout
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -161,11 +193,14 @@ describe('InMemoryDedupeStore', () => {
       const isInProgress = await timeoutStore.isInProgress(hash);
       expect(isInProgress).toBe(false);
 
+      // Ensure the promise is handled
+      await waitPromise;
+
       timeoutStore.destroy();
     });
 
     it('should not timeout jobs that complete in time', async () => {
-      const timeoutStore = new InMemoryDedupeStore({ timeoutMs: 100 });
+      const timeoutStore = new InMemoryDedupeStore({ jobTimeoutMs: 100 });
       const hash = 'test-hash';
 
       await timeoutStore.register(hash);
@@ -181,10 +216,13 @@ describe('InMemoryDedupeStore', () => {
     });
 
     it('should handle timeout of 0 (disabled)', async () => {
-      const timeoutStore = new InMemoryDedupeStore({ timeoutMs: 0 });
+      const timeoutStore = new InMemoryDedupeStore({ jobTimeoutMs: 0 });
       const hash = 'test-hash';
 
       await timeoutStore.register(hash);
+
+      // Start waiting for the job to catch any potential rejections
+      const waitPromise = timeoutStore.waitFor(hash).catch(() => undefined);
 
       // Wait a bit
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -194,6 +232,9 @@ describe('InMemoryDedupeStore', () => {
       expect(isInProgress).toBe(true);
 
       timeoutStore.destroy();
+
+      // Ensure the promise is handled
+      await waitPromise;
     });
   });
 
@@ -202,9 +243,20 @@ describe('InMemoryDedupeStore', () => {
       await store.register('hash1');
       await store.register('hash2');
 
+      // Start waiting for jobs to catch potential rejections during cleanup
+      const waitPromise1 = store.waitFor('hash1').catch(() => undefined);
+      const waitPromise2 = store.waitFor('hash2').catch(() => undefined);
+
       const stats = store.getStats();
       expect(stats.activeJobs).toBe(2);
       expect(stats.totalJobsProcessed).toBe(2);
+
+      // Complete the jobs to avoid unhandled rejections
+      await store.complete('hash1', 'value1');
+      await store.complete('hash2', 'value2');
+
+      // Ensure promises are handled
+      await Promise.all([waitPromise1, waitPromise2]);
     });
 
     it('should update statistics after completion', async () => {
@@ -218,7 +270,14 @@ describe('InMemoryDedupeStore', () => {
 
     it('should update statistics after failure', async () => {
       await store.register('hash1');
+
+      // Start waiting for the job before failing it
+      const waitPromise = store.waitFor('hash1').catch(() => undefined);
+
       await store.fail('hash1', new Error('Test error'));
+
+      // Ensure the promise is handled
+      await waitPromise;
 
       const stats = store.getStats();
       expect(stats.activeJobs).toBe(0);
@@ -252,15 +311,19 @@ describe('InMemoryDedupeStore', () => {
     it('should handle completion after failure', async () => {
       const hash = 'test-hash';
       await store.register(hash);
+
+      // Start waiting for the job before failing it
+      const waitPromise = store.waitFor(hash).catch(() => undefined);
+
       await store.fail(hash, new Error('Test error'));
       await store.complete(hash, 'value');
 
-      const result = await store.waitFor(hash);
+      const result = await waitPromise;
       expect(result).toBeUndefined(); // Should still be failed
     });
 
     it('should handle many concurrent jobs', async () => {
-      const promises = [];
+      const promises: Promise<string>[] = [];
 
       // Create 100 jobs
       for (let i = 0; i < 100; i++) {
@@ -270,7 +333,7 @@ describe('InMemoryDedupeStore', () => {
       await Promise.all(promises);
 
       // Complete all jobs
-      const completePromises = [];
+      const completePromises: Promise<void>[] = [];
       for (let i = 0; i < 100; i++) {
         completePromises.push(store.complete(`hash${i}`, `value${i}`));
       }
@@ -315,7 +378,14 @@ describe('InMemoryDedupeStore', () => {
       await store.register('hash1');
       await store.register('hash2');
 
+      // Start waiting for jobs to catch the destruction rejections
+      const waitPromise1 = store.waitFor('hash1').catch(() => undefined);
+      const waitPromise2 = store.waitFor('hash2').catch(() => undefined);
+
       store.destroy();
+
+      // Ensure the promises are handled
+      await Promise.all([waitPromise1, waitPromise2]);
 
       const stats = store.getStats();
       expect(stats.activeJobs).toBe(0);

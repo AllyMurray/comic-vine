@@ -1,37 +1,35 @@
 import { CacheStore } from '@comic-vine/client';
 
-interface CacheItem {
-  value: any;
-  expiresAt: number;
-}
-
 export class InMemoryCacheStore implements CacheStore {
-  private cache = new Map<string, CacheItem>();
+  private cache = new Map<string, { value: unknown; expiresAt: number }>();
   private cleanupInterval?: NodeJS.Timeout;
-  private readonly cleanupIntervalMs: number;
 
   constructor(options: { cleanupIntervalMs?: number } = {}) {
-    this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
-    this.startCleanupInterval();
+    const cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
+
+    if (cleanupIntervalMs > 0) {
+      this.cleanupInterval = setInterval(() => {
+        this.cleanup();
+      }, cleanupIntervalMs);
+    }
   }
 
-  async get(hash: string): Promise<any | undefined> {
+  async get(hash: string): Promise<unknown | undefined> {
     const item = this.cache.get(hash);
-    if (!item) {
-      return undefined;
-    }
 
-    if (Date.now() > item.expiresAt) {
+    if (!item || Date.now() > item.expiresAt) {
       this.cache.delete(hash);
       return undefined;
     }
-
     return item.value;
   }
 
-  async set(hash: string, value: any, ttlSeconds: number): Promise<void> {
+  async set(hash: string, value: unknown, ttlSeconds: number): Promise<void> {
     const expiresAt = ttlSeconds === 0 ? 0 : Date.now() + ttlSeconds * 1000;
-    this.cache.set(hash, { value, expiresAt });
+    this.cache.set(hash, {
+      value,
+      expiresAt,
+    });
   }
 
   async delete(hash: string): Promise<void> {
@@ -43,17 +41,17 @@ export class InMemoryCacheStore implements CacheStore {
   }
 
   /**
-   * Get cache statistics
+   * Get statistics about cache usage
    */
   getStats(): {
     totalItems: number;
     expired: number;
     memoryUsageBytes: number;
   } {
-    let expired = 0;
     const now = Date.now();
+    let expired = 0;
 
-    for (const [hash, item] of this.cache) {
+    for (const [_hash, item] of this.cache) {
       if (now > item.expiresAt) {
         expired++;
       }
@@ -72,7 +70,7 @@ export class InMemoryCacheStore implements CacheStore {
   }
 
   /**
-   * Manually trigger cleanup of expired items
+   * Clean up expired cache entries
    */
   cleanup(): void {
     const now = Date.now();
@@ -90,7 +88,7 @@ export class InMemoryCacheStore implements CacheStore {
   }
 
   /**
-   * Stop the cleanup interval and clear all data
+   * Destroy the cache and cleanup resources
    */
   destroy(): void {
     if (this.cleanupInterval) {
@@ -98,11 +96,5 @@ export class InMemoryCacheStore implements CacheStore {
       this.cleanupInterval = undefined;
     }
     this.cache.clear();
-  }
-
-  private startCleanupInterval(): void {
-    this.cleanupInterval = setInterval(() => {
-      this.cleanup();
-    }, this.cleanupIntervalMs);
   }
 }

@@ -20,6 +20,9 @@
     "organization": false
   },
   "devDependencies": {
+    "@comic-vine/eslint-config": "workspace:*",
+    "@comic-vine/tsup-config": "workspace:*",
+    "@comic-vine/vitest-config": "workspace:*",
     "@types/node": "20",
     "eslint": "9",
     "eslint-config-prettier": "10.1.5",

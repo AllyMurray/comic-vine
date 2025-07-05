@@ -78,6 +78,14 @@ export class InMemoryRateLimitStore implements RateLimitStore {
   }
 
   async reset(resource: string): Promise<void> {
+    const info = this.limits.get(resource);
+    if (info) {
+      // Subtract the requests for this resource from total count
+      this.totalRequests = Math.max(
+        0,
+        this.totalRequests - info.requests.length,
+      );
+    }
     this.limits.delete(resource);
   }
 
@@ -87,12 +95,20 @@ export class InMemoryRateLimitStore implements RateLimitStore {
 
     this.cleanupExpiredRequests(info);
 
+    // Special case: if limit is 0, always return the time until window resets
+    if (info.limit === 0) {
+      return Math.max(0, info.resetTime - Date.now());
+    }
+
     if (info.requests.length < info.limit) {
       return 0;
     }
 
     // Find the oldest request that's still within the window
     const oldestRequest = info.requests[0];
+    if (oldestRequest === undefined) {
+      return 0;
+    }
     const timeUntilOldestExpires = oldestRequest + config.windowMs - Date.now();
 
     return Math.max(0, timeUntilOldestExpires);
@@ -126,7 +142,7 @@ export class InMemoryRateLimitStore implements RateLimitStore {
     let activeResources = 0;
     let rateLimitedResources = 0;
 
-    for (const [resource, info] of this.limits) {
+    for (const [_resource, info] of this.limits) {
       this.cleanupExpiredRequests(info);
 
       if (info.requests.length > 0) {
@@ -157,7 +173,7 @@ export class InMemoryRateLimitStore implements RateLimitStore {
    * Clean up expired requests for all resources
    */
   cleanup(): void {
-    for (const [resource, info] of this.limits) {
+    for (const [_resource, info] of this.limits) {
       this.cleanupExpiredRequests(info);
     }
   }
@@ -193,11 +209,16 @@ export class InMemoryRateLimitStore implements RateLimitStore {
   private cleanupExpiredRequests(info: RateLimitInfo): void {
     const now = Date.now();
     const cutoff = now - info.windowMs;
+    const initialLength = info.requests.length;
 
     // Remove requests older than the window
-    while (info.requests.length > 0 && info.requests[0] < cutoff) {
+    while (info.requests.length > 0 && info.requests[0]! < cutoff) {
       info.requests.shift();
     }
+
+    // Update total request count to reflect removed expired requests
+    const expiredCount = initialLength - info.requests.length;
+    this.totalRequests = Math.max(0, this.totalRequests - expiredCount);
 
     // Update reset time if no requests remain
     if (info.requests.length === 0) {

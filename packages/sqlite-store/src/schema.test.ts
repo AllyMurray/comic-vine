@@ -1,14 +1,18 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import Database from 'better-sqlite3';
-import { drizzle } from 'drizzle-orm/better-sqlite3';
-import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
-import { cacheTable, dedupeTable, rateLimitTable } from './schema.js';
 import fs from 'fs';
 import path from 'path';
+import Database from 'better-sqlite3';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import { migrate as _migrate } from 'drizzle-orm/better-sqlite3/migrator';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import {
+  cacheTable as _cacheTable,
+  dedupeTable as _dedupeTable,
+  rateLimitTable as _rateLimitTable,
+} from './schema.js';
 
 describe('Database Schema', () => {
   let db: Database.Database;
-  let drizzleDb: ReturnType<typeof drizzle>;
+  let _drizzleDb: ReturnType<typeof drizzle>;
   const testDbPath = path.join(__dirname, 'test-schema.db');
 
   beforeEach(() => {
@@ -18,7 +22,7 @@ describe('Database Schema', () => {
     }
 
     db = new Database(testDbPath);
-    drizzleDb = drizzle(db);
+    _drizzleDb = drizzle(db);
 
     // Create tables using our schema
     db.exec(`

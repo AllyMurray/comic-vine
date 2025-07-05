@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { SQLiteCacheStore } from './sqlite-cache-store.js';
 import fs from 'fs';
 import path from 'path';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { SQLiteCacheStore } from './sqlite-cache-store.js';
 
 describe('SQLiteCacheStore', () => {
   let store: SQLiteCacheStore;
@@ -70,14 +70,14 @@ describe('SQLiteCacheStore', () => {
 
   describe('TTL functionality', () => {
     it('should expire values after TTL', async () => {
-      await store.set('key1', 'value1', 0.001); // 1ms TTL
+      await store.set('key1', 'value1', 0.05); // 50ms TTL
 
       // Should be available immediately
       let value = await store.get('key1');
       expect(value).toBe('value1');
 
       // Wait for expiration
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       value = await store.get('key1');
       expect(value).toBeUndefined();
@@ -308,8 +308,8 @@ describe('SQLiteCacheStore', () => {
 
     it('should handle JSON serialization errors gracefully', async () => {
       // Create a circular reference
-      const circular: any = { name: 'test' };
-      circular.self = circular;
+      const circular: { name: string; self?: unknown } = { name: 'test' };
+      circular.self = circular; // This creates the actual circular reference
 
       // Should handle serialization error gracefully
       await expect(store.set('circular', circular, 60)).rejects.toThrow();

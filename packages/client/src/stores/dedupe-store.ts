@@ -7,7 +7,7 @@ export interface DedupeStore {
    * @param hash The hash key of the request
    * @returns The result if found, otherwise undefined
    */
-  waitFor(hash: string): Promise<any | undefined>;
+  waitFor(hash: string): Promise<unknown | undefined>;
 
   /**
    * Register a new request and get a job ID
@@ -21,7 +21,7 @@ export interface DedupeStore {
    * @param hash The hash key of the request
    * @param value The result of the request
    */
-  complete(hash: string, value: any): Promise<void>;
+  complete(hash: string, value: unknown): Promise<void>;
 
   /**
    * Mark a request as failed with an error

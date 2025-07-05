@@ -8,7 +8,7 @@ import { createHash } from 'crypto';
  */
 export function hashRequest(
   endpoint: string,
-  params: Record<string, any> = {},
+  params: Record<string, unknown> = {},
 ): string {
   const requestString = JSON.stringify({
     endpoint,
@@ -23,7 +23,7 @@ export function hashRequest(
  * @param obj The object to sort
  * @returns The sorted object
  */
-function sortObject(obj: any): any {
+function sortObject(obj: unknown): unknown {
   if (obj === null || typeof obj !== 'object') {
     return obj;
   }
@@ -32,11 +32,11 @@ function sortObject(obj: any): any {
     return obj.map(sortObject);
   }
 
-  const sorted: Record<string, any> = {};
-  const keys = Object.keys(obj).sort();
+  const sorted: Record<string, unknown> = {};
+  const keys = Object.keys(obj as Record<string, unknown>).sort();
 
   for (const key of keys) {
-    sorted[key] = sortObject(obj[key]);
+    sorted[key] = sortObject((obj as Record<string, unknown>)[key]);
   }
 
   return sorted;
