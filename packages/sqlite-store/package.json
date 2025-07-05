@@ -1,6 +1,6 @@
 {
-  "name": "@comic-vine/client",
-  "description": "A JS/TS client for the Comic Vine API",
+  "name": "@comic-vine/sqlite-store",
+  "description": "SQLite store implementations for Comic Vine client caching, deduplication, and rate limiting using Drizzle ORM",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AllyMurray/comic-vine.git"
@@ -23,42 +23,28 @@
     "@comic-vine/eslint-config": "workspace:*",
     "@comic-vine/tsup-config": "workspace:*",
     "@comic-vine/vitest-config": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "20",
-    "nock": "14.0.5",
+    "better-sqlite3": "11.10.0",
+    "drizzle-orm": "0.33.0",
     "tsup": "8.5.0",
     "typescript": "5.8.3",
-    "vitest": "^3.2.4"
+    "vitest": "3.2.4"
   },
   "dependencies": {
-    "axios": "1.10.0",
-    "zod": "3.25.71"
+    "@comic-vine/client": "workspace:*",
+    "better-sqlite3": "^11.6.0",
+    "drizzle-orm": "^0.33.0"
   },
   "keywords": [
-    "comic-metadata",
-    "comic-vine-api",
-    "comic-vine-client",
-    "comic-vine-javascript",
-    "comic-vine-js",
-    "comic-vine-node",
-    "comic-vine-nodejs",
-    "comic-vine-sdk",
-    "comic-vine-ts",
-    "comic-vine-typescript",
     "comic-vine",
-    "comic",
-    "comicmetadata",
-    "comics",
-    "comicvine-api",
-    "comicvine-client",
-    "comicvine-javascript",
-    "comicvine-js",
-    "comicvine-node",
-    "comicvine-nodejs",
-    "comicvine-sdk",
-    "comicvine-ts",
-    "comicvine-typescript",
-    "comicvine",
-    "metadata"
+    "comic-vine-store",
+    "sqlite-store",
+    "drizzle-orm",
+    "caching",
+    "deduplication",
+    "rate-limiting",
+    "comic-vine-client"
   ],
   "engines": {
     "node": ">= 20.0.0"
@@ -70,7 +56,7 @@
     "lib/**"
   ],
   "homepage": "https://github.com/AllyMurray/comic-vine#readme",
-  "version": "0.0.7",
+  "version": "0.0.1",
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },

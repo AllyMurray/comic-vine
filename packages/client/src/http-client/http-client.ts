@@ -17,13 +17,7 @@ export class HttpClient implements HttpClientContract {
   private _http;
 
   constructor() {
-    this._http = axios.create({
-      transformResponse: (data: unknown) => {
-        return data
-          ? convertSnakeCaseToCamelCase(JSON.parse(data as string))
-          : undefined;
-      },
-    });
+    this._http = axios.create();
   }
 
   private handleResponse<Result>(response: AxiosResponse<Response<Result>>) {
@@ -59,9 +53,17 @@ export class HttpClient implements HttpClientContract {
     );
   }
 
-  async get<Result>(url: string) {
+  async get<Result>(url: string): Promise<Response<Result>> {
     try {
-      return this.handleResponse(await this._http.get<Response<Result>>(url));
+      const response = await this._http.get(url);
+      const transformedData = response.data
+        ? convertSnakeCaseToCamelCase<Response<Result>>(response.data)
+        : undefined;
+
+      return this.handleResponse({
+        ...response,
+        data: transformedData as Response<Result>,
+      });
     } catch (error) {
       throw this.generateClientError(error);
     }

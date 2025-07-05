@@ -1,0 +1,15 @@
+export const sharedTsupConfig = {
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm'] as const,
+  dts: true,
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  outDir: 'lib',
+  treeshake: true,
+  minify: false,
+  target: 'es2015' as const,
+  tsconfig: './tsconfig.json',
+  cjsInterop: true,
+  skipNodeModulesBundle: true,
+};
