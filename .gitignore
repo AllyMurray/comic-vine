@@ -11,6 +11,7 @@
 *.seed
 *.tgz
 *.tsbuildinfo
+**/dist
 **/lib
 *yalc*
 /dist/
