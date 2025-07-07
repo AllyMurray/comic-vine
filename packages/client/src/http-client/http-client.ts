@@ -26,11 +26,17 @@ export interface HttpClientStores {
 }
 
 export interface HttpClientOptions {
-  /** Default cache TTL in seconds */
+  /**
+   * Default cache TTL in seconds
+   */
   defaultCacheTTL?: number;
-  /** Whether to throw errors on rate limit violations */
+  /**
+   * Whether to throw errors on rate limit violations
+   */
   throwOnRateLimit?: boolean;
-  /** Maximum time to wait for rate limit in milliseconds */
+  /**
+   * Maximum time to wait for rate limit in milliseconds
+   */
   maxWaitTime?: number;
 }
 
