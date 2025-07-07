@@ -64,7 +64,7 @@ export class HttpClient implements HttpClientContract {
     // Extract the resource type from the URL
     // URLs are typically like: https://comicvine.gamespot.com/api/issues/4000-123456/
     // or for list: https://comicvine.gamespot.com/api/issues/
-    const match = url.match(/\/api\/([^\/]+)\//);
+    const match = url.match(/\/api\/([^/]+)\//);
     return match ? match[1] : 'unknown';
   }
 
