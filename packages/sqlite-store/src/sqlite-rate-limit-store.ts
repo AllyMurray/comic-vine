@@ -1,15 +1,8 @@
-import { RateLimitStore } from '@comic-vine/client';
+import type { RateLimitConfig, RateLimitStore } from '@comic-vine/client';
 import Database from 'better-sqlite3';
 import { and, eq, gte, count, sql, lt } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { rateLimitTable } from './schema.js';
-
-export interface RateLimitConfig {
-  /** Number of requests allowed per window */
-  limit: number;
-  /** Time window in milliseconds */
-  windowMs: number;
-}
 
 export class SQLiteRateLimitStore implements RateLimitStore {
   private db: BetterSQLite3Database;

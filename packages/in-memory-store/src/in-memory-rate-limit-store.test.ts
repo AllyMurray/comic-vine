@@ -1,8 +1,6 @@
+import type { RateLimitConfig } from '@comic-vine/client';
 import { describe, it, expect, beforeEach, afterEach, vi as _vi } from 'vitest';
-import {
-  InMemoryRateLimitStore,
-  type RateLimitConfig,
-} from './in-memory-rate-limit-store.js';
+import { InMemoryRateLimitStore } from './in-memory-rate-limit-store.js';
 
 describe('InMemoryRateLimitStore', () => {
   let store: InMemoryRateLimitStore;

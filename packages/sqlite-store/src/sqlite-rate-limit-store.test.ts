@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import type { RateLimitConfig } from '@comic-vine/client';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import {
-  SQLiteRateLimitStore,
-  type RateLimitConfig,
-} from './sqlite-rate-limit-store.js';
+import { SQLiteRateLimitStore } from './sqlite-rate-limit-store.js';
 
 describe('SQLiteRateLimitStore', () => {
   let store: SQLiteRateLimitStore;

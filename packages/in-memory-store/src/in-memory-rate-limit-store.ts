@@ -1,17 +1,10 @@
-import { RateLimitStore } from '@comic-vine/client';
+import type { RateLimitConfig, RateLimitStore } from '@comic-vine/client';
 
 interface RateLimitInfo {
   requests: Array<number>;
   limit: number;
   windowMs: number;
   resetTime: number;
-}
-
-export interface RateLimitConfig {
-  /** Number of requests allowed per window */
-  limit: number;
-  /** Time window in milliseconds */
-  windowMs: number;
 }
 
 export class InMemoryRateLimitStore implements RateLimitStore {
