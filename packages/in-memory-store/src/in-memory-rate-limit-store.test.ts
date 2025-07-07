@@ -300,7 +300,7 @@ describe('InMemoryRateLimitStore', () => {
     });
 
     it('should handle many concurrent requests', async () => {
-      const promises = [];
+      const promises: Array<Promise<void>> = [];
       const resource = 'concurrent-test';
 
       // Make many concurrent requests

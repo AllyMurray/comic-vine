@@ -244,12 +244,10 @@ describe('SQLiteRateLimitStore', () => {
 
   describe('cleanup functionality', () => {
     it('should automatically clean up expired entries', async () => {
-      const cleanupStore = new SQLiteRateLimitStore(
-        testDbPath,
-        { limit: 5, windowMs: 50 },
-        undefined,
-        { cleanupIntervalMs: 10 },
-      );
+      const cleanupStore = new SQLiteRateLimitStore(testDbPath, {
+        limit: 5,
+        windowMs: 50,
+      });
 
       try {
         await cleanupStore.record('test');
@@ -265,12 +263,10 @@ describe('SQLiteRateLimitStore', () => {
     });
 
     it('should not clean up active entries', async () => {
-      const cleanupStore = new SQLiteRateLimitStore(
-        testDbPath,
-        { limit: 5, windowMs: 5000 },
-        undefined,
-        { cleanupIntervalMs: 10 },
-      );
+      const cleanupStore = new SQLiteRateLimitStore(testDbPath, {
+        limit: 5,
+        windowMs: 5000,
+      });
 
       try {
         await cleanupStore.record('test');
@@ -324,7 +320,7 @@ describe('SQLiteRateLimitStore', () => {
     });
 
     it('should handle many concurrent requests', async () => {
-      const promises = [];
+      const promises: Array<Promise<void>> = [];
       const resource = 'concurrent-test';
 
       // Make many concurrent requests
@@ -406,8 +402,6 @@ describe('SQLiteRateLimitStore', () => {
       const noCleanupStore = new SQLiteRateLimitStore(
         testDbPath,
         defaultConfig,
-        undefined,
-        { cleanupIntervalMs: 0 },
       );
 
       try {
