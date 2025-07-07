@@ -2,8 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib",
-    "types": ["vitest/globals"]
+    "outDir": "lib"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib", "dist"]
