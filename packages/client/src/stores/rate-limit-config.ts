@@ -10,3 +10,13 @@ export interface RateLimitConfig {
   /** Duration of the window in milliseconds */
   windowMs: number;
 }
+
+/**
+ * Default rate-limit window: 60 requests per minute.
+ *
+ * Store implementations can reference this to avoid duplicating magic numbers.
+ */
+export const DEFAULT_RATE_LIMIT: RateLimitConfig = {
+  limit: 60,
+  windowMs: 60_000,
+};

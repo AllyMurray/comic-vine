@@ -1,4 +1,8 @@
-import type { RateLimitConfig, RateLimitStore } from '@comic-vine/client';
+import {
+  type RateLimitConfig,
+  type RateLimitStore,
+  DEFAULT_RATE_LIMIT,
+} from '@comic-vine/client';
 
 interface RateLimitInfo {
   requests: Array<number>;
@@ -15,7 +19,7 @@ export class InMemoryRateLimitStore implements RateLimitStore {
   private totalRequests: number = 0;
 
   constructor(
-    defaultConfig: RateLimitConfig = { limit: 100, windowMs: 60000 }, // 100 requests per minute
+    defaultConfig: RateLimitConfig = DEFAULT_RATE_LIMIT,
     resourceConfigs: Map<string, RateLimitConfig> = new Map(),
     options: { cleanupIntervalMs?: number } = {},
   ) {

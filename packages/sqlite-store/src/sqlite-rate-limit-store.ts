@@ -1,4 +1,8 @@
-import type { RateLimitConfig, RateLimitStore } from '@comic-vine/client';
+import {
+  type RateLimitConfig,
+  type RateLimitStore,
+  DEFAULT_RATE_LIMIT,
+} from '@comic-vine/client';
 import Database from 'better-sqlite3';
 import { and, eq, gte, count, sql, lt } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
@@ -12,7 +16,7 @@ export class SQLiteRateLimitStore implements RateLimitStore {
 
   constructor(
     databasePath: string = ':memory:',
-    defaultConfig: RateLimitConfig = { limit: 60, windowMs: 60000 },
+    defaultConfig: RateLimitConfig = DEFAULT_RATE_LIMIT,
     resourceConfigs: Map<string, RateLimitConfig> = new Map(),
   ) {
     const sqlite = new Database(databasePath);
