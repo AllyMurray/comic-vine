@@ -1,176 +1,79 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComicVine } from './comic-vine.js';
 import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
+import { HttpClient } from './http-client/http-client.js';
 
-// Mock the HTTP client and URL builder
-vi.mock('./http-client/index.js', () => ({
-  HttpClientFactory: {
-    createClient: vi.fn().mockReturnValue({
-      get: vi.fn().mockImplementation((url) => {
-        if (url.includes('retrieve')) {
-          return Promise.resolve({
-            results: { id: 1, name: 'Test Issue' },
-            limit: 10,
-            numberOfPageResults: 1,
-            numberOfTotalResults: 1,
-            offset: 0,
-          });
-        } else {
-          // For list endpoints, return results as an array
-          return Promise.resolve({
-            results: [{ id: 1, name: 'Test Issue' }],
-            limit: 10,
-            numberOfPageResults: 1,
-            numberOfTotalResults: 1,
-            offset: 0,
-          });
-        }
-      }),
-    }),
-    createUrlBuilder: vi.fn().mockReturnValue({
-      retrieve: vi.fn().mockReturnValue('http://test.com/retrieve'),
-      list: vi.fn().mockReturnValue('http://test.com/list'),
-    }),
-  },
-}));
-
-// Mock store implementations
-class _MockCacheStore implements CacheStore {
-  private cache = new Map<string, { value: unknown; expiresAt: number }>();
-
-  async get(hash: string): Promise<unknown | undefined> {
-    const item = this.cache.get(hash);
-    if (!item || Date.now() > item.expiresAt) {
-      return undefined;
-    }
-    return item.value;
-  }
-
-  async set(hash: string, value: unknown, ttlSeconds: number): Promise<void> {
-    this.cache.set(hash, {
-      value,
-      expiresAt: Date.now() + ttlSeconds * 1000,
-    });
-  }
-
-  async delete(hash: string): Promise<void> {
-    this.cache.delete(hash);
-  }
-
-  async clear(): Promise<void> {
-    this.cache.clear();
-  }
-}
-
-class _MockDedupeStore implements DedupeStore {
-  private jobs = new Map<
-    string,
-    { resolve: (value: unknown) => void; reject: (error: Error) => void }
-  >();
-
-  async waitFor(_hash: string): Promise<unknown | undefined> {
-    return undefined; // No existing jobs for testing
-  }
-
-  async register(_hash: string): Promise<string> {
-    return 'job-id';
-  }
-
-  async complete(_hash: string, value: unknown): Promise<void> {
-    const job = this.jobs.get(_hash);
-    if (job) {
-      job.resolve(value);
-      this.jobs.delete(_hash);
-    }
-  }
-
-  async fail(_hash: string, error: Error): Promise<void> {
-    const job = this.jobs.get(_hash);
-    if (job) {
-      job.reject(error);
-      this.jobs.delete(_hash);
-    }
-  }
-
-  async isInProgress(_hash: string): Promise<boolean> {
-    return false;
-  }
-}
-
-class _MockRateLimitStore implements RateLimitStore {
-  private requests = new Map<string, Array<number>>();
-  private shouldBlock = false;
-
-  async canProceed(_resource: string): Promise<boolean> {
-    return !this.shouldBlock;
-  }
-
-  async record(_resource: string): Promise<void> {
-    const requests = this.requests.get(_resource) || [];
-    requests.push(Date.now());
-    this.requests.set(_resource, requests);
-  }
-
-  async getStatus(_resource: string): Promise<{
-    remaining: number;
-    resetTime: Date;
-    limit: number;
-  }> {
-    return {
-      remaining: 100,
-      resetTime: new Date(Date.now() + 60000),
-      limit: 100,
-    };
-  }
-
-  async reset(_resource: string): Promise<void> {
-    this.requests.delete(_resource);
-  }
-
-  async getWaitTime(_resource: string): Promise<number> {
-    return this.shouldBlock ? 1000 : 0;
-  }
-
-  // Test helper method
-  setShouldBlock(block: boolean): void {
-    this.shouldBlock = block;
-  }
-}
+// Mock axios to control HTTP responses
+vi.mock('axios');
+import axios from 'axios';
+const mockedAxios = vi.mocked(axios);
 
 describe('ComicVine with Stores', () => {
   let comicVine: ComicVine;
   let mockCache: CacheStore;
   let mockDedupe: DedupeStore;
   let mockRateLimit: RateLimitStore;
+  let axiosInstance: any;
 
   beforeEach(() => {
+    vi.clearAllMocks();
+
+    // Create mock stores with spies
     mockCache = {
-      get: () => Promise.resolve(undefined),
-      set: () => Promise.resolve(),
-      delete: () => Promise.resolve(),
-      clear: () => Promise.resolve(),
+      get: vi.fn().mockResolvedValue(undefined),
+      set: vi.fn().mockResolvedValue(undefined),
+      delete: vi.fn().mockResolvedValue(undefined),
+      clear: vi.fn().mockResolvedValue(undefined),
     };
 
     mockDedupe = {
-      register: () => Promise.resolve('test-id'),
-      waitFor: () => Promise.resolve(undefined),
-      complete: () => Promise.resolve(),
-      fail: () => Promise.resolve(),
-      isInProgress: () => Promise.resolve(false),
+      register: vi.fn().mockResolvedValue('test-id'),
+      waitFor: vi.fn().mockResolvedValue(undefined),
+      complete: vi.fn().mockResolvedValue(undefined),
+      fail: vi.fn().mockResolvedValue(undefined),
+      isInProgress: vi.fn().mockResolvedValue(false),
     };
 
     mockRateLimit = {
-      canProceed: () => Promise.resolve(true),
-      record: () => Promise.resolve(),
-      getStatus: () =>
-        Promise.resolve({
-          remaining: 100,
-          resetTime: new Date(Date.now() + 60000),
-          limit: 100,
-        }),
-      reset: () => Promise.resolve(),
-      getWaitTime: () => Promise.resolve(0),
+      canProceed: vi.fn().mockResolvedValue(true),
+      record: vi.fn().mockResolvedValue(undefined),
+      getStatus: vi.fn().mockResolvedValue({
+        remaining: 100,
+        resetTime: new Date(Date.now() + 60000),
+        limit: 100,
+      }),
+      reset: vi.fn().mockResolvedValue(undefined),
+      getWaitTime: vi.fn().mockResolvedValue(0),
     };
+
+    // Mock axios instance
+    axiosInstance = {
+      get: vi.fn().mockResolvedValue({
+        data: {
+          statusCode: 1,
+          results: { id: 1, name: 'Test Issue' },
+          limit: 10,
+          numberOfPageResults: 1,
+          numberOfTotalResults: 1,
+          offset: 0,
+        },
+      }),
+    };
+
+    mockedAxios.create = vi.fn().mockReturnValue(axiosInstance);
+
+    // Mock HttpClientFactory to create HttpClient with stores
+    vi.doMock('./http-client/index.js', () => ({
+      HttpClientFactory: {
+        createClient: (stores: any, options: any) => {
+          return new HttpClient(stores, options);
+        },
+        createUrlBuilder: vi.fn().mockReturnValue({
+          retrieve: vi.fn().mockReturnValue('http://test.com/api/character/'),
+          list: vi.fn().mockReturnValue('http://test.com/api/character/'),
+        }),
+      },
+    }));
 
     comicVine = new ComicVine(
       'test-key',
@@ -185,113 +88,60 @@ describe('ComicVine with Stores', () => {
 
   describe('cache store integration', () => {
     it('should check cache before making request', async () => {
-      let cacheChecked = false;
-      let requestMade = false;
+      // Mock cache to return a value
+      mockCache.get = vi.fn().mockResolvedValue({
+        statusCode: 1,
+        results: { test: 'cached-value' },
+      });
 
-      mockCache.get = async (_hash: string) => {
-        cacheChecked = true;
-        return { test: 'cached-value' };
-      };
+      const result = await comicVine.character.retrieve(1);
 
-      // Mock the actual API call using vi.spyOn
-      const retrieveSpy = vi
-        .spyOn(comicVine.character, 'retrieve')
-        .mockImplementation(async () => {
-          requestMade = true;
-          return { test: 'api-value' } as unknown;
-        });
-
-      await comicVine.character.retrieve(1);
-
-      expect(cacheChecked).toBe(true);
-      expect(requestMade).toBe(false);
-
-      retrieveSpy.mockRestore();
+      expect(mockCache.get).toHaveBeenCalledWith(expect.any(String));
+      expect(axiosInstance.get).not.toHaveBeenCalled();
+      expect(result).toEqual({ test: 'cached-value' });
     });
 
     it('should store result in cache after successful request', async () => {
-      let cacheSet = false;
-      let cachedValue: unknown;
+      // Mock cache to return undefined (no cached value)
+      mockCache.get = vi.fn().mockResolvedValue(undefined);
+      mockCache.set = vi.fn().mockResolvedValue(undefined);
 
-      mockCache.get = async (_hash: string) => undefined;
-      mockCache.set = async (_hash: string, value: unknown) => {
-        cacheSet = true;
-        cachedValue = value;
-      };
+      const result = await comicVine.character.retrieve(1);
 
-      // Mock the actual API call using vi.spyOn
-      const retrieveSpy = vi
-        .spyOn(comicVine.character, 'retrieve')
-        .mockImplementation(async () => {
-          return { test: 'api-value' } as unknown;
-        });
-
-      await comicVine.character.retrieve(1);
-
-      expect(cacheSet).toBe(true);
-      expect(cachedValue).toEqual({ test: 'api-value' });
-
-      retrieveSpy.mockRestore();
+      expect(mockCache.get).toHaveBeenCalledWith(expect.any(String));
+      expect(mockCache.set).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          statusCode: 1,
+          results: { id: 1, name: 'Test Issue' },
+        }),
+        3600, // default TTL
+      );
+      expect(result).toEqual({ id: 1, name: 'Test Issue' });
     });
   });
 
   describe('dedupe store integration', () => {
     it('should register and complete dedupe jobs', async () => {
-      let registered = false;
-      let completed = false;
-
-      mockDedupe.register = async (_hash: string) => {
-        registered = true;
-        return 'test-id';
-      };
-
-      mockDedupe.complete = async (_hash: string, _value: unknown) => {
-        completed = true;
-      };
-
-      // Mock the actual API call
-      const _originalGet = comicVine.character.retrieve;
-      (comicVine.character.retrieve as unknown as typeof _originalGet) = async (
-        _id: number,
-        _options: Record<string, unknown> = {},
-      ) => {
-        return { test: 'api-value' } as unknown;
-      };
-
       await comicVine.character.retrieve(1);
 
-      expect(registered).toBe(true);
-      expect(completed).toBe(true);
+      expect(mockDedupe.register).toHaveBeenCalledWith(expect.any(String));
+      expect(mockDedupe.complete).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          statusCode: 1,
+          results: { id: 1, name: 'Test Issue' },
+        }),
+      );
     });
   });
 
   describe('rate limit store integration', () => {
     it('should check rate limit before making request', async () => {
-      let rateLimitChecked = false;
-      let rateLimitRecorded = false;
-
-      mockRateLimit.canProceed = async (_resource: string) => {
-        rateLimitChecked = true;
-        return true;
-      };
-
-      mockRateLimit.record = async (_resource: string) => {
-        rateLimitRecorded = true;
-      };
-
-      // Mock the actual API call
-      const _originalGet = comicVine.character.retrieve;
-      (comicVine.character.retrieve as unknown as typeof _originalGet) = async (
-        _id: number,
-        _options: Record<string, unknown> = {},
-      ) => {
-        return { test: 'api-value' } as unknown;
-      };
-
       await comicVine.character.retrieve(1);
 
-      expect(rateLimitChecked).toBe(true);
-      expect(rateLimitRecorded).toBe(true);
+      expect(mockRateLimit.canProceed).toHaveBeenCalledWith('character');
+      expect(mockRateLimit.record).toHaveBeenCalledWith('character');
     });
 
     it('should wait when rate limited and throwOnRateLimit is false', async () => {
@@ -310,32 +160,14 @@ describe('ComicVine with Stores', () => {
         },
       );
 
-      let waitTimeCalled = false;
-
-      mockRateLimit.canProceed = async (_resource: string) => {
-        return false;
-      };
-
-      mockRateLimit.getWaitTime = async (_resource: string) => {
-        waitTimeCalled = true;
-        return 100; // 100ms wait time
-      };
-
-      // Mock the actual API call
-      const _originalGet = rateLimitedComicVine.character.retrieve;
-      (rateLimitedComicVine.character
-        .retrieve as unknown as typeof _originalGet) = async (
-        _id: number,
-        _options: Record<string, unknown> = {},
-      ) => {
-        return { test: 'api-value' } as unknown;
-      };
+      mockRateLimit.canProceed = vi.fn().mockResolvedValue(false);
+      mockRateLimit.getWaitTime = vi.fn().mockResolvedValue(100);
 
       const startTime = Date.now();
       await rateLimitedComicVine.character.retrieve(1);
       const endTime = Date.now();
 
-      expect(waitTimeCalled).toBe(true);
+      expect(mockRateLimit.getWaitTime).toHaveBeenCalledWith('character');
       expect(endTime - startTime).toBeGreaterThanOrEqual(90); // Allow some tolerance
     });
   });

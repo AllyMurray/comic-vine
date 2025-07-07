@@ -3,12 +3,7 @@ import { userOptions, loadOptions } from './options/index.js';
 import type { ResourceInterface } from './resources/base-resource.js';
 import { ResourceFactory } from './resources/index.js';
 import * as resources from './resources/resource-list.js';
-import {
-  CacheStore,
-  DedupeStore,
-  RateLimitStore,
-  hashRequest,
-} from './stores/index.js';
+import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 
 function classNameToPropertyName(className: string): string {
   if (!className) {
@@ -47,7 +42,6 @@ export class ComicVine implements ResourcePropertyMap {
   private resourceCache = new Map<string, ResourceInstance>();
   private resourceNames: Array<string>;
   private stores: StoreOptions;
-  private clientOptions: Required<ComicVineClientOptions>;
 
   // TypeScript property declarations for static typing (will be provided by Proxy)
   declare readonly character: ResourcePropertyMap['character'];
@@ -77,18 +71,16 @@ export class ComicVine implements ResourcePropertyMap {
     clientOptions: ComicVineClientOptions = {},
   ) {
     const _options = loadOptions(options);
-    const httpClient = HttpClientFactory.createClient();
+
+    // Create HttpClient with stores injected
+    const httpClient = HttpClientFactory.createClient(stores, clientOptions);
     const urlBuilder = HttpClientFactory.createUrlBuilder(
       key,
       _options.baseUrl,
     );
+
     this.resourceFactory = new ResourceFactory(httpClient, urlBuilder);
     this.stores = stores;
-    this.clientOptions = {
-      defaultCacheTTL: clientOptions.defaultCacheTTL ?? 3600, // 1 hour
-      throwOnRateLimit: clientOptions.throwOnRateLimit ?? true,
-      maxWaitTime: clientOptions.maxWaitTime ?? 60000, // 1 minute
-    };
 
     // Discover available resources dynamically
     this.resourceNames = Object.keys(resources);
@@ -120,12 +112,7 @@ export class ComicVine implements ResourcePropertyMap {
           className as keyof typeof resources,
         );
 
-        // Wrap resource with stores if any are provided
-        const wrappedResource = this.hasStores()
-          ? this.createWrappedResource(resource, propertyName)
-          : resource;
-
-        this.resourceCache.set(propertyName, wrappedResource);
+        this.resourceCache.set(propertyName, resource);
       } catch (error) {
         throw new Error(`Failed to create resource '${className}': ${error}`);
       }
@@ -180,174 +167,6 @@ export class ComicVine implements ResourcePropertyMap {
   async resetRateLimit(resourceName: string): Promise<void> {
     if (this.stores.rateLimit) {
       await this.stores.rateLimit.reset(resourceName);
-    }
-  }
-
-  private hasStores(): boolean {
-    return !!(this.stores.cache || this.stores.dedupe || this.stores.rateLimit);
-  }
-
-  private createWrappedResource(
-    resource: ResourceInstance,
-    resourceName: string,
-  ) {
-    // Create a proxy that wraps the resource methods
-    return new Proxy(resource, {
-      get: (target, prop: string | symbol) => {
-        if (prop === 'retrieve') {
-          return this.wrapRetrieveMethod(target, resourceName);
-        }
-        if (prop === 'list') {
-          return this.wrapListMethod(target, resourceName);
-        }
-        return Reflect.get(target, prop);
-      },
-    });
-  }
-
-  private wrapRetrieveMethod(resource: ResourceInstance, resourceName: string) {
-    return async <T>(
-      id: number,
-      options: Record<string, unknown> = {},
-    ): Promise<T> => {
-      const endpoint = `${resourceName}/retrieve`;
-      const params = { id, ...options };
-
-      return this.executeWithStores(
-        endpoint,
-        params,
-        resourceName,
-        async () => {
-          // All resources implement ResourceInterface, so we can safely access retrieve method
-          // Cast needed because interface returns Promise<unknown> but we need Promise<T>
-          return resource.retrieve(id, options) as Promise<T>;
-        },
-      );
-    };
-  }
-
-  private wrapListMethod(resource: ResourceInstance, resourceName: string) {
-    return (options: Record<string, unknown> = {}) => {
-      const endpoint = `${resourceName}/list`;
-      const params = options;
-
-      // All resources implement ResourceInterface, so we can safely access list method
-      // No casting needed since the type system guarantees this
-      const originalResult = resource.list(options);
-
-      // For list methods, we need to handle both the Promise and AsyncIterable
-      const wrappedPromise = this.executeWithStores(
-        endpoint,
-        params,
-        resourceName,
-        async () => originalResult,
-      );
-
-      // Create async iterator that delegates to the original result's iterator
-      const asyncIterator = {
-        async *[Symbol.asyncIterator]() {
-          // First make sure the promise resolves (for caching/dedupe/rate limiting)
-          await wrappedPromise;
-
-          // Then delegate to the original result's iterator
-          // Since originalResult is known to be an AsyncIterable, we can safely yield from it
-          if (
-            originalResult &&
-            typeof originalResult === 'object' &&
-            Symbol.asyncIterator in originalResult
-          ) {
-            yield* originalResult;
-          }
-        },
-      };
-
-      return Object.assign(wrappedPromise, asyncIterator);
-    };
-  }
-
-  private async executeWithStores<T>(
-    endpoint: string,
-    params: Record<string, unknown>,
-    resourceName: string,
-    executeFn: () => Promise<T>,
-  ): Promise<T> {
-    const hash = hashRequest(endpoint, params);
-
-    try {
-      // 1. Check cache first
-      if (this.stores.cache) {
-        const cachedResult = await this.stores.cache.get(hash);
-        if (cachedResult !== undefined) {
-          // We know the cached result should be of type T, but stores return unknown
-          // This is a safe cast because we control what goes into the cache
-          return cachedResult as T;
-        }
-      }
-
-      // 2. Handle deduplication
-      if (this.stores.dedupe) {
-        const existingResult = await this.stores.dedupe.waitFor(hash);
-        if (existingResult !== undefined) {
-          // Same safe cast - we control what goes into dedupe storage
-          return existingResult as T;
-        }
-
-        // Register this request
-        await this.stores.dedupe.register(hash);
-      }
-
-      // 3. Check rate limiting
-      if (this.stores.rateLimit) {
-        const canProceed = await this.stores.rateLimit.canProceed(resourceName);
-        if (!canProceed) {
-          if (this.clientOptions.throwOnRateLimit) {
-            const waitTime =
-              await this.stores.rateLimit.getWaitTime(resourceName);
-            throw new Error(
-              `Rate limit exceeded for resource '${resourceName}'. Wait ${waitTime}ms before retrying.`,
-            );
-          } else {
-            // Wait for rate limit to reset
-            const waitTime = Math.min(
-              await this.stores.rateLimit.getWaitTime(resourceName),
-              this.clientOptions.maxWaitTime,
-            );
-            if (waitTime > 0) {
-              await new Promise((resolve) => setTimeout(resolve, waitTime));
-            }
-          }
-        }
-      }
-
-      // 4. Execute the actual API call
-      const result = await executeFn();
-
-      // 5. Record the request for rate limiting
-      if (this.stores.rateLimit) {
-        await this.stores.rateLimit.record(resourceName);
-      }
-
-      // 6. Cache the result
-      if (this.stores.cache) {
-        await this.stores.cache.set(
-          hash,
-          result,
-          this.clientOptions.defaultCacheTTL,
-        );
-      }
-
-      // 7. Mark deduplication as complete
-      if (this.stores.dedupe) {
-        await this.stores.dedupe.complete(hash, result);
-      }
-
-      return result;
-    } catch (error) {
-      // Mark deduplication as failed
-      if (this.stores.dedupe) {
-        await this.stores.dedupe.fail(hash, error as Error);
-      }
-      throw error;
     }
   }
 }
