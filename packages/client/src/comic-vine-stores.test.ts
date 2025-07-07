@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComicVine } from './comic-vine.js';
-import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 import { HttpClient } from './http-client/http-client.js';
+import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 
 // Mock axios to control HTTP responses
 vi.mock('axios');

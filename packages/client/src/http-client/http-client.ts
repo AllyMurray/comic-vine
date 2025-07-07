@@ -10,14 +10,14 @@ import {
   ComicVineSubscriberOnlyError,
   ComicVineGenericRequestError,
 } from '../errors/index.js';
-import { Response, HttpClient as HttpClientContract } from '../types/index.js';
-import { convertSnakeCaseToCamelCase } from '../utils/case-converter.js';
 import {
   CacheStore,
   DedupeStore,
   RateLimitStore,
   hashRequest,
 } from '../stores/index.js';
+import { Response, HttpClient as HttpClientContract } from '../types/index.js';
+import { convertSnakeCaseToCamelCase } from '../utils/case-converter.js';
 
 export interface HttpClientStores {
   cache?: CacheStore;
