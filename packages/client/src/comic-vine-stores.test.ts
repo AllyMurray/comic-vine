@@ -1,11 +1,14 @@
+import axios from 'axios';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComicVine } from './comic-vine.js';
-import { HttpClient } from './http-client/http-client.js';
+import {
+  HttpClient,
+  HttpClientStores,
+  HttpClientOptions,
+} from './http-client/http-client.js';
 import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 
-// Mock axios to control HTTP responses
 vi.mock('axios');
-import axios from 'axios';
 const mockedAxios = vi.mocked(axios);
 
 describe('ComicVine with Stores', () => {
@@ -13,12 +16,11 @@ describe('ComicVine with Stores', () => {
   let mockCache: CacheStore;
   let mockDedupe: DedupeStore;
   let mockRateLimit: RateLimitStore;
-  let axiosInstance: any;
+  let axiosInstance: { get: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    // Create mock stores with spies
     mockCache = {
       get: vi.fn().mockResolvedValue(undefined),
       set: vi.fn().mockResolvedValue(undefined),
@@ -46,7 +48,6 @@ describe('ComicVine with Stores', () => {
       getWaitTime: vi.fn().mockResolvedValue(0),
     };
 
-    // Mock axios instance
     axiosInstance = {
       get: vi.fn().mockResolvedValue({
         data: {
@@ -65,7 +66,10 @@ describe('ComicVine with Stores', () => {
     // Mock HttpClientFactory to create HttpClient with stores
     vi.doMock('./http-client/index.js', () => ({
       HttpClientFactory: {
-        createClient: (stores: any, options: any) => {
+        createClient: (
+          stores: HttpClientStores,
+          options: HttpClientOptions,
+        ) => {
           return new HttpClient(stores, options);
         },
         createUrlBuilder: vi.fn().mockReturnValue({
@@ -145,7 +149,6 @@ describe('ComicVine with Stores', () => {
     });
 
     it('should wait when rate limited and throwOnRateLimit is false', async () => {
-      // Create a separate ComicVine instance with throwOnRateLimit: false
       const rateLimitedComicVine = new ComicVine(
         'test-key',
         {},
