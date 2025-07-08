@@ -95,10 +95,8 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
     // If job is already completed, return result immediately
     if (job.status === 'completed') {
       try {
-        if (job.result === '__UNDEFINED__') {
+        if (job.result === '__UNDEFINED__' || job.result === '__NULL__') {
           return undefined;
-        } else if (job.result === '__NULL__') {
-          return null as unknown as T;
         } else if (job.result) {
           return JSON.parse(job.result as string);
         }
@@ -133,10 +131,10 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
               })
               .where(eq(dedupeTable.hash, hash))
               .then(() => {
-                resolve(undefined as unknown as T); // Resolve with undefined for timeout
+                resolve(undefined); // Resolve with undefined for timeout
               })
               .catch(() => {
-                resolve(undefined as unknown as T); // Even if update fails, resolve with undefined
+                resolve(undefined); // Even if update fails, resolve with undefined
               });
           }
         }, this.jobTimeoutMs);

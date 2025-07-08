@@ -136,18 +136,20 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
       .where(lt(cacheTable.expiresAt, now));
 
     // Get database size (approximate)
-    const pageCount = this.sqlite.pragma('page_count', {
-      simple: true,
-    }) as number;
-    const pageSize = this.sqlite.pragma('page_size', {
-      simple: true,
-    }) as number;
-    const databaseSizeKB = Math.round((pageCount * pageSize) / 1024);
+    const pageCount = Number(
+      this.sqlite.pragma('page_count', { simple: true }),
+    );
+    const pageSize = Number(this.sqlite.pragma('page_size', { simple: true }));
+
+    // Fallback to 0 if parsing failed (NaN)
+    const safePageCount = Number.isFinite(pageCount) ? pageCount : 0;
+    const safePageSize = Number.isFinite(pageSize) ? pageSize : 0;
+    const databaseSizeKB = Math.round((safePageCount * safePageSize) / 1024);
 
     return {
-      totalItems: (totalResult[0] as { count?: number })?.count || 0,
-      expiredItems: (expiredResult[0] as { count?: number })?.count || 0,
       databaseSizeKB,
+      expiredItems: expiredResult[0]?.count ?? 0,
+      totalItems: totalResult[0]?.count ?? 0,
     };
   }
 
