@@ -258,16 +258,16 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   async close(): Promise<void> {
     this.isDestroyed = true;
 
-    (this.db as unknown as { close?: () => void }).close?.();
+    if ('close' in this.db && typeof this.db.close === 'function') {
+      this.db.close();
+    }
   }
 
   /**
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    this.isDestroyed = true;
-
-    (this.db as unknown as { close?: () => void }).close?.();
+    this.close();
   }
 
   private async cleanupExpiredRequests(

@@ -6,7 +6,7 @@ import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { dedupeTable } from './schema.js';
 
 export class SQLiteDedupeStore implements DedupeStore {
-  private db: BetterSQLite3Database & { close: () => void };
+  private db: BetterSQLite3Database;
   private jobPromises = new Map<string, Promise<unknown>>();
   private jobResolvers = new Map<
     string,
@@ -29,7 +29,6 @@ export class SQLiteDedupeStore implements DedupeStore {
     } = {},
   ) {
     const sqlite = new Database(databasePath);
-    // @ts-expect-error - BetterSQLite3Database is missing the close method
     this.db = drizzle(sqlite);
     this.jobTimeoutMs = options.timeoutMs ?? options.jobTimeoutMs ?? 300000;
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000;
@@ -412,24 +411,16 @@ export class SQLiteDedupeStore implements DedupeStore {
 
     this.isDestroyed = true;
 
-    this.db.close();
+    if ('close' in this.db && typeof this.db.close === 'function') {
+      this.db.close();
+    }
   }
 
   /**
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval);
-      this.cleanupInterval = undefined;
-    }
-
-    this.jobPromises.clear();
-    this.jobResolvers.clear();
-
-    this.isDestroyed = true;
-
-    this.db.close();
+    this.close();
   }
 
   private initializeDatabase(): void {

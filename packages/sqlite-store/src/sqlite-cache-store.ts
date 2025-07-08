@@ -5,7 +5,7 @@ import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { cacheTable } from './schema.js';
 
 export class SQLiteCacheStore implements CacheStore {
-  private db: BetterSQLite3Database & { close: () => void };
+  private db: BetterSQLite3Database;
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
   private isDestroyed = false;
@@ -15,7 +15,6 @@ export class SQLiteCacheStore implements CacheStore {
     options: { cleanupIntervalMs?: number } = {},
   ) {
     const sqlite = new Database(databasePath);
-    // @ts-expect-error - BetterSQLite3Database is missing the close method
     this.db = drizzle(sqlite);
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
 
@@ -168,21 +167,16 @@ export class SQLiteCacheStore implements CacheStore {
 
     this.isDestroyed = true;
 
-    this.db.close();
+    if ('close' in this.db && typeof this.db.close === 'function') {
+      this.db.close();
+    }
   }
 
   /**
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval);
-      this.cleanupInterval = undefined;
-    }
-
-    this.isDestroyed = true;
-
-    this.db.close();
+    this.close();
   }
 
   private initializeDatabase(): void {
