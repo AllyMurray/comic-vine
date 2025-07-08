@@ -1,10 +1,21 @@
 import { randomUUID } from 'crypto';
 import type { DedupeStore } from '@comic-vine/client';
 
+// Simple deferred promise helper to avoid non-null assertions
+function deferred<T>() {
+  let resolve!: (value: T | PromiseLike<T>) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject } as const;
+}
+
 interface DedupeJob<T> {
   jobId: string;
-  promise: Promise<T>;
-  resolve: (value: T) => void;
+  promise: Promise<T | undefined>;
+  resolve: (value: T | undefined) => void;
   reject: (reason: unknown) => void;
   createdAt: number;
   completed: boolean;
@@ -75,19 +86,13 @@ export class InMemoryDedupeStore<T = unknown> implements DedupeStore<T> {
 
     // Create a new job
     const jobId = randomUUID();
-    let resolve: (value: T) => void;
-    let reject: (reason: unknown) => void;
-
-    const promise = new Promise<T>((res, rej) => {
-      resolve = res;
-      reject = rej;
-    });
+    const { promise, resolve, reject } = deferred<T | undefined>();
 
     const job: DedupeJob<T> = {
       jobId,
       promise,
-      resolve: resolve!,
-      reject: reject!,
+      resolve,
+      reject,
       createdAt: Date.now(),
       completed: false,
     };

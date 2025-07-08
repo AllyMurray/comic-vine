@@ -1,4 +1,11 @@
 import type { CacheStore } from '@comic-vine/client';
+// We use fast-safe-stringify instead of JSON.stringify so that
+// 1) objects containing circular references don’t throw, and
+// 2) we get a deterministic string length for accurate memory-usage
+//    calculations.  A normal JSON.stringify would either error or
+//    force us to fallback to a rough 1 KB estimate, under-reporting
+//    large cyclic payloads.
+import safeStringify from 'fast-safe-stringify';
 
 interface CacheItem<T> {
   value: T;
@@ -183,7 +190,7 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
 
       // Value size (rough estimate using JSON serialization)
       try {
-        const json = JSON.stringify(item.value) ?? '';
+        const json = safeStringify(item.value) ?? '';
         totalSize += json.length * 2;
       } catch {
         // If JSON serialization fails, use a default estimate
@@ -208,7 +215,7 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
       hash,
       lastAccessed: new Date(item.lastAccessed),
       size: (() => {
-        const json = JSON.stringify(item.value) ?? '';
+        const json = safeStringify(item.value) ?? '';
         return json.length * 2;
       })(),
     }));
