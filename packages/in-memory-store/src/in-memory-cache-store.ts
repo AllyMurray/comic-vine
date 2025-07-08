@@ -11,6 +11,7 @@ interface CacheItem<T> {
   value: T;
   expiresAt: number;
   lastAccessed: number;
+  size: number; // bytes occupied by this entry
 }
 
 export interface InMemoryCacheStoreOptions {
@@ -30,6 +31,7 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
   private readonly maxItems: number;
   private readonly maxMemoryBytes: number;
   private readonly evictionRatio: number;
+  private totalSize = 0; // running total of memory usage in bytes
 
   constructor(options: InMemoryCacheStoreOptions = {}) {
     const cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
@@ -63,10 +65,20 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
     const now = Date.now();
     const expiresAt = ttlSeconds === 0 ? 0 : now + ttlSeconds * 1000;
 
+    // If replacing an existing entry, subtract its size first
+    const existing = this.cache.get(hash);
+    if (existing) {
+      this.totalSize -= existing.size;
+    }
+
+    const entrySize = this.estimateEntrySize(hash, value);
+    this.totalSize += entrySize;
+
     this.cache.set(hash, {
       value,
       expiresAt,
       lastAccessed: now,
+      size: entrySize,
     });
 
     // Check if we need to evict items
@@ -74,11 +86,16 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
   }
 
   async delete(hash: string): Promise<void> {
+    const existing = this.cache.get(hash);
+    if (existing) {
+      this.totalSize -= existing.size;
+    }
     this.cache.delete(hash);
   }
 
   async clear(): Promise<void> {
     this.cache.clear();
+    this.totalSize = 0;
   }
 
   /**
@@ -130,6 +147,10 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
     }
 
     for (const hash of toDelete) {
+      const item = this.cache.get(hash);
+      if (item) {
+        this.totalSize -= item.size;
+      }
       this.cache.delete(hash);
     }
   }
@@ -145,7 +166,7 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
     }
 
     // Check memory usage limit
-    const memoryUsage = this.calculateMemoryUsage();
+    const memoryUsage = this.totalSize;
     if (memoryUsage > this.maxMemoryBytes) {
       const itemsToEvict = Math.max(
         1,
@@ -168,7 +189,8 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
     for (let i = 0; i < count && i < entries.length; i++) {
       const entry = entries[i];
       if (entry) {
-        const [key] = entry;
+        const [key, item] = entry;
+        this.totalSize -= item.size;
         this.cache.delete(key);
       }
     }
@@ -178,27 +200,8 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
    * Calculate rough memory usage
    */
   private calculateMemoryUsage(): number {
-    // More accurate memory calculation
-    let totalSize = 0;
-
-    for (const [hash, item] of this.cache) {
-      // Hash key size
-      totalSize += hash.length * 2; // UTF-16 characters are 2 bytes each
-
-      // Item metadata size (approximate)
-      totalSize += 16; // expiresAt (8 bytes) + lastAccessed (8 bytes)
-
-      // Value size (rough estimate using JSON serialization)
-      try {
-        const json = safeStringify(item.value) ?? '';
-        totalSize += json.length * 2;
-      } catch {
-        // If JSON serialization fails, use a default estimate
-        totalSize += 1024; // 1KB default estimate
-      }
-    }
-
-    return totalSize;
+    // O(1) – maintained incrementally
+    return this.totalSize;
   }
 
   /**
@@ -214,10 +217,7 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
     return entries.map(([hash, item]) => ({
       hash,
       lastAccessed: new Date(item.lastAccessed),
-      size: (() => {
-        const json = safeStringify(item.value) ?? '';
-        return json.length * 2;
-      })(),
+      size: item.size,
     }));
   }
 
@@ -230,5 +230,29 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
       this.cleanupInterval = undefined;
     }
     this.cache.clear();
+    this.totalSize = 0;
+  }
+
+  /**
+   * Estimate the size in bytes of a cache entry (key + value + metadata)
+   */
+  private estimateEntrySize(hash: string, value: unknown): number {
+    let size = 0;
+
+    // Hash key size (UTF-16 => 2 bytes per char)
+    size += hash.length * 2;
+
+    // Metadata size (expiresAt & lastAccessed)
+    size += 16;
+
+    // Value size via safe-stringify
+    try {
+      const json = safeStringify(value) ?? '';
+      size += json.length * 2;
+    } catch {
+      size += 1024; // fallback estimate
+    }
+
+    return size;
   }
 }

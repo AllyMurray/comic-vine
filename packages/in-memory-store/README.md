@@ -36,7 +36,9 @@ Provides in-memory caching with TTL support using JavaScript Maps.
 
 ```typescript
 const cacheStore = new InMemoryCacheStore({
-  cleanupIntervalMs: 60000, // Cleanup expired items every minute
+  cleanupIntervalMs: 60_000, // Cleanup expired items every minute
+  maxItems: 1_000, // Hard cap on number of cached entries
+  maxMemoryBytes: 50 * 1024 ** 2, // ~50 MB soft cap (LRU eviction when exceeded)
 });
 ```
 
@@ -44,7 +46,9 @@ const cacheStore = new InMemoryCacheStore({
 
 - TTL-based expiration
 - Automatic cleanup of expired items
-- Memory usage statistics
+- **O(1) memory usage tracking** – the store maintains a running `totalSize` counter that is updated on insert/evict rather than scanning the whole cache on every write
+- LRU eviction when either `maxItems` or `maxMemoryBytes` is exceeded (percentage controlled by `evictionRatio` – defaults to 10 %)
+- Memory-usage statistics via `getStats()`
 - Thread-safe operations
 
 ### InMemoryDedupeStore
@@ -128,7 +132,7 @@ interface RateLimitStore {
 
 ## Performance Characteristics
 
-- **Memory Usage**: Stores are kept in memory and will grow with usage. Use cleanup intervals and TTL appropriately.
+- **Memory Usage**: InMemoryCacheStore keeps an incremental `totalSize` counter, giving constant-time checks against `maxMemoryBytes`. No full-table scan happens on each write.
 - **Concurrency**: All stores are designed to handle concurrent access safely.
 - **Cleanup**: Automatic cleanup prevents memory leaks, but you can also manually trigger cleanup.
 
