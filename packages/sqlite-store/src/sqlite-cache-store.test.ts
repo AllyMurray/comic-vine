@@ -372,4 +372,41 @@ describe('SQLiteCacheStore', () => {
       }
     });
   });
+
+  describe('size guard (maxEntrySizeBytes)', () => {
+    it('should skip caching values that exceed maxEntrySizeBytes', async () => {
+      const smallLimitStore = new SQLiteCacheStore(testDbPath, {
+        maxEntrySizeBytes: 100, // 100 bytes limit
+      });
+
+      try {
+        const largeValue = 'x'.repeat(200); // 200 bytes string
+
+        await expect(
+          smallLimitStore.set('too-big', largeValue, 60),
+        ).resolves.not.toThrow();
+
+        const value = await smallLimitStore.get('too-big');
+        expect(value).toBeUndefined();
+      } finally {
+        smallLimitStore.destroy();
+      }
+    });
+
+    it('should cache values that are within maxEntrySizeBytes', async () => {
+      const smallLimitStore = new SQLiteCacheStore(testDbPath, {
+        maxEntrySizeBytes: 100, // 100 bytes limit
+      });
+
+      try {
+        const smallValue = 'x'.repeat(50); // 50 bytes string
+
+        await smallLimitStore.set('fits', smallValue, 60);
+        const value = await smallLimitStore.get('fits');
+        expect(value).toBe(smallValue);
+      } finally {
+        smallLimitStore.destroy();
+      }
+    });
+  });
 });

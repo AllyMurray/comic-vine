@@ -9,16 +9,28 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private sqlite: InstanceType<typeof Database>;
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
+  /**
+   * Maximum allowed size (in bytes) for a single cache entry. If the serialized
+   * value exceeds this limit the entry will be **silently skipped** to avoid
+   * breaching SQLite's max length limits which could otherwise throw at write
+   * time. Defaults to `5 MiB`, which is well under SQLiteʼs compiled
+   * `SQLITE_MAX_LENGTH` (usually 1 GiB) yet large enough for typical Comic Vine
+   * responses.
+   */
+  private readonly maxEntrySizeBytes: number;
   private isDestroyed = false;
 
   constructor(
     databasePath: string = ':memory:',
-    options: { cleanupIntervalMs?: number } = {},
+    options: { cleanupIntervalMs?: number; maxEntrySizeBytes?: number } = {},
   ) {
     const sqliteInstance = new Database(databasePath);
     this.sqlite = sqliteInstance;
     this.db = drizzle(sqliteInstance);
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
+
+    // Default to 5 MiB per entry unless explicitly overridden
+    this.maxEntrySizeBytes = options.maxEntrySizeBytes ?? 5 * 1024 * 1024;
 
     this.initializeDatabase();
     this.startCleanupInterval();
@@ -82,6 +94,14 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
       throw new Error(
         `Failed to serialize value: ${error instanceof Error ? error.message : String(error)}`,
       );
+    }
+
+    // SIZE GUARD: Skip caching if the value is too large to avoid hitting
+    // SQLite length limits. We **silently** skip because callers shouldn't be
+    // penalised for large responses — they will simply be fetched again next
+    // time.
+    if (Buffer.byteLength(serializedValue, 'utf8') > this.maxEntrySizeBytes) {
+      return;
     }
 
     await this.db
