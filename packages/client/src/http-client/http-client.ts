@@ -19,6 +19,41 @@ import {
 import { Response, HttpClient as HttpClientContract } from '../types/index.js';
 import { convertSnakeCaseToCamelCase } from '../utils/case-converter.js';
 
+/**
+ * Wait for a specified period while supporting cancellation via AbortSignal.
+ *
+ * If the signal is aborted before the timeout completes the promise rejects
+ * with an `Error` whose name is set to `AbortError`, mimicking DOMException in
+ * browser environments without depending on it. This allows callers to use a
+ * single `AbortController` for both the rate-limit wait *and* the subsequent
+ * HTTP request.
+ */
+function wait(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      if (signal) {
+        signal.removeEventListener('abort', onAbort);
+      }
+      resolve();
+    }, ms);
+
+    function onAbort() {
+      clearTimeout(timer);
+      const err = new Error('Aborted');
+      err.name = 'AbortError';
+      reject(err);
+    }
+
+    if (signal) {
+      if (signal.aborted) {
+        onAbort();
+      } else {
+        signal.addEventListener('abort', onAbort, { once: true });
+      }
+    }
+  });
+}
+
 export interface HttpClientStores {
   cache?: CacheStore;
   dedupe?: DedupeStore;
@@ -122,7 +157,11 @@ export class HttpClient implements HttpClientContract {
     );
   }
 
-  async get<Result>(url: string): Promise<Response<Result>> {
+  async get<Result>(
+    url: string,
+    options: { signal?: AbortSignal } = {},
+  ): Promise<Response<Result>> {
+    const { signal } = options;
     const { endpoint, params } = this.parseUrlForHashing(url);
     const hash = hashRequest(endpoint, params);
     const resource = this.inferResource(url);
@@ -163,14 +202,14 @@ export class HttpClient implements HttpClientContract {
               this.options.maxWaitTime,
             );
             if (waitTime > 0) {
-              await new Promise((resolve) => setTimeout(resolve, waitTime));
+              await wait(waitTime, signal);
             }
           }
         }
       }
 
       // 4. Execute the actual HTTP request
-      const response = await this._http.get(url);
+      const response = await this._http.get(url, { signal });
       const transformedData = response.data
         ? convertSnakeCaseToCamelCase<Response<Result>>(response.data)
         : undefined;
@@ -200,6 +239,11 @@ export class HttpClient implements HttpClientContract {
       // Mark deduplication as failed
       if (this.stores.dedupe) {
         await this.stores.dedupe.fail(hash, error as Error);
+      }
+
+      // Allow callers to detect aborts distinctly – do not wrap AbortError.
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw error;
       }
 
       throw this.generateClientError(error);
