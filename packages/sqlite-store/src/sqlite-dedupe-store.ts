@@ -367,11 +367,11 @@ export class SQLiteDedupeStore implements DedupeStore {
       .where(lt(dedupeTable.createdAt, expiredTime));
 
     return {
-      totalJobs: (totalResult[0]?.count as number) || 0,
-      pendingJobs: (pendingResult[0]?.count as number) || 0,
-      completedJobs: (completedResult[0]?.count as number) || 0,
-      failedJobs: (failedResult[0]?.count as number) || 0,
-      expiredJobs: (expiredResult[0]?.count as number) || 0,
+      totalJobs: totalResult[0]?.count || 0,
+      pendingJobs: pendingResult[0]?.count || 0,
+      completedJobs: completedResult[0]?.count || 0,
+      failedJobs: failedResult[0]?.count || 0,
+      expiredJobs: expiredResult[0]?.count || 0,
     };
   }
 
