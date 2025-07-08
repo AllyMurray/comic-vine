@@ -1,10 +1,10 @@
-import { CacheStore } from '@comic-vine/client';
+import type { CacheStore } from '@comic-vine/client';
 import Database from 'better-sqlite3';
 import { eq, lt, count, sql } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { cacheTable } from './schema.js';
 
-export class SQLiteCacheStore implements CacheStore {
+export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private db: BetterSQLite3Database;
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
@@ -22,7 +22,7 @@ export class SQLiteCacheStore implements CacheStore {
     this.startCleanupInterval();
   }
 
-  async get(hash: string): Promise<unknown | undefined> {
+  async get(hash: string): Promise<T | undefined> {
     if (this.isDestroyed) {
       throw new Error('Cache store has been destroyed');
     }
@@ -61,7 +61,7 @@ export class SQLiteCacheStore implements CacheStore {
     }
   }
 
-  async set(hash: string, value: unknown, ttlSeconds: number): Promise<void> {
+  async set(hash: string, value: T, ttlSeconds: number): Promise<void> {
     if (this.isDestroyed) {
       throw new Error('Cache store has been destroyed');
     }

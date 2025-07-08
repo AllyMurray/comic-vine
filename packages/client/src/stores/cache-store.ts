@@ -1,13 +1,13 @@
 /**
  * Interface for caching API responses with TTL support
  */
-export interface CacheStore {
+export interface CacheStore<T = unknown> {
   /**
    * Retrieve a cached value by hash key
    * @param hash The hash key of the cached item
    * @returns The cached value or undefined if not found or expired
    */
-  get(hash: string): Promise<unknown | undefined>;
+  get(hash: string): Promise<T | undefined>;
 
   /**
    * Store a value in the cache with a TTL
@@ -15,7 +15,7 @@ export interface CacheStore {
    * @param value The value to cache
    * @param ttlSeconds TTL in seconds after which the item expires
    */
-  set(hash: string, value: unknown, ttlSeconds: number): Promise<void>;
+  set(hash: string, value: T, ttlSeconds: number): Promise<void>;
 
   /**
    * Remove a cached item by hash key

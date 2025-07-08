@@ -1,18 +1,18 @@
 import { randomUUID } from 'crypto';
-import { DedupeStore } from '@comic-vine/client';
+import type { DedupeStore } from '@comic-vine/client';
 import Database from 'better-sqlite3';
 import { eq, lt, count, sql, and } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { dedupeTable } from './schema.js';
 
-export class SQLiteDedupeStore implements DedupeStore {
+export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
   private db: BetterSQLite3Database;
-  private jobPromises = new Map<string, Promise<unknown>>();
+  private jobPromises = new Map<string, Promise<T | undefined>>();
   private jobResolvers = new Map<
     string,
     {
-      resolve: (value: unknown) => void;
-      reject: (error: Error) => void;
+      resolve: (value: T | undefined) => void;
+      reject: (reason: unknown) => void;
     }
   >();
   private readonly jobTimeoutMs: number;
@@ -67,7 +67,7 @@ export class SQLiteDedupeStore implements DedupeStore {
       );
   }
 
-  async waitFor(hash: string): Promise<unknown> {
+  async waitFor(hash: string): Promise<T | undefined> {
     if (this.isDestroyed) {
       throw new Error('Dedupe store has been destroyed');
     }
@@ -98,7 +98,7 @@ export class SQLiteDedupeStore implements DedupeStore {
         if (job.result === '__UNDEFINED__') {
           return undefined;
         } else if (job.result === '__NULL__') {
-          return null;
+          return null as unknown as T;
         } else if (job.result) {
           return JSON.parse(job.result as string);
         }
@@ -114,7 +114,7 @@ export class SQLiteDedupeStore implements DedupeStore {
     }
 
     // Job is pending - create promise for deduplication
-    const promise = new Promise<unknown>((resolve, reject) => {
+    const promise = new Promise<T | undefined>((resolve, reject) => {
       this.jobResolvers.set(hash, { resolve, reject });
 
       if (this.jobTimeoutMs > 0) {
@@ -133,10 +133,10 @@ export class SQLiteDedupeStore implements DedupeStore {
               })
               .where(eq(dedupeTable.hash, hash))
               .then(() => {
-                resolve(undefined); // Resolve with undefined for timeout
+                resolve(undefined as unknown as T); // Resolve with undefined for timeout
               })
               .catch(() => {
-                resolve(undefined); // Even if update fails, resolve with undefined
+                resolve(undefined as unknown as T); // Even if update fails, resolve with undefined
               });
           }
         }, this.jobTimeoutMs);
@@ -190,7 +190,7 @@ export class SQLiteDedupeStore implements DedupeStore {
     return jobId;
   }
 
-  async complete(hash: string, value: unknown): Promise<void> {
+  async complete(hash: string, value: T | undefined): Promise<void> {
     if (this.isDestroyed) {
       throw new Error('Dedupe store has been destroyed');
     }
@@ -298,7 +298,7 @@ export class SQLiteDedupeStore implements DedupeStore {
     return job.status === 'pending';
   }
 
-  async getResult(hash: string): Promise<unknown | undefined> {
+  async getResult(hash: string): Promise<T | undefined> {
     const result = await this.db
       .select()
       .from(dedupeTable)
@@ -323,7 +323,18 @@ export class SQLiteDedupeStore implements DedupeStore {
     }
 
     if (job.status === 'completed') {
-      return job.result;
+      try {
+        if (job.result === '__UNDEFINED__') {
+          return undefined;
+        } else if (job.result === '__NULL__') {
+          return null as unknown as T;
+        } else if (job.result) {
+          return JSON.parse(job.result as string);
+        }
+        return undefined;
+      } catch {
+        return undefined;
+      }
     }
 
     return undefined;

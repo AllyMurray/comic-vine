@@ -1,19 +1,19 @@
 import { randomUUID } from 'crypto';
-import { DedupeStore } from '@comic-vine/client';
+import type { DedupeStore } from '@comic-vine/client';
 
-interface DedupeJob {
+interface DedupeJob<T> {
   jobId: string;
-  promise: Promise<unknown>;
-  resolve: (value: unknown) => void;
+  promise: Promise<T>;
+  resolve: (value: T) => void;
   reject: (reason: unknown) => void;
   createdAt: number;
   completed: boolean;
-  result?: unknown;
+  result?: T;
   error?: Error;
 }
 
-export class InMemoryDedupeStore implements DedupeStore {
-  private jobs = new Map<string, DedupeJob>();
+export class InMemoryDedupeStore<T = unknown> implements DedupeStore<T> {
+  private jobs = new Map<string, DedupeJob<T>>();
   private readonly jobTimeoutMs: number;
   private cleanupInterval?: NodeJS.Timeout;
   private totalJobsProcessed: number = 0;
@@ -32,7 +32,7 @@ export class InMemoryDedupeStore implements DedupeStore {
     }
   }
 
-  async waitFor(hash: string): Promise<unknown | undefined> {
+  async waitFor(hash: string): Promise<T | undefined> {
     if (this.destroyed) {
       return undefined;
     }
@@ -75,15 +75,15 @@ export class InMemoryDedupeStore implements DedupeStore {
 
     // Create a new job
     const jobId = randomUUID();
-    let resolve: (value: unknown) => void;
+    let resolve: (value: T) => void;
     let reject: (reason: unknown) => void;
 
-    const promise = new Promise<unknown>((res, rej) => {
+    const promise = new Promise<T>((res, rej) => {
       resolve = res;
       reject = rej;
     });
 
-    const job: DedupeJob = {
+    const job: DedupeJob<T> = {
       jobId,
       promise,
       resolve: resolve!,
@@ -97,7 +97,7 @@ export class InMemoryDedupeStore implements DedupeStore {
     return jobId;
   }
 
-  async complete(hash: string, value: unknown): Promise<void> {
+  async complete(hash: string, value: T): Promise<void> {
     const job = this.jobs.get(hash);
     if (job && !job.completed) {
       job.completed = true;

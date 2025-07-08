@@ -1,7 +1,7 @@
-import { CacheStore } from '@comic-vine/client';
+import type { CacheStore } from '@comic-vine/client';
 
-interface CacheItem {
-  value: unknown;
+interface CacheItem<T> {
+  value: T;
   expiresAt: number;
   lastAccessed: number;
 }
@@ -17,8 +17,8 @@ export interface InMemoryCacheStoreOptions {
   evictionRatio?: number;
 }
 
-export class InMemoryCacheStore implements CacheStore {
-  private cache = new Map<string, CacheItem>();
+export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
+  private cache = new Map<string, CacheItem<T>>();
   private cleanupInterval?: NodeJS.Timeout;
   private readonly maxItems: number;
   private readonly maxMemoryBytes: number;
@@ -37,7 +37,7 @@ export class InMemoryCacheStore implements CacheStore {
     }
   }
 
-  async get(hash: string): Promise<unknown | undefined> {
+  async get(hash: string): Promise<T | undefined> {
     const item = this.cache.get(hash);
 
     if (!item || (item.expiresAt > 0 && Date.now() > item.expiresAt)) {
@@ -52,7 +52,7 @@ export class InMemoryCacheStore implements CacheStore {
     return item.value;
   }
 
-  async set(hash: string, value: unknown, ttlSeconds: number): Promise<void> {
+  async set(hash: string, value: T, ttlSeconds: number): Promise<void> {
     const now = Date.now();
     const expiresAt = ttlSeconds === 0 ? 0 : now + ttlSeconds * 1000;
 
@@ -159,7 +159,11 @@ export class InMemoryCacheStore implements CacheStore {
 
     // Remove the oldest entries
     for (let i = 0; i < count && i < entries.length; i++) {
-      this.cache.delete(entries[i][0]);
+      const entry = entries[i];
+      if (entry) {
+        const [key] = entry;
+        this.cache.delete(key);
+      }
     }
   }
 
@@ -179,7 +183,8 @@ export class InMemoryCacheStore implements CacheStore {
 
       // Value size (rough estimate using JSON serialization)
       try {
-        totalSize += JSON.stringify(item.value).length * 2;
+        const json = JSON.stringify(item.value) ?? '';
+        totalSize += json.length * 2;
       } catch {
         // If JSON serialization fails, use a default estimate
         totalSize += 1024; // 1KB default estimate
@@ -202,7 +207,10 @@ export class InMemoryCacheStore implements CacheStore {
     return entries.map(([hash, item]) => ({
       hash,
       lastAccessed: new Date(item.lastAccessed),
-      size: JSON.stringify(item.value).length * 2,
+      size: (() => {
+        const json = JSON.stringify(item.value) ?? '';
+        return json.length * 2;
+      })(),
     }));
   }
 
