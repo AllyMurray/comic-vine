@@ -114,7 +114,7 @@ export class HttpClient implements HttpClientContract {
   } {
     const urlObj = new URL(url);
     const endpoint = urlObj.pathname.replace('/api/', '');
-    const params: Record<string, unknown> = {};
+    const params: Record<string, string> = {};
 
     // Convert URLSearchParams to a plain object
     urlObj.searchParams.forEach((value, key) => {
