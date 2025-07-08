@@ -82,12 +82,12 @@ describe('InMemoryCacheStore', () => {
       expect(value).toBe('value1');
     });
 
-    it('should handle zero TTL', async () => {
+    it('should handle zero TTL (permanent)', async () => {
       await store.set('key1', 'value1', 0);
 
-      // Should be expired immediately
+      // Should be available (permanent storage)
       const value = await store.get('key1');
-      expect(value).toBeUndefined();
+      expect(value).toBe('value1');
     });
 
     it('should handle negative TTL', async () => {
@@ -153,6 +153,10 @@ describe('InMemoryCacheStore', () => {
       const stats = store.getStats();
       expect(stats.totalItems).toBe(2);
       expect(stats.memoryUsageBytes).toBeGreaterThan(0);
+      expect(stats.maxItems).toBe(1000); // default
+      expect(stats.maxMemoryBytes).toBe(50 * 1024 * 1024); // 50MB default
+      expect(stats.memoryUtilization).toBeGreaterThan(0);
+      expect(stats.itemUtilization).toBeGreaterThan(0);
     });
 
     it('should update statistics after operations', async () => {
@@ -201,6 +205,125 @@ describe('InMemoryCacheStore', () => {
     });
   });
 
+  describe('memory management', () => {
+    describe('maximum item count', () => {
+      it('should evict oldest items when max items exceeded', async () => {
+        const memoryStore = new InMemoryCacheStore({ maxItems: 3 });
+
+        // Add items up to the limit
+        await memoryStore.set('key1', 'value1', 60);
+        await memoryStore.set('key2', 'value2', 60);
+        await memoryStore.set('key3', 'value3', 60);
+
+        expect(memoryStore.getStats().totalItems).toBe(3);
+
+        // Add one more item, should evict the oldest
+        await memoryStore.set('key4', 'value4', 60);
+
+        expect(memoryStore.getStats().totalItems).toBe(3);
+        expect(await memoryStore.get('key1')).toBeUndefined(); // oldest should be evicted
+        expect(await memoryStore.get('key2')).toBe('value2');
+        expect(await memoryStore.get('key3')).toBe('value3');
+        expect(await memoryStore.get('key4')).toBe('value4');
+
+        memoryStore.destroy();
+      });
+
+      it('should respect LRU order for eviction', async () => {
+        const memoryStore = new InMemoryCacheStore({ maxItems: 3 });
+
+        // Add items with small delays to ensure different lastAccessed times
+        await memoryStore.set('key1', 'value1', 60);
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.set('key2', 'value2', 60);
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.set('key3', 'value3', 60);
+
+        // Access key1 to make it more recently used
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.get('key1');
+
+        // Add another item, key2 should be evicted (oldest after key1 access)
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.set('key4', 'value4', 60);
+
+        expect(await memoryStore.get('key1')).toBe('value1'); // recently accessed
+        expect(await memoryStore.get('key2')).toBeUndefined(); // should be evicted
+        expect(await memoryStore.get('key3')).toBe('value3');
+        expect(await memoryStore.get('key4')).toBe('value4');
+
+        memoryStore.destroy();
+      });
+    });
+
+    describe('memory limit', () => {
+      it('should evict items when memory limit exceeded', async () => {
+        const memoryStore = new InMemoryCacheStore({
+          maxMemoryBytes: 1024, // 1KB limit
+          evictionRatio: 0.5, // Remove 50% when limit exceeded
+        });
+
+        // Add large items that will exceed the limit
+        const largeValue = 'x'.repeat(500); // 500 bytes each
+        await memoryStore.set('key1', largeValue, 60);
+        await memoryStore.set('key2', largeValue, 60);
+        await memoryStore.set('key3', largeValue, 60); // This should trigger eviction
+
+        const stats = memoryStore.getStats();
+        expect(stats.totalItems).toBeLessThan(3); // Some items should be evicted
+
+        memoryStore.destroy();
+      });
+
+      it('should calculate memory utilization correctly', async () => {
+        const memoryStore = new InMemoryCacheStore({ maxMemoryBytes: 1024 });
+
+        await memoryStore.set('key1', 'small', 60);
+
+        const stats = memoryStore.getStats();
+        expect(stats.memoryUtilization).toBeGreaterThan(0);
+        expect(stats.memoryUtilization).toBeLessThan(1);
+
+        memoryStore.destroy();
+      });
+    });
+
+    describe('LRU tracking', () => {
+      it('should track last accessed time correctly', async () => {
+        const memoryStore = new InMemoryCacheStore();
+
+        await memoryStore.set('key1', 'value1', 60);
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.set('key2', 'value2', 60);
+
+        // Access key1 to update its lastAccessed time
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        await memoryStore.get('key1');
+
+        const lruItems = memoryStore.getLRUItems();
+        expect(lruItems).toHaveLength(2);
+        expect(lruItems[0].hash).toBe('key2'); // Should be oldest now
+        expect(lruItems[1].hash).toBe('key1'); // Should be newest
+
+        memoryStore.destroy();
+      });
+
+      it('should provide LRU items with correct metadata', async () => {
+        const memoryStore = new InMemoryCacheStore();
+
+        await memoryStore.set('key1', 'value1', 60);
+
+        const lruItems = memoryStore.getLRUItems(5);
+        expect(lruItems).toHaveLength(1);
+        expect(lruItems[0].hash).toBe('key1');
+        expect(lruItems[0].lastAccessed).toBeInstanceOf(Date);
+        expect(lruItems[0].size).toBeGreaterThan(0);
+
+        memoryStore.destroy();
+      });
+    });
+  });
+
   describe('configuration', () => {
     it('should use custom cleanup interval', async () => {
       const cleanupStore = new InMemoryCacheStore({ cleanupIntervalMs: 5000 });
@@ -220,6 +343,37 @@ describe('InMemoryCacheStore', () => {
       expect(value).toBe('value1');
 
       cleanupStore.destroy();
+    });
+
+    it('should use custom memory limits', async () => {
+      const memoryStore = new InMemoryCacheStore({
+        maxItems: 5,
+        maxMemoryBytes: 2048,
+        evictionRatio: 0.2,
+      });
+
+      const stats = memoryStore.getStats();
+      expect(stats.maxItems).toBe(5);
+      expect(stats.maxMemoryBytes).toBe(2048);
+
+      memoryStore.destroy();
+    });
+
+    it('should handle all configuration options', async () => {
+      const memoryStore = new InMemoryCacheStore({
+        cleanupIntervalMs: 30000,
+        maxItems: 100,
+        maxMemoryBytes: 1024 * 1024, // 1MB
+        evictionRatio: 0.25,
+      });
+
+      expect(memoryStore).toBeDefined();
+
+      const stats = memoryStore.getStats();
+      expect(stats.maxItems).toBe(100);
+      expect(stats.maxMemoryBytes).toBe(1024 * 1024);
+
+      memoryStore.destroy();
     });
   });
 
@@ -260,6 +414,29 @@ describe('InMemoryCacheStore', () => {
       await store.set(specialKey, 'special value', 60);
       const value = await store.get(specialKey);
       expect(value).toBe('special value');
+    });
+
+    it('should handle memory calculation errors gracefully', async () => {
+      // Create an object that can't be JSON serialized
+      const circularObj = { name: 'test' };
+      circularObj.self = circularObj;
+
+      await store.set('circular', circularObj, 60);
+
+      // Should not throw error and should use default estimate
+      const stats = store.getStats();
+      expect(stats.memoryUsageBytes).toBeGreaterThan(0);
+    });
+
+    it('should handle eviction when cache is empty', async () => {
+      const memoryStore = new InMemoryCacheStore({ maxItems: 1 });
+
+      // This should not throw even though cache is empty
+      await memoryStore.set('key1', 'value1', 60);
+
+      expect(await memoryStore.get('key1')).toBe('value1');
+
+      memoryStore.destroy();
     });
   });
 
