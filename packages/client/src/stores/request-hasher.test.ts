@@ -103,4 +103,13 @@ describe('hashRequest', () => {
 
     expect(hash1).toBe(hash2);
   });
+
+  it('should treat numeric and string parameter values equivalently', () => {
+    const endpoint = 'issues/retrieve';
+
+    const hash1 = hashRequest(endpoint, { id: 10 });
+    const hash2 = hashRequest(endpoint, { id: '10' });
+
+    expect(hash1).toBe(hash2);
+  });
 });
