@@ -225,6 +225,9 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
     this.cleanupInterval = setInterval(async () => {
       await this.cleanup();
     }, this.cleanupIntervalMs);
+    if (typeof this.cleanupInterval.unref === 'function') {
+      this.cleanupInterval.unref();
+    }
   }
 
   private async cleanupExpiredItems(): Promise<void> {

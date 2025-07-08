@@ -44,6 +44,9 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
           // Ignore cleanup errors
         });
       }, this.cleanupIntervalMs);
+      if (typeof this.cleanupInterval.unref === 'function') {
+        this.cleanupInterval.unref();
+      }
     }
   }
 
