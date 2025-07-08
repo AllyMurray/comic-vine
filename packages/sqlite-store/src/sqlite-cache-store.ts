@@ -6,6 +6,7 @@ import { cacheTable } from './schema.js';
 
 export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private db: BetterSQLite3Database;
+  private sqlite: InstanceType<typeof Database>;
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
   private isDestroyed = false;
@@ -14,8 +15,9 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
     databasePath: string = ':memory:',
     options: { cleanupIntervalMs?: number } = {},
   ) {
-    const sqlite = new Database(databasePath);
-    this.db = drizzle(sqlite);
+    const sqliteInstance = new Database(databasePath);
+    this.sqlite = sqliteInstance;
+    this.db = drizzle(sqliteInstance);
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
 
     this.initializeDatabase();
@@ -133,12 +135,13 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
       .from(cacheTable)
       .where(lt(cacheTable.expiresAt, now));
 
-    // Get database size (this is approximate)
-    const dbStats = (
-      this.db as unknown as { run: (sql: string) => unknown }
-    ).run('PRAGMA page_count; PRAGMA page_size;');
-    const pageCount = (dbStats as { page_count?: number })?.page_count || 0;
-    const pageSize = (dbStats as { page_size?: number })?.page_size || 0;
+    // Get database size (approximate)
+    const pageCount = this.sqlite.pragma('page_count', {
+      simple: true,
+    }) as number;
+    const pageSize = this.sqlite.pragma('page_size', {
+      simple: true,
+    }) as number;
     const databaseSizeKB = Math.round((pageCount * pageSize) / 1024);
 
     return {

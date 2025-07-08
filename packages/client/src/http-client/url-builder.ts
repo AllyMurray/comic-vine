@@ -61,9 +61,7 @@ export class UrlBuilder {
     if (fieldList) {
       return {
         name: 'field_list',
-        value: fieldList
-          .map((field) => toSnakeCase(field as unknown as string))
-          .join(','),
+        value: fieldList.map((field) => toSnakeCase(String(field))).join(','),
       };
     }
 
