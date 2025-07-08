@@ -43,6 +43,10 @@ export class InMemoryCacheStore<T = unknown> implements CacheStore<T> {
       this.cleanupInterval = setInterval(() => {
         this.cleanup();
       }, cleanupIntervalMs);
+      // Allow the Node.js process to exit naturally if this timer is the only event loop item
+      if (typeof this.cleanupInterval.unref === 'function') {
+        this.cleanupInterval.unref();
+      }
     }
   }
 
