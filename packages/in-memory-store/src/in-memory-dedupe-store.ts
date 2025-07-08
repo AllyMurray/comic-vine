@@ -42,11 +42,9 @@ export class InMemoryDedupeStore implements DedupeStore {
       return undefined;
     }
 
-    // Check if job has expired and trigger cleanup manually if needed
-    if (
-      this.jobTimeoutMs > 0 &&
-      Date.now() - job.createdAt > this.jobTimeoutMs
-    ) {
+    const jobTimedOut =
+      this.jobTimeoutMs > 0 && Date.now() - job.createdAt > this.jobTimeoutMs;
+    if (jobTimedOut) {
       this.cleanup();
       return undefined;
     }
@@ -123,16 +121,13 @@ export class InMemoryDedupeStore implements DedupeStore {
       return false;
     }
 
-    // Check if job has expired (only if timeout is enabled) and trigger cleanup
-    if (
-      this.jobTimeoutMs > 0 &&
-      Date.now() - job.createdAt > this.jobTimeoutMs
-    ) {
+    const isJobExpired =
+      this.jobTimeoutMs > 0 && Date.now() - job.createdAt > this.jobTimeoutMs;
+    if (isJobExpired) {
       this.cleanup();
       return false;
     }
 
-    // Return false if job is completed
     return !job.completed;
   }
 

@@ -6,7 +6,7 @@ import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { dedupeTable } from './schema.js';
 
 export class SQLiteDedupeStore implements DedupeStore {
-  private db: BetterSQLite3Database;
+  private db: BetterSQLite3Database & { close: () => void };
   private jobPromises = new Map<string, Promise<unknown>>();
   private jobResolvers = new Map<
     string,
@@ -29,10 +29,10 @@ export class SQLiteDedupeStore implements DedupeStore {
     } = {},
   ) {
     const sqlite = new Database(databasePath);
+    // @ts-expect-error - BetterSQLite3Database is missing the close method
     this.db = drizzle(sqlite);
-    // Support both timeoutMs and jobTimeoutMs for compatibility
-    this.jobTimeoutMs = options.timeoutMs ?? options.jobTimeoutMs ?? 300000; // 5 minutes default
-    this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
+    this.jobTimeoutMs = options.timeoutMs ?? options.jobTimeoutMs ?? 300000;
+    this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000;
 
     this.initializeDatabase();
     this.startCleanupInterval();
@@ -49,8 +49,9 @@ export class SQLiteDedupeStore implements DedupeStore {
   }
 
   private async cleanupExpiredJobs(): Promise<void> {
-    if (this.jobTimeoutMs <= 0) {
-      return; // No timeout configured
+    const noTimeoutConfigured = this.jobTimeoutMs <= 0;
+    if (noTimeoutConfigured) {
+      return;
     }
 
     const now = Date.now();
@@ -72,13 +73,11 @@ export class SQLiteDedupeStore implements DedupeStore {
       throw new Error('Dedupe store has been destroyed');
     }
 
-    // Check if we already have a promise for this hash
     const existingPromise = this.jobPromises.get(hash);
     if (existingPromise) {
       return existingPromise;
     }
 
-    // Check database for existing job
     const result = await this.db
       .select()
       .from(dedupeTable)
@@ -86,7 +85,6 @@ export class SQLiteDedupeStore implements DedupeStore {
       .limit(1);
 
     if (result.length === 0) {
-      // No job exists, return undefined immediately
       return undefined;
     }
 
@@ -98,7 +96,6 @@ export class SQLiteDedupeStore implements DedupeStore {
     // If job is already completed, return result immediately
     if (job.status === 'completed') {
       try {
-        // Handle different value types properly
         if (job.result === '__UNDEFINED__') {
           return undefined;
         } else if (job.result === '__NULL__') {
@@ -113,7 +110,6 @@ export class SQLiteDedupeStore implements DedupeStore {
       }
     }
 
-    // If job failed, return undefined
     if (job.status === 'failed') {
       return undefined;
     }
@@ -122,7 +118,6 @@ export class SQLiteDedupeStore implements DedupeStore {
     const promise = new Promise<unknown>((resolve, reject) => {
       this.jobResolvers.set(hash, { resolve, reject });
 
-      // Set timeout if configured
       if (this.jobTimeoutMs > 0) {
         setTimeout(() => {
           const resolver = this.jobResolvers.get(hash);
@@ -130,7 +125,6 @@ export class SQLiteDedupeStore implements DedupeStore {
             this.jobResolvers.delete(hash);
             this.jobPromises.delete(hash);
 
-            // Mark job as failed in database if it exists
             this.db
               .update(dedupeTable)
               .set({
@@ -159,7 +153,6 @@ export class SQLiteDedupeStore implements DedupeStore {
       throw new Error('Dedupe store has been destroyed');
     }
 
-    // Check if job already exists
     const existingJob = await this.db
       .select()
       .from(dedupeTable)
@@ -296,18 +289,13 @@ export class SQLiteDedupeStore implements DedupeStore {
       return false;
     }
 
-    // Check if job has expired
-    if (this.jobTimeoutMs > 0) {
-      const now = Date.now();
-      const isExpired = now - job.createdAt >= this.jobTimeoutMs;
-      if (isExpired) {
-        // Clean up expired job
-        await this.db.delete(dedupeTable).where(eq(dedupeTable.hash, hash));
-        return false;
-      }
+    const jobExpired =
+      this.jobTimeoutMs > 0 && Date.now() - job.createdAt >= this.jobTimeoutMs;
+    if (jobExpired) {
+      await this.db.delete(dedupeTable).where(eq(dedupeTable.hash, hash));
+      return false;
     }
 
-    // Only pending jobs are considered in progress
     return job.status === 'pending';
   }
 
@@ -329,8 +317,8 @@ export class SQLiteDedupeStore implements DedupeStore {
 
     const now = Date.now();
 
-    // Check if job has expired
-    if (now - job.createdAt > this.jobTimeoutMs) {
+    const isExpired = now - job.createdAt > this.jobTimeoutMs;
+    if (isExpired) {
       await this.db.delete(dedupeTable).where(eq(dedupeTable.hash, hash));
       return undefined;
     }
@@ -406,7 +394,6 @@ export class SQLiteDedupeStore implements DedupeStore {
   async clear(): Promise<void> {
     await this.db.delete(dedupeTable);
 
-    // Clear in-memory promises and resolvers
     this.jobPromises.clear();
     this.jobResolvers.clear();
   }
@@ -415,42 +402,34 @@ export class SQLiteDedupeStore implements DedupeStore {
    * Close the database connection
    */
   async close(): Promise<void> {
-    // Clear the cleanup interval
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = undefined;
     }
 
-    // Clear in-memory promises and resolvers
     this.jobPromises.clear();
     this.jobResolvers.clear();
 
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
-    (this.db as unknown as { close?: () => void }).close?.();
+    this.db.close();
   }
 
   /**
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    // Clear the cleanup interval
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = undefined;
     }
 
-    // Clear in-memory promises and resolvers
     this.jobPromises.clear();
     this.jobResolvers.clear();
 
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
-    (this.db as unknown as { close?: () => void }).close?.();
+    this.db.close();
   }
 
   private initializeDatabase(): void {

@@ -36,7 +36,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     const now = Date.now();
     const windowStart = now - config.windowMs;
 
-    // Clean up expired entries
     await this.cleanupExpiredRequests(resource, windowStart);
 
     // Count current requests in window
@@ -79,7 +78,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     const now = Date.now();
     const windowStart = now - config.windowMs;
 
-    // Clean up old entries first
     await this.cleanupExpiredRequests(resource, windowStart);
 
     // Count current requests in the window
@@ -96,7 +94,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     const currentRequests = (result[0]?.count as number) || 0;
     const remaining = Math.max(0, config.limit - currentRequests);
 
-    // Calculate reset time (when the window resets)
     const resetTime = new Date(now + config.windowMs);
 
     return {
@@ -122,15 +119,13 @@ export class SQLiteRateLimitStore implements RateLimitStore {
 
     const config = this.resourceConfigs.get(resource) || this.defaultConfig;
 
-    // Handle zero limit edge case
     if (config.limit === 0) {
-      return config.windowMs; // Always return window time for zero limit
+      return config.windowMs;
     }
 
     const now = Date.now();
     const windowStart = now - config.windowMs;
 
-    // Clean up old entries first
     await this.cleanupExpiredRequests(resource, windowStart);
 
     // Count current requests in the window
@@ -150,7 +145,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
       return 0;
     }
 
-    // Find the oldest request in the current window
     const oldestResult = await this.db
       .select({ timestamp: rateLimitTable.timestamp })
       .from(rateLimitTable)
@@ -215,7 +209,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
     const uniqueResources = resourcesResult.length;
     const rateLimitedResources: Array<string> = [];
 
-    // Check which resources are currently rate limited
     for (const { resource } of resourcesResult) {
       const canProceed = await this.canProceed(resource);
       if (!canProceed) {
@@ -252,7 +245,6 @@ export class SQLiteRateLimitStore implements RateLimitStore {
       .from(rateLimitTable)
       .groupBy(rateLimitTable.resource);
 
-    // Clean up each resource individually
     for (const { resource } of resources) {
       const config = this.resourceConfigs.get(resource) || this.defaultConfig;
       const windowStart = now - config.windowMs;
@@ -264,10 +256,8 @@ export class SQLiteRateLimitStore implements RateLimitStore {
    * Close the database connection
    */
   async close(): Promise<void> {
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
     (this.db as unknown as { close?: () => void }).close?.();
   }
 
@@ -275,10 +265,8 @@ export class SQLiteRateLimitStore implements RateLimitStore {
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
     (this.db as unknown as { close?: () => void }).close?.();
   }
 

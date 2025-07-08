@@ -5,7 +5,7 @@ import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { cacheTable } from './schema.js';
 
 export class SQLiteCacheStore implements CacheStore {
-  private db: BetterSQLite3Database;
+  private db: BetterSQLite3Database & { close: () => void };
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
   private isDestroyed = false;
@@ -15,6 +15,7 @@ export class SQLiteCacheStore implements CacheStore {
     options: { cleanupIntervalMs?: number } = {},
   ) {
     const sqlite = new Database(databasePath);
+    // @ts-expect-error - BetterSQLite3Database is missing the close method
     this.db = drizzle(sqlite);
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
 
@@ -44,16 +45,12 @@ export class SQLiteCacheStore implements CacheStore {
 
     const now = Date.now();
 
-    // Check if item has expired
     if (now >= item.expiresAt) {
-      // Remove expired item
       await this.db.delete(cacheTable).where(eq(cacheTable.hash, hash));
       return undefined;
     }
 
-    // Deserialize the JSON value
     try {
-      // Special handling for undefined marker
       if (item.value === '__UNDEFINED__') {
         return undefined;
       }
@@ -73,10 +70,8 @@ export class SQLiteCacheStore implements CacheStore {
     const now = Date.now();
     const expiresAt = ttlSeconds <= 0 ? now : now + ttlSeconds * 1000;
 
-    // Handle serialization with proper error handling
     let serializedValue: string;
     try {
-      // Special handling for undefined since JSON.stringify(undefined) returns undefined
       if (value === undefined) {
         serializedValue = '__UNDEFINED__';
       } else {
@@ -166,34 +161,28 @@ export class SQLiteCacheStore implements CacheStore {
    * Close the database connection
    */
   async close(): Promise<void> {
-    // Clear the cleanup interval
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = undefined;
     }
 
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
-    (this.db as unknown as { close?: () => void }).close?.();
+    this.db.close();
   }
 
   /**
    * Alias for close() to match test expectations
    */
   destroy(): void {
-    // Clear the cleanup interval
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = undefined;
     }
 
-    // Mark as destroyed
     this.isDestroyed = true;
 
-    // Close the SQLite connection
-    (this.db as unknown as { close?: () => void }).close?.();
+    this.db.close();
   }
 
   private initializeDatabase(): void {

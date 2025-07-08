@@ -72,7 +72,6 @@ export class ComicVine implements ResourcePropertyMap {
   ) {
     const _options = loadOptions(options);
 
-    // Create HttpClient with stores injected
     const httpClient = HttpClientFactory.createClient(stores, clientOptions);
     const urlBuilder = HttpClientFactory.createUrlBuilder(
       key,
@@ -150,7 +149,6 @@ export class ComicVine implements ResourcePropertyMap {
     return { total, loaded, loadedResources };
   }
 
-  // Store management methods
   async clearCache(): Promise<void> {
     if (this.stores.cache) {
       await this.stores.cache.clear();
