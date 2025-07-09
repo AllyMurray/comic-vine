@@ -10,17 +10,33 @@ import { rateLimitTable } from './schema.js';
 
 export class SQLiteRateLimitStore implements RateLimitStore {
   private db: BetterSQLite3Database;
+  private sqlite: InstanceType<typeof Database>;
+  /** Indicates whether this store manages (and should close) the SQLite connection */
+  private readonly isConnectionManaged: boolean = false;
   private defaultConfig: RateLimitConfig;
   private resourceConfigs = new Map<string, RateLimitConfig>();
   private isDestroyed = false;
 
   constructor(
-    databasePath: string = ':memory:',
+    database: string | InstanceType<typeof Database> = ':memory:',
     defaultConfig: RateLimitConfig = DEFAULT_RATE_LIMIT,
     resourceConfigs: Map<string, RateLimitConfig> = new Map(),
   ) {
-    const sqlite = new Database(databasePath);
-    this.db = drizzle(sqlite);
+    // Allow callers to pass a pre-existing connection so that all stores can
+    // operate on the same underlying DB file.
+    let sqliteInstance: InstanceType<typeof Database>;
+    let isConnectionManaged = false;
+
+    if (typeof database === 'string') {
+      sqliteInstance = new Database(database);
+      isConnectionManaged = true;
+    } else {
+      sqliteInstance = database;
+    }
+
+    this.sqlite = sqliteInstance;
+    this.isConnectionManaged = isConnectionManaged;
+    this.db = drizzle(sqliteInstance);
     this.defaultConfig = defaultConfig;
     this.resourceConfigs = resourceConfigs;
 
@@ -258,8 +274,9 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   async close(): Promise<void> {
     this.isDestroyed = true;
 
-    if ('close' in this.db && typeof this.db.close === 'function') {
-      this.db.close();
+    // Close only if this instance established the connection.
+    if (this.isConnectionManaged && typeof this.sqlite.close === 'function') {
+      this.sqlite.close();
     }
   }
 

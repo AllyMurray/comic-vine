@@ -7,6 +7,9 @@ import { dedupeTable } from './schema.js';
 
 export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
   private db: BetterSQLite3Database;
+  private sqlite: InstanceType<typeof Database>;
+  /** Indicates whether this store manages (and should close) the SQLite connection */
+  private readonly isConnectionManaged: boolean = false;
   private jobPromises = new Map<string, Promise<T | undefined>>();
   private jobResolvers = new Map<
     string,
@@ -21,15 +24,30 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
   private isDestroyed = false;
 
   constructor(
-    databasePath: string = ':memory:',
+    database: string | InstanceType<typeof Database> = ':memory:',
     options: {
       jobTimeoutMs?: number;
       timeoutMs?: number;
       cleanupIntervalMs?: number;
     } = {},
   ) {
-    const sqlite = new Database(databasePath);
-    this.db = drizzle(sqlite);
+    // Support passing an existing `better-sqlite3` Database instance so that
+    // multiple stores can share the *same* file and connection. If a string
+    // path is provided we create the connection ourselves and therefore take
+    // ownership of it for later cleanup.
+    let sqliteInstance: InstanceType<typeof Database>;
+    let isConnectionManaged = false;
+
+    if (typeof database === 'string') {
+      sqliteInstance = new Database(database);
+      isConnectionManaged = true;
+    } else {
+      sqliteInstance = database;
+    }
+
+    this.sqlite = sqliteInstance;
+    this.isConnectionManaged = isConnectionManaged;
+    this.db = drizzle(sqliteInstance);
     this.jobTimeoutMs = options.timeoutMs ?? options.jobTimeoutMs ?? 300000;
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000;
 
@@ -423,8 +441,9 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
 
     this.isDestroyed = true;
 
-    if ('close' in this.db && typeof this.db.close === 'function') {
-      this.db.close();
+    // Only close the underlying DB if **this** store created it.
+    if (this.isConnectionManaged && typeof this.sqlite.close === 'function') {
+      this.sqlite.close();
     }
   }
 

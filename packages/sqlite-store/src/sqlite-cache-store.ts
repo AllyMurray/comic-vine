@@ -7,6 +7,8 @@ import { cacheTable } from './schema.js';
 export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private db: BetterSQLite3Database;
   private sqlite: InstanceType<typeof Database>;
+  /** Indicates whether this store is responsible for managing (and therefore closing) the SQLite connection */
+  private readonly isConnectionManaged: boolean = false;
   private cleanupInterval?: NodeJS.Timeout;
   private readonly cleanupIntervalMs: number;
   /**
@@ -21,11 +23,25 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private isDestroyed = false;
 
   constructor(
-    databasePath: string = ':memory:',
+    database: string | InstanceType<typeof Database> = ':memory:',
     options: { cleanupIntervalMs?: number; maxEntrySizeBytes?: number } = {},
   ) {
-    const sqliteInstance = new Database(databasePath);
+    // Support passing an existing `better-sqlite3` Database instance so that
+    // multiple stores can share the *same* file and connection. If a string
+    // path is provided we create the connection ourselves and therefore take
+    // ownership of it for later cleanup.
+    let sqliteInstance: InstanceType<typeof Database>;
+    let isConnectionManaged = false;
+
+    if (typeof database === 'string') {
+      sqliteInstance = new Database(database);
+      isConnectionManaged = true;
+    } else {
+      sqliteInstance = database;
+    }
+
     this.sqlite = sqliteInstance;
+    this.isConnectionManaged = isConnectionManaged;
     this.db = drizzle(sqliteInstance);
     this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
 
@@ -192,8 +208,9 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
 
     this.isDestroyed = true;
 
-    if ('close' in this.db && typeof this.db.close === 'function') {
-      this.db.close();
+    // Only close the underlying DB if **this** store manages it.
+    if (this.isConnectionManaged && typeof this.sqlite.close === 'function') {
+      this.sqlite.close();
     }
   }
 
