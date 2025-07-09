@@ -5,152 +5,230 @@ In-memory store implementations for Comic Vine client caching, deduplication, an
 ## Installation
 
 ```bash
-npm install @comic-vine/client @comic-vine/in-memory-store
+npm install @comic-vine/in-memory-store @comic-vine/client
 ```
 
 ## Usage
 
 ```typescript
-import { RateLimitedComicVineClient } from '@comic-vine/client';
+import ComicVine from '@comic-vine/client';
 import {
   InMemoryCacheStore,
   InMemoryDedupeStore,
   InMemoryRateLimitStore,
 } from '@comic-vine/in-memory-store';
 
-const client = RateLimitedComicVineClient.create('your-api-key', {
+const client = new ComicVine('your-api-key', undefined, {
   cache: new InMemoryCacheStore(),
   dedupe: new InMemoryDedupeStore(),
   rateLimit: new InMemoryRateLimitStore(),
 });
 
-// Use client normally - caching, deduplication, and rate limiting happen automatically
+// Use client normally - data is cached in memory
 const issue = await client.issue.retrieve(1);
 ```
+
+## Key Features
+
+- **High Performance**: All operations are in-memory for maximum speed
+- **Object-based Configuration**: Clean, type-safe constructor parameters
+- **Zero Dependencies**: No external storage requirements
+- **Type Safety**: Full TypeScript support with exported option interfaces
 
 ## Store Implementations
 
 ### InMemoryCacheStore
 
-Provides in-memory caching with TTL support using JavaScript Maps.
+Provides in-memory caching with TTL support.
 
 ```typescript
 const cacheStore = new InMemoryCacheStore({
-  cleanupIntervalMs: 60_000, // Cleanup expired items every minute
-  maxItems: 1_000, // Hard cap on number of cached entries
-  maxMemoryBytes: 50 * 1024 ** 2, // ~50 MB soft cap (LRU eviction when exceeded)
+  maxSize: 1000, // Maximum number of entries
+  ttl: 300000, // 5 minutes TTL
+  cleanupIntervalMs: 60000, // Cleanup expired items every minute
 });
 ```
 
 **Features:**
 
-- TTL-based expiration
-- Automatic cleanup of expired items
-- **O(1) memory usage tracking** – the store maintains a running `totalSize` counter that is updated on insert/evict rather than scanning the whole cache on every write
-- LRU eviction when either `maxItems` or `maxMemoryBytes` is exceeded (percentage controlled by `evictionRatio` – defaults to 10 %)
-- Memory-usage statistics via `getStats()`
-- Thread-safe operations
+- LRU eviction when max size is reached
+- TTL-based expiration with automatic cleanup
+- Fast O(1) get/set operations
+- Memory-efficient storage
 
 ### InMemoryDedupeStore
 
-Prevents duplicate concurrent requests using in-memory promise tracking.
+Prevents duplicate concurrent requests using in-memory coordination.
 
 ```typescript
+import type { InMemoryDedupeStoreOptions } from '@comic-vine/in-memory-store';
+
 const dedupeStore = new InMemoryDedupeStore({
-  jobTimeoutMs: 300000, // 5 minute timeout for jobs
+  jobTimeoutMs: 300_000, // 5 minute timeout for jobs (default)
+  cleanupIntervalMs: 60_000, // Cleanup interval (default: 1 minute)
 });
 ```
 
 **Features:**
 
-- Automatic deduplication of identical requests
-- Promise-based waiting for in-progress requests
-- Job timeout handling
-- Error propagation to all waiting requests
+- Promise-based deduplication
+- Automatic cleanup of expired jobs
+- Error state handling and propagation
+- Memory-efficient job tracking
+- Configurable job timeouts and cleanup intervals
 
 ### InMemoryRateLimitStore
 
-Implements sliding window rate limiting per resource.
+Implements sliding window rate limiting with in-memory tracking.
 
 ```typescript
-const rateLimitStore = new InMemoryRateLimitStore(
-  { limit: 100, windowMs: 60000 }, // Default: 100 requests per minute
-  new Map([
-    ['issues', { limit: 50, windowMs: 60000 }], // Custom limits per resource
-    ['characters', { limit: 200, windowMs: 60000 }],
+import type { InMemoryRateLimitStoreOptions } from '@comic-vine/in-memory-store';
+
+const rateLimitStore = new InMemoryRateLimitStore({
+  defaultConfig: { limit: 100, windowMs: 60_000 }, // Default: 100 req/min
+  resourceConfigs: new Map([
+    ['issues', { limit: 50, windowMs: 60_000 }], // Custom per-resource limits
+    ['characters', { limit: 200, windowMs: 60_000 }],
   ]),
-);
+});
 ```
 
 **Features:**
 
-- Per-resource rate limiting
 - Sliding window algorithm
-- Configurable limits and time windows
-- Real-time status reporting
+- Per-resource configuration
+- Automatic cleanup of expired records
+- Memory-efficient timestamp tracking
+- Flexible default and per-resource configurations
 
-## API Reference
+## Configuration Examples
 
-### CacheStore Interface
+### Basic Setup
 
 ```typescript
-interface CacheStore {
-  get(hash: string): Promise<any | undefined>;
-  set(hash: string, value: any, ttlSeconds: number): Promise<void>;
-  delete(hash: string): Promise<void>;
-  clear(): Promise<void>;
-}
+import ComicVine from '@comic-vine/client';
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+  InMemoryRateLimitStore,
+} from '@comic-vine/in-memory-store';
+
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new InMemoryCacheStore(),
+  dedupe: new InMemoryDedupeStore(),
+  rateLimit: new InMemoryRateLimitStore(),
+});
 ```
 
-### DedupeStore Interface
+### Custom Configuration
 
 ```typescript
-interface DedupeStore {
-  waitFor(hash: string): Promise<any | undefined>;
-  register(hash: string): Promise<string>;
-  complete(hash: string, value: any): Promise<void>;
-  fail(hash: string, error: Error): Promise<void>;
-  isInProgress(hash: string): Promise<boolean>;
-}
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new InMemoryCacheStore({
+    maxSize: 5000,
+    ttl: 600_000, // 10 minutes
+    cleanupIntervalMs: 120_000, // 2 minutes
+  }),
+  dedupe: new InMemoryDedupeStore({
+    jobTimeoutMs: 600_000, // 10 minutes
+    cleanupIntervalMs: 120_000, // 2 minutes
+  }),
+  rateLimit: new InMemoryRateLimitStore({
+    defaultConfig: { limit: 200, windowMs: 60_000 }, // 200 requests per minute
+    resourceConfigs: new Map([
+      ['issues', { limit: 100, windowMs: 60_000 }],
+      ['characters', { limit: 300, windowMs: 60_000 }],
+    ]),
+  }),
+});
 ```
 
-### RateLimitStore Interface
+## TypeScript Support
+
+All stores export their option interfaces for type safety:
 
 ```typescript
-interface RateLimitStore {
-  canProceed(resource: string): Promise<boolean>;
-  record(resource: string): Promise<void>;
-  getStatus(resource: string): Promise<{
-    remaining: number;
-    resetTime: Date;
-    limit: number;
-  }>;
-  reset(resource: string): Promise<void>;
-  getWaitTime(resource: string): Promise<number>;
-}
+import type {
+  InMemoryCacheStoreOptions,
+  InMemoryDedupeStoreOptions,
+  InMemoryRateLimitStoreOptions,
+} from '@comic-vine/in-memory-store';
+
+// Type-safe configuration
+const cacheOptions: InMemoryCacheStoreOptions = {
+  maxSize: 2000,
+  ttl: 300_000,
+  cleanupIntervalMs: 60_000,
+};
+
+const cache = new InMemoryCacheStore(cacheOptions);
 ```
 
 ## Performance Characteristics
 
-- **Memory Usage**: InMemoryCacheStore keeps an incremental `totalSize` counter, giving constant-time checks against `maxMemoryBytes`. No full-table scan happens on each write.
-- **Concurrency**: All stores are designed to handle concurrent access safely.
-- **Cleanup**: Automatic cleanup prevents memory leaks, but you can also manually trigger cleanup.
+### Memory Usage
 
-## Use Cases
+- **Cache**: O(n) where n is the number of cached entries
+- **Dedupe**: O(m) where m is the number of active jobs
+- **Rate Limit**: O(r × t) where r is resources and t is tracking window
 
-Perfect for:
+### Time Complexity
 
+- **Cache Get/Set**: O(1) average case
+- **Dedupe Check**: O(1) lookup
+- **Rate Limit Check**: O(log n) where n is requests in window
+
+## Comparison with SQLite Stores
+
+| Feature           | In-Memory   | SQLite               |
+| ----------------- | ----------- | -------------------- |
+| **Performance**   | Fastest     | Fast                 |
+| **Persistence**   | No          | Yes                  |
+| **Memory Usage**  | Higher      | Lower                |
+| **Cross-Process** | No          | Yes                  |
+| **Setup**         | Zero config | Requires file system |
+
+Choose in-memory stores for:
+
+- Single-process applications
+- Maximum performance requirements
 - Development and testing
-- Single-instance applications
-- Short-lived processes
-- Applications where persistence is not required
+- Stateless deployments
 
-Consider SQLite stores for:
+Choose SQLite stores for:
 
-- Production applications
-- Multi-instance deployments
-- Long-running processes
-- When persistence across restarts is needed
+- Multi-process applications
+- Persistent caching across restarts
+- Production deployments
+- Resource-constrained environments
+
+## API Reference
+
+All stores implement the same interfaces as the SQLite versions:
+
+- `CacheStore`
+- `DedupeStore`
+- `RateLimitStore`
+
+## Migration from Previous Versions
+
+If upgrading from a version with positional constructor arguments:
+
+```typescript
+// Old positional syntax (no longer supported)
+// new InMemoryDedupeStore(300_000)
+// new InMemoryRateLimitStore(defaultConfig, resourceConfigs)
+
+// New object syntax
+new InMemoryDedupeStore({
+  jobTimeoutMs: 300_000,
+})
+
+new InMemoryRateLimitStore({
+  defaultConfig: { limit: 100, windowMs: 60_000 },
+  resourceConfigs: new Map([...]),
+})
+```
 
 ## License
 

@@ -23,6 +23,11 @@ interface DedupeJob<T> {
   error?: Error;
 }
 
+export interface InMemoryDedupeStoreOptions {
+  jobTimeoutMs?: number;
+  cleanupIntervalMs?: number;
+}
+
 export class InMemoryDedupeStore<T = unknown> implements DedupeStore<T> {
   private jobs = new Map<string, DedupeJob<T>>();
   private readonly jobTimeoutMs: number;
@@ -30,11 +35,13 @@ export class InMemoryDedupeStore<T = unknown> implements DedupeStore<T> {
   private totalJobsProcessed: number = 0;
   private destroyed: boolean = false;
 
-  constructor(
-    options: { jobTimeoutMs?: number; cleanupIntervalMs?: number } = {},
-  ) {
-    this.jobTimeoutMs = options.jobTimeoutMs ?? 300000; // 5 minutes default
-    const cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
+  constructor({
+    /** Job timeout in milliseconds. Defaults to 5 minutes. */
+    jobTimeoutMs = 300_000,
+    /** Cleanup interval in milliseconds. Defaults to 1 minute. */
+    cleanupIntervalMs = 60_000,
+  }: InMemoryDedupeStoreOptions = {}) {
+    this.jobTimeoutMs = jobTimeoutMs;
 
     if (cleanupIntervalMs > 0) {
       this.cleanupInterval = setInterval(() => {

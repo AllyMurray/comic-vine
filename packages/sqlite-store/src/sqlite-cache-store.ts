@@ -4,6 +4,13 @@ import { eq, lt, count, sql } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { cacheTable } from './schema.js';
 
+export interface SQLiteCacheStoreOptions {
+  /** File path or existing `better-sqlite3` connection. Defaults to `':memory:'`. */
+  database?: string | InstanceType<typeof Database>;
+  cleanupIntervalMs?: number;
+  maxEntrySizeBytes?: number;
+}
+
 export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private db: BetterSQLite3Database;
   private sqlite: InstanceType<typeof Database>;
@@ -22,10 +29,14 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
   private readonly maxEntrySizeBytes: number;
   private isDestroyed = false;
 
-  constructor(
-    database: string | InstanceType<typeof Database> = ':memory:',
-    options: { cleanupIntervalMs?: number; maxEntrySizeBytes?: number } = {},
-  ) {
+  constructor({
+    /** File path or existing `better-sqlite3` connection. Defaults to `':memory:'`. */
+    database = ':memory:',
+    /** Cleanup interval in milliseconds. Defaults to 1 minute. */
+    cleanupIntervalMs = 60_000,
+    /** Maximum allowed size (in bytes) for a single cache entry. Defaults to 5 MiB. */
+    maxEntrySizeBytes = 5 * 1024 * 1024,
+  }: SQLiteCacheStoreOptions = {}) {
     // Support passing an existing `better-sqlite3` Database instance so that
     // multiple stores can share the *same* file and connection. If a string
     // path is provided we create the connection ourselves and therefore take
@@ -43,10 +54,8 @@ export class SQLiteCacheStore<T = unknown> implements CacheStore<T> {
     this.sqlite = sqliteInstance;
     this.isConnectionManaged = isConnectionManaged;
     this.db = drizzle(sqliteInstance);
-    this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
-
-    // Default to 5 MiB per entry unless explicitly overridden
-    this.maxEntrySizeBytes = options.maxEntrySizeBytes ?? 5 * 1024 * 1024;
+    this.cleanupIntervalMs = cleanupIntervalMs;
+    this.maxEntrySizeBytes = maxEntrySizeBytes;
 
     this.initializeDatabase();
     this.startCleanupInterval();

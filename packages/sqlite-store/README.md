@@ -11,22 +11,33 @@ npm install @comic-vine/sqlite-store @comic-vine/client
 ## Usage
 
 ```typescript
-import { RateLimitedComicVineClient } from '@comic-vine/client';
+import Database from 'better-sqlite3';
+import ComicVine from '@comic-vine/client';
 import {
   SQLiteCacheStore,
   SQLiteDedupeStore,
   SQLiteRateLimitStore,
 } from '@comic-vine/sqlite-store';
 
-const client = RateLimitedComicVineClient.create('your-api-key', {
-  cache: new SQLiteCacheStore('./cache.db'),
-  dedupe: new SQLiteDedupeStore('./dedupe.db'),
-  rateLimit: new SQLiteRateLimitStore('./rate-limits.db'),
+// Create ONE shared connection which every store will use.
+const sharedDb = new Database('./comic-vine.db');
+
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new SQLiteCacheStore({ database: sharedDb }),
+  dedupe: new SQLiteDedupeStore({ database: sharedDb }),
+  rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
 });
 
 // Use client normally - data persists across application restarts
 const issue = await client.issue.retrieve(1);
 ```
+
+## Key Features
+
+- **Shared Database Support**: All stores can use the same SQLite database file/connection
+- **Object-based Configuration**: Clean, type-safe constructor parameters
+- **Connection Management**: Automatic handling of database connection lifecycle
+- **Type Safety**: Full TypeScript support with exported option interfaces
 
 ## Store Implementations
 
@@ -35,12 +46,13 @@ const issue = await client.issue.retrieve(1);
 Provides persistent caching with TTL support using SQLite database.
 
 ```typescript
-const cacheStore = new SQLiteCacheStore(
-  './cache.db', // Database file path (':memory:' for in-memory)
-  {
-    cleanupIntervalMs: 60000, // Cleanup expired items every minute
-  },
-);
+import type { SQLiteCacheStoreOptions } from '@comic-vine/sqlite-store';
+
+const cacheStore = new SQLiteCacheStore({
+  database: './cache.db', // File path, ':memory:', or Database instance
+  cleanupIntervalMs: 60_000, // Cleanup expired items every minute (default)
+  maxEntrySizeBytes: 5 * 1024 * 1024, // 5MB max per entry (default)
+});
 ```
 
 **Features:**
@@ -50,14 +62,20 @@ const cacheStore = new SQLiteCacheStore(
 - Database-level ACID transactions
 - Efficient indexing for fast lookups
 - Automatic schema creation and migration
+- Size limits to prevent SQLite length violations
+- Shared database connection support
 
 ### SQLiteDedupeStore
 
 Prevents duplicate concurrent requests using SQLite for coordination.
 
 ```typescript
-const dedupeStore = new SQLiteDedupeStore('./dedupe.db', {
-  jobTimeoutMs: 300000, // 5 minute timeout for jobs
+import type { SQLiteDedupeStoreOptions } from '@comic-vine/sqlite-store';
+
+const dedupeStore = new SQLiteDedupeStore({
+  database: './dedupe.db', // File path, ':memory:', or Database instance
+  jobTimeoutMs: 300_000, // 5 minute timeout for jobs (default)
+  cleanupIntervalMs: 60_000, // Cleanup interval (default: 1 minute)
 });
 ```
 
@@ -68,20 +86,23 @@ const dedupeStore = new SQLiteDedupeStore('./dedupe.db', {
 - Automatic cleanup of expired jobs
 - Promise-based waiting with database coordination
 - Error state persistence and recovery
+- Configurable job timeouts and cleanup intervals
 
 ### SQLiteRateLimitStore
 
 Implements sliding window rate limiting with SQLite persistence.
 
 ```typescript
-const rateLimitStore = new SQLiteRateLimitStore(
-  './rate-limits.db',
-  { limit: 100, windowMs: 60000 }, // Default: 100 requests per minute
-  new Map([
-    ['issues', { limit: 50, windowMs: 60000 }], // Custom limits per resource
-    ['characters', { limit: 200, windowMs: 60000 }],
+import type { SQLiteRateLimitStoreOptions } from '@comic-vine/sqlite-store';
+
+const rateLimitStore = new SQLiteRateLimitStore({
+  database: './rate-limits.db', // File path, ':memory:', or Database instance
+  defaultConfig: { limit: 100, windowMs: 60_000 }, // Default: 100 req/min
+  resourceConfigs: new Map([
+    ['issues', { limit: 50, windowMs: 60_000 }], // Custom per-resource limits
+    ['characters', { limit: 200, windowMs: 60_000 }],
   ]),
-);
+});
 ```
 
 **Features:**
@@ -91,6 +112,37 @@ const rateLimitStore = new SQLiteRateLimitStore(
 - Sliding window algorithm
 - Cross-process rate limit enforcement
 - Automatic cleanup of expired records
+- Flexible default and per-resource configurations
+
+## Shared Database Configuration
+
+**Recommended**: Use a single database for all stores to reduce file handles and improve performance:
+
+```typescript
+import Database from 'better-sqlite3';
+
+// Single database approach (recommended)
+const db = new Database('./comic-vine-stores.db');
+
+const stores = {
+  cache: new SQLiteCacheStore({ database: db }),
+  dedupe: new SQLiteDedupeStore({ database: db }),
+  rateLimit: new SQLiteRateLimitStore({ database: db }),
+};
+
+// The stores automatically create their own tables within the shared database
+```
+
+**Alternative**: Separate databases per store:
+
+```typescript
+// Separate database files (alternative approach)
+const stores = {
+  cache: new SQLiteCacheStore({ database: './cache.db' }),
+  dedupe: new SQLiteDedupeStore({ database: './dedupe.db' }),
+  rateLimit: new SQLiteRateLimitStore({ database: './rate-limits.db' }),
+};
+```
 
 ## Database Schema
 
@@ -138,20 +190,51 @@ CREATE TABLE rate_limits (
 - Use file paths for persistent storage: `'./my-cache.db'`
 - Use `':memory:'` for in-memory databases (faster, but not persistent)
 - Relative paths are resolved from the current working directory
+- Pass existing `Database` instances for connection sharing
 
 ### Performance Tuning
 
 ```typescript
-// For high-throughput applications, consider separate databases
+// For high-throughput applications
+const sharedDb = new Database('./data/comic-vine.db');
+
 const stores = {
-  cache: new SQLiteCacheStore('./data/cache.db', {
-    cleanupIntervalMs: 300000, // Less frequent cleanup
+  cache: new SQLiteCacheStore({
+    database: sharedDb,
+    cleanupIntervalMs: 300_000, // Less frequent cleanup
+    maxEntrySizeBytes: 10 * 1024 * 1024, // 10MB max entries
   }),
-  dedupe: new SQLiteDedupeStore('./data/dedupe.db', {
-    jobTimeoutMs: 600000, // Longer timeout for slow operations
+  dedupe: new SQLiteDedupeStore({
+    database: sharedDb,
+    jobTimeoutMs: 600_000, // Longer timeout for slow operations
+    cleanupIntervalMs: 300_000, // Less frequent cleanup
   }),
-  rateLimit: new SQLiteRateLimitStore('./data/rate-limits.db'),
+  rateLimit: new SQLiteRateLimitStore({
+    database: sharedDb,
+    defaultConfig: { limit: 1000, windowMs: 60_000 }, // Higher limits
+  }),
 };
+```
+
+## TypeScript Support
+
+All stores export their option interfaces for type safety:
+
+```typescript
+import type {
+  SQLiteCacheStoreOptions,
+  SQLiteDedupeStoreOptions,
+  SQLiteRateLimitStoreOptions,
+} from '@comic-vine/sqlite-store';
+
+// Type-safe configuration
+const cacheOptions: SQLiteCacheStoreOptions = {
+  database: './cache.db',
+  cleanupIntervalMs: 120_000,
+  maxEntrySizeBytes: 1024 * 1024, // 1MB
+};
+
+const cache = new SQLiteCacheStore(cacheOptions);
 ```
 
 ## Deployment Considerations
@@ -166,10 +249,8 @@ VOLUME ["/app/data"]
 COPY . /app
 WORKDIR /app
 
-# Use persistent paths
-ENV CACHE_DB_PATH=/app/data/cache.db
-ENV DEDUPE_DB_PATH=/app/data/dedupe.db
-ENV RATE_LIMIT_DB_PATH=/app/data/rate-limits.db
+# Use shared database path
+ENV COMIC_VINE_DB_PATH=/app/data/comic-vine.db
 ```
 
 ### File Permissions
@@ -185,15 +266,14 @@ chmod 755 ./data
 ### Backup and Maintenance
 
 ```bash
-# Backup databases
-cp cache.db cache.db.backup
-cp dedupe.db dedupe.db.backup
-cp rate-limits.db rate-limits.db.backup
+# Backup shared database
+cp comic-vine.db comic-vine.db.backup
 
-# Vacuum databases to optimize performance
-sqlite3 cache.db "VACUUM;"
-sqlite3 dedupe.db "VACUUM;"
-sqlite3 rate-limits.db "VACUUM;"
+# Vacuum database to optimize performance
+sqlite3 comic-vine.db "VACUUM;"
+
+# Check database integrity
+sqlite3 comic-vine.db "PRAGMA integrity_check;"
 ```
 
 ## API Reference
@@ -278,3 +358,18 @@ Perfect for:
 ## License
 
 MIT
+
+## Migration from Previous Versions
+
+If upgrading from a version with positional constructor arguments:
+
+```typescript
+// Old positional syntax (no longer supported)
+// new SQLiteCacheStore('./cache.db', { cleanupIntervalMs: 60000 })
+
+// New object syntax
+new SQLiteCacheStore({
+  database: './cache.db',
+  cleanupIntervalMs: 60_000,
+});
+```

@@ -11,6 +11,12 @@ interface RateLimitInfo {
   resetTime: number;
 }
 
+export interface InMemoryRateLimitStoreOptions {
+  defaultConfig?: RateLimitConfig;
+  resourceConfigs?: Map<string, RateLimitConfig>;
+  cleanupIntervalMs?: number;
+}
+
 export class InMemoryRateLimitStore implements RateLimitStore {
   private limits = new Map<string, RateLimitInfo>();
   private defaultConfig: RateLimitConfig;
@@ -18,15 +24,17 @@ export class InMemoryRateLimitStore implements RateLimitStore {
   private cleanupInterval?: NodeJS.Timeout;
   private totalRequests: number = 0;
 
-  constructor(
-    defaultConfig: RateLimitConfig = DEFAULT_RATE_LIMIT,
-    resourceConfigs: Map<string, RateLimitConfig> = new Map(),
-    options: { cleanupIntervalMs?: number } = {},
-  ) {
+  constructor({
+    /** Global/default rate-limit config applied when a resource-specific override is not provided. */
+    defaultConfig = DEFAULT_RATE_LIMIT,
+    /** Optional per-resource overrides. */
+    resourceConfigs = new Map(),
+    /** Cleanup interval in milliseconds. Defaults to 1 minute. */
+    cleanupIntervalMs = 60_000,
+  }: InMemoryRateLimitStoreOptions = {}) {
     this.defaultConfig = defaultConfig;
     this.resourceConfigs = resourceConfigs;
 
-    const cleanupIntervalMs = options.cleanupIntervalMs ?? 60000; // 1 minute default
     if (cleanupIntervalMs > 0) {
       this.cleanupInterval = setInterval(() => {
         this.cleanup();

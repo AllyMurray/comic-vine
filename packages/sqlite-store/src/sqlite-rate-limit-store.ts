@@ -8,6 +8,15 @@ import { and, eq, gte, count, sql, lt } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { rateLimitTable } from './schema.js';
 
+export interface SQLiteRateLimitStoreOptions {
+  /** File path or existing `better-sqlite3` Database instance. Defaults to `':memory:'`. */
+  database?: string | InstanceType<typeof Database>;
+  /** Global/default rate-limit config applied when a resource-specific override is not provided. */
+  defaultConfig?: RateLimitConfig;
+  /** Optional per-resource overrides. */
+  resourceConfigs?: Map<string, RateLimitConfig>;
+}
+
 export class SQLiteRateLimitStore implements RateLimitStore {
   private db: BetterSQLite3Database;
   private sqlite: InstanceType<typeof Database>;
@@ -17,11 +26,14 @@ export class SQLiteRateLimitStore implements RateLimitStore {
   private resourceConfigs = new Map<string, RateLimitConfig>();
   private isDestroyed = false;
 
-  constructor(
-    database: string | InstanceType<typeof Database> = ':memory:',
-    defaultConfig: RateLimitConfig = DEFAULT_RATE_LIMIT,
-    resourceConfigs: Map<string, RateLimitConfig> = new Map(),
-  ) {
+  constructor({
+    /** File path or existing `better-sqlite3` Database instance. Defaults to `':memory:'`. */
+    database = ':memory:',
+    /** Global/default rate-limit config applied when a resource-specific override is not provided. */
+    defaultConfig = DEFAULT_RATE_LIMIT,
+    /** Optional per-resource overrides. */
+    resourceConfigs = new Map<string, RateLimitConfig>(),
+  }: SQLiteRateLimitStoreOptions = {}) {
     // Allow callers to pass a pre-existing connection so that all stores can
     // operate on the same underlying DB file.
     let sqliteInstance: InstanceType<typeof Database>;

@@ -5,6 +5,13 @@ import { eq, lt, count, sql, and } from 'drizzle-orm';
 import { drizzle, BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { dedupeTable } from './schema.js';
 
+export interface SQLiteDedupeStoreOptions {
+  database?: string | InstanceType<typeof Database>;
+  jobTimeoutMs?: number;
+  timeoutMs?: number;
+  cleanupIntervalMs?: number;
+}
+
 export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
   private db: BetterSQLite3Database;
   private sqlite: InstanceType<typeof Database>;
@@ -23,14 +30,16 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
   private readonly cleanupIntervalMs: number;
   private isDestroyed = false;
 
-  constructor(
-    database: string | InstanceType<typeof Database> = ':memory:',
-    options: {
-      jobTimeoutMs?: number;
-      timeoutMs?: number;
-      cleanupIntervalMs?: number;
-    } = {},
-  ) {
+  constructor({
+    /** File path or existing `better-sqlite3` Database instance. Defaults to `':memory:'`. */
+    database = ':memory:',
+    /** Job timeout in milliseconds. Preferred over timeoutMs. */
+    jobTimeoutMs,
+    /** Legacy alias for jobTimeoutMs. */
+    timeoutMs,
+    /** Cleanup interval in milliseconds. Defaults to 1 minute. */
+    cleanupIntervalMs = 60_000,
+  }: SQLiteDedupeStoreOptions = {}) {
     // Support passing an existing `better-sqlite3` Database instance so that
     // multiple stores can share the *same* file and connection. If a string
     // path is provided we create the connection ourselves and therefore take
@@ -48,8 +57,8 @@ export class SQLiteDedupeStore<T = unknown> implements DedupeStore<T> {
     this.sqlite = sqliteInstance;
     this.isConnectionManaged = isConnectionManaged;
     this.db = drizzle(sqliteInstance);
-    this.jobTimeoutMs = options.timeoutMs ?? options.jobTimeoutMs ?? 300000;
-    this.cleanupIntervalMs = options.cleanupIntervalMs ?? 60000;
+    this.jobTimeoutMs = timeoutMs ?? jobTimeoutMs ?? 300000;
+    this.cleanupIntervalMs = cleanupIntervalMs;
 
     this.initializeDatabase();
     this.startCleanupInterval();

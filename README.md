@@ -1,206 +1,288 @@
-# Comic Vine Monorepo
+# Comic Vine API Client
 
-[![License](https://img.shields.io/npm/l/@comic-vine/client)](https://github.com/AllyMurray/comic-vine/blob/main/LICENSE)
-[![Node.js Version](https://img.shields.io/node/v/@comic-vine/client)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
+A TypeScript client library for the Comic Vine API with built-in caching, deduplication, and rate limiting.
 
-A monorepo containing packages for interacting with the [Comic Vine API][comic-vine-api]. The Comic Vine API provides full access to the structured-wiki content for comics, characters, publishers, and more.
+## Features
 
-## Table of Contents
+- **Type-safe API**: Full TypeScript support with detailed type definitions
+- **Caching**: Configurable caching with TTL support
+- **Deduplication**: Prevents duplicate concurrent requests
+- **Rate limiting**: Respects API rate limits with configurable policies
+- **Pagination**: Automatic pagination support for list endpoints
+- **Error handling**: Comprehensive error handling with custom error types
+- **Extensible**: Plugin architecture for custom stores and middleware
 
-- [Packages](#packages)
-- [Getting Started](#getting-started)
-- [Development](#development)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [Authors](#authors)
-
-## Packages
-
-This monorepo contains the following packages:
-
-### [`@comic-vine/client`](./packages/client)
-
-[![NPM Version](https://img.shields.io/npm/v/@comic-vine/client)](https://www.npmjs.com/package/@comic-vine/client)
-
-A TypeScript/JavaScript client library for the Comic Vine API. Provides convenient access to all Comic Vine resources with full type safety, error handling, and advanced features like auto-pagination.
-
-**Features:**
-
-- Full TypeScript support with auto-generated types
-- Comprehensive error handling
-- Auto-pagination for large datasets
-- Field limiting for optimal performance
-- Rate limiting best practices
-- Support for all Comic Vine resources
-
-**Installation:**
+## Installation
 
 ```bash
 npm install @comic-vine/client
 ```
 
-**Quick Start:**
+### Optional Store Packages
 
-```js
+```bash
+# For in-memory stores (default)
+npm install @comic-vine/in-memory-store
+
+# For SQLite-based persistent stores
+npm install @comic-vine/sqlite-store
+```
+
+## Quick Start
+
+```typescript
 import ComicVine from '@comic-vine/client';
 
-const comicVine = new ComicVine('your-api-key-here');
-const publisher = await comicVine.publisher.retrieve(1859);
-console.log(publisher.name);
+const client = new ComicVine('your-api-key');
+
+// Get a specific issue
+const issue = await client.issue.retrieve(1);
+
+// Search for characters
+const characters = await client.character.list({
+  filter: { name: 'Spider-Man' },
+  limit: 10,
+});
+
+// Get character details
+const character = await client.character.retrieve(1443);
 ```
 
-[📖 Full Documentation](./packages/client/README.md)
+## Configuration
 
-## Getting Started
+### Basic Configuration
 
-### Prerequisites
+```typescript
+import ComicVine from '@comic-vine/client';
 
-- Node.js 20.0.0 or higher
-- npm, yarn, or pnpm
-
-### API Key
-
-To use any of the packages, you'll need a Comic Vine API key. [Get your API key here][comic-vine-api].
-
-⚠️ **Important**: Never expose your API key in client-side code or commit it to version control.
-
-### Quick Installation
-
-Choose the package you need and install it:
-
-```bash
-# For the main client library
-npm install @comic-vine/client
-
-# Or with pnpm
-pnpm add @comic-vine/client
-
-# Or with yarn
-yarn add @comic-vine/client
+const client = new ComicVine('your-api-key', undefined, {
+  baseUrl: 'https://comicvine.gamespot.com/api', // Default
+  userAgent: 'MyApp/1.0', // Custom user agent
+  timeout: 30000, // Request timeout in ms
+});
 ```
 
-## Development
+### With Custom Stores
 
-This monorepo uses [pnpm workspaces](https://pnpm.io/workspaces) and [Turbo](https://turbo.build/) for efficient package management and build orchestration.
+#### In-Memory Stores (Default)
 
-### Setup
+```typescript
+import ComicVine from '@comic-vine/client';
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+  InMemoryRateLimitStore,
+} from '@comic-vine/in-memory-store';
 
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/AllyMurray/comic-vine.git
-cd comic-vine
-pnpm install
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new InMemoryCacheStore({
+    maxSize: 1000,
+    ttl: 300000, // 5 minutes
+  }),
+  dedupe: new InMemoryDedupeStore({
+    jobTimeoutMs: 300000, // 5 minutes
+  }),
+  rateLimit: new InMemoryRateLimitStore({
+    defaultConfig: { limit: 100, windowMs: 60000 }, // 100 requests per minute
+  }),
+});
 ```
 
-### Available Scripts
+#### SQLite Stores (Persistent)
 
-**Build all packages:**
+```typescript
+import ComicVine from '@comic-vine/client';
+import {
+  SQLiteCacheStore,
+  SQLiteDedupeStore,
+  SQLiteRateLimitStore,
+} from '@comic-vine/sqlite-store';
 
-```bash
-pnpm build
+// Recommended: Use shared database for all stores
+import Database from 'better-sqlite3';
+
+const db = new Database('./comic-vine.db');
+
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new SQLiteCacheStore({ database: db }),
+  dedupe: new SQLiteDedupeStore({ database: db }),
+  rateLimit: new SQLiteRateLimitStore({ database: db }),
+});
 ```
 
-**Run tests for all packages:**
+## API Reference
 
-```bash
-pnpm test
+### Resources
+
+All Comic Vine resources are available through the client:
+
+```typescript
+// Characters
+await client.character.list(options);
+await client.character.retrieve(id, options);
+
+// Issues
+await client.issue.list(options);
+await client.issue.retrieve(id, options);
+
+// Volumes
+await client.volume.list(options);
+await client.volume.retrieve(id, options);
+
+// Publishers
+await client.publisher.list(options);
+await client.publisher.retrieve(id, options);
+
+// And many more...
 ```
 
-**Lint all packages:**
+### Filtering
 
-```bash
-pnpm lint
+```typescript
+// Filter by name
+const characters = await client.character.list({
+  filter: { name: 'Spider-Man' },
+});
+
+// Multiple filters
+const issues = await client.issue.list({
+  filter: {
+    volume: 1234,
+    issue_number: 1,
+  },
+});
+
+// Date range filtering
+const recentIssues = await client.issue.list({
+  filter: {
+    date_added: '2023-01-01 00:00:00|2023-12-31 23:59:59',
+  },
+});
 ```
 
-**Format all files:**
+### Pagination
 
-```bash
-pnpm format
+```typescript
+// Manual pagination
+const page1 = await client.issue.list({ limit: 10, offset: 0 });
+const page2 = await client.issue.list({ limit: 10, offset: 10 });
+
+// Auto-pagination (fetches all results)
+const allIssues = await client.issue.list({ autoPaginate: true });
 ```
 
-**Start development mode:**
+### Field Selection
 
-```bash
-pnpm dev
+```typescript
+// Only fetch specific fields
+const characters = await client.character.list({
+  fieldList: ['id', 'name', 'image'],
+});
 ```
 
-**Clean all build artifacts:**
+## Error Handling
 
-```bash
-pnpm clean
+The client provides detailed error types for different scenarios:
+
+```typescript
+import {
+  UnauthorizedError,
+  ObjectNotFoundError,
+  FilterError,
+  GenericRequestError,
+} from '@comic-vine/client';
+
+try {
+  const issue = await client.issue.retrieve(999999);
+} catch (error) {
+  if (error instanceof UnauthorizedError) {
+    console.error('Invalid API key');
+  } else if (error instanceof ObjectNotFoundError) {
+    console.error('Issue not found');
+  } else if (error instanceof FilterError) {
+    console.error('Invalid filter parameters');
+  } else if (error instanceof GenericRequestError) {
+    console.error('API request failed:', error.message);
+  }
+}
 ```
 
-### Working with Individual Packages
+## Advanced Usage
 
-Navigate to a package directory to work with it individually:
+### Custom Rate Limiting
 
-```bash
-cd packages/client
-pnpm test
-pnpm build
+```typescript
+const client = new ComicVine('your-api-key', undefined, {
+  rateLimit: new InMemoryRateLimitStore({
+    defaultConfig: { limit: 200, windowMs: 60000 }, // Default: 200 requests per minute
+    resourceConfigs: new Map([
+      ['issues', { limit: 100, windowMs: 60000 }], // Issues: 100 req/min
+      ['characters', { limit: 300, windowMs: 60000 }], // Characters: 300 req/min
+    ]),
+  }),
+});
 ```
 
-### Project Structure
+### Custom Caching
 
+```typescript
+const client = new ComicVine('your-api-key', undefined, {
+  cache: new InMemoryCacheStore({
+    maxSize: 5000,
+    ttl: 600000, // 10 minutes
+    cleanupIntervalMs: 120000, // Cleanup every 2 minutes
+  }),
+});
 ```
-comic-vine/
-├── packages/
-│   └── client/          # Comic Vine API client library
-├── package.json         # Root package.json with workspace configuration
-├── pnpm-workspace.yaml  # pnpm workspace configuration
-├── turbo.json          # Turbo build configuration
-└── README.md           # This file
+
+### Deduplication
+
+```typescript
+// Multiple simultaneous requests for the same resource
+// will be deduplicated automatically
+const [issue1, issue2, issue3] = await Promise.all([
+  client.issue.retrieve(1),
+  client.issue.retrieve(1), // Deduplicated
+  client.issue.retrieve(1), // Deduplicated
+]);
 ```
 
-## Roadmap
+## Store Implementations
 
-- **Enhanced Client Features**
-  - Built-in caching mechanisms
-  - Advanced rate limiting
-  - Request deduplication
-  - Response compression
+### In-Memory Stores
 
-- **Additional Packages**
-  - CLI tools for Comic Vine API
-  - React hooks for Comic Vine data
-  - Validation utilities
-  - Mock data generators for testing
+- **Pros**: Fastest performance, zero setup
+- **Cons**: No persistence, single-process only
+- **Use cases**: Development, testing, single-instance applications
 
-- **Developer Experience**
-  - Interactive API explorer
-  - Code generation tools
-  - Enhanced TypeScript definitions
-  - Performance monitoring
+### SQLite Stores
+
+- **Pros**: Persistent across restarts, cross-process support
+- **Cons**: Requires file system, slightly slower than in-memory
+- **Use cases**: Production applications, multi-instance deployments
+
+## Examples
+
+See the `examples/` directory for complete usage examples:
+
+- `basic-usage.ts` - Simple API usage
+- `advanced-filtering.ts` - Complex filtering examples
+- `custom-stores.ts` - Custom store implementations
+- `error-handling.ts` - Comprehensive error handling
+
+## API Documentation
+
+For detailed API documentation, see the individual resource documentation:
+
+- [Character API](packages/client/src/resources/character/README.md)
+- [Issue API](packages/client/src/resources/issue/README.md)
+- [Volume API](packages/client/src/resources/volume/README.md)
+- [Publisher API](packages/client/src/resources/publisher/README.md)
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md) before submitting pull requests.
-
-### Getting Started with Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for your changes
-5. Run the full test suite
-6. Submit a pull request
-
-### Development Guidelines
-
-- Follow TypeScript best practices
-- Maintain test coverage above 90%
-- Update documentation for new features
-- Follow conventional commit messages
-- Ensure all CI checks pass
-
-## Authors
-
-- [@AllyMurray](https://github.com/AllyMurray)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and contribution guidelines.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
-[comic-vine-api]: https://comicvine.gamespot.com/api
+MIT - see [LICENSE](LICENSE) for details.
