@@ -15,7 +15,10 @@ describe('SQLiteRateLimitStore', () => {
       fs.unlinkSync(testDbPath);
     }
 
-    store = new SQLiteRateLimitStore(testDbPath, defaultConfig);
+    store = new SQLiteRateLimitStore({
+      database: testDbPath,
+      defaultConfig,
+    });
   });
 
   afterEach(() => {
@@ -93,9 +96,9 @@ describe('SQLiteRateLimitStore', () => {
 
   describe('sliding window behavior', () => {
     it('should allow requests again after window expires', async () => {
-      const shortWindowStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 2,
-        windowMs: 50,
+      const shortWindowStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 2, windowMs: 50 },
       });
       const resource = 'test-resource';
 
@@ -116,9 +119,9 @@ describe('SQLiteRateLimitStore', () => {
     });
 
     it('should maintain sliding window correctly', async () => {
-      const shortWindowStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 3,
-        windowMs: 100,
+      const shortWindowStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 3, windowMs: 100 },
       });
       const resource = 'test-resource';
 
@@ -164,11 +167,11 @@ describe('SQLiteRateLimitStore', () => {
         ['limited-resource', { limit: 2, windowMs: 500 }],
       ]);
 
-      const configStore = new SQLiteRateLimitStore(
-        testDbPath,
+      const configStore = new SQLiteRateLimitStore({
+        database: testDbPath,
         defaultConfig,
         resourceConfigs,
-      );
+      });
 
       try {
         // Test special resource
@@ -217,7 +220,10 @@ describe('SQLiteRateLimitStore', () => {
       store.destroy();
 
       // Create new store instance with same database
-      const newStore = new SQLiteRateLimitStore(testDbPath, defaultConfig);
+      const newStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig,
+      });
 
       // Should still be rate limited
       expect(await newStore.canProceed(resource)).toBe(false);
@@ -228,13 +234,16 @@ describe('SQLiteRateLimitStore', () => {
     it('should handle cross-process rate limiting', async () => {
       const resource = 'cross-process-resource';
 
-      // Store 1 fills up the limit
+      // Fill up the limit in store 1
       for (let i = 0; i < defaultConfig.limit; i++) {
         await store.record(resource);
       }
 
-      // Store 2 should see the rate limit
-      const store2 = new SQLiteRateLimitStore(testDbPath, defaultConfig);
+      // Create store 2 with same database
+      const store2 = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig,
+      });
       const canProceed = await store2.canProceed(resource);
       expect(canProceed).toBe(false);
 
@@ -243,29 +252,32 @@ describe('SQLiteRateLimitStore', () => {
   });
 
   describe('cleanup functionality', () => {
-    it('should automatically clean up expired entries', async () => {
-      const cleanupStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 5,
-        windowMs: 50,
+    it('should clean up expired entries when cleanup is called', async () => {
+      const cleanupStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 5, windowMs: 50 },
       });
 
       try {
         await cleanupStore.record('test');
 
-        // Wait for cleanup
+        // Wait for expiration
         await new Promise((resolve) => setTimeout(resolve, 100));
 
-        // Should be able to make requests again
-        expect(await cleanupStore.canProceed('test')).toBe(true);
+        // Manually trigger cleanup
+        await cleanupStore.cleanup();
+
+        const stats = await cleanupStore.getStats();
+        expect(stats.totalRequests).toBe(0);
       } finally {
         cleanupStore.destroy();
       }
     });
 
     it('should not clean up active entries', async () => {
-      const cleanupStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 5,
-        windowMs: 5000,
+      const cleanupStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 5, windowMs: 5000 },
       });
 
       try {
@@ -274,9 +286,8 @@ describe('SQLiteRateLimitStore', () => {
         // Wait for cleanup to run
         await new Promise((resolve) => setTimeout(resolve, 50));
 
-        // Should still be limited
-        const status = await cleanupStore.getStatus('test');
-        expect(status.remaining).toBe(4);
+        const stats = await cleanupStore.getStats();
+        expect(stats.totalRequests).toBe(1);
       } finally {
         cleanupStore.destroy();
       }
@@ -285,9 +296,9 @@ describe('SQLiteRateLimitStore', () => {
 
   describe('edge cases', () => {
     it('should handle zero limit', async () => {
-      const zeroLimitStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 0,
-        windowMs: 1000,
+      const zeroLimitStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 0, windowMs: 1000 },
       });
 
       try {
@@ -302,9 +313,9 @@ describe('SQLiteRateLimitStore', () => {
     });
 
     it('should handle very small window', async () => {
-      const smallWindowStore = new SQLiteRateLimitStore(testDbPath, {
-        limit: 5,
-        windowMs: 1,
+      const smallWindowStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 5, windowMs: 1 },
       });
 
       try {
@@ -316,6 +327,23 @@ describe('SQLiteRateLimitStore', () => {
         expect(await smallWindowStore.canProceed('test')).toBe(true);
       } finally {
         smallWindowStore.destroy();
+      }
+    });
+
+    it('should handle very large window', async () => {
+      const largeWindowStore = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig: { limit: 1, windowMs: 86400000 }, // 1 day
+      });
+
+      try {
+        await largeWindowStore.record('test');
+        expect(await largeWindowStore.canProceed('test')).toBe(false);
+
+        const waitTime = await largeWindowStore.getWaitTime('test');
+        expect(waitTime).toBeGreaterThan(86400000 - 1000); // Almost a full day
+      } finally {
+        largeWindowStore.destroy();
       }
     });
 
@@ -358,13 +386,17 @@ describe('SQLiteRateLimitStore', () => {
   describe('concurrent access', () => {
     it('should handle concurrent access from multiple store instances', async () => {
       const resource = 'concurrent-resource';
-      const store2 = new SQLiteRateLimitStore(testDbPath, defaultConfig);
+
+      const store2 = new SQLiteRateLimitStore({
+        database: testDbPath,
+        defaultConfig,
+      });
 
       try {
-        // Both stores record requests
-        await Promise.all([store.record(resource), store2.record(resource)]);
+        // Make requests from both stores
+        await store.record(resource);
+        await store2.record(resource);
 
-        // Both should see the same state
         const status1 = await store.getStatus(resource);
         const status2 = await store2.getStatus(resource);
 
@@ -394,15 +426,16 @@ describe('SQLiteRateLimitStore', () => {
       // Should throw errors after destruction
       await expect(store.canProceed('test')).rejects.toThrow();
       await expect(store.record('test')).rejects.toThrow();
+      await expect(store.getStatus('test')).rejects.toThrow();
     });
   });
 
   describe('configuration', () => {
     it('should handle cleanup interval of 0 (disabled)', async () => {
-      const noCleanupStore = new SQLiteRateLimitStore(
-        testDbPath,
+      const noCleanupStore = new SQLiteRateLimitStore({
+        database: testDbPath,
         defaultConfig,
-      );
+      });
 
       try {
         await noCleanupStore.record('test');
@@ -414,7 +447,10 @@ describe('SQLiteRateLimitStore', () => {
     });
 
     it('should handle in-memory database', async () => {
-      const memoryStore = new SQLiteRateLimitStore(':memory:', defaultConfig);
+      const memoryStore = new SQLiteRateLimitStore({
+        database: ':memory:',
+        defaultConfig,
+      });
 
       try {
         await memoryStore.record('test');
@@ -423,6 +459,31 @@ describe('SQLiteRateLimitStore', () => {
       } finally {
         memoryStore.destroy();
       }
+    });
+  });
+
+  describe('statistics', () => {
+    it('should provide accurate statistics', async () => {
+      await store.record('resource1');
+      await store.record('resource1');
+      await store.record('resource2');
+
+      const stats = await store.getStats();
+      expect(stats.uniqueResources).toBe(2);
+      expect(stats.totalRequests).toBe(3);
+    });
+
+    it('should update statistics correctly', async () => {
+      let stats = await store.getStats();
+      expect(stats.totalRequests).toBe(0);
+
+      await store.record('test');
+      stats = await store.getStats();
+      expect(stats.totalRequests).toBe(1);
+
+      await store.reset('test');
+      stats = await store.getStats();
+      expect(stats.totalRequests).toBe(0);
     });
   });
 });

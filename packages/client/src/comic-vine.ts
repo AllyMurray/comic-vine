@@ -1,5 +1,5 @@
 import { HttpClientFactory } from './http-client/index.js';
-import { userOptions, loadOptions } from './options/index.js';
+import { loadOptions } from './options/index.js';
 import type { ResourceInterface } from './resources/base-resource.js';
 import { ResourceFactory } from './resources/index.js';
 import * as resources from './resources/resource-list.js';
@@ -22,26 +22,43 @@ type ResourcePropertyMap = {
   >;
 };
 
-export interface StoreOptions {
-  cache?: CacheStore;
-  dedupe?: DedupeStore;
-  rateLimit?: RateLimitStore;
-}
+/**
+ * Consolidated options interface for ComicVine client
+ */
+export interface ComicVineOptions {
+  /** Comic Vine API key */
+  apiKey: string;
 
-export interface ComicVineClientOptions {
-  /** Default cache TTL in seconds */
-  defaultCacheTTL?: number;
-  /** Whether to throw errors on rate limit violations */
-  throwOnRateLimit?: boolean;
-  /** Maximum time to wait for rate limit in milliseconds */
-  maxWaitTime?: number;
+  /** Base URL for the Comic Vine API */
+  baseUrl?: string;
+
+  /** Store implementations for caching, deduplication, and rate limiting */
+  stores?: {
+    cache?: CacheStore;
+    dedupe?: DedupeStore;
+    rateLimit?: RateLimitStore;
+  };
+
+  /** HTTP client configuration */
+  client?: {
+    /** Default cache TTL in seconds */
+    defaultCacheTTL?: number;
+    /** Whether to throw errors on rate limit violations */
+    throwOnRateLimit?: boolean;
+    /** Maximum time to wait for rate limit in milliseconds */
+    maxWaitTime?: number;
+  };
 }
 
 export class ComicVine implements ResourcePropertyMap {
   private resourceFactory: ResourceFactory;
   private resourceCache = new Map<string, ResourceInstance>();
   private resourceNames: Array<string>;
-  private stores: StoreOptions;
+  private stores: {
+    cache?: CacheStore;
+    dedupe?: DedupeStore;
+    rateLimit?: RateLimitStore;
+  };
 
   // TypeScript property declarations for static typing (will be provided by Proxy)
   declare readonly character: ResourcePropertyMap['character'];
@@ -64,17 +81,18 @@ export class ComicVine implements ResourcePropertyMap {
   declare readonly videoType: ResourcePropertyMap['videoType'];
   declare readonly volume: ResourcePropertyMap['volume'];
 
-  constructor(
-    key: string,
-    options?: userOptions,
-    stores: StoreOptions = {},
-    clientOptions: ComicVineClientOptions = {},
-  ) {
-    const _options = loadOptions(options);
+  /**
+   * Create a new ComicVine client
+   * @param options - Configuration options for the client
+   */
+  constructor(options: ComicVineOptions) {
+    const { apiKey, baseUrl, stores = {}, client = {} } = options;
 
-    const httpClient = HttpClientFactory.createClient(stores, clientOptions);
+    const _options = loadOptions({ baseUrl });
+
+    const httpClient = HttpClientFactory.createClient(stores, client);
     const urlBuilder = HttpClientFactory.createUrlBuilder(
-      key,
+      apiKey,
       _options.baseUrl,
     );
 

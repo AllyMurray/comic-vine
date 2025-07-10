@@ -72,7 +72,7 @@ export class InMemoryDedupeStore<T = unknown> implements DedupeStore<T> {
       if (job.error) {
         return undefined; // Return undefined for failed jobs instead of throwing
       }
-      return job.result;
+      return job.result ?? undefined;
     }
 
     try {

@@ -5,14 +5,17 @@ export default ComicVine;
 // Named exports for better tree-shaking
 export { ComicVine };
 
-// Re-export all error types
+// Export all error types
 export * from './errors/index.js';
 
-// Re-export store interfaces and types
+// Export all types
+export * from './types/index.js';
+
+// Export store interfaces and utilities
 export * from './stores/index.js';
 
-// Re-export client options and store types
-export type { StoreOptions, ComicVineClientOptions } from './comic-vine.js';
+// Re-export client options
+export type { ComicVineOptions } from './comic-vine.js';
 
 // CommonJS compatibility - ensure require('@comic-vine/client') works without .default
 if (

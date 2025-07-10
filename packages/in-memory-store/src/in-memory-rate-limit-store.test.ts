@@ -7,7 +7,7 @@ describe('InMemoryRateLimitStore', () => {
   const defaultConfig: RateLimitConfig = { limit: 5, windowMs: 1000 };
 
   beforeEach(() => {
-    store = new InMemoryRateLimitStore(defaultConfig);
+    store = new InMemoryRateLimitStore({ defaultConfig });
   });
 
   afterEach(() => {
@@ -83,8 +83,7 @@ describe('InMemoryRateLimitStore', () => {
   describe('sliding window behavior', () => {
     it('should allow requests again after window expires', async () => {
       const shortWindowStore = new InMemoryRateLimitStore({
-        limit: 2,
-        windowMs: 50,
+        defaultConfig: { limit: 2, windowMs: 50 },
       });
       const resource = 'test-resource';
 
@@ -106,8 +105,7 @@ describe('InMemoryRateLimitStore', () => {
 
     it('should maintain sliding window correctly', async () => {
       const shortWindowStore = new InMemoryRateLimitStore({
-        limit: 3,
-        windowMs: 100,
+        defaultConfig: { limit: 3, windowMs: 100 },
       });
       const resource = 'test-resource';
 
@@ -153,10 +151,10 @@ describe('InMemoryRateLimitStore', () => {
         ['limited-resource', { limit: 2, windowMs: 500 }],
       ]);
 
-      const configStore = new InMemoryRateLimitStore(
+      const configStore = new InMemoryRateLimitStore({
         defaultConfig,
         resourceConfigs,
-      );
+      });
 
       try {
         // Test special resource
@@ -181,10 +179,10 @@ describe('InMemoryRateLimitStore', () => {
         ['low-limit', { limit: 2, windowMs: 1000 }],
       ]);
 
-      const configStore = new InMemoryRateLimitStore(
+      const configStore = new InMemoryRateLimitStore({
         defaultConfig,
         resourceConfigs,
-      );
+      });
 
       try {
         // High limit resource should allow more requests
@@ -249,8 +247,7 @@ describe('InMemoryRateLimitStore', () => {
   describe('edge cases', () => {
     it('should handle zero limit', async () => {
       const zeroLimitStore = new InMemoryRateLimitStore({
-        limit: 0,
-        windowMs: 1000,
+        defaultConfig: { limit: 0, windowMs: 1000 },
       });
 
       try {
@@ -266,8 +263,7 @@ describe('InMemoryRateLimitStore', () => {
 
     it('should handle very small window', async () => {
       const smallWindowStore = new InMemoryRateLimitStore({
-        limit: 5,
-        windowMs: 1,
+        defaultConfig: { limit: 5, windowMs: 1 },
       });
 
       try {
@@ -284,8 +280,7 @@ describe('InMemoryRateLimitStore', () => {
 
     it('should handle very large window', async () => {
       const largeWindowStore = new InMemoryRateLimitStore({
-        limit: 1,
-        windowMs: 86400000,
+        defaultConfig: { limit: 1, windowMs: 86400000 },
       }); // 1 day
 
       try {
@@ -337,11 +332,10 @@ describe('InMemoryRateLimitStore', () => {
 
   describe('cleanup', () => {
     it('should clean up expired entries', async () => {
-      const cleanupStore = new InMemoryRateLimitStore(
-        { limit: 5, windowMs: 50 },
-        undefined,
-        { cleanupIntervalMs: 10 },
-      );
+      const cleanupStore = new InMemoryRateLimitStore({
+        defaultConfig: { limit: 5, windowMs: 50 },
+        cleanupIntervalMs: 10,
+      });
 
       try {
         await cleanupStore.record('test');
@@ -357,11 +351,10 @@ describe('InMemoryRateLimitStore', () => {
     });
 
     it('should not clean up active entries', async () => {
-      const cleanupStore = new InMemoryRateLimitStore(
-        { limit: 5, windowMs: 5000 },
-        undefined,
-        { cleanupIntervalMs: 10 },
-      );
+      const cleanupStore = new InMemoryRateLimitStore({
+        defaultConfig: { limit: 5, windowMs: 5000 },
+        cleanupIntervalMs: 10,
+      });
 
       try {
         await cleanupStore.record('test');
@@ -377,11 +370,10 @@ describe('InMemoryRateLimitStore', () => {
     });
 
     it('should handle cleanup interval of 0 (disabled)', async () => {
-      const noCleanupStore = new InMemoryRateLimitStore(
+      const noCleanupStore = new InMemoryRateLimitStore({
         defaultConfig,
-        undefined,
-        { cleanupIntervalMs: 0 },
-      );
+        cleanupIntervalMs: 0,
+      });
 
       try {
         await noCleanupStore.record('test');

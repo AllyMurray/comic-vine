@@ -22,10 +22,13 @@ import {
 // Create ONE shared connection which every store will use.
 const sharedDb = new Database('./comic-vine.db');
 
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new SQLiteCacheStore({ database: sharedDb }),
-  dedupe: new SQLiteDedupeStore({ database: sharedDb }),
-  rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: sharedDb }),
+    dedupe: new SQLiteDedupeStore({ database: sharedDb }),
+    rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
+  },
 });
 
 // Use client normally - data persists across application restarts
@@ -358,18 +361,3 @@ Perfect for:
 ## License
 
 MIT
-
-## Migration from Previous Versions
-
-If upgrading from a version with positional constructor arguments:
-
-```typescript
-// Old positional syntax (no longer supported)
-// new SQLiteCacheStore('./cache.db', { cleanupIntervalMs: 60000 })
-
-// New object syntax
-new SQLiteCacheStore({
-  database: './cache.db',
-  cleanupIntervalMs: 60_000,
-});
-```

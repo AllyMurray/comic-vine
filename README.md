@@ -33,7 +33,7 @@ npm install @comic-vine/sqlite-store
 ```typescript
 import ComicVine from '@comic-vine/client';
 
-const client = new ComicVine('your-api-key');
+const client = new ComicVine({ apiKey: 'your-api-key' });
 
 // Get a specific issue
 const issue = await client.issue.retrieve(1);
@@ -55,10 +55,14 @@ const character = await client.character.retrieve(1443);
 ```typescript
 import ComicVine from '@comic-vine/client';
 
-const client = new ComicVine('your-api-key', undefined, {
+const client = new ComicVine({
+  apiKey: 'your-api-key',
   baseUrl: 'https://comicvine.gamespot.com/api', // Default
-  userAgent: 'MyApp/1.0', // Custom user agent
-  timeout: 30000, // Request timeout in ms
+  client: {
+    defaultCacheTTL: 3600, // 1 hour cache TTL
+    throwOnRateLimit: true, // Throw errors on rate limits
+    maxWaitTime: 60000, // Max wait time for rate limits
+  },
 });
 ```
 
@@ -74,17 +78,20 @@ import {
   InMemoryRateLimitStore,
 } from '@comic-vine/in-memory-store';
 
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new InMemoryCacheStore({
-    maxSize: 1000,
-    ttl: 300000, // 5 minutes
-  }),
-  dedupe: new InMemoryDedupeStore({
-    jobTimeoutMs: 300000, // 5 minutes
-  }),
-  rateLimit: new InMemoryRateLimitStore({
-    defaultConfig: { limit: 100, windowMs: 60000 }, // 100 requests per minute
-  }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 1000,
+      ttl: 300000, // 5 minutes
+    }),
+    dedupe: new InMemoryDedupeStore({
+      jobTimeoutMs: 300000, // 5 minutes
+    }),
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 100, windowMs: 60000 }, // 100 requests per minute
+    }),
+  },
 });
 ```
 
@@ -103,10 +110,13 @@ import Database from 'better-sqlite3';
 
 const db = new Database('./comic-vine.db');
 
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new SQLiteCacheStore({ database: db }),
-  dedupe: new SQLiteDedupeStore({ database: db }),
-  rateLimit: new SQLiteRateLimitStore({ database: db }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: db }),
+    dedupe: new SQLiteDedupeStore({ database: db }),
+    rateLimit: new SQLiteRateLimitStore({ database: db }),
+  },
 });
 ```
 
@@ -212,26 +222,32 @@ try {
 ### Custom Rate Limiting
 
 ```typescript
-const client = new ComicVine('your-api-key', undefined, {
-  rateLimit: new InMemoryRateLimitStore({
-    defaultConfig: { limit: 200, windowMs: 60000 }, // Default: 200 requests per minute
-    resourceConfigs: new Map([
-      ['issues', { limit: 100, windowMs: 60000 }], // Issues: 100 req/min
-      ['characters', { limit: 300, windowMs: 60000 }], // Characters: 300 req/min
-    ]),
-  }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 200, windowMs: 60000 }, // Default: 200 requests per minute
+      resourceConfigs: new Map([
+        ['issues', { limit: 100, windowMs: 60000 }], // Issues: 100 req/min
+        ['characters', { limit: 300, windowMs: 60000 }], // Characters: 300 req/min
+      ]),
+    }),
+  },
 });
 ```
 
 ### Custom Caching
 
 ```typescript
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new InMemoryCacheStore({
-    maxSize: 5000,
-    ttl: 600000, // 10 minutes
-    cleanupIntervalMs: 120000, // Cleanup every 2 minutes
-  }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 5000,
+      ttl: 600000, // 10 minutes
+      cleanupIntervalMs: 120000, // Cleanup every 2 minutes
+    }),
+  },
 });
 ```
 

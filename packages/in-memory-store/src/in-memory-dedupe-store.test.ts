@@ -368,7 +368,7 @@ describe('InMemoryDedupeStore', () => {
       const result1 = await store.waitFor(hash1);
       const result2 = await store.waitFor(hash2);
 
-      expect(result1).toBeNull();
+      expect(result1).toBeUndefined();
       expect(result2).toBeUndefined();
     });
   });

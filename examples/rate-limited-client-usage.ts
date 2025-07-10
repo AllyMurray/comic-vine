@@ -4,212 +4,197 @@
  * by injecting stores directly into the ComicVine constructor.
  */
 
-import { ComicVine } from '@comic-vine/client';
-import {
-  InMemoryCacheStore,
-  InMemoryDedupeStore,
-  InMemoryRateLimitStore,
-} from '@comic-vine/in-memory-store';
-import {
-  SQLiteCacheStore,
-  SQLiteDedupeStore,
-  SQLiteRateLimitStore,
-} from '@comic-vine/sqlite-store';
+import ComicVine from '@comic-vine/client';
+import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
 
-// Example 1: Using in-memory stores
-async function exampleWithInMemoryStores() {
-  console.log('🧩 Example 1: In-Memory Stores');
+// Create a rate limit store with custom configuration
+const rateLimitStore = new InMemoryRateLimitStore({
+  defaultConfig: { limit: 100, windowMs: 60000 }, // 100 requests per minute default
+  resourceConfigs: new Map([
+    ['issues', { limit: 50, windowMs: 60000 }], // Issues: 50 requests per minute
+    ['characters', { limit: 200, windowMs: 60000 }], // Characters: 200 requests per minute
+    ['publishers', { limit: 30, windowMs: 60000 }], // Publishers: 30 requests per minute
+  ]),
+});
 
-  const client = new ComicVine(
-    'your-comic-vine-api-key',
-    undefined, // ComicVine options
-    {
-      cache: new InMemoryCacheStore(),
-      dedupe: new InMemoryDedupeStore(),
-      rateLimit: new InMemoryRateLimitStore(
-        { limit: 100, windowMs: 60000 }, // 100 requests per minute
-        new Map([
-          ['issues', { limit: 50, windowMs: 60000 }], // 50 requests per minute for issues
-          ['characters', { limit: 200, windowMs: 60000 }], // 200 requests per minute for characters
-        ]),
-      ),
-    },
-    {
-      defaultCacheTTL: 3600, // 1 hour cache
-      throwOnRateLimit: false, // Wait instead of throwing
-      maxWaitTime: 30000, // Max 30 seconds wait
-    },
+// Create ComicVine client with rate limiting
+const client = new ComicVine({
+  apiKey: 'your-api-key-here',
+  stores: {
+    rateLimit: rateLimitStore,
+  },
+  client: {
+    throwOnRateLimit: false, // Wait instead of throwing errors
+    maxWaitTime: 30000, // Maximum 30 seconds wait time
+  },
+});
+
+async function demonstrateRateLimiting() {
+  console.log('=== Rate Limiting Demo ===\n');
+
+  // Demonstrate different rate limits for different resources
+  console.log('1. Testing different resource rate limits:');
+
+  // Test character requests (200 req/min limit)
+  console.log('   Characters (200 req/min):');
+  const characterStart = Date.now();
+  for (let i = 1; i <= 5; i++) {
+    const character = await client.character.retrieve(i);
+    console.log(
+      `     ${i}. ${character.name} (${Date.now() - characterStart}ms)`,
+    );
+  }
+
+  // Test issue requests (50 req/min limit)
+  console.log('\n   Issues (50 req/min):');
+  const issueStart = Date.now();
+  for (let i = 1; i <= 5; i++) {
+    const issue = await client.issue.retrieve(i);
+    console.log(`     ${i}. ${issue.name} (${Date.now() - issueStart}ms)`);
+  }
+
+  // Test publisher requests (30 req/min limit)
+  console.log('\n   Publishers (30 req/min):');
+  const publisherStart = Date.now();
+  for (let i = 1; i <= 3; i++) {
+    const publisher = await client.publisher.retrieve(i);
+    console.log(
+      `     ${i}. ${publisher.name} (${Date.now() - publisherStart}ms)`,
+    );
+  }
+
+  // Check rate limit status
+  console.log('\n2. Rate limit status:');
+  const characterStatus = await client.getRateLimitStatus('characters');
+  const issueStatus = await client.getRateLimitStatus('issues');
+  const publisherStatus = await client.getRateLimitStatus('publishers');
+
+  console.log(
+    `   Characters: ${characterStatus?.remaining}/${characterStatus?.limit} remaining`,
+  );
+  console.log(
+    `   Issues: ${issueStatus?.remaining}/${issueStatus?.limit} remaining`,
+  );
+  console.log(
+    `   Publishers: ${publisherStatus?.remaining}/${publisherStatus?.limit} remaining`,
   );
 
-  try {
-    // Retrieve an issue - will be cached
-    console.log('Fetching issue #1...');
-    const issue1 = await client.issue.retrieve(1);
-    console.log('Issue retrieved:', issue1.name);
+  // Demonstrate rate limit enforcement
+  console.log('\n3. Testing rate limit enforcement:');
+  console.log('   Making rapid requests to trigger rate limiting...');
 
-    // Same issue again - will hit cache
-    console.log('Fetching issue #1 again (should hit cache)...');
-    const issue1Cached = await client.issue.retrieve(1);
-    console.log('Issue retrieved from cache:', issue1Cached.name);
+  const rapidStart = Date.now();
+  const promises = [];
 
-    // List issues with rate limiting
-    console.log('Listing issues...');
-    const issuesList = await client.issue.list({ limit: 10 });
-    console.log('Issues found:', issuesList.data.length);
-
-    // Check rate limit status
-    const rateLimitStatus = await client.getRateLimitStatus('issue');
-    console.log('Rate limit status:', rateLimitStatus);
-  } catch (error) {
-    console.error('Error:', error);
+  // Make many rapid requests to trigger rate limiting
+  for (let i = 1; i <= 10; i++) {
+    promises.push(
+      client.issue.retrieve(i).then((issue) => ({
+        id: i,
+        name: issue.name,
+        time: Date.now() - rapidStart,
+      })),
+    );
   }
+
+  const results = await Promise.all(promises);
+  results.forEach((result, index) => {
+    console.log(`   Request ${index + 1}: ${result.name} (${result.time}ms)`);
+  });
+
+  // Show final rate limit status
+  console.log('\n4. Final rate limit status:');
+  const finalIssueStatus = await client.getRateLimitStatus('issues');
+  console.log(
+    `   Issues: ${finalIssueStatus?.remaining}/${finalIssueStatus?.limit} remaining`,
+  );
+  console.log(
+    `   Reset time: ${finalIssueStatus?.resetTime.toLocaleTimeString()}`,
+  );
 }
 
-// Example 2: Using SQLite stores for persistence
-async function exampleWithSQLiteStores() {
-  console.log('\n🧩 Example 2: SQLite Stores');
+// Example of handling rate limit errors with throwOnRateLimit: true
+async function demonstrateRateLimitErrors() {
+  console.log('\n=== Rate Limit Error Handling Demo ===\n');
 
-  const client = new ComicVine(
-    'your-comic-vine-api-key',
-    undefined, // ComicVine options
-    {
-      cache: new SQLiteCacheStore('./comic-vine-cache.db'),
-      dedupe: new SQLiteDedupeStore('./comic-vine-dedupe.db'),
-      rateLimit: new SQLiteRateLimitStore('./comic-vine-rate-limits.db', {
-        limit: 100,
-        windowMs: 60000,
+  // Create a client that throws on rate limit
+  const strictClient = new ComicVine({
+    apiKey: 'your-api-key-here',
+    stores: {
+      rateLimit: new InMemoryRateLimitStore({
+        defaultConfig: { limit: 5, windowMs: 60000 }, // Very low limit for demo
       }),
     },
-  );
-
-  try {
-    // Retrieve multiple characters concurrently - deduplication will prevent duplicate requests
-    console.log('Fetching character #1 concurrently...');
-    const promises = Array(5)
-      .fill(null)
-      .map(() => client.character.retrieve(1));
-    const results = await Promise.all(promises);
-    console.log('All requests completed, got', results.length, 'results');
-    console.log('First result:', results[0].name);
-
-    // List characters with pagination
-    console.log('Listing characters...');
-    const characters = client.character.list({ limit: 20 });
-
-    // Iterate through results (handles pagination automatically)
-    let count = 0;
-    for await (const character of characters) {
-      count++;
-      console.log(`Character ${count}: ${character.name}`);
-      if (count >= 5) break; // Just show first 5
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// Example 3: Cache-only setup for development
-async function exampleCacheOnly() {
-  console.log('\n🧩 Example 3: Cache-Only Setup');
-
-  const client = new ComicVine(
-    'your-comic-vine-api-key',
-    undefined, // ComicVine options
-    {
-      cache: new InMemoryCacheStore({ cleanupIntervalMs: 30000 }), // Cleanup every 30 seconds
+    client: {
+      throwOnRateLimit: true, // Throw errors instead of waiting
     },
-    {
-      defaultCacheTTL: 300, // 5 minute cache
-    },
-  );
+  });
 
-  try {
-    // Fetch some data
-    const volume = await client.volume.retrieve(1);
-    console.log('Volume retrieved:', volume.name);
+  console.log('Making requests with throwOnRateLimit: true...');
 
-    // Check cache stats
-    const cacheStats = client.getCacheStats();
-    console.log('Client cache stats:', cacheStats);
-
-    // Clear cache if needed
-    await client.clearCache();
-    console.log('Cache cleared');
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// Example 4: Rate limiting only for production API limits
-async function exampleRateLimitingOnly() {
-  console.log('\n🧩 Example 4: Rate Limiting Only');
-
-  // Configure different limits for different resources
-  const rateLimitConfigs = new Map([
-    ['issues', { limit: 50, windowMs: 60000 }], // 50/min for issues
-    ['characters', { limit: 100, windowMs: 60000 }], // 100/min for characters
-    ['volumes', { limit: 30, windowMs: 60000 }], // 30/min for volumes
-  ]);
-
-  const client = new ComicVine(
-    'your-comic-vine-api-key',
-    undefined, // ComicVine options
-    {
-      rateLimit: new InMemoryRateLimitStore(
-        { limit: 200, windowMs: 60000 }, // Default: 200/min
-        rateLimitConfigs,
-      ),
-    },
-    {
-      throwOnRateLimit: true, // Throw errors when rate limited
-    },
-  );
-
-  try {
-    // Make rapid requests - will be rate limited
-    console.log('Making rapid requests...');
-    for (let i = 1; i <= 10; i++) {
-      const issue = await client.issue.retrieve(i);
-      console.log(`Issue ${i}: ${issue.name}`);
-
-      // Check rate limit status
-      const status = await client.getRateLimitStatus('issue');
-      console.log(`Remaining requests: ${status.remaining}/${status.limit}`);
-    }
-  } catch (error) {
-    if (error.message.includes('Rate limit exceeded')) {
-      console.log('Rate limit hit - this is expected!');
-    } else {
-      console.error('Unexpected error:', error);
+  for (let i = 1; i <= 10; i++) {
+    try {
+      const issue = await strictClient.issue.retrieve(i);
+      console.log(`✅ Request ${i}: ${issue.name}`);
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message.includes('Rate limit exceeded')
+      ) {
+        console.log(`❌ Request ${i}: Rate limit exceeded`);
+        break; // Stop making requests
+      } else {
+        console.log(`❌ Request ${i}: Other error - ${error}`);
+      }
     }
   }
 }
 
-// Run examples
-async function runExamples() {
-  console.log('🚀 Comic Vine Client with Integrated Store Examples\n');
+// Example of custom rate limit configuration
+async function demonstrateCustomRateLimit() {
+  console.log('\n=== Custom Rate Limit Configuration Demo ===\n');
 
-  // Note: You'll need a real API key to run these examples
-  console.log(
-    '⚠️  Remember to replace "your-comic-vine-api-key" with your actual API key!\n',
-  );
+  // Create a client with very specific rate limits
+  const customClient = new ComicVine({
+    apiKey: 'your-api-key-here',
+    stores: {
+      rateLimit: new InMemoryRateLimitStore({
+        defaultConfig: { limit: 10, windowMs: 10000 }, // 10 requests per 10 seconds
+        resourceConfigs: new Map([
+          ['volumes', { limit: 2, windowMs: 10000 }], // Very restrictive for volumes
+          ['series', { limit: 20, windowMs: 10000 }], // More permissive for series
+        ]),
+      }),
+    },
+    client: {
+      throwOnRateLimit: false,
+      maxWaitTime: 15000, // 15 seconds max wait
+    },
+  });
 
-  await exampleWithInMemoryStores();
-  await exampleWithSQLiteStores();
-  await exampleCacheOnly();
-  await exampleRateLimitingOnly();
+  console.log('Testing custom rate limits:');
 
-  console.log('\n✅ All examples completed!');
+  // Test volume requests (2 req/10s)
+  console.log('   Volumes (2 req/10s):');
+  for (let i = 1; i <= 4; i++) {
+    const start = Date.now();
+    try {
+      const volume = await customClient.volume.retrieve(i);
+      console.log(`     ${i}. ${volume.name} (${Date.now() - start}ms)`);
+    } catch (error) {
+      console.log(`     ${i}. Error: ${error}`);
+    }
+  }
 }
 
-// Only run if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runExamples().catch(console.error);
+async function main() {
+  try {
+    await demonstrateRateLimiting();
+    await demonstrateRateLimitErrors();
+    await demonstrateCustomRateLimit();
+  } catch (error) {
+    console.error('Demo failed:', error);
+  }
 }
 
-export {
-  exampleWithInMemoryStores,
-  exampleWithSQLiteStores,
-  exampleCacheOnly,
-  exampleRateLimitingOnly,
-};
+main().catch(console.error);

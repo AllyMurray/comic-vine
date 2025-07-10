@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComicVine } from './comic-vine.js';
 import {
@@ -9,18 +9,32 @@ import {
 import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 
 vi.mock('axios');
-const mockedAxios = vi.mocked(axios);
 
 describe('ComicVine with Stores', () => {
   let comicVine: ComicVine;
   let mockCache: CacheStore;
   let mockDedupe: DedupeStore;
   let mockRateLimit: RateLimitStore;
-  let axiosInstance: { get: ReturnType<typeof vi.fn> };
+  let axiosInstance: Partial<AxiosInstance>;
 
   beforeEach(() => {
+    // Reset all mocks
     vi.clearAllMocks();
 
+    // Create axios mock instance
+    axiosInstance = {
+      get: vi.fn().mockResolvedValue({
+        data: {
+          statusCode: 1,
+          results: { id: 1, name: 'Test Issue' },
+        },
+      }),
+    };
+
+    // Mock axios.create to return our mock instance
+    vi.mocked(axios.create).mockReturnValue(axiosInstance as AxiosInstance);
+
+    // Create mock stores
     mockCache = {
       get: vi.fn().mockResolvedValue(undefined),
       set: vi.fn().mockResolvedValue(undefined),
@@ -29,8 +43,8 @@ describe('ComicVine with Stores', () => {
     };
 
     mockDedupe = {
-      register: vi.fn().mockResolvedValue('test-id'),
       waitFor: vi.fn().mockResolvedValue(undefined),
+      register: vi.fn().mockResolvedValue('job-id'),
       complete: vi.fn().mockResolvedValue(undefined),
       fail: vi.fn().mockResolvedValue(undefined),
       isInProgress: vi.fn().mockResolvedValue(false),
@@ -41,27 +55,12 @@ describe('ComicVine with Stores', () => {
       record: vi.fn().mockResolvedValue(undefined),
       getStatus: vi.fn().mockResolvedValue({
         remaining: 100,
-        resetTime: new Date(Date.now() + 60000),
+        resetTime: new Date(),
         limit: 100,
       }),
       reset: vi.fn().mockResolvedValue(undefined),
       getWaitTime: vi.fn().mockResolvedValue(0),
     };
-
-    axiosInstance = {
-      get: vi.fn().mockResolvedValue({
-        data: {
-          statusCode: 1,
-          results: { id: 1, name: 'Test Issue' },
-          limit: 10,
-          numberOfPageResults: 1,
-          numberOfTotalResults: 1,
-          offset: 0,
-        },
-      }),
-    };
-
-    mockedAxios.create = vi.fn().mockReturnValue(axiosInstance);
 
     // Mock HttpClientFactory to create HttpClient with stores
     vi.doMock('./http-client/index.js', () => ({
@@ -79,15 +78,14 @@ describe('ComicVine with Stores', () => {
       },
     }));
 
-    comicVine = new ComicVine(
-      'test-key',
-      {},
-      {
+    comicVine = new ComicVine({
+      apiKey: 'test-key',
+      stores: {
         cache: mockCache,
         dedupe: mockDedupe,
         rateLimit: mockRateLimit,
       },
-    );
+    });
   });
 
   describe('cache store integration', () => {
@@ -126,9 +124,14 @@ describe('ComicVine with Stores', () => {
   });
 
   describe('dedupe store integration', () => {
-    it('should register and complete dedupe jobs', async () => {
-      await comicVine.character.retrieve(1);
+    it('should check for existing requests before making new ones', async () => {
+      // Mock dedupe to return undefined (no existing request)
+      mockDedupe.waitFor = vi.fn().mockResolvedValue(undefined);
+      mockDedupe.register = vi.fn().mockResolvedValue('job-id');
 
+      const result = await comicVine.character.retrieve(1);
+
+      expect(mockDedupe.waitFor).toHaveBeenCalledWith(expect.any(String));
       expect(mockDedupe.register).toHaveBeenCalledWith(expect.any(String));
       expect(mockDedupe.complete).toHaveBeenCalledWith(
         expect.any(String),
@@ -137,41 +140,61 @@ describe('ComicVine with Stores', () => {
           results: { id: 1, name: 'Test Issue' },
         }),
       );
+      expect(result).toEqual({ id: 1, name: 'Test Issue' });
+    });
+
+    it('should return existing result if request is in progress', async () => {
+      // Mock dedupe to return an existing result
+      mockDedupe.waitFor = vi.fn().mockResolvedValue({
+        statusCode: 1,
+        results: { test: 'deduped-value' },
+      });
+
+      const result = await comicVine.character.retrieve(1);
+
+      expect(mockDedupe.waitFor).toHaveBeenCalledWith(expect.any(String));
+      expect(mockDedupe.register).not.toHaveBeenCalled();
+      expect(axiosInstance.get).not.toHaveBeenCalled();
+      expect(result).toEqual({ test: 'deduped-value' });
     });
   });
 
   describe('rate limit store integration', () => {
     it('should check rate limit before making request', async () => {
-      await comicVine.character.retrieve(1);
+      // Mock rate limit to allow request
+      mockRateLimit.canProceed = vi.fn().mockResolvedValue(true);
+      mockRateLimit.record = vi.fn().mockResolvedValue(undefined);
+
+      const result = await comicVine.character.retrieve(1);
 
       expect(mockRateLimit.canProceed).toHaveBeenCalledWith('character');
       expect(mockRateLimit.record).toHaveBeenCalledWith('character');
+      expect(result).toEqual({ id: 1, name: 'Test Issue' });
     });
 
-    it('should wait when rate limited and throwOnRateLimit is false', async () => {
-      const rateLimitedComicVine = new ComicVine(
-        'test-key',
-        {},
-        {
-          cache: mockCache,
-          dedupe: mockDedupe,
+    it('should throw error when rate limited and throwOnRateLimit is true', async () => {
+      // Create client with throwOnRateLimit: true
+      const rateLimitedClient = new ComicVine({
+        apiKey: 'test-key',
+        stores: {
           rateLimit: mockRateLimit,
         },
-        {
-          throwOnRateLimit: false,
-          maxWaitTime: 200,
+        client: {
+          throwOnRateLimit: true,
         },
+      });
+
+      // Mock rate limit to block request
+      mockRateLimit.canProceed = vi.fn().mockResolvedValue(false);
+      mockRateLimit.getWaitTime = vi.fn().mockResolvedValue(5000);
+
+      await expect(rateLimitedClient.character.retrieve(1)).rejects.toThrow(
+        'Rate limit exceeded',
       );
 
-      mockRateLimit.canProceed = vi.fn().mockResolvedValue(false);
-      mockRateLimit.getWaitTime = vi.fn().mockResolvedValue(100);
-
-      const startTime = Date.now();
-      await rateLimitedComicVine.character.retrieve(1);
-      const endTime = Date.now();
-
+      expect(mockRateLimit.canProceed).toHaveBeenCalledWith('character');
       expect(mockRateLimit.getWaitTime).toHaveBeenCalledWith('character');
-      expect(endTime - startTime).toBeGreaterThanOrEqual(90); // Allow some tolerance
+      expect(axiosInstance.get).not.toHaveBeenCalled();
     });
   });
 });

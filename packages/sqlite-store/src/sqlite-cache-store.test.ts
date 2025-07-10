@@ -13,7 +13,7 @@ describe('SQLiteCacheStore', () => {
       fs.unlinkSync(testDbPath);
     }
 
-    store = new SQLiteCacheStore(testDbPath);
+    store = new SQLiteCacheStore({ database: testDbPath });
   });
 
   afterEach(() => {
@@ -162,7 +162,7 @@ describe('SQLiteCacheStore', () => {
       store.destroy();
 
       // Create new store instance with same database
-      const newStore = new SQLiteCacheStore(testDbPath);
+      const newStore = new SQLiteCacheStore({ database: testDbPath });
       const value = await newStore.get('persistent');
       expect(value).toBe('value');
 
@@ -175,7 +175,7 @@ describe('SQLiteCacheStore', () => {
       try {
         expect(fs.existsSync(newDbPath)).toBe(false);
 
-        const newStore = new SQLiteCacheStore(newDbPath);
+        const newStore = new SQLiteCacheStore({ database: newDbPath });
         expect(fs.existsSync(newDbPath)).toBe(true);
 
         newStore.destroy();
@@ -190,7 +190,8 @@ describe('SQLiteCacheStore', () => {
   describe('cleanup functionality', () => {
     it('should automatically clean up expired items', async () => {
       // Create store with very short cleanup interval
-      const cleanupStore = new SQLiteCacheStore(testDbPath, {
+      const cleanupStore = new SQLiteCacheStore({
+        database: testDbPath,
         cleanupIntervalMs: 10,
       });
 
@@ -207,7 +208,8 @@ describe('SQLiteCacheStore', () => {
 
     it('should not clean up unexpired items', async () => {
       // Create store with very short cleanup interval
-      const cleanupStore = new SQLiteCacheStore(testDbPath, {
+      const cleanupStore = new SQLiteCacheStore({
+        database: testDbPath,
         cleanupIntervalMs: 10,
       });
 
@@ -223,7 +225,8 @@ describe('SQLiteCacheStore', () => {
     });
 
     it('should handle cleanup interval of 0 (disabled)', async () => {
-      const noCleanupStore = new SQLiteCacheStore(testDbPath, {
+      const noCleanupStore = new SQLiteCacheStore({
+        database: testDbPath,
         cleanupIntervalMs: 0,
       });
 
@@ -262,7 +265,7 @@ describe('SQLiteCacheStore', () => {
     });
 
     it('should handle concurrent access from multiple store instances', async () => {
-      const store2 = new SQLiteCacheStore(testDbPath);
+      const store2 = new SQLiteCacheStore({ database: testDbPath });
 
       try {
         // Set values from both stores
@@ -350,7 +353,8 @@ describe('SQLiteCacheStore', () => {
 
   describe('configuration', () => {
     it('should use custom cleanup interval', () => {
-      const customStore = new SQLiteCacheStore(testDbPath, {
+      const customStore = new SQLiteCacheStore({
+        database: testDbPath,
         cleanupIntervalMs: 5000,
       });
 
@@ -361,7 +365,7 @@ describe('SQLiteCacheStore', () => {
     });
 
     it('should handle in-memory database', async () => {
-      const memoryStore = new SQLiteCacheStore(':memory:');
+      const memoryStore = new SQLiteCacheStore({ database: ':memory:' });
 
       try {
         await memoryStore.set('test', 'value', 60);
@@ -375,7 +379,8 @@ describe('SQLiteCacheStore', () => {
 
   describe('size guard (maxEntrySizeBytes)', () => {
     it('should skip caching values that exceed maxEntrySizeBytes', async () => {
-      const smallLimitStore = new SQLiteCacheStore(testDbPath, {
+      const smallLimitStore = new SQLiteCacheStore({
+        database: testDbPath,
         maxEntrySizeBytes: 100, // 100 bytes limit
       });
 
@@ -394,7 +399,8 @@ describe('SQLiteCacheStore', () => {
     });
 
     it('should cache values that are within maxEntrySizeBytes', async () => {
-      const smallLimitStore = new SQLiteCacheStore(testDbPath, {
+      const smallLimitStore = new SQLiteCacheStore({
+        database: testDbPath,
         maxEntrySizeBytes: 100, // 100 bytes limit
       });
 

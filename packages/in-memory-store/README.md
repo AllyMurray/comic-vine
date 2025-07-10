@@ -18,10 +18,13 @@ import {
   InMemoryRateLimitStore,
 } from '@comic-vine/in-memory-store';
 
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new InMemoryCacheStore(),
-  dedupe: new InMemoryDedupeStore(),
-  rateLimit: new InMemoryRateLimitStore(),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore(),
+    dedupe: new InMemoryDedupeStore(),
+    rateLimit: new InMemoryRateLimitStore(),
+  },
 });
 
 // Use client normally - data is cached in memory
@@ -113,33 +116,39 @@ import {
   InMemoryRateLimitStore,
 } from '@comic-vine/in-memory-store';
 
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new InMemoryCacheStore(),
-  dedupe: new InMemoryDedupeStore(),
-  rateLimit: new InMemoryRateLimitStore(),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore(),
+    dedupe: new InMemoryDedupeStore(),
+    rateLimit: new InMemoryRateLimitStore(),
+  },
 });
 ```
 
 ### Custom Configuration
 
 ```typescript
-const client = new ComicVine('your-api-key', undefined, {
-  cache: new InMemoryCacheStore({
-    maxSize: 5000,
-    ttl: 600_000, // 10 minutes
-    cleanupIntervalMs: 120_000, // 2 minutes
-  }),
-  dedupe: new InMemoryDedupeStore({
-    jobTimeoutMs: 600_000, // 10 minutes
-    cleanupIntervalMs: 120_000, // 2 minutes
-  }),
-  rateLimit: new InMemoryRateLimitStore({
-    defaultConfig: { limit: 200, windowMs: 60_000 }, // 200 requests per minute
-    resourceConfigs: new Map([
-      ['issues', { limit: 100, windowMs: 60_000 }],
-      ['characters', { limit: 300, windowMs: 60_000 }],
-    ]),
-  }),
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 5000,
+      ttl: 600_000, // 10 minutes
+      cleanupIntervalMs: 120_000, // 2 minutes
+    }),
+    dedupe: new InMemoryDedupeStore({
+      jobTimeoutMs: 600_000, // 10 minutes
+      cleanupIntervalMs: 120_000, // 2 minutes
+    }),
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 200, windowMs: 60_000 }, // 200 requests per minute
+      resourceConfigs: new Map([
+        ['issues', { limit: 100, windowMs: 60_000 }],
+        ['characters', { limit: 300, windowMs: 60_000 }],
+      ]),
+    }),
+  },
 });
 ```
 
@@ -209,26 +218,6 @@ All stores implement the same interfaces as the SQLite versions:
 - `CacheStore`
 - `DedupeStore`
 - `RateLimitStore`
-
-## Migration from Previous Versions
-
-If upgrading from a version with positional constructor arguments:
-
-```typescript
-// Old positional syntax (no longer supported)
-// new InMemoryDedupeStore(300_000)
-// new InMemoryRateLimitStore(defaultConfig, resourceConfigs)
-
-// New object syntax
-new InMemoryDedupeStore({
-  jobTimeoutMs: 300_000,
-})
-
-new InMemoryRateLimitStore({
-  defaultConfig: { limit: 100, windowMs: 60_000 },
-  resourceConfigs: new Map([...]),
-})
-```
 
 ## License
 

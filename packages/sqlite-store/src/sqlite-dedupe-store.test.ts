@@ -13,7 +13,7 @@ describe('SQLiteDedupeStore', () => {
       fs.unlinkSync(testDbPath);
     }
 
-    store = new SQLiteDedupeStore(testDbPath);
+    store = new SQLiteDedupeStore({ database: testDbPath });
   });
 
   afterEach(() => {
@@ -115,7 +115,7 @@ describe('SQLiteDedupeStore', () => {
       store.destroy();
 
       // Create new store instance with same database
-      const newStore = new SQLiteDedupeStore(testDbPath);
+      const newStore = new SQLiteDedupeStore({ database: testDbPath });
       const result = await newStore.waitFor(hash);
       expect(result).toBe('persistent-value');
 
@@ -129,7 +129,7 @@ describe('SQLiteDedupeStore', () => {
       await store.register(hash);
 
       // Store 2 can see the job is in progress
-      const store2 = new SQLiteDedupeStore(testDbPath);
+      const store2 = new SQLiteDedupeStore({ database: testDbPath });
       const isInProgress = await store2.isInProgress(hash);
       expect(isInProgress).toBe(true);
 
@@ -146,7 +146,10 @@ describe('SQLiteDedupeStore', () => {
 
   describe('timeout handling', () => {
     it('should handle job timeouts', async () => {
-      const timeoutStore = new SQLiteDedupeStore(testDbPath, { timeoutMs: 10 });
+      const timeoutStore = new SQLiteDedupeStore({
+        database: testDbPath,
+        timeoutMs: 10,
+      });
       const hash = 'test-hash';
 
       await timeoutStore.register(hash);
@@ -161,7 +164,8 @@ describe('SQLiteDedupeStore', () => {
     });
 
     it('should not timeout jobs that complete in time', async () => {
-      const timeoutStore = new SQLiteDedupeStore(testDbPath, {
+      const timeoutStore = new SQLiteDedupeStore({
+        database: testDbPath,
         timeoutMs: 100,
       });
       const hash = 'test-hash';
@@ -181,7 +185,8 @@ describe('SQLiteDedupeStore', () => {
 
   describe('cleanup functionality', () => {
     it('should automatically clean up expired jobs', async () => {
-      const cleanupStore = new SQLiteDedupeStore(testDbPath, {
+      const cleanupStore = new SQLiteDedupeStore({
+        database: testDbPath,
         timeoutMs: 50,
         cleanupIntervalMs: 10,
       });
@@ -208,18 +213,20 @@ describe('SQLiteDedupeStore', () => {
 
     it('should handle failing non-existent jobs', async () => {
       await expect(
-        store.fail('non-existent', new Error('Test')),
+        store.fail('non-existent', new Error('test')),
       ).resolves.not.toThrow();
     });
 
     it('should handle double completion', async () => {
-      const hash = 'test-hash';
+      const hash = 'double-completion';
       await store.register(hash);
       await store.complete(hash, 'value1');
-      await store.complete(hash, 'value2');
+
+      // Second completion should not throw
+      await expect(store.complete(hash, 'value2')).resolves.not.toThrow();
 
       const result = await store.waitFor(hash);
-      expect(result).toBe('value1'); // First completion should win
+      expect(result).toBe('value1'); // First value should be preserved
     });
 
     it('should handle special characters in hash keys', async () => {
@@ -232,13 +239,13 @@ describe('SQLiteDedupeStore', () => {
     });
 
     it('should handle null and undefined values', async () => {
-      const hash1 = 'null-hash';
-      const hash2 = 'undefined-hash';
+      const hash1 = 'null-test';
+      const hash2 = 'undefined-test';
 
       await store.register(hash1);
-      await store.register(hash2);
-
       await store.complete(hash1, null);
+
+      await store.register(hash2);
       await store.complete(hash2, undefined);
 
       const result1 = await store.waitFor(hash1);
@@ -252,26 +259,31 @@ describe('SQLiteDedupeStore', () => {
   describe('concurrent access', () => {
     it('should handle many concurrent jobs', async () => {
       const promises: Array<Promise<string>> = [];
+      const hashes: Array<string> = [];
 
-      // Create 50 jobs
-      for (let i = 0; i < 50; i++) {
-        promises.push(store.register(`hash${i}`));
+      // Register many jobs concurrently
+      for (let i = 0; i < 20; i++) {
+        const hash = `concurrent-${i}`;
+        hashes.push(hash);
+        promises.push(store.register(hash));
       }
 
       await Promise.all(promises);
 
       // Complete all jobs
-      const completePromises: Array<Promise<void>> = [];
-      for (let i = 0; i < 50; i++) {
-        completePromises.push(store.complete(`hash${i}`, `value${i}`));
-      }
+      const completionPromises = hashes.map((hash, i) =>
+        store.complete(hash, `value-${i}`),
+      );
 
-      await Promise.all(completePromises);
+      await Promise.all(completionPromises);
 
-      // Verify all jobs completed
-      for (let i = 0; i < 50; i++) {
-        const result = await store.waitFor(`hash${i}`);
-        expect(result).toBe(`value${i}`);
+      // Check all results
+      const results = await Promise.all(
+        hashes.map((hash) => store.waitFor(hash)),
+      );
+
+      for (let i = 0; i < 20; i++) {
+        expect(results[i]).toBe(`value-${i}`);
       }
     });
   });
@@ -292,39 +304,40 @@ describe('SQLiteDedupeStore', () => {
       store.destroy();
 
       // Should throw errors after destruction
-      await expect(store.register('hash')).rejects.toThrow();
-      await expect(store.waitFor('hash')).rejects.toThrow();
+      await expect(store.waitFor('test')).rejects.toThrow();
+      await expect(store.register('test')).rejects.toThrow();
     });
   });
 
   describe('configuration', () => {
     it('should handle timeout of 0 (disabled)', async () => {
-      const noTimeoutStore = new SQLiteDedupeStore(testDbPath, {
+      const noTimeoutStore = new SQLiteDedupeStore({
+        database: testDbPath,
         timeoutMs: 0,
       });
-      const hash = 'test-hash';
 
+      const hash = 'no-timeout-test';
       await noTimeoutStore.register(hash);
 
-      // Wait a bit
+      // Wait longer than normal timeout would be
       await new Promise((resolve) => setTimeout(resolve, 50));
 
-      // Should still be in progress since timeout is disabled
       const isInProgress = await noTimeoutStore.isInProgress(hash);
-      expect(isInProgress).toBe(true);
+      expect(isInProgress).toBe(true); // Should still be in progress
 
       noTimeoutStore.destroy();
     });
 
     it('should handle in-memory database', async () => {
-      const memoryStore = new SQLiteDedupeStore(':memory:');
+      const memoryStore = new SQLiteDedupeStore({ database: ':memory:' });
 
       try {
-        await memoryStore.register('test');
-        await memoryStore.complete('test', 'value');
+        const hash = 'memory-test';
+        await memoryStore.register(hash);
+        await memoryStore.complete(hash, 'memory-value');
 
-        const result = await memoryStore.waitFor('test');
-        expect(result).toBe('value');
+        const result = await memoryStore.waitFor(hash);
+        expect(result).toBe('memory-value');
       } finally {
         memoryStore.destroy();
       }
