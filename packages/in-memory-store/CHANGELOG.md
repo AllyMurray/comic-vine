@@ -1,5 +1,12 @@
 # @comic-vine/in-memory-store
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [6d7fcb9]
+  - @comic-vine/client@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
