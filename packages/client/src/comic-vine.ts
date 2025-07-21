@@ -1,13 +1,19 @@
 import { HttpClientFactory } from './http-client/index.js';
-import { userOptions, loadOptions } from './options/index.js';
+import { loadOptions } from './options/index.js';
+import type { ResourceInterface } from './resources/base-resource.js';
 import { ResourceFactory } from './resources/index.js';
 import * as resources from './resources/resource-list.js';
+import { CacheStore, DedupeStore, RateLimitStore } from './stores/index.js';
 
 function classNameToPropertyName(className: string): string {
+  if (!className) {
+    return '';
+  }
   return className.charAt(0).toLowerCase() + className.slice(1);
 }
 
-type ResourceInstance = ReturnType<ResourceFactory['create']>;
+type ResourceInstance = ReturnType<ResourceFactory['create']> &
+  ResourceInterface;
 
 // Create resource property type mapping dynamically
 type ResourcePropertyMap = {
@@ -16,10 +22,43 @@ type ResourcePropertyMap = {
   >;
 };
 
+/**
+ * Consolidated options interface for ComicVine client
+ */
+export interface ComicVineOptions {
+  /** Comic Vine API key */
+  apiKey: string;
+
+  /** Base URL for the Comic Vine API */
+  baseUrl?: string;
+
+  /** Store implementations for caching, deduplication, and rate limiting */
+  stores?: {
+    cache?: CacheStore;
+    dedupe?: DedupeStore;
+    rateLimit?: RateLimitStore;
+  };
+
+  /** HTTP client configuration */
+  client?: {
+    /** Default cache TTL in seconds */
+    defaultCacheTTL?: number;
+    /** Whether to throw errors on rate limit violations */
+    throwOnRateLimit?: boolean;
+    /** Maximum time to wait for rate limit in milliseconds */
+    maxWaitTime?: number;
+  };
+}
+
 export class ComicVine implements ResourcePropertyMap {
   private resourceFactory: ResourceFactory;
   private resourceCache = new Map<string, ResourceInstance>();
-  private resourceNames: string[];
+  private resourceNames: Array<string>;
+  private stores: {
+    cache?: CacheStore;
+    dedupe?: DedupeStore;
+    rateLimit?: RateLimitStore;
+  };
 
   // TypeScript property declarations for static typing (will be provided by Proxy)
   declare readonly character: ResourcePropertyMap['character'];
@@ -42,14 +81,23 @@ export class ComicVine implements ResourcePropertyMap {
   declare readonly videoType: ResourcePropertyMap['videoType'];
   declare readonly volume: ResourcePropertyMap['volume'];
 
-  constructor(key: string, options?: userOptions) {
-    const _options = loadOptions(options);
-    const httpClient = HttpClientFactory.createClient();
+  /**
+   * Create a new ComicVine client
+   * @param options - Configuration options for the client
+   */
+  constructor(options: ComicVineOptions) {
+    const { apiKey, baseUrl, stores = {}, client = {} } = options;
+
+    const _options = loadOptions({ baseUrl });
+
+    const httpClient = HttpClientFactory.createClient(stores, client);
     const urlBuilder = HttpClientFactory.createUrlBuilder(
-      key,
+      apiKey,
       _options.baseUrl,
     );
+
     this.resourceFactory = new ResourceFactory(httpClient, urlBuilder);
+    this.stores = stores;
 
     // Discover available resources dynamically
     this.resourceNames = Object.keys(resources);
@@ -80,6 +128,7 @@ export class ComicVine implements ResourcePropertyMap {
         const resource = this.resourceFactory.create(
           className as keyof typeof resources,
         );
+
         this.resourceCache.set(propertyName, resource);
       } catch (error) {
         throw new Error(`Failed to create resource '${className}': ${error}`);
@@ -88,7 +137,7 @@ export class ComicVine implements ResourcePropertyMap {
     return this.resourceCache.get(propertyName)!;
   }
 
-  getAvailableResources(): string[] {
+  getAvailableResources(): Array<string> {
     return this.resourceNames.map((name) => classNameToPropertyName(name));
   }
 
@@ -110,11 +159,30 @@ export class ComicVine implements ResourcePropertyMap {
   getCacheStats(): {
     total: number;
     loaded: number;
-    loadedResources: string[];
+    loadedResources: Array<string>;
   } {
     const total = this.resourceNames.length;
     const loaded = this.resourceCache.size;
     const loadedResources = Array.from(this.resourceCache.keys());
     return { total, loaded, loadedResources };
+  }
+
+  async clearCache(): Promise<void> {
+    if (this.stores.cache) {
+      await this.stores.cache.clear();
+    }
+  }
+
+  async getRateLimitStatus(resourceName: string) {
+    if (this.stores.rateLimit) {
+      return this.stores.rateLimit.getStatus(resourceName);
+    }
+    return null;
+  }
+
+  async resetRateLimit(resourceName: string): Promise<void> {
+    if (this.stores.rateLimit) {
+      await this.stores.rateLimit.reset(resourceName);
+    }
   }
 }

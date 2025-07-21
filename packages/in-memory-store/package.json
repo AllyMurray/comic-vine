@@ -1,0 +1,93 @@
+{
+  "name": "@comic-vine/in-memory-store",
+  "description": "In-memory store implementations for Comic Vine client caching, deduplication, and rate limiting",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllyMurray/comic-vine.git"
+  },
+  "scripts": {
+    "build": "tsup && npm run test && npm run package",
+    "lint": "eslint --fix src && prettier --write .",
+    "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
+    "test": "vitest run --dir=src",
+    "test:watch": "vitest --dir=src",
+    "test:build": "npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality",
+    "test:build:esm": "node build-tests/esm-import.test.js",
+    "test:build:cjs": "node build-tests/cjs-require.test.cjs",
+    "test:build:exports": "node build-tests/exports.test.cjs",
+    "test:build:functionality": "node build-tests/functionality.test.cjs",
+    "dev": "tsup --watch",
+    "clean": "rimraf lib dist node_modules .turbo"
+  },
+  "author": {
+    "name": "Ally Murray",
+    "email": "allymurray88@gmail.com",
+    "organization": false
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsup-config": "workspace:*",
+    "@repo/vitest-config": "workspace:*",
+    "@types/node": "20",
+    "eslint": "9",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-import-resolver-node": "0.3.9",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-prettier": "5.5.1",
+    "globals": "16.3.0",
+    "prettier": "3.6.2",
+    "rimraf": "6.0.1",
+    "tsup": "8.5.0",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8",
+    "vitest": "3.2.4"
+  },
+  "dependencies": {
+    "@comic-vine/client": "workspace:*",
+    "fast-safe-stringify": "^2.1.1"
+  },
+  "keywords": [
+    "comic-vine",
+    "comic-vine-store",
+    "in-memory-store",
+    "caching",
+    "deduplication",
+    "rate-limiting",
+    "comic-vine-client"
+  ],
+  "engines": {
+    "node": ">= 20.0.0"
+  },
+  "main": "./lib/index.cjs",
+  "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "lib/**"
+  ],
+  "homepage": "https://github.com/AllyMurray/comic-vine#readme",
+  "version": "0.0.1",
+  "bugs": {
+    "url": "https://github.com/AllyMurray/comic-vine/issues"
+  },
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+}

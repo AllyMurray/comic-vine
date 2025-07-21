@@ -1,0 +1,25 @@
+{
+  "name": "@repo/vitest-config",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "vitest": "3.2.4"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "rimraf": "6.0.1"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

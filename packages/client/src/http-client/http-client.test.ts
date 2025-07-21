@@ -187,4 +187,39 @@ describe('HttpClient', () => {
       new ComicVineGenericRequestError(`Complete failure`),
     );
   });
+
+  test('should abort rate-limit wait when signal is aborted', async () => {
+    // Arrange: create a RateLimitStore stub that forces a wait
+    const rateLimitStoreStub = {
+      async canProceed() {
+        return false;
+      },
+      async record() {},
+      async getStatus() {
+        return { remaining: 0, resetTime: new Date(), limit: 60 };
+      },
+      async reset() {},
+      async getWaitTime() {
+        return 1_000; // 1 second wait time
+      },
+    } as const;
+
+    const client = new HttpClient(
+      { rateLimit: rateLimitStoreStub },
+      {
+        throwOnRateLimit: false,
+        maxWaitTime: 5_000,
+      },
+    );
+
+    const controller = new AbortController();
+    controller.abort();
+
+    // Act / Assert
+    await expect(
+      client.get(`${baseUrl}/successful-response`, {
+        signal: controller.signal,
+      }),
+    ).rejects.toMatchObject({ name: 'AbortError' });
+  });
 });

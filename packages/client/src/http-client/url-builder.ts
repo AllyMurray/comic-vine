@@ -57,13 +57,11 @@ export class UrlBuilder {
     return undefined;
   }
 
-  private getFieldListParams<Key>(fieldList: Key[] | undefined) {
+  private getFieldListParams<Key>(fieldList: Array<Key> | undefined) {
     if (fieldList) {
       return {
         name: 'field_list',
-        value: fieldList
-          .map((field) => toSnakeCase(field as unknown as string))
-          .join(','),
+        value: fieldList.map((field) => toSnakeCase(String(field))).join(','),
       };
     }
 

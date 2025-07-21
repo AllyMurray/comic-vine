@@ -1,6 +1,7 @@
 .cache
 .DS_Store
 .eslintcache
+.notes
 .nyc_output
 .turbo
 .yarn-integrity
@@ -11,6 +12,7 @@
 *.seed
 *.tgz
 *.tsbuildinfo
+**/dist
 **/lib
 *yalc*
 /dist/

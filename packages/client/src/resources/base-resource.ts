@@ -7,7 +7,17 @@ import type {
   PickFilters,
 } from '../types/index.js';
 
-export abstract class BaseResource<Resource, ResourceListItem> {
+// Common interface that all resources must implement
+export interface ResourceInterface {
+  retrieve(id: number, options?: Record<string, unknown>): Promise<unknown>;
+  list(
+    options?: Record<string, unknown>,
+  ): Promise<unknown> & AsyncIterable<unknown>;
+}
+
+export abstract class BaseResource<Resource, ResourceListItem>
+  implements ResourceInterface
+{
   protected abstract resourceType: ResourceType;
 
   constructor(
@@ -39,7 +49,7 @@ export abstract class BaseResource<Resource, ResourceListItem> {
     const url = this.urlBuilder.list(this.resourceType, options);
     const _fieldList = options?.fieldList;
     type ResponseType = ReturnType<typeof _fieldList>;
-    const response = await this.httpClient.get<ResponseType[]>(url);
+    const response = await this.httpClient.get<Array<ResponseType>>(url);
 
     return {
       limit: response.limit,

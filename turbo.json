@@ -1,20 +1,35 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": {
+    "@repo/tsup-config#build": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "@repo/vitest-config#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "build": {
+      "dependsOn": ["^build", "@repo/tsup-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["lib/**", "dist/**"]
     },
     "test": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "@repo/vitest-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**"]
     },
     "test:run": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "@repo/vitest-config#build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**"]
+    },
+    "test:build": {
+      "dependsOn": ["build"],
+      "inputs": ["$TURBO_DEFAULT$", "lib/**", "build-tests/**"],
+      "outputs": []
     },
     "lint": {
       "dependsOn": ["^build"],

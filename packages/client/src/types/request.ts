@@ -3,7 +3,7 @@ export interface BaseOptions<FieldKey> {
    * List of field names to include in the response.
    * Use this if you want to reduce the size of the response payload
    */
-  fieldList?: FieldKey[];
+  fieldList?: Array<FieldKey>;
 }
 
 export type RetrieveOptions<FieldKey> = BaseOptions<FieldKey>;
