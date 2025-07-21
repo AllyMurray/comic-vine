@@ -30,6 +30,8 @@ jobs:
         run: npx turbo build
       - name: Test
         run: npx turbo test:run
+      - name: Test Build Artifacts
+        run: npx turbo test:build
       - name: Lint
         run: npx turbo lint
       - name: Find mutations

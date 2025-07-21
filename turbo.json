@@ -26,6 +26,11 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**"]
     },
+    "test:build": {
+      "dependsOn": ["build"],
+      "inputs": ["$TURBO_DEFAULT$", "lib/**", "build-tests/**"],
+      "outputs": []
+    },
     "lint": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],

@@ -11,6 +11,11 @@
     "package": "mkdir -p dist/js && mv $(npm pack --silent) dist/js/",
     "test": "vitest run --dir=src",
     "test:watch": "vitest --dir=src",
+    "test:build": "npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality",
+    "test:build:esm": "node build-tests/esm-import.test.js",
+    "test:build:cjs": "node build-tests/cjs-require.test.cjs",
+    "test:build:exports": "node build-tests/exports.test.cjs",
+    "test:build:functionality": "node build-tests/functionality.test.cjs",
     "dev": "tsup --watch",
     "clean": "rimraf lib dist node_modules .turbo"
   },
@@ -55,7 +60,7 @@
   "engines": {
     "node": ">= 20.0.0"
   },
-  "main": "lib/index.cjs",
+  "main": "./lib/index.cjs",
   "license": "MIT",
   "sideEffects": false,
   "files": [
@@ -66,9 +71,9 @@
   "bugs": {
     "url": "https://github.com/AllyMurray/comic-vine/issues"
   },
-  "types": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "type": "module",
-  "module": "lib/index.js",
+  "module": "./lib/index.js",
   "exports": {
     ".": {
       "import": {

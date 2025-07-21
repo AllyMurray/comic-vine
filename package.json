@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
+    "test:build": "turbo run test:build",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint -- --fix",
     "pre-commit": "prettier --write . && turbo run lint test --filter=...[HEAD^1]",
