@@ -1,6 +1,7 @@
 {
   "name": "@repo/tsup-config",
   "version": "0.0.1",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,8 +19,5 @@
   },
   "files": [
     "dist/**"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+  ]
 }
