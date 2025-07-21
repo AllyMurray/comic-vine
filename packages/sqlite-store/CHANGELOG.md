@@ -1,4 +1,4 @@
-# @comic-vine/client
+# @comic-vine/sqlite-store
 
 ## 0.1.0
 
@@ -12,35 +12,7 @@
 
   Both packages provide comprehensive TypeScript support and are designed for production use.
 
-## 0.0.7
-
 ### Patch Changes
 
-- cea7493: update docs for monorepo
-
-## 0.0.6
-
-### Patch Changes
-
-- 5fd429e: test github release
-
-## 0.0.5
-
-### Patch Changes
-
-- 1d9d60f: force another release
-
-## 0.0.4
-
-### Patch Changes
-
-- 4e59d64: force release
-
-## 0.0.3
-
-### Patch Changes
-
-- 34bb1a2: force deployment
-- 612b27b: further pipeline testing
-- cac216e: another pipeline test
-- 94287a5: testing release pipeline
+- Updated dependencies [ce26fb2]
+  - @comic-vine/client@0.1.0
