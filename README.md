@@ -48,7 +48,7 @@ pnpm add @comic-vine/client
 
 ### Optional Store Packages
 
-The client includes basic in-memory stores by default. Install additional store packages for enhanced capabilities:
+The client works without any stores by default (no caching, deduplication, or rate limiting). Install store packages to enable these optimization features:
 
 ```bash
 # For advanced in-memory stores with LRU eviction and memory management
@@ -168,9 +168,11 @@ const client = new ComicVine({
 });
 ```
 
-### With Custom Stores
+### With Store Packages
 
-#### In-Memory Stores (Default)
+To enable caching, deduplication, and rate limiting, install and configure store packages:
+
+#### In-Memory Stores
 
 ```typescript
 import ComicVine from '@comic-vine/client';
