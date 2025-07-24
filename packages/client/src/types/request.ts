@@ -1,3 +1,5 @@
+import type { RequestPriority } from '../stores/rate-limit-store.js';
+
 export interface BaseOptions<FieldKey> {
   /**
    * List of field names to include in the response.
@@ -6,9 +8,22 @@ export interface BaseOptions<FieldKey> {
   fieldList?: Array<FieldKey>;
 }
 
-export type RetrieveOptions<FieldKey> = BaseOptions<FieldKey>;
+export interface PriorityOptions {
+  /**
+   * Priority level for the request (affects rate limiting behavior)
+   * - 'user': High priority, gets reserved capacity during activity
+   * - 'background': Lower priority, may be throttled during high user activity
+   */
+  priority?: RequestPriority;
+}
 
-export interface ListOptions<FieldKey, Filter> extends BaseOptions<FieldKey> {
+export interface RetrieveOptions<FieldKey>
+  extends BaseOptions<FieldKey>,
+    PriorityOptions {}
+
+export interface ListOptions<FieldKey, Filter>
+  extends BaseOptions<FieldKey>,
+    PriorityOptions {
   /**
    * The number of results to display per page
    * This value defaults to 100 and can not exceed this number
