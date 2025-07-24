@@ -1,5 +1,11 @@
 # @comic-vine/client
 
+## 0.1.1
+
+### Patch Changes
+
+- 6d7fcb9: update client docs
+
 ## 0.1.0
 
 ### Minor Changes
