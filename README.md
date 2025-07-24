@@ -20,6 +20,7 @@ A TypeScript client library for the Comic Vine API with built-in caching, dedupl
     - [Manual Pagination](#manual-pagination)
     - [Auto Pagination](#auto-pagination)
 - [Advanced Usage](#advanced-usage)
+- [How It Works](#how-it-works)
 - [Store Implementations](#store-implementations)
 - [Examples](#examples)
 - [Error Handling](#error-handling)
@@ -498,6 +499,162 @@ const [issue1, issue2, issue3] = await Promise.all([
   client.issue.retrieve(1), // Deduplicated
   client.issue.retrieve(1), // Deduplicated
 ]);
+```
+
+## How It Works
+
+Understanding the client's internal architecture helps you optimize performance and handle edge cases effectively.
+
+### Request Processing Flow
+
+Every API request follows a **7-step priority sequence** designed to maximize efficiency and respect API limits:
+
+```typescript
+// Internal request flow (simplified)
+async function processRequest(url) {
+  // 1. Cache Check (Highest Priority)
+  const cached = await cache.get(requestHash);
+  if (cached) return cached; // Immediate return
+
+  // 2. Deduplication
+  const inProgress = await dedupe.waitFor(requestHash);
+  if (inProgress) return inProgress; // Wait for existing request
+
+  await dedupe.register(requestHash); // Mark as in-progress
+
+  // 3. Rate Limiting
+  const canProceed = await rateLimit.canProceed(resource);
+  if (!canProceed) {
+    // Either throw error or wait based on configuration
+  }
+
+  // 4. Execute HTTP Request
+  const response = await httpClient.get(url);
+
+  // 5. Record for Rate Limiting
+  await rateLimit.record(resource);
+
+  // 6. Store in Cache
+  await cache.set(requestHash, response);
+
+  // 7. Complete Deduplication
+  await dedupe.complete(requestHash, response);
+
+  return response;
+}
+```
+
+### Rate Limiting Behavior
+
+The client supports two distinct modes for handling rate limit violations:
+
+#### Throw Mode (Default)
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    throwOnRateLimit: true, // Default behavior
+  },
+});
+
+try {
+  const issue = await client.issue.retrieve(1);
+} catch (error) {
+  if (error.message.includes('Rate limit exceeded')) {
+    console.log('Need to wait before retrying');
+    // Handle rate limit error manually
+  }
+}
+```
+
+#### Wait Mode (Automatic Retry)
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    throwOnRateLimit: false, // Wait automatically
+    maxWaitTime: 60000, // Maximum 1 minute wait
+  },
+});
+
+// This request will automatically wait if rate limited
+const issue = await client.issue.retrieve(1);
+```
+
+### Key Architectural Concepts
+
+#### No Traditional Request Queue
+
+- Requests **block synchronously** rather than being queued
+- When rate limited, the current request waits (or throws) immediately
+- No background processing or queuing system
+
+#### Per-Resource Rate Limiting
+
+- Each resource type (issues, characters, volumes, etc.) has **independent limits**
+- Uses a **sliding window algorithm** for precise rate limiting
+- Limits reset gradually as old requests age out of the window
+
+```typescript
+// Different limits per resource
+const rateLimitStore = new InMemoryRateLimitStore({
+  defaultConfig: { limit: 200, windowMs: 3600000 }, // 200 req/hour default
+  resourceConfigs: new Map([
+    ['issues', { limit: 100, windowMs: 3600000 }], // 100 req/hour
+    ['characters', { limit: 300, windowMs: 3600000 }], // 300 req/hour
+    ['volumes', { limit: 50, windowMs: 3600000 }], // 50 req/hour
+  ]),
+});
+```
+
+#### Smart Request Optimization
+
+**Caching**: Eliminates redundant API calls
+
+```typescript
+// Second call returns immediately from cache
+const issue1 = await client.issue.retrieve(1); // API call
+const issue2 = await client.issue.retrieve(1); // Cache hit
+```
+
+**Deduplication**: Prevents concurrent identical requests
+
+```typescript
+// All three requests share the same HTTP call
+const [a, b, c] = await Promise.all([
+  client.issue.retrieve(1), // Makes API call
+  client.issue.retrieve(1), // Waits for first call
+  client.issue.retrieve(1), // Waits for first call
+]);
+```
+
+### Store Persistence Options
+
+#### In-Memory Stores (Fast, Non-Persistent)
+
+- Best for single-process applications
+- Data lost on restart
+- Highest performance
+
+#### SQLite Stores (Persistent, Cross-Process)
+
+- Best for multi-process applications
+- Survives application restarts
+- Enables cross-process coordination
+
+```typescript
+// Persistent rate limiting across app restarts
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SQLiteRateLimitStore({
+      database: './rate-limits.db', // Persistent file
+      defaultConfig: { limit: 200, windowMs: 3600000 },
+    }),
+  },
+});
 ```
 
 ## Store Implementations

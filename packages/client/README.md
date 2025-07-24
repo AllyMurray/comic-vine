@@ -128,62 +128,146 @@ There's a good chance you may find an issue with the typings in the API response
 
 The Comic Vine API implements rate limiting to ensure fair usage and API health for all users.
 
-> ⚠️ **Note**: This library will soon include built-in solutions for caching, request deduplication, and rate limiting. The examples below are temporary workarounds until these features are available.
+### API Limits & Rate Limiting
 
-### Limits
+The Comic Vine API enforces the following limits:
 
 - **200 requests per resource per hour** - Official limit per user
 - **Velocity detection** - Prevents too many requests per second
 - **Temporary blocks** - May occur if limits are exceeded
 
+The client provides built-in rate limiting with two configurable behaviors:
+
+#### Throw on Rate Limit (Default)
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    throwOnRateLimit: true, // Default - throws error immediately
+  },
+});
+
+try {
+  const issue = await client.issue.retrieve(1);
+} catch (error) {
+  if (error.message.includes('Rate limit exceeded')) {
+    // Extract wait time from error message and handle manually
+    console.log('Rate limit hit - implement retry logic');
+  }
+}
+```
+
+#### Auto-Wait on Rate Limit
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    throwOnRateLimit: false, // Automatically wait when rate limited
+    maxWaitTime: 120000, // Maximum 2 minutes wait time
+  },
+});
+
+// This request will automatically wait if rate limited
+const issue = await client.issue.retrieve(1);
+```
+
+#### Per-Resource Rate Limiting
+
+Configure different limits for different resource types:
+
+```typescript
+import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 200, windowMs: 3600000 }, // 200 req/hour default
+      resourceConfigs: new Map([
+        ['issues', { limit: 100, windowMs: 3600000 }], // Issues: 100 req/hour
+        ['characters', { limit: 300, windowMs: 3600000 }], // Characters: 300 req/hour
+        ['volumes', { limit: 50, windowMs: 3600000 }], // Volumes: 50 req/hour
+      ]),
+    }),
+  },
+});
+```
+
 ### Best Practices
 
-**Cache responses** to avoid duplicate requests:
+**Use built-in caching** to avoid duplicate requests:
 
-```js
-// Example: Simple in-memory cache
-const cache = new Map();
+```typescript
+import { InMemoryCacheStore } from '@comic-vine/in-memory-store';
 
-async function getCachedPublisher(id) {
-  const cacheKey = `publisher-${id}`;
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 1000,
+      ttl: 3600000, // 1 hour cache
+    }),
+  },
+});
 
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey);
-  }
-
-  const publisher = await comicVine.publisher.retrieve(id);
-  cache.set(cacheKey, publisher);
-
-  return publisher;
-}
+// Second call returns immediately from cache
+const publisher1 = await client.publisher.retrieve(1); // API call
+const publisher2 = await client.publisher.retrieve(1); // Cache hit
 ```
 
-**Implement delays** between requests:
+**Leverage automatic deduplication** for concurrent requests:
 
-```js
-// Example: Add delay between requests
-async function fetchMultipleIssues(ids) {
-  const issues = [];
+```typescript
+import { InMemoryDedupeStore } from '@comic-vine/in-memory-store';
 
-  for (const id of ids) {
-    const issue = await comicVine.issue.retrieve(id);
-    issues.push(issue);
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    dedupe: new InMemoryDedupeStore(),
+  },
+});
 
-    // Wait 100ms between requests
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-
-  return issues;
-}
+// All requests share the same HTTP call automatically
+const [issue1, issue2, issue3] = await Promise.all([
+  client.issue.retrieve(1), // Makes API call
+  client.issue.retrieve(1), // Waits for first call
+  client.issue.retrieve(1), // Waits for first call
+]);
 ```
 
-**Use pagination wisely**:
+**Configure appropriate rate limiting**:
 
-```js
-// Instead of making many small requests
-const issues = await comicVine.issue.list({ limit: 100 }); // Better
-// Rather than
-const issues = await comicVine.issue.list({ limit: 10 }); // Less efficient
+```typescript
+// Conservative approach - stay well under API limits
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 150, windowMs: 3600000 }, // 150 req/hour (25% buffer)
+    }),
+  },
+  client: {
+    throwOnRateLimit: false, // Auto-wait instead of throwing
+    maxWaitTime: 60000, // Max 1 minute wait
+  },
+});
+```
+
+**Use pagination efficiently**:
+
+```typescript
+// Prefer larger page sizes to reduce request count
+const issues = await client.issue.list({ limit: 100 }); // Better
+// Avoid small page sizes
+const issues = await client.issue.list({ limit: 10 }); // Less efficient
+
+// Use auto-pagination for processing all results
+for await (const issue of client.issue.list()) {
+  console.log(issue.name);
+  // Automatically handles pagination and rate limiting
+}
 ```
 
 ## Error Handling

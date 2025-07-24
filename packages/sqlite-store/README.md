@@ -117,6 +117,58 @@ const rateLimitStore = new SQLiteRateLimitStore({
 - Automatic cleanup of expired records
 - Flexible default and per-resource configurations
 
+## How Stores Work Together
+
+The SQLite stores provide persistent versions of the same request optimization flow:
+
+### Request Processing Order
+
+1. **Cache Store**: Checks SQLite cache table for existing response
+2. **Dedupe Store**: Uses SQLite to coordinate concurrent requests across processes
+3. **Rate Limit Store**: Enforces API limits using persistent SQLite tracking
+
+```typescript
+// Example: Cross-process request coordination
+// Process A makes request
+const issueA = await clientA.issue.retrieve(1); // Cache miss → dedupe register → rate limit → API call
+
+// Process B (same or different process) makes same request concurrently
+const issueB = await clientB.issue.retrieve(1); // Cache miss → dedupe wait → shares result from Process A
+```
+
+### Persistence Benefits
+
+Unlike in-memory stores, SQLite stores survive application restarts:
+
+- **Cache**: Cached responses remain available after restart
+- **Dedupe**: In-progress requests survive process crashes (with timeout recovery)
+- **Rate Limit**: Rate limit history persists, preventing limit bypassing via restart
+
+### Cross-Process Coordination
+
+SQLite stores enable multiple processes to share the same optimization state:
+
+```typescript
+// Multiple processes can safely share rate limits and cache
+const sharedDb = new Database('./shared-stores.db');
+
+// Process 1
+const client1 = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
+  },
+});
+
+// Process 2 - shares the same rate limits
+const client2 = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
+  },
+});
+```
+
 ## Shared Database Configuration
 
 **Recommended**: Use a single database for all stores to reduce file handles and improve performance:

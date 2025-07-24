@@ -104,6 +104,44 @@ const rateLimitStore = new InMemoryRateLimitStore({
 - Memory-efficient timestamp tracking
 - Flexible default and per-resource configurations
 
+## How Stores Work Together
+
+The three store types work in sequence to optimize API requests:
+
+### Request Processing Order
+
+1. **Cache Store**: Checks for existing response (immediate return if found)
+2. **Dedupe Store**: Prevents duplicate concurrent requests (waits for in-progress requests)
+3. **Rate Limit Store**: Enforces API limits (waits or throws if limit exceeded)
+
+```typescript
+// Example: Multiple concurrent requests for the same resource
+const [a, b, c] = await Promise.all([
+  client.issue.retrieve(1), // Cache miss → dedupe register → rate limit check → API call
+  client.issue.retrieve(1), // Cache miss → dedupe wait (shares result from first call)
+  client.issue.retrieve(1), // Cache miss → dedupe wait (shares result from first call)
+]);
+
+// Subsequent calls return from cache
+const d = await client.issue.retrieve(1); // Cache hit → immediate return
+```
+
+### Store Lifecycle
+
+Each store manages its own lifecycle and cleanup:
+
+- **Cache**: Expires entries based on TTL, evicts LRU items when full
+- **Dedupe**: Times out jobs, cleans up completed requests
+- **Rate Limit**: Slides time windows, removes expired request records
+
+### Memory Management
+
+All stores are designed for efficient memory usage:
+
+- **Cache**: LRU eviction with configurable memory limits
+- **Dedupe**: Automatic cleanup of completed/failed jobs
+- **Rate Limit**: Sliding window removes old timestamps automatically
+
 ## Configuration Examples
 
 ### Basic Setup
