@@ -1,5 +1,13 @@
 # @comic-vine/in-memory-store
 
+## 0.1.2
+
+### Patch Changes
+
+- 16cbc6b: update documentation detailing how stores work
+- Updated dependencies [16cbc6b]
+  - @comic-vine/client@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
