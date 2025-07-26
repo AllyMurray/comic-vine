@@ -107,6 +107,9 @@ importers:
       fast-safe-stringify:
         specifier: ^2.1.1
         version: 2.1.1
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.71
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
