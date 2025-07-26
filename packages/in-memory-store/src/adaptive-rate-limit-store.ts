@@ -2,13 +2,11 @@ import {
   AdaptiveConfigSchema,
   type AdaptiveRateLimitStore as IAdaptiveRateLimitStore,
   type RequestPriority,
-} from '@comic-vine/client';
-import { z } from 'zod';
-import {
   AdaptiveCapacityCalculator,
   type ActivityMetrics,
   type DynamicCapacityResult,
-} from './adaptive-capacity-calculator.js';
+} from '@comic-vine/client';
+import { z } from 'zod';
 
 export interface AdaptiveRateLimitStoreOptions {
   adaptiveConfig?: Partial<z.input<typeof AdaptiveConfigSchema>>;
@@ -77,10 +75,7 @@ export class AdaptiveRateLimitStore implements IAdaptiveRateLimitStore {
     );
   }
 
-  async getStatus(
-    resource: string,
-    _priority?: RequestPriority,
-  ): Promise<{
+  async getStatus(resource: string): Promise<{
     remaining: number;
     resetTime: Date;
     limit: number;

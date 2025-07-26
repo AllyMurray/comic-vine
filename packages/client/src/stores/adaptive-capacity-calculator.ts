@@ -1,5 +1,5 @@
-import { AdaptiveConfigSchema } from '@comic-vine/client';
 import { z } from 'zod';
+import { AdaptiveConfigSchema } from './rate-limit-store.js';
 
 interface ActivityMetrics {
   recentUserRequests: Array<number>;

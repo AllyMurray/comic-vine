@@ -104,13 +104,9 @@ export interface AdaptiveRateLimitStore extends RateLimitStore {
   /**
    * Get the current rate limit status for a resource
    * @param resource The resource name
-   * @param priority The priority level of the request (defaults to 'background')
    * @returns Rate limit information including remaining requests and reset time
    */
-  getStatus(
-    resource: string,
-    priority?: RequestPriority,
-  ): Promise<{
+  getStatus(resource: string): Promise<{
     remaining: number;
     resetTime: Date;
     limit: number;
