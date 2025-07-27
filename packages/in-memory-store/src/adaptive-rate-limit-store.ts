@@ -198,9 +198,8 @@ export class AdaptiveRateLimitStore implements IAdaptiveRateLimitStore {
   }
 
   private getCurrentUsage(requests: Array<number>): number {
-    const cutoff =
-      Date.now() - this.capacityCalculator.config.monitoringWindowMs;
-    return requests.filter((timestamp) => timestamp > cutoff).length;
+    const oneHourAgo = Date.now() - 3600000; // 1 hour = 3600000ms
+    return requests.filter((timestamp) => timestamp > oneHourAgo).length;
   }
 
   private cleanupOldRequests(requests: Array<number>): void {

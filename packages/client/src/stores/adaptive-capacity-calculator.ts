@@ -76,6 +76,34 @@ export class AdaptiveCapacityCalculator {
 
     // Strategy 3: Low/No Activity - Background Scale Up
     if (recentUserActivity === 0) {
+      // If there have never been any requests at all (fresh start), use default capacity allocation
+      if (
+        activityMetrics.recentUserRequests.length === 0 &&
+        activityMetrics.recentBackgroundRequests.length === 0
+      ) {
+        const baseUserCapacity = Math.floor(totalLimit * 0.3); // 30% base for initial state
+        return {
+          userReserved: Math.max(baseUserCapacity, this.config.minUserReserved),
+          backgroundMax:
+            totalLimit -
+            Math.max(baseUserCapacity, this.config.minUserReserved),
+          backgroundPaused: false,
+          reason: 'Initial state - default capacity allocation',
+        };
+      }
+
+      // If there have never been user requests (only background), use background scale up
+      if (activityMetrics.recentUserRequests.length === 0) {
+        return {
+          userReserved: this.config.minUserReserved, // Minimal safety buffer
+          backgroundMax: totalLimit - this.config.minUserReserved,
+          backgroundPaused: false,
+          reason:
+            'No user activity yet - background scale up with minimal user buffer',
+        };
+      }
+
+      // There have been user requests before, check for sustained inactivity
       const sustainedInactivity = this.getSustainedInactivityPeriod(
         activityMetrics.recentUserRequests,
       );
@@ -145,7 +173,8 @@ export class AdaptiveCapacityCalculator {
 
   private getSustainedInactivityPeriod(requests: Array<number>): number {
     if (requests.length === 0) {
-      return 0; // No requests ever = no sustained inactivity period yet
+      // This should not be called when there are no requests (handled above)
+      return 0;
     }
 
     const lastRequest = Math.max(...requests);

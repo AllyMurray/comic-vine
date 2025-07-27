@@ -81,12 +81,12 @@ describe('SqliteAdaptiveRateLimitStore', () => {
       const resource = 'test-resource';
 
       const status = await store.getStatus(resource);
-      // With 0 user activity (and no sustained inactivity), it falls into "Recent zero activity" strategy
-      // which uses minUserReserved = 10
-      expect(status.adaptive?.userReserved).toBe(10); // minUserReserved safety buffer
-      expect(status.adaptive?.backgroundMax).toBe(190); // 200 - 10 = 190
+      // With 0 user activity and no requests at all, it falls into "Initial state" strategy
+      // which uses 30% base allocation (60 requests for 200 limit)
+      expect(status.adaptive?.userReserved).toBe(60); // 30% of 200 = 60
+      expect(status.adaptive?.backgroundMax).toBe(140); // 200 - 60 = 140
       expect(status.adaptive?.backgroundPaused).toBe(false);
-      expect(status.adaptive?.reason).toContain('Recent zero activity');
+      expect(status.adaptive?.reason).toContain('Initial state');
     });
 
     it('should adapt to moderate user activity', async () => {
@@ -257,9 +257,9 @@ describe('SqliteAdaptiveRateLimitStore', () => {
 
       const status = await store.getStatus(resource);
       expect(status.limit).toBe(50);
-      // With 0 activity, uses minUserReserved = 10
-      expect(status.adaptive?.userReserved).toBe(10); // minUserReserved safety buffer
-      expect(status.adaptive?.backgroundMax).toBe(40); // 50 - 10 = 40
+      // With 0 activity and no requests, uses initial state strategy (30% of 50 = 15)
+      expect(status.adaptive?.userReserved).toBe(15); // 30% of 50 = 15
+      expect(status.adaptive?.backgroundMax).toBe(35); // 50 - 15 = 35
     });
   });
 
