@@ -3,8 +3,11 @@ import {
   DynamoDBStoreError,
   ThrottlingError,
   ItemSizeError,
+  CircuitBreakerOpenError,
+  OperationTimeoutError,
   type DynamoDBStoreConfig,
 } from './types.js';
+import { CircuitBreaker } from './circuit-breaker.js';
 
 /**
  * Maximum item size for DynamoDB (400KB)
@@ -137,48 +140,58 @@ export function isConditionalCheckFailedError(error: unknown): boolean {
 }
 
 /**
- * Retry operation with exponential backoff
+ * Retry operation with exponential backoff and circuit breaker protection
  */
 export async function retryWithBackoff<T>(
   operation: () => Promise<T>,
   config: DynamoDBStoreConfig,
   operationName: string,
+  circuitBreaker?: CircuitBreaker,
 ): Promise<T> {
-  let lastError: Error;
+  const executeOperation = async (): Promise<T> => {
+    let lastError: Error;
 
-  for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
-    try {
-      return await operation();
-    } catch (error) {
-      lastError = error instanceof Error ? error : new Error(String(error));
+    for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
+      try {
+        return await operation();
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error(String(error));
 
-      // Don't retry on the last attempt
-      if (attempt === config.maxRetries) {
-        break;
+        // Don't retry on the last attempt
+        if (attempt === config.maxRetries) {
+          break;
+        }
+
+        // Check if this is a throttling error that should be retried
+        if (isThrottlingError(error)) {
+          const delay = calculateBackoffDelay(attempt, config.retryDelayMs);
+          await sleep(delay);
+          continue;
+        }
+
+        // For non-throttling errors, don't retry
+        throw lastError;
       }
-
-      // Check if this is a throttling error that should be retried
-      if (isThrottlingError(error)) {
-        const delay = calculateBackoffDelay(attempt, config.retryDelayMs);
-        await sleep(delay);
-        continue;
-      }
-
-      // For non-throttling errors, don't retry
-      throw lastError;
     }
+
+    // If we get here, we've exhausted all retries
+    if (isThrottlingError(lastError)) {
+      throw new ThrottlingError(operationName, lastError);
+    }
+
+    throw new DynamoDBStoreError(
+      `Operation '${operationName}' failed after ${config.maxRetries + 1} attempts`,
+      lastError,
+      operationName,
+    );
+  };
+
+  // Execute with circuit breaker if provided
+  if (circuitBreaker) {
+    return circuitBreaker.execute(executeOperation, operationName);
   }
 
-  // If we get here, we've exhausted all retries
-  if (isThrottlingError(lastError)) {
-    throw new ThrottlingError(operationName, lastError);
-  }
-
-  throw new DynamoDBStoreError(
-    `Operation '${operationName}' failed after ${config.maxRetries + 1} attempts`,
-    lastError,
-    operationName,
-  );
+  return executeOperation();
 }
 
 /**
@@ -190,4 +203,74 @@ export function chunkArray<T>(array: T[], chunkSize: number): T[][] {
     chunks.push(array.slice(i, i + chunkSize));
   }
   return chunks;
+}
+
+/**
+ * Check if error should trigger circuit breaker
+ */
+export function isSevereError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+
+  const err = error as { name?: string; code?: string; statusCode?: number };
+
+  // Service unavailable errors
+  if (
+    err.name === 'ServiceUnavailable' ||
+    err.code === 'ServiceUnavailable' ||
+    err.statusCode === 503
+  ) {
+    return true;
+  }
+
+  // Internal server errors
+  if (
+    err.name === 'InternalServerError' ||
+    err.code === 'InternalServerError' ||
+    err.statusCode === 500
+  ) {
+    return true;
+  }
+
+  // Connection timeout errors
+  if (
+    err.name === 'TimeoutError' ||
+    err.name === 'ConnectTimeoutError' ||
+    err.code === 'ECONNRESET' ||
+    err.code === 'ENOTFOUND'
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Calculate optimal batch size based on item size and DynamoDB limits
+ */
+export function calculateOptimalBatchSize(
+  averageItemSizeBytes: number,
+  maxBatchSize = 25,
+): number {
+  const maxRequestSizeBytes = 16 * 1024 * 1024; // 16MB DynamoDB limit
+  const calculatedSize = Math.floor(maxRequestSizeBytes / averageItemSizeBytes);
+  
+  return Math.min(calculatedSize, maxBatchSize);
+}
+
+/**
+ * Measure operation execution time
+ */
+export async function measureExecutionTime<T>(
+  operation: () => Promise<T>,
+): Promise<{ result: T; durationMs: number }> {
+  const startTime = performance.now();
+  const result = await operation();
+  const endTime = performance.now();
+  
+  return {
+    result,
+    durationMs: endTime - startTime,
+  };
 }

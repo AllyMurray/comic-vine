@@ -1,5 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import type { DynamoDBStoreConfig, DynamoDBClientWrapper } from './types.js';
+import { CircuitBreaker } from './circuit-breaker.js';
 
 /**
  * Creates a DynamoDB client wrapper with proper lifecycle management
@@ -34,6 +35,13 @@ export function createDynamoDBClient(
     client,
     isManaged: true,
   };
+}
+
+/**
+ * Creates a circuit breaker for DynamoDB operations
+ */
+export function createCircuitBreaker(config: DynamoDBStoreConfig): CircuitBreaker {
+  return new CircuitBreaker(config);
 }
 
 /**

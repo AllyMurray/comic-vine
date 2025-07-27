@@ -49,6 +49,33 @@ export const DynamoDBStoreConfigSchema = z.object({
    * Set to 0 to disable automatic cleanup
    */
   cleanupIntervalMs: z.number().min(0).default(300000), // 5 minutes
+
+  /**
+   * Circuit breaker configuration
+   */
+  circuitBreaker: z
+    .object({
+      /**
+       * Number of consecutive failures before opening the circuit
+       */
+      failureThreshold: z.number().min(1).default(5),
+
+      /**
+       * Time in milliseconds to wait before attempting to close the circuit
+       */
+      recoveryTimeoutMs: z.number().min(1000).default(60000), // 1 minute
+
+      /**
+       * Timeout in milliseconds for individual operations
+       */
+      timeoutMs: z.number().min(100).default(30000), // 30 seconds
+
+      /**
+       * Whether to enable the circuit breaker
+       */
+      enabled: z.boolean().default(true),
+    })
+    .default({}),
 });
 
 /**
@@ -111,4 +138,45 @@ export class ItemSizeError extends DynamoDBStoreError {
     super(`Item size (${size} bytes) exceeds DynamoDB limit (${limit} bytes)`);
     this.name = 'ItemSizeError';
   }
+}
+
+/**
+ * Error thrown when circuit breaker is open
+ */
+export class CircuitBreakerOpenError extends DynamoDBStoreError {
+  constructor(operation: string, nextAttemptTime: Date) {
+    super(
+      `Circuit breaker is open for operation '${operation}'. Next attempt allowed at ${nextAttemptTime.toISOString()}`,
+    );
+    this.name = 'CircuitBreakerOpenError';
+  }
+}
+
+/**
+ * Error thrown when operation times out
+ */
+export class OperationTimeoutError extends DynamoDBStoreError {
+  constructor(operation: string, timeoutMs: number) {
+    super(`Operation '${operation}' timed out after ${timeoutMs}ms`);
+    this.name = 'OperationTimeoutError';
+  }
+}
+
+/**
+ * Circuit breaker states
+ */
+export enum CircuitBreakerState {
+  CLOSED = 'closed',
+  OPEN = 'open',
+  HALF_OPEN = 'half_open',
+}
+
+/**
+ * Circuit breaker internal state
+ */
+export interface CircuitBreakerStatus {
+  state: CircuitBreakerState;
+  failureCount: number;
+  lastFailureTime?: number;
+  nextAttemptTime?: number;
 }

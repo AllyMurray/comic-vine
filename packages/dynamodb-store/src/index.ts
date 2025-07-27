@@ -24,10 +24,18 @@ export {
   StoreDestroyedError,
   ThrottlingError,
   ItemSizeError,
+  CircuitBreakerOpenError,
+  OperationTimeoutError,
+  CircuitBreakerState,
 } from './types.js';
 
+export type { CircuitBreakerStatus } from './types.js';
+
 // Client utilities
-export { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
+export { createDynamoDBClient, destroyDynamoDBClient, createCircuitBreaker } from './client.js';
+
+// Circuit breaker
+export { CircuitBreaker } from './circuit-breaker.js';
 
 // Utility functions
 export {
@@ -41,9 +49,23 @@ export {
   isConditionalCheckFailedError,
   retryWithBackoff,
   chunkArray,
+  isSevereError,
+  calculateOptimalBatchSize,
+  measureExecutionTime,
   MAX_ITEM_SIZE_BYTES,
   DEFAULT_DEDUPE_TTL_SECONDS,
 } from './utils.js';
+
+// Performance optimization utilities
+export {
+  executeInParallel,
+  executeInBatches,
+  PromisePool,
+  BatchWriter,
+  AdaptiveDelayCalculator,
+} from './performance.js';
+
+export type { ParallelProcessingConfig } from './performance.js';
 
 // Schema and key utilities
 export {

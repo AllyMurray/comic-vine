@@ -15,7 +15,8 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
+import { createDynamoDBClient, destroyDynamoDBClient, createCircuitBreaker } from './client.js';
+import { CircuitBreaker } from './circuit-breaker.js';
 import {
   buildCacheKey,
   buildExpirationGSI1Key,
@@ -39,6 +40,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   private readonly config: DynamoDBStoreConfig;
   private readonly clientWrapper: DynamoDBClientWrapper;
   private readonly docClient: DynamoDBDocumentClient;
+  private readonly circuitBreaker: CircuitBreaker;
   private cleanupInterval?: NodeJS.Timeout;
   private isDestroyed = false;
 
@@ -50,6 +52,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
         removeUndefinedValues: true,
       },
     });
+    this.circuitBreaker = createCircuitBreaker(this.config);
 
     this.startCleanupInterval();
   }
@@ -88,6 +91,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.get',
+      this.circuitBreaker,
     );
   }
 
@@ -122,6 +126,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.set',
+      this.circuitBreaker,
     );
   }
 
@@ -141,6 +146,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.delete',
+      this.circuitBreaker,
     );
   }
 
@@ -197,6 +203,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.clear',
+      this.circuitBreaker,
     );
   }
 
@@ -265,6 +272,7 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.getStats',
+      this.circuitBreaker,
     );
   }
 
@@ -331,7 +339,22 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
       },
       this.config,
       'cache.cleanup',
+      this.circuitBreaker,
     );
+  }
+
+  /**
+   * Get circuit breaker status for monitoring
+   */
+  getCircuitBreakerStatus() {
+    return this.circuitBreaker.getStatus();
+  }
+
+  /**
+   * Reset circuit breaker to closed state
+   */
+  resetCircuitBreaker(): void {
+    this.circuitBreaker.reset();
   }
 
   /**

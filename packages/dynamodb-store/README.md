@@ -123,6 +123,12 @@ interface DynamoDBStoreOptions {
   retryDelayMs?: number; // Default: 100ms
   batchSize?: number; // Default: 25 (DynamoDB max)
   cleanupIntervalMs?: number; // Default: 300000 (5 minutes)
+  circuitBreaker?: {
+    failureThreshold?: number; // Default: 5
+    recoveryTimeoutMs?: number; // Default: 60000 (1 minute)
+    timeoutMs?: number; // Default: 30000 (30 seconds)
+    enabled?: boolean; // Default: true
+  };
 }
 ```
 
@@ -133,9 +139,92 @@ interface DynamoDBStoreOptions {
 - `DynamoDBRateLimitStore` - Implements `RateLimitStore` for rate limiting
 - `DynamoDBAdaptiveRateLimitStore` - Implements `AdaptiveRateLimitStore` for priority-based rate limiting
 
+## Advanced Features
+
+### Circuit Breaker Pattern
+
+All stores include circuit breaker protection to prevent cascading failures:
+
+```typescript
+const cacheStore = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  circuitBreaker: {
+    failureThreshold: 5, // Open circuit after 5 consecutive failures
+    recoveryTimeoutMs: 60000, // Wait 1 minute before retry
+    timeoutMs: 30000, // 30 second operation timeout
+    enabled: true,
+  },
+});
+
+// Check circuit breaker status
+const status = cacheStore.getCircuitBreakerStatus();
+console.log(`Circuit breaker state: ${status.state}`);
+
+// Reset circuit breaker if needed
+cacheStore.resetCircuitBreaker();
+```
+
+### Performance Optimization
+
+The package includes utilities for optimizing DynamoDB operations:
+
+```typescript
+import { 
+  executeInParallel, 
+  BatchWriter, 
+  AdaptiveDelayCalculator 
+} from '@comic-vine/dynamodb-store';
+
+// Execute operations in parallel with concurrency control
+const results = await executeInParallel(
+  items,
+  async (item) => await processItem(item),
+  { maxConcurrency: 10 }
+);
+
+// Batch writer for efficient bulk operations
+const batchWriter = new BatchWriter(
+  config,
+  async (batch) => await writeBatch(batch)
+);
+
+// Add items to batch
+items.forEach(item => batchWriter.add(item));
+
+// Flush all batches
+await batchWriter.flush();
+```
+
+### Error Handling and Resilience
+
+Comprehensive error handling with automatic retry logic:
+
+```typescript
+import { 
+  CircuitBreakerOpenError, 
+  ThrottlingError, 
+  OperationTimeoutError 
+} from '@comic-vine/dynamodb-store';
+
+try {
+  await cacheStore.get('key');
+} catch (error) {
+  if (error instanceof CircuitBreakerOpenError) {
+    // Circuit breaker is open, service degraded
+    console.log('Service temporarily unavailable');
+  } else if (error instanceof ThrottlingError) {
+    // DynamoDB is throttling requests
+    console.log('Rate limited, backing off');
+  } else if (error instanceof OperationTimeoutError) {
+    // Operation timed out
+    console.log('Operation timed out');
+  }
+}
+```
+
 ## Status
 
-🚧 **In Development** - Core infrastructure complete, store implementations coming in Phase 2.
+✅ **Phase 3 Complete** - Enhanced connection management, circuit breaker pattern, and performance optimizations implemented.
 
 ## License
 
