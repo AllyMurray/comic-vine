@@ -29,6 +29,22 @@ export {
 // Client utilities
 export { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 
+// Utility functions
+export {
+  calculateTTL,
+  isExpired,
+  serializeValue,
+  deserializeValue,
+  sleep,
+  calculateBackoffDelay,
+  isThrottlingError,
+  isConditionalCheckFailedError,
+  retryWithBackoff,
+  chunkArray,
+  MAX_ITEM_SIZE_BYTES,
+  DEFAULT_DEDUPE_TTL_SECONDS,
+} from './utils.js';
+
 // Schema and key utilities
 export {
   TableAttributes,

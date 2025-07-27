@@ -1,0 +1,193 @@
+import { randomUUID } from 'node:crypto';
+import {
+  DynamoDBStoreError,
+  ThrottlingError,
+  ItemSizeError,
+  type DynamoDBStoreConfig,
+} from './types.js';
+
+/**
+ * Maximum item size for DynamoDB (400KB)
+ */
+export const MAX_ITEM_SIZE_BYTES = 400 * 1024;
+
+/**
+ * Default TTL for dedupe operations (5 minutes)
+ */
+export const DEFAULT_DEDUPE_TTL_SECONDS = 5 * 60;
+
+/**
+ * Calculate TTL timestamp from seconds
+ */
+export function calculateTTL(ttlSeconds: number): number {
+  if (ttlSeconds <= 0) {
+    return Math.floor(Date.now() / 1000); // Immediate expiration
+  }
+  return Math.floor(Date.now() / 1000) + ttlSeconds;
+}
+
+/**
+ * Check if an item has expired based on TTL
+ */
+export function isExpired(ttl: number): boolean {
+  const now = Math.floor(Date.now() / 1000);
+  return now >= ttl;
+}
+
+/**
+ * Serialize value to JSON string with size checking
+ */
+export function serializeValue(value: unknown): string {
+  let serialized: string;
+
+  try {
+    if (value === undefined) {
+      serialized = '__UNDEFINED__';
+    } else {
+      serialized = JSON.stringify(value);
+    }
+  } catch (error) {
+    throw new DynamoDBStoreError(
+      `Failed to serialize value: ${error instanceof Error ? error.message : String(error)}`,
+      error instanceof Error ? error : undefined,
+      'serialize',
+    );
+  }
+
+  const sizeBytes = Buffer.byteLength(serialized, 'utf8');
+  if (sizeBytes > MAX_ITEM_SIZE_BYTES) {
+    throw new ItemSizeError(sizeBytes, MAX_ITEM_SIZE_BYTES);
+  }
+
+  return serialized;
+}
+
+/**
+ * Deserialize JSON string to value
+ */
+export function deserializeValue<T>(serialized: string): T | undefined {
+  try {
+    if (serialized === '__UNDEFINED__') {
+      return undefined;
+    }
+    return JSON.parse(serialized) as T;
+  } catch (error) {
+    throw new DynamoDBStoreError(
+      `Failed to deserialize value: ${error instanceof Error ? error.message : String(error)}`,
+      error instanceof Error ? error : undefined,
+      'deserialize',
+    );
+  }
+}
+
+/**
+ * Sleep for specified milliseconds with optional jitter
+ */
+export function sleep(ms: number, jitter = 0): Promise<void> {
+  const actualMs = jitter > 0 ? ms + Math.random() * jitter : ms;
+  return new Promise((resolve) => setTimeout(resolve, actualMs));
+}
+
+/**
+ * Calculate exponential backoff delay with jitter
+ */
+export function calculateBackoffDelay(
+  attempt: number,
+  baseDelayMs: number,
+  maxDelayMs = 30000,
+): number {
+  const exponentialDelay = Math.min(
+    baseDelayMs * Math.pow(2, attempt),
+    maxDelayMs,
+  );
+  const jitter = exponentialDelay * 0.1 * Math.random(); // 10% jitter
+  return exponentialDelay + jitter;
+}
+
+/**
+ * Check if an error is a throttling error from DynamoDB
+ */
+export function isThrottlingError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+
+  const err = error as { name?: string; code?: string };
+  return (
+    err.name === 'ThrottlingException' ||
+    err.name === 'ProvisionedThroughputExceededException' ||
+    err.code === 'ThrottlingException' ||
+    err.code === 'ProvisionedThroughputExceededException'
+  );
+}
+
+/**
+ * Check if an error is a conditional check failed error
+ */
+export function isConditionalCheckFailedError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+
+  const err = error as { name?: string; code?: string };
+  return (
+    err.name === 'ConditionalCheckFailedException' ||
+    err.code === 'ConditionalCheckFailedException'
+  );
+}
+
+/**
+ * Retry operation with exponential backoff
+ */
+export async function retryWithBackoff<T>(
+  operation: () => Promise<T>,
+  config: DynamoDBStoreConfig,
+  operationName: string,
+): Promise<T> {
+  let lastError: Error;
+
+  for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      // Don't retry on the last attempt
+      if (attempt === config.maxRetries) {
+        break;
+      }
+
+      // Check if this is a throttling error that should be retried
+      if (isThrottlingError(error)) {
+        const delay = calculateBackoffDelay(attempt, config.retryDelayMs);
+        await sleep(delay);
+        continue;
+      }
+
+      // For non-throttling errors, don't retry
+      throw lastError;
+    }
+  }
+
+  // If we get here, we've exhausted all retries
+  if (isThrottlingError(lastError)) {
+    throw new ThrottlingError(operationName, lastError);
+  }
+
+  throw new DynamoDBStoreError(
+    `Operation '${operationName}' failed after ${config.maxRetries + 1} attempts`,
+    lastError,
+    operationName,
+  );
+}
+
+/**
+ * Chunk an array into smaller arrays of specified size
+ */
+export function chunkArray<T>(array: T[], chunkSize: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
