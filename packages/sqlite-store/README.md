@@ -17,6 +17,7 @@ import {
   SQLiteCacheStore,
   SQLiteDedupeStore,
   SQLiteRateLimitStore,
+  SqliteAdaptiveRateLimitStore, // NEW: Intelligent persistent rate limiting
 } from '@comic-vine/sqlite-store';
 
 // Create ONE shared connection which every store will use.
@@ -27,12 +28,12 @@ const client = new ComicVine({
   stores: {
     cache: new SQLiteCacheStore({ database: sharedDb }),
     dedupe: new SQLiteDedupeStore({ database: sharedDb }),
-    rateLimit: new SQLiteRateLimitStore({ database: sharedDb }),
+    rateLimit: new SqliteAdaptiveRateLimitStore({ database: sharedDb }), // Recommended
   },
 });
 
-// Use client normally - data persists across application restarts
-const issue = await client.issue.retrieve(1);
+// Use client normally - data persists with intelligent rate limiting
+const issue = await client.issue.retrieve(1, { priority: 'user' });
 ```
 
 ## Key Features
@@ -117,6 +118,90 @@ const rateLimitStore = new SQLiteRateLimitStore({
 - Automatic cleanup of expired records
 - Flexible default and per-resource configurations
 
+### SqliteAdaptiveRateLimitStore (Recommended)
+
+Advanced rate limiting with intelligent priority-based capacity allocation that persists across application restarts and supports cross-process coordination.
+
+```typescript
+import type { SqliteAdaptiveRateLimitStoreOptions } from '@comic-vine/sqlite-store';
+
+const adaptiveStore = new SqliteAdaptiveRateLimitStore({
+  database: './comic-vine.db', // Shared database for all stores
+  adaptiveConfig: {
+    // Activity detection
+    highActivityThreshold: 10, // Requests/15min to trigger priority mode
+    moderateActivityThreshold: 3, // Requests/15min for moderate activity
+
+    // Timing behavior
+    monitoringWindowMs: 15 * 60 * 1000, // 15 minutes monitoring window
+    sustainedInactivityThresholdMs: 30 * 60 * 1000, // 30min for full background scale-up
+    recalculationIntervalMs: 30000, // Recalculate every 30 seconds
+
+    // Capacity limits
+    maxUserScaling: 2.0, // Maximum user capacity multiplier
+    minUserReserved: 5, // Minimum guaranteed user requests
+    backgroundPauseOnIncreasingTrend: true, // Pause background on user surge
+  },
+});
+```
+
+**Unique SQLite Features:**
+
+- **Cross-Process Coordination**: Multiple application instances share the same rate limiting state
+- **Persistent Activity Tracking**: Rate limiting history survives application restarts
+- **Recovery Support**: Handles application crashes gracefully with timeout recovery
+- **Performance Optimized**: Hybrid approach with in-memory metrics and SQLite persistence
+- **Migration Support**: Automatically upgrades database schema with priority column
+
+**How SQLite Adaptive Rate Limiting Works:**
+
+```typescript
+// Process A (web server)
+const webClient = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({ database: sharedDb }),
+  },
+});
+
+// Process B (background worker) - shares the same rate limiting state
+const workerClient = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({ database: sharedDb }),
+  },
+});
+
+// Web server requests get priority during high activity
+const userCharacter = await webClient.character.retrieve(1443, {
+  priority: 'user',
+});
+
+// Background worker respects the adaptive allocation
+const backgroundVolumes = await workerClient.volume.list({
+  priority: 'background', // May be throttled if web server is active
+});
+```
+
+**Persistence Benefits:**
+
+```typescript
+// Application restart scenario
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: './comic-vine.db',
+    }),
+  },
+});
+
+// Rate limiting history is preserved:
+// - Recent activity patterns remain tracked
+// - Capacity allocation continues from where it left off
+// - No "cold start" penalty on rate limiting behavior
+```
+
 ## How Stores Work Together
 
 The SQLite stores provide persistent versions of the same request optimization flow:
@@ -182,10 +267,36 @@ const db = new Database('./comic-vine-stores.db');
 const stores = {
   cache: new SQLiteCacheStore({ database: db }),
   dedupe: new SQLiteDedupeStore({ database: db }),
-  rateLimit: new SQLiteRateLimitStore({ database: db }),
+  rateLimit: new SqliteAdaptiveRateLimitStore({ database: db }), // Adaptive rate limiting
 };
 
 // The stores automatically create their own tables within the shared database
+```
+
+**Cross-Process Setup (Multiple Application Instances):**
+
+```typescript
+// All processes share the same database file for coordination
+const sharedDbPath = './shared-comic-vine.db';
+
+// Process 1: Web Server
+const webClient = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: sharedDbPath }),
+    rateLimit: new SqliteAdaptiveRateLimitStore({ database: sharedDbPath }),
+  },
+});
+
+// Process 2: Background Worker
+const workerClient = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({ database: sharedDbPath }),
+  },
+});
+
+// Both processes coordinate through the shared SQLite database
 ```
 
 **Alternative**: Separate databases per store:
@@ -230,6 +341,25 @@ CREATE TABLE dedupe_jobs (
 
 ### Rate Limits Table
 
+**Enhanced Schema (Adaptive Rate Limiting):**
+
+```sql
+CREATE TABLE rate_limits (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  resource TEXT NOT NULL,
+  timestamp INTEGER NOT NULL,
+  priority TEXT NOT NULL DEFAULT 'background' -- NEW: Priority tracking
+);
+
+-- Optimized indexes for adaptive rate limiting
+CREATE INDEX IF NOT EXISTS idx_rate_limit_resource ON rate_limits(resource);
+CREATE INDEX IF NOT EXISTS idx_rate_limit_timestamp ON rate_limits(timestamp);
+CREATE INDEX IF NOT EXISTS idx_rate_limit_resource_priority_timestamp
+  ON rate_limits(resource, priority, timestamp);
+```
+
+**Legacy Schema (Traditional Rate Limiting):**
+
 ```sql
 CREATE TABLE rate_limits (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -237,6 +367,8 @@ CREATE TABLE rate_limits (
   timestamp INTEGER NOT NULL
 );
 ```
+
+The adaptive rate limiting store automatically migrates existing databases by adding the `priority` column with a default value of `'background'`, ensuring backward compatibility with existing rate limiting data.
 
 ## Configuration
 
@@ -280,16 +412,27 @@ import type {
   SQLiteCacheStoreOptions,
   SQLiteDedupeStoreOptions,
   SQLiteRateLimitStoreOptions,
+  SqliteAdaptiveRateLimitStoreOptions, // NEW: Adaptive rate limiting options
 } from '@comic-vine/sqlite-store';
 
-// Type-safe configuration
-const cacheOptions: SQLiteCacheStoreOptions = {
-  database: './cache.db',
-  cleanupIntervalMs: 120_000,
-  maxEntrySizeBytes: 1024 * 1024, // 1MB
+// Type-safe configuration for traditional rate limiting
+const rateLimitOptions: SQLiteRateLimitStoreOptions = {
+  database: './rate-limits.db',
+  defaultConfig: { limit: 200, windowMs: 3600000 },
+  resourceConfigs: new Map([['issues', { limit: 100, windowMs: 3600000 }]]),
 };
 
-const cache = new SQLiteCacheStore(cacheOptions);
+// Type-safe configuration for adaptive rate limiting
+const adaptiveOptions: SqliteAdaptiveRateLimitStoreOptions = {
+  database: './comic-vine.db',
+  adaptiveConfig: {
+    highActivityThreshold: 15,
+    sustainedInactivityThresholdMs: 45 * 60 * 1000,
+    maxUserScaling: 1.5,
+  },
+};
+
+const adaptiveStore = new SqliteAdaptiveRateLimitStore(adaptiveOptions);
 ```
 
 ## Deployment Considerations
@@ -329,6 +472,68 @@ sqlite3 comic-vine.db "VACUUM;"
 
 # Check database integrity
 sqlite3 comic-vine.db "PRAGMA integrity_check;"
+```
+
+### Production Considerations for Adaptive Rate Limiting
+
+**Multi-Instance Deployments:**
+
+```typescript
+// Docker Compose setup with shared volume
+// docker-compose.yml
+services:
+  web:
+    build: .
+    volumes:
+      - ./data:/app/data
+    environment:
+      - COMIC_VINE_DB_PATH=/app/data/shared.db
+
+  worker:
+    build: .
+    volumes:
+      - ./data:/app/data  # Same shared volume
+    environment:
+      - COMIC_VINE_DB_PATH=/app/data/shared.db
+
+// Application code
+const client = new ComicVine({
+  apiKey: process.env.COMIC_VINE_API_KEY,
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: process.env.COMIC_VINE_DB_PATH,
+    }),
+  },
+});
+```
+
+**Load Balancer Scenarios:**
+
+```typescript
+// Each application instance behind a load balancer
+// shares the same rate limiting state through SQLite
+
+// Instance 1 (handles user requests)
+const webInstance1 = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: '/shared/comic-vine.db',
+    }),
+  },
+});
+
+// Instance 2 (handles background jobs)
+const backgroundInstance = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: '/shared/comic-vine.db', // Same database
+    }),
+  },
+});
+
+// Adaptive system coordinates across all instances
 ```
 
 ## API Reference
@@ -384,6 +589,43 @@ await rateLimitStore.cleanup();
 
 // Close database connection
 await rateLimitStore.close();
+```
+
+### SqliteAdaptiveRateLimitStore
+
+```typescript
+// Get comprehensive statistics including adaptive metrics
+const stats = await adaptiveStore.getStats();
+// {
+//   totalRequests: 2157,
+//   uniqueResources: 12,
+//   rateLimitedResources: ['issues'],
+//   adaptiveMetrics: {
+//     averageUserActivity: 8.5,
+//     backgroundUtilization: 0.75,
+//     priorityModeActivations: 14
+//   }
+// }
+
+// Check current adaptive status
+const status = await adaptiveStore.getStatus('characters');
+console.log(status.adaptive);
+// {
+//   userReserved: 140,
+//   backgroundMax: 60,
+//   backgroundPaused: false,
+//   recentUserActivity: 7,
+//   reason: "Moderate user activity - dynamic scaling (1.4x user capacity)"
+// }
+
+// Configure resource-specific traditional limits (if needed)
+adaptiveStore.setResourceConfig('videos', { limit: 50, windowMs: 3600000 });
+
+// Manual cleanup (cleans both priority and traditional rate limit data)
+await adaptiveStore.cleanup();
+
+// Close database connection
+await adaptiveStore.close();
 ```
 
 ## Performance Characteristics

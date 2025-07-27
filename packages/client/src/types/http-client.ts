@@ -1,4 +1,5 @@
 import { Response } from './response.js';
+import { RequestPriority } from '../stores/rate-limit-store.js';
 
 export interface HttpClient {
   /**
@@ -17,6 +18,10 @@ export interface HttpClient {
        * promise rejects with an `AbortError`-like `Error` instance.
        */
       signal?: AbortSignal;
+      /**
+       * Priority level for the request (affects rate limiting behavior)
+       */
+      priority?: RequestPriority;
     },
   ): Promise<Response<Result>>;
 }

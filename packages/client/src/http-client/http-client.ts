@@ -14,6 +14,8 @@ import {
   CacheStore,
   DedupeStore,
   RateLimitStore,
+  AdaptiveRateLimitStore,
+  RequestPriority,
   hashRequest,
 } from '../stores/index.js';
 import { Response, HttpClient as HttpClientContract } from '../types/index.js';
@@ -57,7 +59,7 @@ function wait(ms: number, signal?: AbortSignal): Promise<void> {
 export interface HttpClientStores {
   cache?: CacheStore;
   dedupe?: DedupeStore;
-  rateLimit?: RateLimitStore;
+  rateLimit?: RateLimitStore | AdaptiveRateLimitStore;
 }
 
 export interface HttpClientOptions {
@@ -124,6 +126,18 @@ export class HttpClient implements HttpClientContract {
     return { endpoint, params };
   }
 
+  /**
+   * Type guard to check if a rate limit store supports adaptive features
+   * @param store The rate limit store to check
+   * @returns True if the store is an adaptive rate limit store
+   */
+  private isAdaptiveRateLimitStore(
+    store: RateLimitStore | AdaptiveRateLimitStore,
+  ): store is AdaptiveRateLimitStore {
+    // Check if the store has the adaptive-specific method signatures
+    return 'canProceed' in store && store.canProceed.length >= 2;
+  }
+
   private handleResponse<Result>(response: AxiosResponse<Response<Result>>) {
     switch (response.data.statusCode) {
       case StatusCode.FilterError:
@@ -159,9 +173,9 @@ export class HttpClient implements HttpClientContract {
 
   async get<Result>(
     url: string,
-    options: { signal?: AbortSignal } = {},
+    options: { signal?: AbortSignal; priority?: RequestPriority } = {},
   ): Promise<Response<Result>> {
-    const { signal } = options;
+    const { signal, priority = 'background' } = options;
     const { endpoint, params } = this.parseUrlForHashing(url);
     const hash = hashRequest(endpoint, params);
     const resource = this.inferResource(url);
@@ -188,17 +202,26 @@ export class HttpClient implements HttpClientContract {
 
       // 3. Rate limiting - check if request can proceed
       if (this.stores.rateLimit) {
-        const canProceed = await this.stores.rateLimit.canProceed(resource);
+        // Check if the store supports adaptive rate limiting
+        const isAdaptive = this.isAdaptiveRateLimitStore(this.stores.rateLimit);
+        const canProceed = isAdaptive
+          ? await this.stores.rateLimit.canProceed(resource, priority)
+          : await this.stores.rateLimit.canProceed(resource);
+
         if (!canProceed) {
           if (this.options.throwOnRateLimit) {
-            const waitTime = await this.stores.rateLimit.getWaitTime(resource);
+            const waitTime = isAdaptive
+              ? await this.stores.rateLimit.getWaitTime(resource, priority)
+              : await this.stores.rateLimit.getWaitTime(resource);
             throw new Error(
               `Rate limit exceeded for resource '${resource}'. Wait ${waitTime}ms before retrying.`,
             );
           } else {
             // Wait for rate limit to reset
             const waitTime = Math.min(
-              await this.stores.rateLimit.getWaitTime(resource),
+              isAdaptive
+                ? await this.stores.rateLimit.getWaitTime(resource, priority)
+                : await this.stores.rateLimit.getWaitTime(resource),
               this.options.maxWaitTime,
             );
             if (waitTime > 0) {
@@ -221,7 +244,12 @@ export class HttpClient implements HttpClientContract {
 
       // 5. Record the request for rate limiting
       if (this.stores.rateLimit) {
-        await this.stores.rateLimit.record(resource);
+        const isAdaptive = this.isAdaptiveRateLimitStore(this.stores.rateLimit);
+        if (isAdaptive) {
+          await this.stores.rateLimit.record(resource, priority);
+        } else {
+          await this.stores.rateLimit.record(resource);
+        }
       }
 
       // 6. Cache the result

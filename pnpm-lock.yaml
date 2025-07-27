@@ -107,6 +107,9 @@ importers:
       fast-safe-stringify:
         specifier: ^2.1.1
         version: 2.1.1
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.71
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -174,6 +177,9 @@ importers:
       drizzle-orm:
         specifier: ^0.33.0
         version: 0.33.0(@types/better-sqlite3@7.6.13)(better-sqlite3@12.2.0)
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.71
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
