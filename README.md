@@ -30,6 +30,7 @@ A TypeScript client library for the Comic Vine API with built-in caching, dedupl
 ## Features
 
 - **Type-safe API**: Full TypeScript support with detailed type definitions
+- **Adaptive Rate Limiting**: Intelligent priority-based rate limiting that maximizes API utilization
 - **Caching**: Configurable caching with TTL support
 - **Deduplication**: Prevents duplicate concurrent requests
 - **Rate limiting**: Respects API rate limits with configurable policies
@@ -222,6 +223,42 @@ const client = new ComicVine({
     dedupe: new SQLiteDedupeStore({ database: db }),
     rateLimit: new SQLiteRateLimitStore({ database: db }),
   },
+});
+```
+
+#### Adaptive Rate Limiting (Recommended)
+
+For intelligent API utilization that adapts to user activity patterns:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+// or for persistent storage:
+// import { SqliteAdaptiveRateLimitStore } from '@comic-vine/sqlite-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      // Zero configuration required - great defaults included!
+      // Optionally customize behavior:
+      adaptiveConfig: {
+        highActivityThreshold: 10, // User requests per 15min to trigger priority mode
+        sustainedInactivityThresholdMs: 30 * 60 * 1000, // 30min before full background scale-up
+        minUserReserved: 5, // Always guarantee minimum requests for users
+      },
+    }),
+  },
+});
+
+// Use priority parameter for user-facing requests
+const userCharacter = await client.character.retrieve(1443, {
+  priority: 'user', // Gets priority during high activity
+});
+
+// Background requests automatically get remaining capacity
+const backgroundVolumes = await client.volume.list({
+  priority: 'background', // May be throttled during user activity
 });
 ```
 
@@ -427,6 +464,218 @@ for await (const character of client.character.list({
 
 console.log(`Found ${spiderCharacters.length} Spider characters`);
 ```
+
+## Adaptive Rate Limiting
+
+The Comic Vine client includes an advanced adaptive rate limiting system that intelligently manages API capacity based on real-time user activity patterns. This feature maximizes API utilization while ensuring excellent user experience.
+
+### How Adaptive Rate Limiting Works
+
+The adaptive system dynamically allocates API capacity between **user requests** (interactive, time-sensitive) and **background requests** (bulk operations, scheduled tasks) based on current activity:
+
+**Real-Time Activity Monitoring:**
+
+- Tracks user activity in 15-minute windows
+- Detects activity trends (increasing, stable, decreasing)
+- Recalculates capacity allocation every 30 seconds
+
+**Four Adaptive Strategies:**
+
+1. **Night Mode (Zero User Activity)**: Background gets 100% capacity (200/200 requests)
+2. **Low Activity Mode**: Background gets 70% capacity, users get 30% reserved
+3. **Moderate Activity Mode**: Dynamic scaling based on usage patterns
+4. **High Activity Mode**: Users get priority (90% capacity), background paused
+
+### Benefits
+
+**Maximum Efficiency:**
+
+- **Nighttime**: Background jobs consume all 200 requests/hour when users are inactive
+- **Daytime**: User requests get instant priority during peak usage
+- **Adaptive**: Seamless transitions between modes based on real activity
+
+**User Experience Protection:**
+
+- User requests never wait during activity spikes
+- Guaranteed minimum capacity even during background scale-up
+- Automatic detection and response to usage surges
+
+### Quick Start
+
+**Zero Configuration (Recommended):**
+
+```typescript
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      // Perfect defaults - no configuration needed!
+    }),
+  },
+});
+
+// User-facing requests get priority
+const character = await client.character.retrieve(1443, {
+  priority: 'user',
+});
+
+// Background processing gets remaining capacity
+for await (const issue of client.issue.list({ priority: 'background' })) {
+  // Process issues in background
+}
+```
+
+### Custom Configuration
+
+**Tune behavior for your specific use case:**
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      adaptiveConfig: {
+        // Activity detection
+        highActivityThreshold: 15, // Default: 10 requests/15min
+        moderateActivityThreshold: 5, // Default: 3 requests/15min
+
+        // Timing behavior
+        monitoringWindowMs: 20 * 60 * 1000, // Default: 15min
+        sustainedInactivityThresholdMs: 45 * 60 * 1000, // Default: 30min
+        recalculationIntervalMs: 60000, // Default: 30 seconds
+
+        // Capacity limits
+        maxUserScaling: 1.5, // Default: 2.0 (max user capacity multiplier)
+        minUserReserved: 10, // Default: 5 (minimum guaranteed user requests)
+
+        // Background behavior
+        backgroundPauseOnIncreasingTrend: true, // Default: true
+      },
+    }),
+  },
+});
+```
+
+### Real-World Scenarios
+
+**Scenario 1: Night Operations (2:00 AM)**
+
+```
+Recent user activity: 0 requests/15min
+Sustained inactivity: 45+ minutes
+→ User reserved: 0 requests/hour
+→ Background max: 200 requests/hour (100% API capacity!)
+→ Background paused: false
+```
+
+**Scenario 2: Morning Usage (8:00 AM)**
+
+```
+Recent user activity: 4 requests/15min
+Trend: stable
+→ User reserved: 80 requests/hour (40% base allocation)
+→ Background max: 120 requests/hour
+→ Background paused: false
+```
+
+**Scenario 3: Peak Activity (10:00 AM)**
+
+```
+Recent user activity: 18 requests/15min
+Trend: increasing
+→ User reserved: 180 requests/hour (prioritized)
+→ Background max: 20 requests/hour
+→ Background paused: true (trend is increasing)
+```
+
+### Priority Guidelines
+
+**Use `priority: 'user'` for:**
+
+- Interactive user requests (searches, detail views)
+- Real-time features (autocomplete, live updates)
+- Time-sensitive operations
+- API requests triggered by user actions
+
+**Use `priority: 'background'` for:**
+
+- Bulk data processing
+- Scheduled synchronization
+- Cache warming
+- Analytics and reporting
+- Non-urgent batch operations
+
+### Monitoring and Status
+
+**Check adaptive status:**
+
+```typescript
+const status = await client.stores.rateLimit.getStatus('characters');
+console.log(status.adaptive);
+// {
+//   userReserved: 120,
+//   backgroundMax: 80,
+//   backgroundPaused: false,
+//   recentUserActivity: 6,
+//   reason: "Moderate user activity - dynamic scaling (1.3x user capacity)"
+// }
+```
+
+### Migration from Traditional Rate Limiting
+
+**Existing code continues to work unchanged:**
+
+```typescript
+// Existing code - no changes needed
+const issue = await client.issue.retrieve(1);
+const issues = await client.issue.list();
+
+// These are treated as 'background' priority by default
+// Adaptive system provides them with available capacity
+```
+
+**Gradually add priority where beneficial:**
+
+```typescript
+// Add priority to user-facing requests
+const userSearch = await client.character.list({
+  filter: { name: searchTerm },
+  priority: 'user', // Gets priority during high activity
+});
+
+// Background operations can specify their priority
+const syncData = await client.volume.list({
+  priority: 'background', // Explicitly background priority
+});
+```
+
+**SQLite Store Support:**
+
+```typescript
+import { SqliteAdaptiveRateLimitStore } from '@comic-vine/sqlite-store';
+
+// Persistent adaptive rate limiting across app restarts
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: './comic-vine.db',
+      adaptiveConfig: {
+        // Same configuration options available
+      },
+    }),
+  },
+});
+```
+
+### Performance Impact
+
+- **Zero overhead** for traditional rate limiting users
+- **Minimal overhead** when using adaptive features
+- **Memory efficient** with automatic cleanup
+- **Configurable recalculation intervals** prevent thrashing
 
 ## Error Handling
 

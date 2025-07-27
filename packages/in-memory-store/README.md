@@ -16,6 +16,7 @@ import {
   InMemoryCacheStore,
   InMemoryDedupeStore,
   InMemoryRateLimitStore,
+  AdaptiveRateLimitStore, // NEW: Intelligent rate limiting
 } from '@comic-vine/in-memory-store';
 
 const client = new ComicVine({
@@ -23,12 +24,12 @@ const client = new ComicVine({
   stores: {
     cache: new InMemoryCacheStore(),
     dedupe: new InMemoryDedupeStore(),
-    rateLimit: new InMemoryRateLimitStore(),
+    rateLimit: new AdaptiveRateLimitStore(), // Recommended for optimal API usage
   },
 });
 
-// Use client normally - data is cached in memory
-const issue = await client.issue.retrieve(1);
+// Use client normally - data is cached in memory with intelligent rate limiting
+const issue = await client.issue.retrieve(1, { priority: 'user' });
 ```
 
 ## Key Features
@@ -104,6 +105,92 @@ const rateLimitStore = new InMemoryRateLimitStore({
 - Memory-efficient timestamp tracking
 - Flexible default and per-resource configurations
 
+### AdaptiveRateLimitStore (Recommended)
+
+Advanced rate limiting with intelligent priority-based capacity allocation that adapts to real-time user activity patterns.
+
+```typescript
+import type { AdaptiveRateLimitStoreOptions } from '@comic-vine/in-memory-store';
+
+const adaptiveStore = new AdaptiveRateLimitStore({
+  adaptiveConfig: {
+    // Activity detection
+    highActivityThreshold: 10, // Requests/15min to trigger priority mode
+    moderateActivityThreshold: 3, // Requests/15min for moderate activity
+
+    // Timing behavior
+    monitoringWindowMs: 15 * 60 * 1000, // 15 minutes monitoring window
+    sustainedInactivityThresholdMs: 30 * 60 * 1000, // 30min for full background scale-up
+    recalculationIntervalMs: 30000, // Recalculate every 30 seconds
+
+    // Capacity limits
+    maxUserScaling: 2.0, // Maximum user capacity multiplier
+    minUserReserved: 5, // Minimum guaranteed user requests
+    backgroundPauseOnIncreasingTrend: true, // Pause background on user surge
+  },
+});
+```
+
+**Features:**
+
+- **Real-time adaptation**: Dynamically allocates capacity based on user activity patterns
+- **Priority-aware**: Distinguishes between user requests and background operations
+- **Four adaptive strategies**: Night mode, low activity, moderate activity, high activity
+- **Zero configuration**: Works perfectly with intelligent defaults
+- **Memory efficient**: In-memory activity tracking with automatic cleanup
+- **Trend detection**: Recognizes increasing, stable, decreasing, or no activity trends
+
+**How It Works:**
+
+```typescript
+// Night time (zero user activity for 30+ minutes)
+// → Background gets 100% capacity (200/200 requests)
+
+// Low activity (1-2 user requests per 15 minutes)
+// → Users: 30% reserved, Background: 70% capacity
+
+// Moderate activity (3-9 user requests per 15 minutes)
+// → Dynamic scaling based on trends and activity level
+
+// High activity (10+ user requests per 15 minutes)
+// → Users: 90% priority capacity, Background: paused during increasing trends
+```
+
+**Usage with Priority:**
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore(), // Zero config needed!
+  },
+});
+
+// User-facing requests get priority during high activity
+const character = await client.character.retrieve(1443, {
+  priority: 'user',
+});
+
+// Background operations get remaining capacity
+const volumes = await client.volume.list({
+  priority: 'background',
+});
+
+// Check adaptive status
+const status = await client.stores.rateLimit.getStatus('characters');
+console.log(status.adaptive);
+// {
+//   userReserved: 120,
+//   backgroundMax: 80,
+//   backgroundPaused: false,
+//   recentUserActivity: 4,
+//   reason: "Moderate user activity - dynamic scaling (1.2x user capacity)"
+// }
+```
+
 ## How Stores Work Together
 
 The three store types work in sequence to optimize API requests:
@@ -151,7 +238,7 @@ import ComicVine from '@comic-vine/client';
 import {
   InMemoryCacheStore,
   InMemoryDedupeStore,
-  InMemoryRateLimitStore,
+  AdaptiveRateLimitStore, // Recommended for intelligent rate limiting
 } from '@comic-vine/in-memory-store';
 
 const client = new ComicVine({
@@ -159,12 +246,14 @@ const client = new ComicVine({
   stores: {
     cache: new InMemoryCacheStore(),
     dedupe: new InMemoryDedupeStore(),
-    rateLimit: new InMemoryRateLimitStore(),
+    rateLimit: new AdaptiveRateLimitStore(), // Zero configuration needed!
   },
 });
 ```
 
 ### Custom Configuration
+
+**With Traditional Rate Limiting:**
 
 ```typescript
 const client = new ComicVine({
@@ -190,6 +279,34 @@ const client = new ComicVine({
 });
 ```
 
+**With Adaptive Rate Limiting (Recommended):**
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 5000,
+      ttl: 600_000, // 10 minutes
+      cleanupIntervalMs: 120_000, // 2 minutes
+    }),
+    dedupe: new InMemoryDedupeStore({
+      jobTimeoutMs: 600_000, // 10 minutes
+      cleanupIntervalMs: 120_000, // 2 minutes
+    }),
+    rateLimit: new AdaptiveRateLimitStore({
+      adaptiveConfig: {
+        // Fine-tune behavior for your use case
+        highActivityThreshold: 15, // Requests/15min to trigger priority mode
+        sustainedInactivityThresholdMs: 45 * 60 * 1000, // 45min before full background mode
+        maxUserScaling: 1.5, // Conservative user scaling
+        minUserReserved: 10, // Higher minimum for users
+      },
+    }),
+  },
+});
+```
+
 ## TypeScript Support
 
 All stores export their option interfaces for type safety:
@@ -199,16 +316,25 @@ import type {
   InMemoryCacheStoreOptions,
   InMemoryDedupeStoreOptions,
   InMemoryRateLimitStoreOptions,
+  AdaptiveRateLimitStoreOptions, // NEW: Adaptive rate limiting options
 } from '@comic-vine/in-memory-store';
 
-// Type-safe configuration
-const cacheOptions: InMemoryCacheStoreOptions = {
-  maxSize: 2000,
-  ttl: 300_000,
-  cleanupIntervalMs: 60_000,
+// Type-safe configuration for traditional rate limiting
+const rateLimitOptions: InMemoryRateLimitStoreOptions = {
+  defaultConfig: { limit: 200, windowMs: 3600000 },
+  resourceConfigs: new Map([['issues', { limit: 100, windowMs: 3600000 }]]),
 };
 
-const cache = new InMemoryCacheStore(cacheOptions);
+// Type-safe configuration for adaptive rate limiting
+const adaptiveOptions: AdaptiveRateLimitStoreOptions = {
+  adaptiveConfig: {
+    highActivityThreshold: 15,
+    sustainedInactivityThresholdMs: 45 * 60 * 1000,
+    maxUserScaling: 1.5,
+  },
+};
+
+const adaptiveStore = new AdaptiveRateLimitStore(adaptiveOptions);
 ```
 
 ## Performance Characteristics
@@ -225,7 +351,34 @@ const cache = new InMemoryCacheStore(cacheOptions);
 - **Dedupe Check**: O(1) lookup
 - **Rate Limit Check**: O(log n) where n is requests in window
 
-## Comparison with SQLite Stores
+## Store Comparison
+
+### Rate Limiting: Adaptive vs Traditional
+
+| Feature                    | Traditional Rate Limiting | Adaptive Rate Limiting      |
+| -------------------------- | ------------------------- | --------------------------- |
+| **Configuration Required** | Yes (limits per resource) | No (intelligent defaults)   |
+| **API Utilization**        | Fixed allocation          | Dynamic (up to 100%)        |
+| **User Experience**        | First-come-first-served   | Priority during activity    |
+| **Background Processing**  | Competes with users       | Scales up when idle         |
+| **Activity Awareness**     | No                        | Real-time monitoring        |
+| **Trend Detection**        | No                        | Yes (increasing/decreasing) |
+| **Night/Off-hours**        | Wasted capacity           | Full background utilization |
+
+**When to use Traditional Rate Limiting:**
+
+- Simple, predictable workloads
+- No distinction between user/background requests
+- Fixed capacity requirements
+
+**When to use Adaptive Rate Limiting (Recommended):**
+
+- Applications with varying user activity
+- Mix of interactive and background operations
+- Want to maximize API utilization
+- Need responsive user experience
+
+### In-Memory vs SQLite Stores
 
 | Feature           | In-Memory   | SQLite               |
 | ----------------- | ----------- | -------------------- |

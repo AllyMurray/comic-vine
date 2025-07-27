@@ -126,7 +126,7 @@ There's a good chance you may find an issue with the typings in the API response
 
 ## Rate Limiting
 
-The Comic Vine API implements rate limiting to ensure fair usage and API health for all users.
+The Comic Vine API implements rate limiting to ensure fair usage and API health for all users. The client provides both traditional rate limiting and an advanced **adaptive rate limiting** system for intelligent API utilization.
 
 ### API Limits & Rate Limiting
 
@@ -136,7 +136,136 @@ The Comic Vine API enforces the following limits:
 - **Velocity detection** - Prevents too many requests per second
 - **Temporary blocks** - May occur if limits are exceeded
 
-The client provides built-in rate limiting with two configurable behaviors:
+### Adaptive Rate Limiting (Recommended)
+
+The adaptive rate limiting system intelligently manages API capacity between user requests and background operations based on real-time activity patterns. This ensures maximum API utilization while protecting user experience.
+
+#### Quick Start with Adaptive Rate Limiting
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      // Zero configuration needed - intelligent defaults included!
+    }),
+  },
+});
+
+// User-facing requests get priority during high activity
+const character = await client.character.retrieve(1443, {
+  priority: 'user',
+});
+
+// Background operations get remaining capacity
+const volumes = await client.volume.list({
+  priority: 'background',
+});
+```
+
+#### How Adaptive Rate Limiting Works
+
+The system dynamically allocates API capacity based on recent user activity:
+
+**Night Mode (Zero Activity):**
+
+- Background operations get 100% capacity (200/200 requests)
+- Perfect for scheduled data synchronization
+
+**Low Activity Mode:**
+
+- Users get 30% reserved capacity
+- Background gets 70% capacity
+
+**High Activity Mode:**
+
+- Users get 90% priority capacity
+- Background requests paused during increasing trends
+
+**Real-Time Adaptation:**
+
+- Monitors activity in 15-minute windows
+- Recalculates every 30 seconds
+- Seamless transitions between modes
+
+#### Priority Parameter
+
+Add the `priority` parameter to any request to indicate its importance:
+
+```typescript
+// User-triggered requests (interactive, time-sensitive)
+const searchResults = await client.character.list({
+  filter: { name: 'Spider-Man' },
+  priority: 'user', // Gets priority during high activity
+});
+
+const detailView = await client.issue.retrieve(12345, {
+  fieldList: ['id', 'name', 'description', 'image'],
+  priority: 'user', // Immediate processing
+});
+
+// Background operations (bulk processing, sync)
+const allVolumes = [];
+for await (const volume of client.volume.list({
+  priority: 'background', // Uses available capacity
+})) {
+  allVolumes.push(volume);
+}
+
+const bulkCharacters = await client.character.list({
+  limit: 100,
+  priority: 'background', // May be throttled during user activity
+});
+```
+
+#### Configuration Options
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      adaptiveConfig: {
+        // Activity thresholds
+        highActivityThreshold: 10, // Requests/15min to trigger high activity mode
+        moderateActivityThreshold: 3, // Requests/15min for moderate activity
+
+        // Timing
+        monitoringWindowMs: 15 * 60 * 1000, // 15 minutes activity window
+        sustainedInactivityThresholdMs: 30 * 60 * 1000, // 30min for full background mode
+        recalculationIntervalMs: 30000, // Recalculate every 30 seconds
+
+        // Capacity limits
+        maxUserScaling: 2.0, // Maximum user capacity multiplier
+        minUserReserved: 5, // Minimum guaranteed user requests
+        backgroundPauseOnIncreasingTrend: true, // Pause background on user surge
+      },
+    }),
+  },
+});
+```
+
+#### Monitoring Adaptive Status
+
+```typescript
+// Check current adaptive allocation
+const status = await client.stores.rateLimit.getStatus('characters');
+console.log(status.adaptive);
+// {
+//   userReserved: 120,      // Capacity reserved for user requests
+//   backgroundMax: 80,      // Maximum background capacity
+//   backgroundPaused: false, // Whether background is paused
+//   recentUserActivity: 6,   // Recent user requests count
+//   reason: "Moderate user activity - dynamic scaling (1.3x user capacity)"
+// }
+```
+
+### Traditional Rate Limiting
+
+The client also provides traditional rate limiting with two configurable behaviors:
 
 #### Throw on Rate Limit (Default)
 
@@ -268,6 +397,63 @@ for await (const issue of client.issue.list()) {
   console.log(issue.name);
   // Automatically handles pagination and rate limiting
 }
+```
+
+### Migration to Adaptive Rate Limiting
+
+**Existing code continues to work unchanged:**
+
+```typescript
+// All existing code works without modification
+const issue = await client.issue.retrieve(1);
+const characters = await client.character.list();
+
+// Requests without priority are treated as 'background'
+// and get appropriate capacity allocation
+```
+
+**Gradually add priority for better optimization:**
+
+```typescript
+// Step 1: Identify user-facing requests
+const userSearch = await client.character.list({
+  filter: { name: searchQuery },
+  priority: 'user', // Add priority for user requests
+});
+
+// Step 2: Mark background operations
+const syncData = await client.volume.list({
+  limit: 100,
+  priority: 'background', // Explicit background priority
+});
+
+// Step 3: Use adaptive stores
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore(), // Drop-in replacement
+  },
+});
+```
+
+**SQLite Support for Persistence:**
+
+```typescript
+import { SqliteAdaptiveRateLimitStore } from '@comic-vine/sqlite-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: './comic-vine.db',
+      adaptiveConfig: {
+        // Custom configuration options
+      },
+    }),
+  },
+});
 ```
 
 ## Error Handling
