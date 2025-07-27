@@ -109,6 +109,166 @@ await cacheStore.set('cache-key', { data: 'value' }, 3600);
 const cached = await cacheStore.get('cache-key');
 ```
 
+## Store Examples
+
+### Cache Store
+
+The cache store provides TTL-based caching with automatic cleanup:
+
+```typescript
+import { DynamoDBCacheStore } from '@comic-vine/dynamodb-store';
+
+const cacheStore = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  cleanupIntervalMs: 300000, // Clean up expired items every 5 minutes
+});
+
+// Store different data types
+await cacheStore.set('user:123', { id: 123, name: 'John' }, 3600);
+await cacheStore.set('config', { theme: 'dark', lang: 'en' }, 7200);
+
+// Retrieve values
+const user = await cacheStore.get<{ id: number; name: string }>('user:123');
+const config = await cacheStore.get<{ theme: string; lang: string }>('config');
+
+// Manual cleanup and statistics
+const deletedCount = await cacheStore.cleanup();
+const stats = await cacheStore.getStats();
+console.log(`Cache contains ${stats.totalItems} items (${stats.expiredItems} expired)`);
+
+// Clean shutdown
+await cacheStore.close();
+```
+
+### Dedupe Store
+
+The dedupe store prevents duplicate concurrent operations:
+
+```typescript
+import { DynamoDBDedupeStore } from '@comic-vine/dynamodb-store';
+
+const dedupeStore = new DynamoDBDedupeStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  defaultTtlSeconds: 300, // Jobs expire after 5 minutes
+  maxWaitTimeMs: 30000,   // Wait up to 30 seconds for completion
+});
+
+async function processExpensiveOperation(hash: string) {
+  // Check if operation is already in progress
+  const existing = await dedupeStore.waitFor(hash);
+  if (existing !== undefined) {
+    return existing; // Another process completed it
+  }
+
+  // Register new job
+  const jobId = await dedupeStore.register(hash);
+  
+  try {
+    // Perform expensive operation
+    const result = await performActualWork(hash);
+    
+    // Mark as completed
+    await dedupeStore.complete(hash, result);
+    return result;
+  } catch (error) {
+    // Mark as failed
+    await dedupeStore.fail(hash, error);
+    throw error;
+  }
+}
+
+// Usage
+const result1 = processExpensiveOperation('operation-1'); // Will execute
+const result2 = processExpensiveOperation('operation-1'); // Will wait for result1
+
+await dedupeStore.close();
+```
+
+### Rate Limit Store
+
+The rate limit store provides resource-based rate limiting:
+
+```typescript
+import { DynamoDBRateLimitStore } from '@comic-vine/dynamodb-store';
+
+const rateLimitStore = new DynamoDBRateLimitStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  defaultLimit: 100,        // 100 requests per window
+  defaultWindowSeconds: 60, // 1 minute window
+});
+
+async function apiCall(resource: string) {
+  // Check if we can proceed
+  if (!(await rateLimitStore.canProceed(resource))) {
+    const waitTime = await rateLimitStore.getWaitTime(resource);
+    throw new Error(`Rate limited. Wait ${waitTime}ms`);
+  }
+
+  // Record the request
+  await rateLimitStore.record(resource);
+  
+  // Make the actual API call
+  return makeRequest(resource);
+}
+
+// Get status for monitoring
+const status = await rateLimitStore.getStatus('api-endpoint');
+console.log(`${status.remaining}/${status.limit} requests remaining`);
+console.log(`Resets at: ${status.resetTime}`);
+
+await rateLimitStore.close();
+```
+
+### Adaptive Rate Limit Store
+
+The adaptive rate limit store provides priority-aware rate limiting:
+
+```typescript
+import { DynamoDBAdaptiveRateLimitStore } from '@comic-vine/dynamodb-store';
+
+const adaptiveStore = new DynamoDBAdaptiveRateLimitStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  defaultLimit: 200,
+  adaptiveConfig: {
+    monitoringWindowMs: 15 * 60 * 1000,  // 15 minute monitoring window
+    highActivityThreshold: 10,            // 10+ user requests = high activity
+    backgroundPauseOnIncreasingTrend: true,
+  },
+});
+
+// User-initiated request (high priority)
+async function userRequest(resource: string) {
+  if (!(await adaptiveStore.canProceed(resource, 'user'))) {
+    throw new Error('User request rate limited');
+  }
+  
+  await adaptiveStore.record(resource, 'user');
+  return performUserOperation();
+}
+
+// Background task (lower priority)
+async function backgroundTask(resource: string) {
+  if (!(await adaptiveStore.canProceed(resource, 'background'))) {
+    const waitTime = await adaptiveStore.getWaitTime(resource, 'background');
+    console.log(`Background task paused for ${waitTime}ms`);
+    return; // Skip this iteration
+  }
+  
+  await adaptiveStore.record(resource, 'background');
+  return performBackgroundWork();
+}
+
+// Monitor adaptive behavior
+const status = await adaptiveStore.getStatus('api');
+console.log('Adaptive status:', status.adaptive);
+
+await adaptiveStore.close();
+```
+
 ## Configuration
 
 All stores accept the same configuration options:
@@ -224,7 +384,236 @@ try {
 
 ## Status
 
-✅ **Phase 3 Complete** - Enhanced connection management, circuit breaker pattern, and performance optimizations implemented.
+✅ **Phase 4 Complete** - Comprehensive testing suite and enhanced documentation implemented.
+
+## Migration Guide
+
+### From In-Memory Store
+
+The DynamoDB stores are drop-in replacements for in-memory stores:
+
+```typescript
+// Before: In-memory store
+import { InMemoryCacheStore } from '@comic-vine/in-memory-store';
+const cache = new InMemoryCacheStore();
+
+// After: DynamoDB store
+import { DynamoDBCacheStore } from '@comic-vine/dynamodb-store';
+const cache = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+});
+```
+
+### From SQLite Store
+
+Migration requires updating the constructor and ensuring DynamoDB table exists:
+
+```typescript
+// Before: SQLite store
+import { SqliteCacheStore } from '@comic-vine/sqlite-store';
+const cache = new SqliteCacheStore({ dbPath: './cache.db' });
+
+// After: DynamoDB store
+import { DynamoDBCacheStore } from '@comic-vine/dynamodb-store';
+const cache = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  // Optional: reuse existing DynamoDB client
+  client: existingDynamoDBClient,
+});
+```
+
+### Configuration Mapping
+
+| In-Memory/SQLite Option | DynamoDB Equivalent | Notes |
+|------------------------|-------------------|--------|
+| `maxItems` | Not applicable | DynamoDB has no item limits |
+| `maxMemoryBytes` | Not applicable | Use TTL for cleanup instead |
+| `cleanupIntervalMs` | `cleanupIntervalMs` | Same functionality |
+| `dbPath` | `tableName` + `region` | DynamoDB table instead of file |
+
+## AWS Deployment Best Practices
+
+### IAM Permissions
+
+Create an IAM policy with minimal required permissions:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchWriteItem"
+      ],
+      "Resource": [
+        "arn:aws:dynamodb:region:account:table/comic-vine-store",
+        "arn:aws:dynamodb:region:account:table/comic-vine-store/index/*"
+      ]
+    }
+  ]
+}
+```
+
+### Production Configuration
+
+```typescript
+const store = new DynamoDBCacheStore({
+  tableName: process.env.DYNAMODB_TABLE_NAME || 'comic-vine-store',
+  region: process.env.AWS_REGION || 'us-east-1',
+  
+  // Production-optimized settings
+  maxRetries: 5,
+  retryDelayMs: 200,
+  cleanupIntervalMs: 300000, // 5 minutes
+  
+  // Circuit breaker for resilience
+  circuitBreaker: {
+    enabled: true,
+    failureThreshold: 5,
+    recoveryTimeoutMs: 60000,
+    timeoutMs: 30000,
+  },
+});
+```
+
+### Monitoring and Alerting
+
+Set up CloudWatch alarms for:
+
+```typescript
+// Monitor circuit breaker status
+setInterval(() => {
+  const status = store.getCircuitBreakerStatus();
+  if (status.state === 'open') {
+    console.warn('Circuit breaker open - DynamoDB issues detected');
+    // Send alert to monitoring system
+  }
+}, 60000);
+
+// Monitor store statistics
+setInterval(async () => {
+  try {
+    const stats = await store.getStats();
+    console.log('Store stats:', stats);
+    // Send metrics to CloudWatch
+  } catch (error) {
+    console.error('Failed to get store stats:', error);
+  }
+}, 300000); // Every 5 minutes
+```
+
+### Cost Optimization
+
+1. **Use TTL for automatic cleanup**: Set appropriate TTL values to avoid manual cleanup costs
+2. **Optimize batch sizes**: Use `calculateOptimalBatchSize()` utility for efficient batching
+3. **Monitor read/write capacity**: Set up CloudWatch alarms for throttling events
+4. **Use on-demand billing**: For unpredictable workloads, consider on-demand pricing
+
+### Multi-Region Deployment
+
+For multi-region setups, create separate table instances:
+
+```typescript
+// Primary region
+const primaryStore = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+});
+
+// Secondary region (for failover)
+const secondaryStore = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-west-2',
+});
+
+// Failover logic
+async function getCachedValue(key: string) {
+  try {
+    return await primaryStore.get(key);
+  } catch (error) {
+    console.warn('Primary region failed, trying secondary:', error);
+    return await secondaryStore.get(key);
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Circuit breaker frequently open**
+   - Check DynamoDB throttling metrics
+   - Increase read/write capacity or use on-demand
+   - Reduce request frequency
+
+2. **High latency**
+   - Ensure proper AWS region selection
+   - Check network connectivity
+   - Consider using DynamoDB Accelerator (DAX)
+
+3. **Size limit errors**
+   - DynamoDB items are limited to 400KB
+   - Consider data compression or splitting large items
+
+4. **TTL not working**
+   - Verify TTL is enabled on the table
+   - Check TTL attribute name matches `TTL`
+   - Allow up to 48 hours for TTL cleanup
+
+### Debug Mode
+
+Enable detailed logging:
+
+```typescript
+const store = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  // Enable AWS SDK logging
+  client: new DynamoDBClient({
+    logger: console, // Enable AWS SDK debug logging
+  }),
+});
+```
+
+## Testing
+
+Run the test suite:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run specific store tests
+pnpm test dynamodb-cache-store.test.ts
+
+# Run with coverage
+pnpm test --coverage
+```
+
+The package includes comprehensive test coverage:
+- Unit tests with mocked DynamoDB client
+- Error scenario testing
+- Circuit breaker functionality testing
+- Performance optimization testing
+- Configuration validation testing
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality
+4. Run the test suite: `pnpm test`
+5. Run linting: `pnpm run lint`
+6. Submit a pull request
 
 ## License
 
