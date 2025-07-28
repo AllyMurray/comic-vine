@@ -3,6 +3,16 @@
  *
  * DynamoDB-backed implementations of Comic Vine client store interfaces
  * for caching, deduplication, and rate limiting.
+ *
+ * Features:
+ * - TTL-based caching with automatic cleanup
+ * - Request deduplication with job tracking
+ * - Resource-based rate limiting with adaptive algorithms
+ * - Circuit breaker pattern for resilience
+ * - Performance optimization with parallel processing
+ * - CloudWatch metrics integration
+ * - Structured logging with correlation IDs
+ * - Health checks and monitoring
  */
 
 // Core store implementations
@@ -32,7 +42,11 @@ export {
 export type { CircuitBreakerStatus } from './types.js';
 
 // Client utilities
-export { createDynamoDBClient, destroyDynamoDBClient, createCircuitBreaker } from './client.js';
+export {
+  createDynamoDBClient,
+  destroyDynamoDBClient,
+  createCircuitBreaker,
+} from './client.js';
 
 // Circuit breaker
 export { CircuitBreaker } from './circuit-breaker.js';
@@ -90,3 +104,36 @@ export type {
   RateLimitItem,
   AdaptiveMetaItem,
 } from './schema.js';
+
+// Phase 5: Production Readiness Features
+
+// Monitoring and observability
+export {
+  Monitor,
+  ConsoleLogger,
+  getGlobalMonitor,
+  setGlobalMonitor,
+  monitorOperation,
+} from './monitoring.js';
+
+export type {
+  CorrelationContext,
+  MetricData,
+  PerformanceMetrics,
+  HealthCheckResult,
+  Logger,
+  MonitoringConfig,
+} from './monitoring.js';
+
+// CloudWatch integration
+export {
+  CloudWatchMetricsPublisher,
+  CloudWatchMetrics,
+  CloudWatchDashboardConfig,
+  createCloudWatchClient,
+} from './cloudwatch.js';
+
+export type { CloudWatchClient } from './cloudwatch.js';
+
+// Updated monitoring configuration type
+export type { MonitoringConfig as StoreMonitoringConfig } from './types.js';

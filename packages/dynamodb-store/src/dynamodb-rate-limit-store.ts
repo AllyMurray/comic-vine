@@ -1,5 +1,4 @@
-import type { RateLimitStore } from '@comic-vine/client';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { randomUUID } from 'node:crypto';
 import {
   DynamoDBDocumentClient,
   PutCommand,
@@ -7,13 +6,7 @@ import {
   ScanCommand,
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import {
-  DynamoDBStoreConfigSchema,
-  StoreDestroyedError,
-  type DynamoDBStoreOptions,
-  type DynamoDBStoreConfig,
-  type DynamoDBClientWrapper,
-} from './types.js';
+import type { RateLimitStore } from '@comic-vine/client';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildRateLimitKey,
@@ -24,7 +17,13 @@ import {
   extractTimestampAndUuidFromRateLimitKey,
   type RateLimitItem,
 } from './schema.js';
-import { randomUUID } from 'node:crypto';
+import {
+  DynamoDBStoreConfigSchema,
+  StoreDestroyedError,
+  type DynamoDBStoreOptions,
+  type DynamoDBStoreConfig,
+  type DynamoDBClientWrapper,
+} from './types.js';
 import { calculateTTL, retryWithBackoff, chunkArray } from './utils.js';
 
 export interface DynamoDBRateLimitStoreOptions extends DynamoDBStoreOptions {

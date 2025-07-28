@@ -1,9 +1,4 @@
-import type {
-  AdaptiveRateLimitStore,
-  RequestPriority,
-  AdaptiveConfig,
-} from '@comic-vine/client';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { randomUUID } from 'node:crypto';
 import {
   DynamoDBDocumentClient,
   PutCommand,
@@ -13,13 +8,11 @@ import {
   ScanCommand,
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import {
-  DynamoDBStoreConfigSchema,
-  StoreDestroyedError,
-  type DynamoDBStoreOptions,
-  type DynamoDBStoreConfig,
-  type DynamoDBClientWrapper,
-} from './types.js';
+import type {
+  AdaptiveRateLimitStore,
+  RequestPriority,
+  AdaptiveConfig,
+} from '@comic-vine/client';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildRateLimitKey,
@@ -28,11 +21,16 @@ import {
   TableAttributes,
   EntityTypes,
   extractResourceFromRateLimitKey,
-  extractTimestampAndUuidFromRateLimitKey,
   type RateLimitItem,
   type AdaptiveMetaItem,
 } from './schema.js';
-import { randomUUID } from 'node:crypto';
+import {
+  DynamoDBStoreConfigSchema,
+  StoreDestroyedError,
+  type DynamoDBStoreOptions,
+  type DynamoDBStoreConfig,
+  type DynamoDBClientWrapper,
+} from './types.js';
 import {
   calculateTTL,
   retryWithBackoff,
@@ -574,14 +572,12 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
     const windowStart =
       Math.floor(now / this.defaultWindowSeconds) * this.defaultWindowSeconds;
 
-    let filterExpression = '#pk = :pk AND #sk >= :windowStart';
     const expressionAttributeValues: Record<string, unknown> = {
       ':pk': `${EntityTypes.RATELIMIT}#${resource}`,
       ':windowStart': `REQ#${windowStart}#`,
     };
 
     if (priority) {
-      filterExpression += ' AND #data.#priority = :priority';
       expressionAttributeValues[':priority'] = priority;
     }
 
@@ -692,7 +688,7 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
   } {
     const {
       userRequestCount,
-      backgroundRequestCount,
+      backgroundRequestCount: _backgroundRequestCount,
       activityLevel,
       backgroundPaused,
     } = metadata.Data;
@@ -799,7 +795,7 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
   ): Promise<void> {
     const { userRequestCount, backgroundRequestCount, lastCalculation } =
       metadata.Data;
-    const timeSinceLastCalc = now - lastCalculation;
+    const _timeSinceLastCalc = now - lastCalculation;
 
     // Determine activity level based on request counts
     let activityLevel: 'low' | 'moderate' | 'high' = 'low';

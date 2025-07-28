@@ -135,7 +135,9 @@ const config = await cacheStore.get<{ theme: string; lang: string }>('config');
 // Manual cleanup and statistics
 const deletedCount = await cacheStore.cleanup();
 const stats = await cacheStore.getStats();
-console.log(`Cache contains ${stats.totalItems} items (${stats.expiredItems} expired)`);
+console.log(
+  `Cache contains ${stats.totalItems} items (${stats.expiredItems} expired)`,
+);
 
 // Clean shutdown
 await cacheStore.close();
@@ -152,7 +154,7 @@ const dedupeStore = new DynamoDBDedupeStore({
   tableName: 'comic-vine-store',
   region: 'us-east-1',
   defaultTtlSeconds: 300, // Jobs expire after 5 minutes
-  maxWaitTimeMs: 30000,   // Wait up to 30 seconds for completion
+  maxWaitTimeMs: 30000, // Wait up to 30 seconds for completion
 });
 
 async function processExpensiveOperation(hash: string) {
@@ -164,11 +166,11 @@ async function processExpensiveOperation(hash: string) {
 
   // Register new job
   const jobId = await dedupeStore.register(hash);
-  
+
   try {
     // Perform expensive operation
     const result = await performActualWork(hash);
-    
+
     // Mark as completed
     await dedupeStore.complete(hash, result);
     return result;
@@ -196,7 +198,7 @@ import { DynamoDBRateLimitStore } from '@comic-vine/dynamodb-store';
 const rateLimitStore = new DynamoDBRateLimitStore({
   tableName: 'comic-vine-store',
   region: 'us-east-1',
-  defaultLimit: 100,        // 100 requests per window
+  defaultLimit: 100, // 100 requests per window
   defaultWindowSeconds: 60, // 1 minute window
 });
 
@@ -209,7 +211,7 @@ async function apiCall(resource: string) {
 
   // Record the request
   await rateLimitStore.record(resource);
-  
+
   // Make the actual API call
   return makeRequest(resource);
 }
@@ -234,8 +236,8 @@ const adaptiveStore = new DynamoDBAdaptiveRateLimitStore({
   region: 'us-east-1',
   defaultLimit: 200,
   adaptiveConfig: {
-    monitoringWindowMs: 15 * 60 * 1000,  // 15 minute monitoring window
-    highActivityThreshold: 10,            // 10+ user requests = high activity
+    monitoringWindowMs: 15 * 60 * 1000, // 15 minute monitoring window
+    highActivityThreshold: 10, // 10+ user requests = high activity
     backgroundPauseOnIncreasingTrend: true,
   },
 });
@@ -245,7 +247,7 @@ async function userRequest(resource: string) {
   if (!(await adaptiveStore.canProceed(resource, 'user'))) {
     throw new Error('User request rate limited');
   }
-  
+
   await adaptiveStore.record(resource, 'user');
   return performUserOperation();
 }
@@ -257,7 +259,7 @@ async function backgroundTask(resource: string) {
     console.log(`Background task paused for ${waitTime}ms`);
     return; // Skip this iteration
   }
-  
+
   await adaptiveStore.record(resource, 'background');
   return performBackgroundWork();
 }
@@ -329,27 +331,27 @@ cacheStore.resetCircuitBreaker();
 The package includes utilities for optimizing DynamoDB operations:
 
 ```typescript
-import { 
-  executeInParallel, 
-  BatchWriter, 
-  AdaptiveDelayCalculator 
+import {
+  executeInParallel,
+  BatchWriter,
+  AdaptiveDelayCalculator,
 } from '@comic-vine/dynamodb-store';
 
 // Execute operations in parallel with concurrency control
 const results = await executeInParallel(
   items,
   async (item) => await processItem(item),
-  { maxConcurrency: 10 }
+  { maxConcurrency: 10 },
 );
 
 // Batch writer for efficient bulk operations
 const batchWriter = new BatchWriter(
   config,
-  async (batch) => await writeBatch(batch)
+  async (batch) => await writeBatch(batch),
 );
 
 // Add items to batch
-items.forEach(item => batchWriter.add(item));
+items.forEach((item) => batchWriter.add(item));
 
 // Flush all batches
 await batchWriter.flush();
@@ -360,10 +362,10 @@ await batchWriter.flush();
 Comprehensive error handling with automatic retry logic:
 
 ```typescript
-import { 
-  CircuitBreakerOpenError, 
-  ThrottlingError, 
-  OperationTimeoutError 
+import {
+  CircuitBreakerOpenError,
+  ThrottlingError,
+  OperationTimeoutError,
 } from '@comic-vine/dynamodb-store';
 
 try {
@@ -382,9 +384,78 @@ try {
 }
 ```
 
+## Infrastructure Setup
+
+### Auto-Scaling Configuration
+
+To enable DynamoDB auto-scaling for your table:
+
+1. **Enable Auto-Scaling via AWS Console:**
+   - Navigate to your DynamoDB table
+   - Go to "Capacity" tab
+   - Enable "Auto scaling" for read and write capacity
+   - Set target utilization (recommended: 70%)
+   - Configure minimum and maximum capacity units
+
+2. **Monitor Auto-Scaling Events:**
+   - Use CloudWatch metrics to monitor capacity utilization
+   - Set up alarms for capacity changes
+   - Review scaling patterns regularly
+
+### Backup and Restore
+
+**Point-in-Time Recovery:**
+
+```bash
+# Enable point-in-time recovery
+aws dynamodb update-continuous-backups \
+  --table-name comic-vine-store \
+  --point-in-time-recovery-specification PointInTimeRecoveryEnabled=true
+```
+
+**On-Demand Backups:**
+
+```bash
+# Create an on-demand backup
+aws dynamodb create-backup \
+  --table-name comic-vine-store \
+  --backup-name comic-vine-store-backup-$(date +%Y%m%d)
+```
+
+**Data Export (for large-scale backups):**
+
+- Use DynamoDB Export to S3 for cost-effective backups
+- Configure scheduled exports using EventBridge and Lambda
+- Consider data lifecycle policies for backup retention
+
+### Multi-Region Setup
+
+**Global Tables (Recommended):**
+
+```bash
+# Create global table
+aws dynamodb create-global-table \
+  --global-table-name comic-vine-store \
+  --replication-group RegionName=us-east-1 RegionName=us-west-2
+```
+
+**Manual Multi-Region Setup:**
+
+1. Create identical tables in each region
+2. Use the same table creation commands from the prerequisites section
+3. Implement application-level routing and failover
+4. Monitor regional health and latency
+
+**Considerations:**
+
+- Global Tables provide automatic replication and conflict resolution
+- Manual setup gives you more control over failover logic
+- Consider data consistency requirements (eventual vs strong consistency)
+- Monitor cross-region replication lag
+
 ## Status
 
-✅ **Phase 4 Complete** - Comprehensive testing suite and enhanced documentation implemented.
+✅ **Phase 5 Complete** - Production-ready with monitoring, observability, and comprehensive documentation.
 
 ## Migration Guide
 
@@ -426,12 +497,12 @@ const cache = new DynamoDBCacheStore({
 
 ### Configuration Mapping
 
-| In-Memory/SQLite Option | DynamoDB Equivalent | Notes |
-|------------------------|-------------------|--------|
-| `maxItems` | Not applicable | DynamoDB has no item limits |
-| `maxMemoryBytes` | Not applicable | Use TTL for cleanup instead |
-| `cleanupIntervalMs` | `cleanupIntervalMs` | Same functionality |
-| `dbPath` | `tableName` + `region` | DynamoDB table instead of file |
+| In-Memory/SQLite Option | DynamoDB Equivalent    | Notes                          |
+| ----------------------- | ---------------------- | ------------------------------ |
+| `maxItems`              | Not applicable         | DynamoDB has no item limits    |
+| `maxMemoryBytes`        | Not applicable         | Use TTL for cleanup instead    |
+| `cleanupIntervalMs`     | `cleanupIntervalMs`    | Same functionality             |
+| `dbPath`                | `tableName` + `region` | DynamoDB table instead of file |
 
 ## AWS Deployment Best Practices
 
@@ -469,12 +540,12 @@ Create an IAM policy with minimal required permissions:
 const store = new DynamoDBCacheStore({
   tableName: process.env.DYNAMODB_TABLE_NAME || 'comic-vine-store',
   region: process.env.AWS_REGION || 'us-east-1',
-  
+
   // Production-optimized settings
   maxRetries: 5,
   retryDelayMs: 200,
   cleanupIntervalMs: 300000, // 5 minutes
-  
+
   // Circuit breaker for resilience
   circuitBreaker: {
     enabled: true,
@@ -520,7 +591,7 @@ setInterval(async () => {
 
 ### Multi-Region Deployment
 
-For multi-region setups, create separate table instances:
+For multi-region setups, create separate table instances per region:
 
 ```typescript
 // Primary region
@@ -535,7 +606,7 @@ const secondaryStore = new DynamoDBCacheStore({
   region: 'us-west-2',
 });
 
-// Failover logic
+// Simple failover logic
 async function getCachedValue(key: string) {
   try {
     return await primaryStore.get(key);
@@ -545,6 +616,13 @@ async function getCachedValue(key: string) {
   }
 }
 ```
+
+**Setup Requirements:**
+
+- Create identical table structures in each target region
+- Configure appropriate IAM permissions for cross-region access
+- Consider data consistency requirements for your use case
+- Monitor regional health and implement circuit breaker patterns
 
 ## Troubleshooting
 
@@ -600,6 +678,7 @@ pnpm test --coverage
 ```
 
 The package includes comprehensive test coverage:
+
 - Unit tests with mocked DynamoDB client
 - Error scenario testing
 - Circuit breaker functionality testing

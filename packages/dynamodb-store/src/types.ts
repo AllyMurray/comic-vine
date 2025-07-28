@@ -76,7 +76,67 @@ export const DynamoDBStoreConfigSchema = z.object({
       enabled: z.boolean().default(true),
     })
     .default({}),
+
+  /**
+   * Monitoring and observability configuration
+   */
+  monitoring: z
+    .object({
+      /**
+       * CloudWatch metrics configuration
+       */
+      cloudWatch: z
+        .object({
+          enabled: z.boolean().default(false),
+          namespace: z.string().default('DynamoDBStore'),
+          region: z.string().optional(),
+        })
+        .optional(),
+
+      /**
+       * Logging configuration
+       */
+      logging: z
+        .object({
+          enabled: z.boolean().default(true),
+          level: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+        })
+        .optional(),
+
+      /**
+       * Performance monitoring configuration
+       */
+      performance: z
+        .object({
+          enabled: z.boolean().default(true),
+          samplingRate: z.number().min(0).max(1).default(1.0),
+        })
+        .optional(),
+
+      /**
+       * Health check configuration
+       */
+      healthChecks: z
+        .object({
+          enabled: z.boolean().default(false),
+          intervalMs: z.number().min(1000).default(60000), // 1 minute
+        })
+        .optional(),
+
+      /**
+       * Default dimensions to add to all metrics
+       */
+      defaultDimensions: z.record(z.string()).optional(),
+    })
+    .optional(),
 });
+
+/**
+ * Monitoring configuration type extracted from schema
+ */
+export type MonitoringConfig = NonNullable<
+  z.infer<typeof DynamoDBStoreConfigSchema>['monitoring']
+>;
 
 /**
  * Configuration type for DynamoDB store
@@ -86,7 +146,7 @@ export type DynamoDBStoreConfig = z.infer<typeof DynamoDBStoreConfigSchema>;
 /**
  * Options for creating DynamoDB store instances
  */
-export interface DynamoDBStoreOptions extends Partial<DynamoDBStoreConfig> {}
+export type DynamoDBStoreOptions = Partial<DynamoDBStoreConfig>;
 
 /**
  * Internal client wrapper for managing DynamoDB connections
@@ -102,7 +162,7 @@ export interface DynamoDBClientWrapper {
 export class DynamoDBStoreError extends Error {
   constructor(
     message: string,
-    public readonly cause?: Error,
+    public override readonly cause?: Error,
     public readonly operation?: string,
   ) {
     super(message);

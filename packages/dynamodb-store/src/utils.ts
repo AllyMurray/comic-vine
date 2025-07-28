@@ -1,13 +1,10 @@
-import { randomUUID } from 'node:crypto';
+import { CircuitBreaker } from './circuit-breaker.js';
 import {
   DynamoDBStoreError,
   ThrottlingError,
   ItemSizeError,
-  CircuitBreakerOpenError,
-  OperationTimeoutError,
   type DynamoDBStoreConfig,
 } from './types.js';
-import { CircuitBreaker } from './circuit-breaker.js';
 
 /**
  * Maximum item size for DynamoDB (400KB)
@@ -119,6 +116,7 @@ export function isThrottlingError(error: unknown): boolean {
   return (
     err.name === 'ThrottlingException' ||
     err.name === 'ProvisionedThroughputExceededException' ||
+    err.name === 'ThrottlingError' || // Wrapped error from retryWithBackoff
     err.code === 'ThrottlingException' ||
     err.code === 'ProvisionedThroughputExceededException'
   );
@@ -149,7 +147,7 @@ export async function retryWithBackoff<T>(
   circuitBreaker?: CircuitBreaker,
 ): Promise<T> {
   const executeOperation = async (): Promise<T> => {
-    let lastError: Error;
+    let lastError: Error | undefined;
 
     for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
       try {
@@ -175,6 +173,10 @@ export async function retryWithBackoff<T>(
     }
 
     // If we get here, we've exhausted all retries
+    if (!lastError) {
+      throw new Error(`Operation '${operationName}' failed with unknown error`);
+    }
+
     if (isThrottlingError(lastError)) {
       throw new ThrottlingError(operationName, lastError);
     }
@@ -197,8 +199,11 @@ export async function retryWithBackoff<T>(
 /**
  * Chunk an array into smaller arrays of specified size
  */
-export function chunkArray<T>(array: T[], chunkSize: number): T[][] {
-  const chunks: T[][] = [];
+export function chunkArray<T>(
+  array: Array<T>,
+  chunkSize: number,
+): Array<Array<T>> {
+  const chunks: Array<Array<T>> = [];
   for (let i = 0; i < array.length; i += chunkSize) {
     chunks.push(array.slice(i, i + chunkSize));
   }
@@ -243,6 +248,11 @@ export function isSevereError(error: unknown): boolean {
     return true;
   }
 
+  // Throttling errors should trigger circuit breaker
+  if (isThrottlingError(err)) {
+    return true;
+  }
+
   return false;
 }
 
@@ -255,7 +265,7 @@ export function calculateOptimalBatchSize(
 ): number {
   const maxRequestSizeBytes = 16 * 1024 * 1024; // 16MB DynamoDB limit
   const calculatedSize = Math.floor(maxRequestSizeBytes / averageItemSizeBytes);
-  
+
   return Math.min(calculatedSize, maxBatchSize);
 }
 
@@ -268,7 +278,7 @@ export async function measureExecutionTime<T>(
   const startTime = performance.now();
   const result = await operation();
   const endTime = performance.now();
-  
+
   return {
     result,
     durationMs: endTime - startTime,

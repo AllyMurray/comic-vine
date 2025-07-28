@@ -1,24 +1,18 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { DynamoDBDedupeStore } from './dynamodb-dedupe-store.js';
 import { mockDynamoDBDocumentClient } from './__mocks__/dynamodb-client.js';
-import { CircuitBreakerOpenError } from './types.js';
+import { DynamoDBDedupeStore } from './dynamodb-dedupe-store.js';
 
 // Mock the AWS SDK
 vi.mock('@aws-sdk/client-dynamodb', () => ({
   DynamoDBClient: vi.fn(() => ({ destroy: vi.fn() })),
 }));
 
-vi.mock('@aws-sdk/lib-dynamodb', () => {
-  const { mockDynamoDBDocumentClient, DynamoDBDocumentClient } = vi.importActual('./__mocks__/dynamodb-client.js');
+vi.mock('@aws-sdk/lib-dynamodb', async () => {
+  const actual = await vi.importActual('@aws-sdk/lib-dynamodb');
+  const mocks = await import('./__mocks__/dynamodb-client.js');
   return {
-    DynamoDBDocumentClient,
-    GetCommand: vi.fn(),
-    PutCommand: vi.fn(),
-    UpdateCommand: vi.fn(),
-    DeleteCommand: vi.fn(),
-    QueryCommand: vi.fn(),
-    ScanCommand: vi.fn(),
-    BatchWriteCommand: vi.fn(),
+    ...actual,
+    DynamoDBDocumentClient: mocks.DynamoDBDocumentClient,
   };
 });
 
@@ -34,7 +28,7 @@ describe('DynamoDBDedupeStore', () => {
     mockDynamoDBDocumentClient.clear();
     mockDynamoDBDocumentClient.disableThrottling();
     mockDynamoDBDocumentClient.disableTimeout();
-    
+
     store = new DynamoDBDedupeStore({
       tableName: 'test-table',
       cleanupIntervalMs: 0, // Disable automatic cleanup for tests
@@ -54,23 +48,23 @@ describe('DynamoDBDedupeStore', () => {
     it('should register a new job', async () => {
       const jobId = await store.register('test-hash');
       expect(jobId).toBe('test-uuid-1234');
-      
+
       const isInProgress = await store.isInProgress('test-hash');
       expect(isInProgress).toBe(true);
     });
 
     it('should complete a job successfully', async () => {
-      const jobId = await store.register('test-hash');
+      const _jobId = await store.register('test-hash');
       await store.complete('test-hash', { result: 'success' });
-      
+
       const isInProgress = await store.isInProgress('test-hash');
       expect(isInProgress).toBe(false);
     });
 
     it('should fail a job with error', async () => {
-      const jobId = await store.register('test-hash');
+      const _jobId = await store.register('test-hash');
       await store.fail('test-hash', new Error('Test error'));
-      
+
       const isInProgress = await store.isInProgress('test-hash');
       expect(isInProgress).toBe(false);
     });
@@ -107,7 +101,7 @@ describe('DynamoDBDedupeStore', () => {
 
     it('should timeout when waiting too long', async () => {
       const hash = 'test-hash';
-      
+
       // Register but don't complete
       await store.register(hash);
 
@@ -136,18 +130,20 @@ describe('DynamoDBDedupeStore', () => {
   describe('job registration edge cases', () => {
     it('should prevent duplicate job registration', async () => {
       const hash = 'test-hash';
-      
+
       // Register first job
       const jobId1 = await store.register(hash);
       expect(jobId1).toBe('test-uuid-1234');
 
       // Attempt to register same hash should fail
-      await expect(store.register(hash)).rejects.toThrow('Job already in progress');
+      await expect(store.register(hash)).rejects.toThrow(
+        'Job already in progress',
+      );
     });
 
     it('should allow re-registration after job completion', async () => {
       const hash = 'test-hash';
-      
+
       // Register and complete first job
       await store.register(hash);
       await store.complete(hash, 'first result');
@@ -159,7 +155,7 @@ describe('DynamoDBDedupeStore', () => {
 
     it('should handle expired job re-registration', async () => {
       const hash = 'test-hash';
-      
+
       // Register job
       await store.register(hash);
 
@@ -189,7 +185,7 @@ describe('DynamoDBDedupeStore', () => {
       for (const testCase of testCases) {
         await store.register(testCase.hash);
         await store.complete(testCase.hash, testCase.value);
-        
+
         const result = await store.waitFor(testCase.hash);
         expect(result).toEqual(testCase.value);
       }
@@ -198,40 +194,50 @@ describe('DynamoDBDedupeStore', () => {
     it('should handle failure with error details', async () => {
       const hash = 'error-test';
       const error = new Error('Detailed error message');
-      
+
       await store.register(hash);
       await store.fail(hash, error);
 
-      await expect(store.waitFor(hash)).rejects.toThrow('Detailed error message');
+      await expect(store.waitFor(hash)).rejects.toThrow(
+        'Detailed error message',
+      );
     });
 
     it('should prevent completion of non-existent job', async () => {
-      await expect(store.complete('non-existent', 'result')).rejects.toThrow('No job found');
+      await expect(store.complete('non-existent', 'result')).rejects.toThrow(
+        'No job found',
+      );
     });
 
     it('should prevent failure of non-existent job', async () => {
       const error = new Error('Test error');
-      await expect(store.fail('non-existent', error)).rejects.toThrow('No job found');
+      await expect(store.fail('non-existent', error)).rejects.toThrow(
+        'No job found',
+      );
     });
 
     it('should prevent double completion', async () => {
       const hash = 'double-complete';
-      
+
       await store.register(hash);
       await store.complete(hash, 'first result');
 
       // Second completion should fail
-      await expect(store.complete(hash, 'second result')).rejects.toThrow('not in pending status');
+      await expect(store.complete(hash, 'second result')).rejects.toThrow(
+        'not in pending status',
+      );
     });
 
     it('should prevent completion after failure', async () => {
       const hash = 'fail-then-complete';
-      
+
       await store.register(hash);
       await store.fail(hash, new Error('Failed'));
 
       // Completion after failure should fail
-      await expect(store.complete(hash, 'result')).rejects.toThrow('not in pending status');
+      await expect(store.complete(hash, 'result')).rejects.toThrow(
+        'not in pending status',
+      );
     });
   });
 
@@ -240,10 +246,10 @@ describe('DynamoDBDedupeStore', () => {
       // Create jobs in different states
       await store.register('pending-1');
       await store.register('pending-2');
-      
+
       await store.register('completed-1');
       await store.complete('completed-1', 'result');
-      
+
       await store.register('failed-1');
       await store.fail('failed-1', new Error('Failed'));
 
@@ -257,7 +263,7 @@ describe('DynamoDBDedupeStore', () => {
 
     it('should identify expired jobs in statistics', async () => {
       await store.register('expired-job');
-      
+
       // Mock time to make job expired
       const futureTime = Math.floor(Date.now() / 1000) + 400;
       vi.spyOn(Math, 'floor').mockReturnValue(futureTime);
@@ -273,7 +279,7 @@ describe('DynamoDBDedupeStore', () => {
     it('should manually clean up expired jobs', async () => {
       // Register job that will be expired
       await store.register('cleanup-test');
-      
+
       // Mock time to make job expired
       const futureTime = Math.floor(Date.now() / 1000) + 400;
       vi.spyOn(Math, 'floor').mockReturnValue(futureTime);
@@ -303,7 +309,9 @@ describe('DynamoDBDedupeStore', () => {
     it('should throw error when store is destroyed', async () => {
       await store.close();
 
-      await expect(store.register('test')).rejects.toThrow('DynamoDBDedupeStore has been destroyed');
+      await expect(store.register('test')).rejects.toThrow(
+        'DynamoDBDedupeStore has been destroyed',
+      );
     });
 
     it('should handle operation timeout errors', async () => {
@@ -338,9 +346,11 @@ describe('DynamoDBDedupeStore', () => {
       });
 
       await quickStore.register('quick-timeout');
-      
+
       // Should timeout quickly
-      await expect(quickStore.waitFor('quick-timeout')).rejects.toThrow('Timed out waiting');
+      await expect(quickStore.waitFor('quick-timeout')).rejects.toThrow(
+        'Timed out waiting',
+      );
 
       await quickStore.close();
     });
@@ -349,34 +359,36 @@ describe('DynamoDBDedupeStore', () => {
   describe('concurrent operations', () => {
     it('should handle concurrent job registration attempts', async () => {
       const hash = 'concurrent-test';
-      
+
       // Try to register same hash concurrently
-      const promises = Array(5).fill(null).map(() => store.register(hash));
-      
+      const promises = Array(5)
+        .fill(null)
+        .map(() => store.register(hash));
+
       // Only one should succeed, others should fail
       const results = await Promise.allSettled(promises);
-      const successful = results.filter(r => r.status === 'fulfilled');
-      const failed = results.filter(r => r.status === 'rejected');
-      
+      const successful = results.filter((r) => r.status === 'fulfilled');
+      const failed = results.filter((r) => r.status === 'rejected');
+
       expect(successful).toHaveLength(1);
       expect(failed.length).toBeGreaterThan(0);
     });
 
     it('should handle concurrent completion attempts', async () => {
       const hash = 'concurrent-complete';
-      
+
       await store.register(hash);
-      
+
       // Try to complete same job concurrently
       const promises = [
         store.complete(hash, 'result1'),
         store.complete(hash, 'result2'),
         store.complete(hash, 'result3'),
       ];
-      
+
       const results = await Promise.allSettled(promises);
-      const successful = results.filter(r => r.status === 'fulfilled');
-      
+      const successful = results.filter((r) => r.status === 'fulfilled');
+
       // Only one completion should succeed
       expect(successful).toHaveLength(1);
     });
@@ -385,10 +397,10 @@ describe('DynamoDBDedupeStore', () => {
   describe('edge cases', () => {
     it('should handle special characters in hash', async () => {
       const specialHash = 'hash-with-特殊字符-and-émojis-🚀';
-      
+
       const jobId = await store.register(specialHash);
       expect(jobId).toBe('test-uuid-1234');
-      
+
       await store.complete(specialHash, 'special result');
       const result = await store.waitFor(specialHash);
       expect(result).toBe('special result');
@@ -397,17 +409,17 @@ describe('DynamoDBDedupeStore', () => {
     it('should handle empty hash', async () => {
       const jobId = await store.register('');
       expect(jobId).toBe('test-uuid-1234');
-      
+
       const isInProgress = await store.isInProgress('');
       expect(isInProgress).toBe(true);
     });
 
     it('should handle very long hash values', async () => {
       const longHash = 'x'.repeat(1000);
-      
+
       const jobId = await store.register(longHash);
       expect(jobId).toBe('test-uuid-1234');
-      
+
       const isInProgress = await store.isInProgress(longHash);
       expect(isInProgress).toBe(true);
     });

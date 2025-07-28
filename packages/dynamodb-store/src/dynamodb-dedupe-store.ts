@@ -1,21 +1,13 @@
-import type { DedupeStore } from '@comic-vine/client';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { randomUUID } from 'node:crypto';
 import {
   DynamoDBDocumentClient,
-  GetCommand,
   PutCommand,
   UpdateCommand,
   QueryCommand,
   ScanCommand,
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import {
-  DynamoDBStoreConfigSchema,
-  StoreDestroyedError,
-  type DynamoDBStoreOptions,
-  type DynamoDBStoreConfig,
-  type DynamoDBClientWrapper,
-} from './types.js';
+import type { DedupeStore } from '@comic-vine/client';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildDedupeKey,
@@ -25,7 +17,13 @@ import {
   extractJobIdFromDedupeKey,
   type DedupeItem,
 } from './schema.js';
-import { randomUUID } from 'node:crypto';
+import {
+  DynamoDBStoreConfigSchema,
+  StoreDestroyedError,
+  type DynamoDBStoreOptions,
+  type DynamoDBStoreConfig,
+  type DynamoDBClientWrapper,
+} from './types.js';
 import {
   calculateTTL,
   isExpired,
@@ -156,9 +154,13 @@ export class DynamoDBDedupeStore<T = unknown> implements DedupeStore<T> {
         } catch (error) {
           if (isConditionalCheckFailedError(error)) {
             // Another job is already registered for this hash
-            // Check if it's still valid (not expired)
+            // Check if it's still valid (not expired) and still pending
             const existingJob = await this.getExistingJob(hash);
-            if (existingJob && !isExpired(existingJob.TTL)) {
+            if (
+              existingJob &&
+              !isExpired(existingJob.TTL) &&
+              existingJob.Data.status === 'pending'
+            ) {
               throw new Error(`Job already in progress for hash: ${hash}`);
             }
 
@@ -288,7 +290,7 @@ export class DynamoDBDedupeStore<T = unknown> implements DedupeStore<T> {
     return retryWithBackoff(
       async () => {
         const result = await this.checkJobStatus(hash);
-        return result?.status === 'pending' ?? false;
+        return result?.status === 'pending' || false;
       },
       this.config,
       'dedupe.isInProgress',

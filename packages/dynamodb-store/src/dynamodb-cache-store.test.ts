@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { DynamoDBCacheStore } from './dynamodb-cache-store.js';
 import { mockDynamoDBDocumentClient } from './__mocks__/dynamodb-client.js';
+import { DynamoDBCacheStore } from './dynamodb-cache-store.js';
 import { CircuitBreakerOpenError, OperationTimeoutError } from './types.js';
 
 // Mock the AWS SDK
@@ -8,17 +8,12 @@ vi.mock('@aws-sdk/client-dynamodb', () => ({
   DynamoDBClient: vi.fn(() => ({ destroy: vi.fn() })),
 }));
 
-vi.mock('@aws-sdk/lib-dynamodb', () => {
-  const { mockDynamoDBDocumentClient, DynamoDBDocumentClient } = vi.importActual('./__mocks__/dynamodb-client.js');
+vi.mock('@aws-sdk/lib-dynamodb', async () => {
+  const actual = await vi.importActual('@aws-sdk/lib-dynamodb');
+  const mocks = await import('./__mocks__/dynamodb-client.js');
   return {
-    DynamoDBDocumentClient,
-    GetCommand: vi.fn(),
-    PutCommand: vi.fn(),
-    UpdateCommand: vi.fn(),
-    DeleteCommand: vi.fn(),
-    QueryCommand: vi.fn(),
-    ScanCommand: vi.fn(),
-    BatchWriteCommand: vi.fn(),
+    ...actual,
+    DynamoDBDocumentClient: mocks.DynamoDBDocumentClient,
   };
 });
 
@@ -29,7 +24,7 @@ describe('DynamoDBCacheStore', () => {
     mockDynamoDBDocumentClient.clear();
     mockDynamoDBDocumentClient.disableThrottling();
     mockDynamoDBDocumentClient.disableTimeout();
-    
+
     store = new DynamoDBCacheStore({
       tableName: 'test-table',
       cleanupIntervalMs: 0, // Disable automatic cleanup for tests
@@ -92,7 +87,7 @@ describe('DynamoDBCacheStore', () => {
     it('should handle TTL correctly', async () => {
       // Set with 1 second TTL
       await store.set('key1', 'value1', 1);
-      
+
       // Should be available immediately
       let value = await store.get('key1');
       expect(value).toBe('value1');
@@ -110,7 +105,7 @@ describe('DynamoDBCacheStore', () => {
 
     it('should handle zero TTL (immediate expiration)', async () => {
       await store.set('key1', 'value1', 0);
-      
+
       // Should be expired immediately
       const value = await store.get('key1');
       expect(value).toBeUndefined();
@@ -118,7 +113,7 @@ describe('DynamoDBCacheStore', () => {
 
     it('should handle negative TTL', async () => {
       await store.set('key1', 'value1', -1);
-      
+
       // Should be expired immediately
       const value = await store.get('key1');
       expect(value).toBeUndefined();
@@ -185,7 +180,7 @@ describe('DynamoDBCacheStore', () => {
     it('should identify expired items in statistics', async () => {
       // Set item with past TTL
       await store.set('key1', 'value1', 1);
-      
+
       // Mock time to make item expired
       const futureTime = Math.floor(Date.now() / 1000) + 2;
       vi.spyOn(Math, 'floor').mockReturnValue(futureTime);
@@ -202,7 +197,7 @@ describe('DynamoDBCacheStore', () => {
       // Set items with past TTL
       await store.set('key1', 'value1', 1);
       await store.set('key2', 'value2', 60);
-      
+
       // Mock time to make first item expired
       const futureTime = Math.floor(Date.now() / 1000) + 2;
       vi.spyOn(Math, 'floor').mockReturnValue(futureTime);
@@ -216,6 +211,10 @@ describe('DynamoDBCacheStore', () => {
 
   describe('circuit breaker functionality', () => {
     beforeEach(() => {
+      mockDynamoDBDocumentClient.clear();
+      mockDynamoDBDocumentClient.disableThrottling();
+      mockDynamoDBDocumentClient.disableTimeout();
+
       store = new DynamoDBCacheStore({
         tableName: 'test-table',
         cleanupIntervalMs: 0,
@@ -223,7 +222,7 @@ describe('DynamoDBCacheStore', () => {
           enabled: true,
           failureThreshold: 2,
           recoveryTimeoutMs: 1000,
-          timeoutMs: 100,
+          timeoutMs: 2000, // Allow time for retries to complete
         },
       });
     });
@@ -264,7 +263,7 @@ describe('DynamoDBCacheStore', () => {
     });
 
     it('should handle operation timeouts', async () => {
-      mockDynamoDBDocumentClient.enableTimeout(200);
+      mockDynamoDBDocumentClient.enableTimeout(3000); // Longer than circuit breaker timeout
 
       await expect(store.get('key1')).rejects.toThrow(OperationTimeoutError);
     });
@@ -274,19 +273,23 @@ describe('DynamoDBCacheStore', () => {
     it('should handle DynamoDB throttling errors', async () => {
       mockDynamoDBDocumentClient.enableThrottling();
 
-      await expect(store.get('key1')).rejects.toThrow('ThrottlingException');
+      await expect(store.get('key1')).rejects.toThrow(
+        "DynamoDB operation 'cache.get' was throttled",
+      );
     });
 
     it('should throw error when store is destroyed', async () => {
       await store.close();
 
-      await expect(store.get('key1')).rejects.toThrow('DynamoDBCacheStore has been destroyed');
+      await expect(store.get('key1')).rejects.toThrow(
+        'DynamoDBCacheStore has been destroyed',
+      );
     });
 
     it('should handle large values within limits', async () => {
       // Create a value close to but under the 400KB limit
       const largeValue = 'x'.repeat(350 * 1024); // 350KB
-      
+
       await expect(store.set('large', largeValue, 60)).resolves.not.toThrow();
       const retrieved = await store.get('large');
       expect(retrieved).toBe(largeValue);
@@ -295,8 +298,10 @@ describe('DynamoDBCacheStore', () => {
     it('should reject values that exceed DynamoDB limits', async () => {
       // Create a value over the 400KB limit
       const tooLargeValue = 'x'.repeat(450 * 1024); // 450KB
-      
-      await expect(store.set('toolarge', tooLargeValue, 60)).rejects.toThrow('Item size');
+
+      await expect(store.set('toolarge', tooLargeValue, 60)).rejects.toThrow(
+        'Item size',
+      );
     });
   });
 
@@ -421,7 +426,7 @@ describe('DynamoDBCacheStore', () => {
     });
 
     it('should handle circular references in objects', async () => {
-      const obj: any = { name: 'test' };
+      const obj: { name: string; self?: unknown } = { name: 'test' };
       obj.self = obj;
 
       // Should handle circular reference gracefully during serialization

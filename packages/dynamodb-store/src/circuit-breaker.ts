@@ -96,10 +96,7 @@ export class CircuitBreaker {
 
     switch (this.status.state) {
       case CircuitBreakerState.OPEN:
-        if (
-          this.status.nextAttemptTime &&
-          now >= this.status.nextAttemptTime
-        ) {
+        if (this.status.nextAttemptTime && now >= this.status.nextAttemptTime) {
           this.status.state = CircuitBreakerState.HALF_OPEN;
         }
         break;
@@ -136,7 +133,7 @@ export class CircuitBreaker {
 
   private onFailure(error?: unknown): void {
     const now = Date.now();
-    
+
     // Only count severe errors or throttling errors for circuit breaker
     if (error && (isSevereError(error) || isThrottlingError(error))) {
       this.status.failureCount++;
@@ -157,6 +154,7 @@ export class CircuitBreaker {
 
   private openCircuit(now: number): void {
     this.status.state = CircuitBreakerState.OPEN;
-    this.status.nextAttemptTime = now + this.config.circuitBreaker.recoveryTimeoutMs;
+    this.status.nextAttemptTime =
+      now + this.config.circuitBreaker.recoveryTimeoutMs;
   }
 }

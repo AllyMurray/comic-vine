@@ -1,5 +1,3 @@
-import type { CacheStore } from '@comic-vine/client';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
   GetCommand,
@@ -8,15 +6,13 @@ import {
   ScanCommand,
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import {
-  DynamoDBStoreConfigSchema,
-  StoreDestroyedError,
-  type DynamoDBStoreOptions,
-  type DynamoDBStoreConfig,
-  type DynamoDBClientWrapper,
-} from './types.js';
-import { createDynamoDBClient, destroyDynamoDBClient, createCircuitBreaker } from './client.js';
+import type { CacheStore } from '@comic-vine/client';
 import { CircuitBreaker } from './circuit-breaker.js';
+import {
+  createDynamoDBClient,
+  destroyDynamoDBClient,
+  createCircuitBreaker,
+} from './client.js';
 import {
   buildCacheKey,
   buildExpirationGSI1Key,
@@ -25,16 +21,22 @@ import {
   type CacheItem,
 } from './schema.js';
 import {
+  DynamoDBStoreConfigSchema,
+  StoreDestroyedError,
+  type DynamoDBStoreOptions,
+  type DynamoDBStoreConfig,
+  type DynamoDBClientWrapper,
+} from './types.js';
+import {
   calculateTTL,
   isExpired,
   serializeValue,
   deserializeValue,
   retryWithBackoff,
   chunkArray,
-  MAX_ITEM_SIZE_BYTES,
 } from './utils.js';
 
-export interface DynamoDBCacheStoreOptions extends DynamoDBStoreOptions {}
+export type DynamoDBCacheStoreOptions = DynamoDBStoreOptions;
 
 export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   private readonly config: DynamoDBStoreConfig;
@@ -355,6 +357,46 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
    */
   resetCircuitBreaker(): void {
     this.circuitBreaker.reset();
+  }
+
+  /**
+   * Perform health check on the cache store
+   */
+  async healthCheck(): Promise<{
+    success: boolean;
+    duration: number;
+    details?: unknown;
+  }> {
+    const startTime = performance.now();
+
+    try {
+      // Test basic read operation
+      const testKey = 'health-check-' + Date.now();
+      await this.get(testKey);
+
+      const duration = performance.now() - startTime;
+
+      return {
+        success: true,
+        duration,
+        details: {
+          operation: 'get',
+          testKey,
+          circuitBreakerState: this.circuitBreaker.getStatus().state,
+        },
+      };
+    } catch (error) {
+      const duration = performance.now() - startTime;
+
+      return {
+        success: false,
+        duration,
+        details: {
+          error: error instanceof Error ? error.message : String(error),
+          circuitBreakerState: this.circuitBreaker.getStatus().state,
+        },
+      };
+    }
   }
 
   /**

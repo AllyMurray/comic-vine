@@ -27,12 +27,12 @@ export interface ParallelProcessingConfig {
  * Execute operations in parallel with concurrency control
  */
 export async function executeInParallel<T, R>(
-  items: T[],
+  items: Array<T>,
   operation: (item: T) => Promise<R>,
   config: ParallelProcessingConfig = {},
-): Promise<R[]> {
+): Promise<Array<R>> {
   const maxConcurrency = config.maxConcurrency ?? 10;
-  
+
   if (items.length === 0) {
     return [];
   }
@@ -42,11 +42,11 @@ export async function executeInParallel<T, R>(
     return Promise.all(items.map(operation));
   }
 
-  const results: R[] = [];
-  const executing: Promise<void>[] = [];
+  const results: Array<R> = [];
+  const executing: Array<Promise<void>> = [];
 
   for (let i = 0; i < items.length; i++) {
-    const executeItem = operation(items[i]).then((result) => {
+    const executeItem = operation(items[i]!).then((result) => {
       results[i] = result;
     });
 
@@ -56,7 +56,10 @@ export async function executeInParallel<T, R>(
       await Promise.race(executing);
       // Remove completed promises
       const stillExecuting = executing.filter(
-        (promise) => (promise as any)[Symbol.toStringTag] !== 'resolved',
+        (promise) =>
+          (promise as Promise<void> & { [Symbol.toStringTag]?: string })[
+            Symbol.toStringTag
+          ] !== 'resolved',
       );
       executing.length = 0;
       executing.push(...stillExecuting);
@@ -73,10 +76,10 @@ export async function executeInParallel<T, R>(
  * Execute operations in controlled batches with optional delays
  */
 export async function executeInBatches<T, R>(
-  items: T[],
-  operation: (batch: T[]) => Promise<R[]>,
+  items: Array<T>,
+  operation: (batch: Array<T>) => Promise<Array<R>>,
   config: ParallelProcessingConfig = {},
-): Promise<R[]> {
+): Promise<Array<R>> {
   const batchSize = config.batchSize ?? 25;
   const batchDelayMs = config.batchDelayMs ?? 0;
 
@@ -84,8 +87,8 @@ export async function executeInBatches<T, R>(
     return [];
   }
 
-  const results: R[] = [];
-  
+  const results: Array<R> = [];
+
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
     const batchResults = await operation(batch);
@@ -93,7 +96,7 @@ export async function executeInBatches<T, R>(
 
     // Add delay between batches if configured
     if (batchDelayMs > 0 && i + batchSize < items.length) {
-      await new Promise(resolve => setTimeout(resolve, batchDelayMs));
+      await new Promise((resolve) => setTimeout(resolve, batchDelayMs));
     }
   }
 
@@ -104,7 +107,7 @@ export async function executeInBatches<T, R>(
  * Pool of reusable promises for managing concurrent operations
  */
 export class PromisePool {
-  private readonly pool: Array<() => Promise<any>> = [];
+  private readonly pool: Array<() => Promise<unknown>> = [];
   private readonly maxConcurrency: number;
   private activeCount = 0;
 
@@ -135,7 +138,7 @@ export class PromisePool {
    */
   async drain(): Promise<void> {
     while (this.pool.length > 0 || this.activeCount > 0) {
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
     }
   }
 
@@ -164,14 +167,14 @@ export class PromisePool {
  * Optimized batch writer for DynamoDB operations
  */
 export class BatchWriter<T> {
-  private readonly items: T[] = [];
+  private readonly items: Array<T> = [];
   private readonly config: DynamoDBStoreConfig;
-  private readonly batchOperation: (items: T[]) => Promise<void>;
+  private readonly batchOperation: (items: Array<T>) => Promise<void>;
   private readonly maxBatchSize: number;
 
   constructor(
     config: DynamoDBStoreConfig,
-    batchOperation: (items: T[]) => Promise<void>,
+    batchOperation: (items: Array<T>) => Promise<void>,
     maxBatchSize = 25,
   ) {
     this.config = config;
@@ -194,7 +197,7 @@ export class BatchWriter<T> {
       return;
     }
 
-    const batches: T[][] = [];
+    const batches: Array<Array<T>> = [];
     for (let i = 0; i < this.items.length; i += this.maxBatchSize) {
       batches.push(this.items.slice(i, i + this.maxBatchSize));
     }
@@ -229,7 +232,7 @@ export class BatchWriter<T> {
  * Adaptive delay calculator for rate limiting
  */
 export class AdaptiveDelayCalculator {
-  private readonly recentDelays: number[] = [];
+  private readonly recentDelays: Array<number> = [];
   private readonly maxSamples = 10;
   private readonly baseDelayMs: number;
 
@@ -243,19 +246,21 @@ export class AdaptiveDelayCalculator {
   getNextDelay(wasThrottled = false): number {
     if (wasThrottled) {
       // Increase delay when throttled
-      const currentDelay = this.recentDelays.length > 0 
-        ? this.recentDelays[this.recentDelays.length - 1]
-        : this.baseDelayMs;
-      
+      const currentDelay =
+        this.recentDelays.length > 0
+          ? this.recentDelays[this.recentDelays.length - 1]!
+          : this.baseDelayMs;
+
       const nextDelay = Math.min(currentDelay * 2, 5000); // Cap at 5 seconds
       this.addDelay(nextDelay);
       return nextDelay;
     } else {
       // Decrease delay when successful
-      const currentDelay = this.recentDelays.length > 0 
-        ? this.recentDelays[this.recentDelays.length - 1]
-        : this.baseDelayMs;
-      
+      const currentDelay =
+        this.recentDelays.length > 0
+          ? this.recentDelays[this.recentDelays.length - 1]!
+          : this.baseDelayMs;
+
       const nextDelay = Math.max(currentDelay * 0.9, this.baseDelayMs);
       this.addDelay(nextDelay);
       return nextDelay;
@@ -276,7 +281,7 @@ export class AdaptiveDelayCalculator {
 
   private addDelay(delay: number): void {
     this.recentDelays.push(delay);
-    
+
     if (this.recentDelays.length > this.maxSamples) {
       this.recentDelays.shift();
     }
