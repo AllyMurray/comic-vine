@@ -514,17 +514,17 @@ export function setGlobalMonitor(monitor: Monitor): void {
  */
 export function monitorOperation(operationName?: string) {
   return function <T extends (...args: Array<unknown>) => Promise<unknown>>(
-    target: unknown,
+    target: Record<string, unknown>,
     propertyKey: string,
     descriptor: TypedPropertyDescriptor<T>,
   ) {
     const originalMethod = descriptor.value!;
-    const opName = operationName || `${target.constructor.name}.${propertyKey}`;
+    const opName = operationName || `${(target.constructor as { name: string }).name}.${propertyKey}`;
 
     descriptor.value = async function (this: unknown, ...args: Array<unknown>) {
       const monitor = getGlobalMonitor();
       const context = monitor.startOperation(opName, {
-        className: target.constructor.name,
+        className: (target.constructor as { name: string }).name,
         methodName: propertyKey,
       });
 

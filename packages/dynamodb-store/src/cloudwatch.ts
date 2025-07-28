@@ -372,7 +372,7 @@ export class CloudWatchDashboardConfig {
           height: 6,
           properties: {
             metrics: [
-              [namespace, 'OperationDuration', 'Operation', 'cache.get'],
+              [_namespace, 'OperationDuration', 'Operation', 'cache.get'],
               ['.', '.', '.', 'cache.set'],
               ['.', '.', '.', 'dedupe.register'],
               ['.', '.', '.', 'rateLimit.canProceed'],
@@ -397,7 +397,7 @@ export class CloudWatchDashboardConfig {
           height: 6,
           properties: {
             metrics: [
-              [namespace, 'OperationCount', 'Operation', 'cache.get'],
+              [_namespace, 'OperationCount', 'Operation', 'cache.get'],
               ['.', '.', '.', 'cache.set'],
               ['.', '.', '.', 'dedupe.register'],
               ['.', '.', '.', 'rateLimit.canProceed'],
@@ -422,7 +422,7 @@ export class CloudWatchDashboardConfig {
           height: 6,
           properties: {
             metrics: [
-              [namespace, 'Errors', 'Operation', 'cache.get'],
+              [_namespace, 'Errors', 'Operation', 'cache.get'],
               ['.', '.', '.', 'cache.set'],
               ['.', '.', '.', 'dedupe.register'],
               ['.', '.', '.', 'rateLimit.canProceed'],
@@ -447,7 +447,7 @@ export class CloudWatchDashboardConfig {
           height: 6,
           properties: {
             metrics: [
-              [namespace, 'CircuitBreakerState', 'Store', 'DynamoDBCacheStore'],
+              [_namespace, 'CircuitBreakerState', 'Store', 'DynamoDBCacheStore'],
               ['.', '.', '.', 'DynamoDBDedupeStore'],
               ['.', '.', '.', 'DynamoDBRateLimitStore'],
             ],
