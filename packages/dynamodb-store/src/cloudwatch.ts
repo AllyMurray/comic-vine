@@ -447,7 +447,12 @@ export class CloudWatchDashboardConfig {
           height: 6,
           properties: {
             metrics: [
-              [_namespace, 'CircuitBreakerState', 'Store', 'DynamoDBCacheStore'],
+              [
+                _namespace,
+                'CircuitBreakerState',
+                'Store',
+                'DynamoDBCacheStore',
+              ],
               ['.', '.', '.', 'DynamoDBDedupeStore'],
               ['.', '.', '.', 'DynamoDBRateLimitStore'],
             ],

@@ -519,7 +519,9 @@ export function monitorOperation(operationName?: string) {
     descriptor: TypedPropertyDescriptor<T>,
   ) {
     const originalMethod = descriptor.value!;
-    const opName = operationName || `${(target.constructor as { name: string }).name}.${propertyKey}`;
+    const opName =
+      operationName ||
+      `${(target.constructor as { name: string }).name}.${propertyKey}`;
 
     descriptor.value = async function (this: unknown, ...args: Array<unknown>) {
       const monitor = getGlobalMonitor();
