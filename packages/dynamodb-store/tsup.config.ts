@@ -3,5 +3,4 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   ...sharedTsupConfig,
-  format: [...sharedTsupConfig.format],
 });

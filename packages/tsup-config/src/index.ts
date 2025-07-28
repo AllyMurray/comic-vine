@@ -1,3 +1,5 @@
+import type { Options } from 'tsup';
+
 export const sharedTsupConfig = {
   entry: ['src/index.ts'],
   format: ['cjs', 'esm'],
@@ -12,4 +14,4 @@ export const sharedTsupConfig = {
   tsconfig: './tsconfig.json',
   cjsInterop: true,
   skipNodeModulesBundle: true,
-};
+} satisfies Options;
