@@ -58,6 +58,9 @@ npm install @comic-vine/in-memory-store
 
 # For SQLite-based persistent stores (recommended for production)
 npm install @comic-vine/sqlite-store
+
+# For DynamoDB-based cloud-native stores (enterprise/AWS environments)
+npm install @comic-vine/dynamodb-store
 ```
 
 ### TypeScript Support
@@ -670,6 +673,33 @@ const client = new ComicVine({
 });
 ```
 
+**DynamoDB Store Support:**
+
+```typescript
+import { DynamoDBAdaptiveRateLimitStore } from '@comic-vine/dynamodb-store';
+
+// Cloud-native adaptive rate limiting with circuit breaker
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new DynamoDBAdaptiveRateLimitStore({
+      tableName: 'comic-vine-store',
+      region: 'us-east-1',
+      defaultConfig: { limit: 200, windowMs: 60000 },
+      adaptiveConfig: {
+        monitoringWindowMs: 15 * 60 * 1000, // 15 minute monitoring window
+        highActivityThreshold: 10,
+        backgroundPauseOnIncreasingTrend: true,
+      },
+      circuitBreaker: { enabled: true },
+      monitoring: {
+        cloudWatch: { enabled: true, namespace: 'ComicVine/API' },
+      },
+    }),
+  },
+});
+```
+
 ### Performance Impact
 
 - **Zero overhead** for traditional rate limiting users
@@ -910,15 +940,68 @@ const client = new ComicVine({
 
 ### In-Memory Stores
 
-- **Pros**: Fastest performance, zero setup
+- **Pros**: Fastest performance, zero setup, built-in memory management
 - **Cons**: No persistence, single-process only
 - **Use cases**: Development, testing, single-instance applications
+- **Package**: `@comic-vine/in-memory-store`
 
 ### SQLite Stores
 
-- **Pros**: Persistent across restarts, cross-process support
+- **Pros**: Persistent across restarts, cross-process support, file-based
 - **Cons**: Requires file system, slightly slower than in-memory
 - **Use cases**: Production applications, multi-instance deployments
+- **Package**: `@comic-vine/sqlite-store`
+
+### DynamoDB Stores
+
+- **Pros**: Cloud-native, auto-scaling, multi-region support, enterprise-grade
+- **Cons**: AWS dependency, network latency, AWS costs
+- **Use cases**: AWS environments, microservices, serverless applications
+- **Package**: `@comic-vine/dynamodb-store`
+
+**Feature Comparison:**
+
+| Feature            | In-Memory | SQLite | DynamoDB |
+| ------------------ | --------- | ------ | -------- |
+| Performance        | ⭐⭐⭐    | ⭐⭐   | ⭐⭐     |
+| Persistence        | ❌        | ✅     | ✅       |
+| Multi-process      | ❌        | ✅     | ✅       |
+| Auto-scaling       | ❌        | ❌     | ✅       |
+| Multi-region       | ❌        | ❌     | ✅       |
+| Circuit breaker    | ❌        | ❌     | ✅       |
+| CloudWatch metrics | ❌        | ❌     | ✅       |
+| Setup complexity   | None      | Low    | Medium   |
+
+**DynamoDB Store Configuration:**
+
+```typescript
+import {
+  DynamoDBCacheStore,
+  DynamoDBRateLimitStore,
+} from '@comic-vine/dynamodb-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new DynamoDBCacheStore({
+      tableName: 'comic-vine-store',
+      region: 'us-east-1',
+      circuitBreaker: { enabled: true },
+    }),
+    rateLimit: new DynamoDBRateLimitStore({
+      tableName: 'comic-vine-store',
+      region: 'us-east-1',
+      defaultConfig: { limit: 200, windowMs: 60000 },
+    }),
+  },
+});
+```
+
+**DynamoDB Prerequisites:**
+
+- Create DynamoDB table with specific schema (see `@comic-vine/dynamodb-store` documentation)
+- Configure AWS credentials and IAM permissions
+- Enable TTL for automatic cleanup
 
 ## Examples
 

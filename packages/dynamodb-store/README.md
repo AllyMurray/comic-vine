@@ -198,8 +198,10 @@ import { DynamoDBRateLimitStore } from '@comic-vine/dynamodb-store';
 const rateLimitStore = new DynamoDBRateLimitStore({
   tableName: 'comic-vine-store',
   region: 'us-east-1',
-  defaultLimit: 100, // 100 requests per window
-  defaultWindowSeconds: 60, // 1 minute window
+  defaultConfig: {
+    limit: 100, // 100 requests per window
+    windowMs: 60 * 1000, // 1 minute window
+  },
 });
 
 async function apiCall(resource: string) {
@@ -221,6 +223,21 @@ const status = await rateLimitStore.getStatus('api-endpoint');
 console.log(`${status.remaining}/${status.limit} requests remaining`);
 console.log(`Resets at: ${status.resetTime}`);
 
+// Per-resource configuration
+rateLimitStore.setResourceConfig('slow-api', {
+  limit: 10,
+  windowMs: 60 * 1000, // More restrictive for slow API
+});
+
+rateLimitStore.setResourceConfig('fast-api', {
+  limit: 1000,
+  windowMs: 60 * 1000, // More permissive for fast API
+});
+
+// Get current configuration for a resource
+const config = rateLimitStore.getResourceConfig('slow-api');
+console.log(`slow-api limit: ${config.limit} per ${config.windowMs}ms`);
+
 await rateLimitStore.close();
 ```
 
@@ -234,7 +251,10 @@ import { DynamoDBAdaptiveRateLimitStore } from '@comic-vine/dynamodb-store';
 const adaptiveStore = new DynamoDBAdaptiveRateLimitStore({
   tableName: 'comic-vine-store',
   region: 'us-east-1',
-  defaultLimit: 200,
+  defaultConfig: {
+    limit: 200,
+    windowMs: 60 * 1000, // 1 minute window
+  },
   adaptiveConfig: {
     monitoringWindowMs: 15 * 60 * 1000, // 15 minute monitoring window
     highActivityThreshold: 10, // 10+ user requests = high activity
@@ -273,7 +293,7 @@ await adaptiveStore.close();
 
 ## Configuration
 
-All stores accept the same configuration options:
+All stores accept common DynamoDB configuration options:
 
 ```typescript
 interface DynamoDBStoreOptions {
@@ -290,6 +310,44 @@ interface DynamoDBStoreOptions {
     recoveryTimeoutMs?: number; // Default: 60000 (1 minute)
     timeoutMs?: number; // Default: 30000 (30 seconds)
     enabled?: boolean; // Default: true
+  };
+  monitoring?: {
+    cloudWatch?: {
+      enabled?: boolean; // Default: false
+      namespace?: string; // Default: 'DynamoDBStore'
+      region?: string;
+    };
+    logging?: {
+      enabled?: boolean; // Default: true
+      level?: 'debug' | 'info' | 'warn' | 'error';
+    };
+  };
+}
+
+// Rate limit stores also accept:
+interface RateLimitStoreOptions {
+  defaultConfig?: RateLimitConfig; // { limit: 200, windowMs: 60000 }
+  resourceConfigs?: Map<string, RateLimitConfig>; // Per-resource overrides
+}
+
+// Dedupe store specific options:
+interface DedupeStoreOptions {
+  defaultTtlSeconds?: number; // Default: 300 (5 minutes)
+  maxWaitTimeMs?: number; // Default: 30000 (30 seconds)
+  pollIntervalMs?: number; // Default: 100ms
+}
+
+// Adaptive rate limit store additional options:
+interface AdaptiveRateLimitStoreOptions {
+  adaptiveConfig?: {
+    monitoringWindowMs?: number; // Default: 15 * 60 * 1000
+    highActivityThreshold?: number; // Default: 10
+    moderateActivityThreshold?: number; // Default: 3
+    recalculationIntervalMs?: number; // Default: 30000
+    sustainedInactivityThresholdMs?: number; // Default: 30 * 60 * 1000
+    backgroundPauseOnIncreasingTrend?: boolean; // Default: true
+    maxUserScaling?: number; // Default: 2.0
+    minUserReserved?: number; // Default: 5
   };
 }
 ```
@@ -556,30 +614,113 @@ const store = new DynamoDBCacheStore({
 });
 ```
 
-### Monitoring and Alerting
+### Monitoring and Observability
 
-Set up CloudWatch alarms for:
+The package includes comprehensive monitoring features:
 
 ```typescript
-// Monitor circuit breaker status
+import {
+  CloudWatchMetricsPublisher,
+  Monitor,
+  monitorOperation,
+} from '@comic-vine/dynamodb-store';
+
+// Enable CloudWatch metrics
+const store = new DynamoDBCacheStore({
+  tableName: 'comic-vine-store',
+  region: 'us-east-1',
+  monitoring: {
+    cloudWatch: {
+      enabled: true,
+      namespace: 'MyApp/DynamoDBStore',
+      region: 'us-east-1',
+    },
+    logging: {
+      enabled: true,
+      level: 'info',
+    },
+    performance: {
+      enabled: true,
+      samplingRate: 1.0, // Track 100% of operations
+    },
+    healthChecks: {
+      enabled: true,
+      intervalMs: 60000, // Health check every minute
+    },
+  },
+});
+
+// Monitor operations with automatic metrics
+const result = await monitorOperation(
+  'get-user',
+  async () => {
+    return await store.get('user:123');
+  },
+  { userId: '123' },
+);
+
+// Manual monitoring setup
+const monitor = new Monitor();
+
+// Record custom metrics
+monitor.recordMetric({
+  name: 'cache_hit_rate',
+  value: 0.85,
+  unit: 'Percent',
+  timestamp: new Date(),
+});
+
+// Start operation correlation
+const correlationId = monitor.startCorrelation('api_call', {
+  endpoint: '/users/123',
+  method: 'GET',
+});
+
+// End correlation with success/failure
+monitor.endCorrelation(correlationId, true);
+
+// Health checks
+const healthResult = await monitor.performHealthCheck();
+console.log('Health check:', healthResult.success ? 'PASS' : 'FAIL');
+
+// Circuit breaker monitoring
 setInterval(() => {
   const status = store.getCircuitBreakerStatus();
   if (status.state === 'open') {
     console.warn('Circuit breaker open - DynamoDB issues detected');
-    // Send alert to monitoring system
+    monitor.recordMetric({
+      name: 'circuit_breaker_open',
+      value: 1,
+      unit: 'Count',
+      timestamp: new Date(),
+    });
   }
 }, 60000);
+```
 
-// Monitor store statistics
-setInterval(async () => {
-  try {
-    const stats = await store.getStats();
-    console.log('Store stats:', stats);
-    // Send metrics to CloudWatch
-  } catch (error) {
-    console.error('Failed to get store stats:', error);
-  }
-}, 300000); // Every 5 minutes
+**CloudWatch Dashboard Configuration:**
+
+```typescript
+import { CloudWatchDashboardConfig } from '@comic-vine/dynamodb-store';
+
+// Generate dashboard configuration
+const dashboardJson = CloudWatchDashboardConfig.createDynamoDBStoreDashboard(
+  'MyApp-DynamoDB-Store',
+);
+
+// Deploy via AWS SDK
+import {
+  CloudWatchClient,
+  PutDashboardCommand,
+} from '@aws-sdk/client-cloudwatch';
+
+const cloudWatch = new CloudWatchClient({ region: 'us-east-1' });
+await cloudWatch.send(
+  new PutDashboardCommand({
+    DashboardName: 'MyApp-DynamoDB-Store',
+    DashboardBody: dashboardJson,
+  }),
+);
 ```
 
 ### Cost Optimization
