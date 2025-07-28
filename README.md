@@ -59,7 +59,7 @@ npm install @comic-vine/in-memory-store
 # For SQLite-based persistent stores (recommended for production)
 npm install @comic-vine/sqlite-store
 
-# For DynamoDB-based cloud-native stores (enterprise/AWS environments)
+# For DynamoDB-based cloud-native stores (AWS environments)
 npm install @comic-vine/dynamodb-store
 ```
 
@@ -954,7 +954,7 @@ const client = new ComicVine({
 
 ### DynamoDB Stores
 
-- **Pros**: Cloud-native, auto-scaling, multi-region support, enterprise-grade
+- **Pros**: Cloud-native, auto-scaling, multi-region support, production-ready
 - **Cons**: AWS dependency, network latency, AWS costs
 - **Use cases**: AWS environments, microservices, serverless applications
 - **Package**: `@comic-vine/dynamodb-store`
