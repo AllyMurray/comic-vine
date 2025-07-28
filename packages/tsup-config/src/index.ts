@@ -1,6 +1,6 @@
 export const sharedTsupConfig = {
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'] as const,
+  format: ['cjs', 'esm'],
   dts: true,
   splitting: false,
   sourcemap: true,

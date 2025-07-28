@@ -1,7 +1,7 @@
-import { defineConfig } from 'tsup';
 import { sharedTsupConfig } from '@repo/tsup-config';
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
   ...sharedTsupConfig,
-  // Add package-specific overrides here if needed
+  format: [...sharedTsupConfig.format],
 });
