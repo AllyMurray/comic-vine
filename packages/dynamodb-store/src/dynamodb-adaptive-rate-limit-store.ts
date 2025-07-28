@@ -12,6 +12,7 @@ import type {
   AdaptiveRateLimitStore,
   RequestPriority,
   AdaptiveConfig,
+  RateLimitConfig,
 } from '@comic-vine/client';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
@@ -41,16 +42,14 @@ import {
 export interface DynamoDBAdaptiveRateLimitStoreOptions
   extends DynamoDBStoreOptions {
   /**
-   * Default rate limit per resource (requests per minute)
-   * @default 200
+   * Default rate limit configuration
    */
-  defaultLimit?: number;
+  defaultConfig?: RateLimitConfig;
 
   /**
-   * Default rate limit window in seconds
-   * @default 60 (1 minute)
+   * Per-resource rate limit configurations
    */
-  defaultWindowSeconds?: number;
+  resourceConfigs?: Map<string, RateLimitConfig>;
 
   /**
    * Adaptive rate limiting configuration
@@ -62,8 +61,8 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
   private readonly config: DynamoDBStoreConfig;
   private readonly clientWrapper: DynamoDBClientWrapper;
   private readonly docClient: DynamoDBDocumentClient;
-  private readonly defaultLimit: number;
-  private readonly defaultWindowSeconds: number;
+  private defaultConfig: RateLimitConfig;
+  private resourceConfigs = new Map<string, RateLimitConfig>();
   private readonly adaptiveConfig: AdaptiveConfig;
   private cleanupInterval?: NodeJS.Timeout;
   private recalculationInterval?: NodeJS.Timeout;
@@ -78,8 +77,11 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
       },
     });
 
-    this.defaultLimit = options.defaultLimit ?? 200;
-    this.defaultWindowSeconds = options.defaultWindowSeconds ?? 60;
+    this.defaultConfig = options.defaultConfig ?? {
+      limit: 200,
+      windowMs: 60 * 1000, // 60 seconds in milliseconds
+    };
+    this.resourceConfigs = options.resourceConfigs ?? new Map();
 
     // Default adaptive configuration
     this.adaptiveConfig = {
@@ -111,7 +113,8 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
           this.getOrCreateMetadata(resource),
         ]);
 
-        const allocation = this.calculateAllocation(metadata);
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+        const allocation = this.calculateAllocation(metadata, config);
         const limit =
           priority === 'user' ? allocation.userMax : allocation.backgroundMax;
 
@@ -138,7 +141,8 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
         const now = Date.now();
         const timestamp = Math.floor(now / 1000);
         const uuid = randomUUID();
-        const ttl = calculateTTL(this.defaultWindowSeconds * 2);
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+        const ttl = calculateTTL(Math.floor(config.windowMs / 1000) * 2);
 
         const key = buildRateLimitKey(resource, timestamp, uuid);
         const gsi1Key = buildExpirationGSI1Key(
@@ -194,22 +198,23 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
           this.getOrCreateMetadata(resource),
         ]);
 
-        const allocation = this.calculateAllocation(metadata);
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+        const allocation = this.calculateAllocation(metadata, config);
         const totalUsed = userCount + backgroundCount;
-        const remaining = Math.max(0, this.defaultLimit - totalUsed);
+        const remaining = Math.max(0, config.limit - totalUsed);
 
         // Calculate reset time
         const now = Date.now();
+        const windowSeconds = Math.floor(config.windowMs / 1000);
         const currentWindowStart =
-          Math.floor(now / 1000 / this.defaultWindowSeconds) *
-          this.defaultWindowSeconds;
-        const nextWindowStart = currentWindowStart + this.defaultWindowSeconds;
+          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+        const nextWindowStart = currentWindowStart + windowSeconds;
         const resetTime = new Date(nextWindowStart * 1000);
 
         return {
           remaining,
           resetTime,
-          limit: this.defaultLimit,
+          limit: config.limit,
           adaptive: {
             userReserved: allocation.userReserved,
             backgroundMax: allocation.backgroundMax,
@@ -298,8 +303,9 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
         }
 
         // For background requests that are paused, return a longer wait time
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
         const metadata = await this.getOrCreateMetadata(resource);
-        const allocation = this.calculateAllocation(metadata);
+        const allocation = this.calculateAllocation(metadata, config);
 
         if (priority === 'background' && allocation.backgroundPaused) {
           // Wait until next recalculation
@@ -308,10 +314,10 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
 
         // Calculate time until the current window resets
         const now = Date.now();
+        const windowSeconds = Math.floor(config.windowMs / 1000);
         const currentWindowStart =
-          Math.floor(now / 1000 / this.defaultWindowSeconds) *
-          this.defaultWindowSeconds;
-        const nextWindowStart = currentWindowStart + this.defaultWindowSeconds;
+          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+        const nextWindowStart = currentWindowStart + windowSeconds;
         const waitTimeMs = nextWindowStart * 1000 - now;
 
         return Math.max(0, waitTimeMs);
@@ -326,6 +332,8 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
    */
   async getStats(): Promise<{
     totalResources: number;
+    activeResources: number;
+    rateLimitedResources: number;
     totalRequests: number;
     userRequests: number;
     backgroundRequests: number;
@@ -436,8 +444,10 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
         > = {};
 
         for (const [resource, stats] of resourceMap.entries()) {
+          const config =
+            this.resourceConfigs.get(resource) || this.defaultConfig;
           const metadata = await this.getOrCreateMetadata(resource);
-          const allocation = this.calculateAllocation(metadata);
+          const allocation = this.calculateAllocation(metadata, config);
 
           resourceStats[resource] = {
             requestCount: stats.totalRequests,
@@ -453,8 +463,25 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
           };
         }
 
+        // Calculate active and rate-limited resources
+        let activeResources = 0;
+        let rateLimitedResources = 0;
+
+        for (const [resource, stats] of resourceMap.entries()) {
+          if (stats.totalRequests > 0) {
+            activeResources++;
+            const config =
+              this.resourceConfigs.get(resource) || this.defaultConfig;
+            if (stats.totalRequests >= config.limit) {
+              rateLimitedResources++;
+            }
+          }
+        }
+
         return {
           totalResources: resourceMap.size,
+          activeResources,
+          rateLimitedResources,
           totalRequests,
           userRequests,
           backgroundRequests,
@@ -558,6 +585,20 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
     this.close();
   }
 
+  /**
+   * Set rate limit configuration for a specific resource
+   */
+  setResourceConfig(resource: string, config: RateLimitConfig): void {
+    this.resourceConfigs.set(resource, config);
+  }
+
+  /**
+   * Get rate limit configuration for a resource
+   */
+  getResourceConfig(resource: string): RateLimitConfig {
+    return this.resourceConfigs.get(resource) || this.defaultConfig;
+  }
+
   private ensureNotDestroyed(): void {
     if (this.isDestroyed) {
       throw new StoreDestroyedError('DynamoDBAdaptiveRateLimitStore');
@@ -568,9 +609,10 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
     resource: string,
     priority?: RequestPriority,
   ): Promise<number> {
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
     const now = Math.floor(Date.now() / 1000);
-    const windowStart =
-      Math.floor(now / this.defaultWindowSeconds) * this.defaultWindowSeconds;
+    const windowSeconds = Math.floor(config.windowMs / 1000);
+    const windowStart = Math.floor(now / windowSeconds) * windowSeconds;
 
     const expressionAttributeValues: Record<string, unknown> = {
       ':pk': `${EntityTypes.RATELIMIT}#${resource}`,
@@ -680,7 +722,10 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
     await this.docClient.send(updateCommand);
   }
 
-  private calculateAllocation(metadata: AdaptiveMetaItem): {
+  private calculateAllocation(
+    metadata: AdaptiveMetaItem,
+    config: RateLimitConfig,
+  ): {
     userReserved: number;
     userMax: number;
     backgroundMax: number;
@@ -695,23 +740,23 @@ export class DynamoDBAdaptiveRateLimitStore implements AdaptiveRateLimitStore {
 
     // Calculate user allocation based on recent activity
     let userReserved = this.adaptiveConfig.minUserReserved;
-    let userMax = this.defaultLimit;
+    let userMax = config.limit;
 
     if (activityLevel === 'high') {
       userReserved = Math.min(
-        this.defaultLimit * this.adaptiveConfig.maxUserScaling,
-        this.defaultLimit * 0.8, // Never let user take more than 80%
+        config.limit * this.adaptiveConfig.maxUserScaling,
+        config.limit * 0.8, // Never let user take more than 80%
       );
       userMax = userReserved;
     } else if (activityLevel === 'moderate') {
       userReserved = Math.min(
-        this.defaultLimit * 0.3,
+        config.limit * 0.3,
         this.adaptiveConfig.minUserReserved + userRequestCount * 2,
       );
-      userMax = this.defaultLimit * 0.6;
+      userMax = config.limit * 0.6;
     }
 
-    const backgroundMax = Math.max(0, this.defaultLimit - userReserved);
+    const backgroundMax = Math.max(0, config.limit - userReserved);
 
     return {
       userReserved,

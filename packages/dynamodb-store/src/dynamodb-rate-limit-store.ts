@@ -6,7 +6,7 @@ import {
   ScanCommand,
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import type { RateLimitStore } from '@comic-vine/client';
+import type { RateLimitStore, RateLimitConfig } from '@comic-vine/client';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildRateLimitKey,
@@ -28,24 +28,22 @@ import { calculateTTL, retryWithBackoff, chunkArray } from './utils.js';
 
 export interface DynamoDBRateLimitStoreOptions extends DynamoDBStoreOptions {
   /**
-   * Default rate limit per resource (requests per minute)
-   * @default 200
+   * Default rate limit configuration
    */
-  defaultLimit?: number;
+  defaultConfig?: RateLimitConfig;
 
   /**
-   * Default rate limit window in seconds
-   * @default 60 (1 minute)
+   * Per-resource rate limit configurations
    */
-  defaultWindowSeconds?: number;
+  resourceConfigs?: Map<string, RateLimitConfig>;
 }
 
 export class DynamoDBRateLimitStore implements RateLimitStore {
   private readonly config: DynamoDBStoreConfig;
   private readonly clientWrapper: DynamoDBClientWrapper;
   private readonly docClient: DynamoDBDocumentClient;
-  private readonly defaultLimit: number;
-  private readonly defaultWindowSeconds: number;
+  private defaultConfig: RateLimitConfig;
+  private resourceConfigs = new Map<string, RateLimitConfig>();
   private cleanupInterval?: NodeJS.Timeout;
   private isDestroyed = false;
 
@@ -58,8 +56,11 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
       },
     });
 
-    this.defaultLimit = options.defaultLimit ?? 200;
-    this.defaultWindowSeconds = options.defaultWindowSeconds ?? 60;
+    this.defaultConfig = options.defaultConfig ?? {
+      limit: 200,
+      windowMs: 60 * 1000, // 60 seconds in milliseconds
+    };
+    this.resourceConfigs = options.resourceConfigs ?? new Map();
 
     this.startCleanupInterval();
   }
@@ -69,8 +70,9 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
 
     return retryWithBackoff(
       async () => {
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
         const currentCount = await this.getCurrentRequestCount(resource);
-        return currentCount < this.defaultLimit;
+        return currentCount < config.limit;
       },
       this.config,
       'rateLimit.canProceed',
@@ -83,9 +85,10 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
     return retryWithBackoff(
       async () => {
         const now = Date.now();
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
         const timestamp = Math.floor(now / 1000); // Use seconds for timestamp
         const uuid = randomUUID();
-        const ttl = calculateTTL(this.defaultWindowSeconds * 2); // Keep records for 2x window for safety
+        const ttl = calculateTTL(Math.floor(config.windowMs / 1000) * 2); // Keep records for 2x window for safety
 
         const key = buildRateLimitKey(resource, timestamp, uuid);
         const gsi1Key = buildExpirationGSI1Key(
@@ -124,21 +127,22 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
 
     return retryWithBackoff(
       async () => {
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
         const currentCount = await this.getCurrentRequestCount(resource);
-        const remaining = Math.max(0, this.defaultLimit - currentCount);
+        const remaining = Math.max(0, config.limit - currentCount);
 
-        // Calculate when the current window resets (next minute boundary)
+        // Calculate when the current window resets
         const now = Date.now();
+        const windowSeconds = Math.floor(config.windowMs / 1000);
         const currentWindowStart =
-          Math.floor(now / 1000 / this.defaultWindowSeconds) *
-          this.defaultWindowSeconds;
-        const nextWindowStart = currentWindowStart + this.defaultWindowSeconds;
+          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+        const nextWindowStart = currentWindowStart + windowSeconds;
         const resetTime = new Date(nextWindowStart * 1000);
 
         return {
           remaining,
           resetTime,
-          limit: this.defaultLimit,
+          limit: config.limit,
         };
       },
       this.config,
@@ -214,11 +218,12 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
         }
 
         // Calculate time until the current window resets
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
         const now = Date.now();
+        const windowSeconds = Math.floor(config.windowMs / 1000);
         const currentWindowStart =
-          Math.floor(now / 1000 / this.defaultWindowSeconds) *
-          this.defaultWindowSeconds;
-        const nextWindowStart = currentWindowStart + this.defaultWindowSeconds;
+          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+        const nextWindowStart = currentWindowStart + windowSeconds;
         const waitTimeMs = nextWindowStart * 1000 - now;
 
         return Math.max(0, waitTimeMs);
@@ -233,15 +238,9 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
    */
   async getStats(): Promise<{
     totalResources: number;
+    activeResources: number;
+    rateLimitedResources: number;
     totalRequests: number;
-    resourceStats: Record<
-      string,
-      {
-        requestCount: number;
-        windowStart: Date;
-        nextReset: Date;
-      }
-    >;
   }> {
     this.ensureNotDestroyed();
 
@@ -310,33 +309,26 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
           lastEvaluatedKey = result.LastEvaluatedKey;
         } while (lastEvaluatedKey);
 
-        // Convert to resource stats format
-        const resourceStats: Record<
-          string,
-          {
-            requestCount: number;
-            windowStart: Date;
-            nextReset: Date;
-          }
-        > = {};
+        // Calculate active and rate-limited resources
+        let activeResources = 0;
+        let rateLimitedResources = 0;
 
         for (const [resource, stats] of resourceMap.entries()) {
-          const windowStart =
-            Math.floor(stats.oldestTimestamp / this.defaultWindowSeconds) *
-            this.defaultWindowSeconds;
-          const nextReset = windowStart + this.defaultWindowSeconds;
-
-          resourceStats[resource] = {
-            requestCount: stats.requestCount,
-            windowStart: new Date(windowStart * 1000),
-            nextReset: new Date(nextReset * 1000),
-          };
+          if (stats.requestCount > 0) {
+            activeResources++;
+            const config =
+              this.resourceConfigs.get(resource) || this.defaultConfig;
+            if (stats.requestCount >= config.limit) {
+              rateLimitedResources++;
+            }
+          }
         }
 
         return {
           totalResources: resourceMap.size,
+          activeResources,
+          rateLimitedResources,
           totalRequests,
-          resourceStats,
         };
       },
       this.config,
@@ -431,6 +423,20 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
     this.close();
   }
 
+  /**
+   * Set rate limit configuration for a specific resource
+   */
+  setResourceConfig(resource: string, config: RateLimitConfig): void {
+    this.resourceConfigs.set(resource, config);
+  }
+
+  /**
+   * Get rate limit configuration for a resource
+   */
+  getResourceConfig(resource: string): RateLimitConfig {
+    return this.resourceConfigs.get(resource) || this.defaultConfig;
+  }
+
   private ensureNotDestroyed(): void {
     if (this.isDestroyed) {
       throw new StoreDestroyedError('DynamoDBRateLimitStore');
@@ -438,9 +444,10 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
   }
 
   private async getCurrentRequestCount(resource: string): Promise<number> {
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
     const now = Math.floor(Date.now() / 1000);
-    const windowStart =
-      Math.floor(now / this.defaultWindowSeconds) * this.defaultWindowSeconds;
+    const windowSeconds = Math.floor(config.windowMs / 1000);
+    const windowStart = Math.floor(now / windowSeconds) * windowSeconds;
 
     // Query for requests in the current window
     const queryCommand = new QueryCommand({

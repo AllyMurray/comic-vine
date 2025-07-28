@@ -33,8 +33,10 @@ describe('DynamoDBRateLimitStore', () => {
     store = new DynamoDBRateLimitStore({
       tableName: 'test-table',
       cleanupIntervalMs: 0, // Disable automatic cleanup for tests
-      defaultLimit: 10, // 10 requests per window
-      defaultWindowSeconds: 60, // 1 minute window
+      defaultConfig: {
+        limit: 10, // 10 requests per window
+        windowMs: 60 * 1000, // 1 minute window
+      },
     });
   });
 
@@ -266,18 +268,20 @@ describe('DynamoDBRateLimitStore', () => {
       const stats = await store.getStats();
       expect(stats.totalResources).toBe(2);
       expect(stats.totalRequests).toBe(5);
-      expect(stats.resourceStats[resource1].requestCount).toBe(3);
-      expect(stats.resourceStats[resource2].requestCount).toBe(2);
+      expect(stats.activeResources).toBe(2);
+      expect(stats.rateLimitedResources).toBe(0); // Both resources are under limit
     });
 
-    it('should include timing information in statistics', async () => {
+    it('should track basic statistics correctly', async () => {
       const resource = 'test-resource';
 
       await store.record(resource);
 
       const stats = await store.getStats();
-      expect(stats.resourceStats[resource].windowStart).toBeInstanceOf(Date);
-      expect(stats.resourceStats[resource].nextReset).toBeInstanceOf(Date);
+      expect(stats.totalResources).toBe(1);
+      expect(stats.totalRequests).toBe(1);
+      expect(stats.activeResources).toBe(1);
+      expect(stats.rateLimitedResources).toBe(0);
     });
   });
 
@@ -335,8 +339,10 @@ describe('DynamoDBRateLimitStore', () => {
     it('should use custom rate limits', async () => {
       const customStore = new DynamoDBRateLimitStore({
         tableName: 'test-table',
-        defaultLimit: 5, // Custom limit
-        defaultWindowSeconds: 30, // Custom window
+        defaultConfig: {
+          limit: 5, // Custom limit
+          windowMs: 30 * 1000, // Custom window
+        },
         cleanupIntervalMs: 0,
       });
 
@@ -359,8 +365,10 @@ describe('DynamoDBRateLimitStore', () => {
     it('should use custom window timing', async () => {
       const customStore = new DynamoDBRateLimitStore({
         tableName: 'test-table',
-        defaultLimit: 10,
-        defaultWindowSeconds: 30, // 30 second window
+        defaultConfig: {
+          limit: 10,
+          windowMs: 30 * 1000, // 30 second window
+        },
         cleanupIntervalMs: 0,
       });
 
@@ -469,7 +477,10 @@ describe('DynamoDBRateLimitStore', () => {
     it('should handle zero limits gracefully', async () => {
       const zeroLimitStore = new DynamoDBRateLimitStore({
         tableName: 'test-table',
-        defaultLimit: 0, // No requests allowed
+        defaultConfig: {
+          limit: 0, // No requests allowed
+          windowMs: 60 * 1000,
+        },
         cleanupIntervalMs: 0,
       });
 
