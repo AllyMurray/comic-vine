@@ -1,6 +1,8 @@
+import type { Options } from 'tsup';
+
 export const sharedTsupConfig = {
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'] as const,
+  format: ['cjs', 'esm'],
   dts: true,
   splitting: false,
   sourcemap: true,
@@ -12,4 +14,4 @@ export const sharedTsupConfig = {
   tsconfig: './tsconfig.json',
   cjsInterop: true,
   skipNodeModulesBundle: true,
-};
+} satisfies Options;
