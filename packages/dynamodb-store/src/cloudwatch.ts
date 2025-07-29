@@ -212,39 +212,6 @@ export class CloudWatchMetrics {
     };
   }
 
-  static createCircuitBreakerMetric(
-    storeName: string,
-    state: string,
-    failureCount?: number,
-  ): Array<MetricData> {
-    const metrics: Array<MetricData> = [
-      {
-        MetricName: 'CircuitBreakerState',
-        Value: state === 'closed' ? 0 : state === 'half_open' ? 1 : 2,
-        Unit: 'Count',
-        Timestamp: new Date(),
-        Dimensions: this.buildDimensions({
-          Store: storeName,
-          State: state,
-        }),
-      },
-    ];
-
-    if (failureCount !== undefined) {
-      metrics.push({
-        MetricName: 'CircuitBreakerFailures',
-        Value: failureCount,
-        Unit: 'Count',
-        Timestamp: new Date(),
-        Dimensions: this.buildDimensions({
-          Store: storeName,
-        }),
-      });
-    }
-
-    return metrics;
-  }
-
   static createCacheMetrics(
     storeName: string,
     stats: {
@@ -446,16 +413,7 @@ export class CloudWatchDashboardConfig {
           width: 12,
           height: 6,
           properties: {
-            metrics: [
-              [
-                _namespace,
-                'CircuitBreakerState',
-                'Store',
-                'DynamoDBCacheStore',
-              ],
-              ['.', '.', '.', 'DynamoDBDedupeStore'],
-              ['.', '.', '.', 'DynamoDBRateLimitStore'],
-            ],
+            metrics: [],
             period: 300,
             stat: 'Maximum',
             region: 'us-east-1',
@@ -498,14 +456,6 @@ export class CloudWatchDashboardConfig {
         Threshold: 1.0, // 1 second
         EvaluationPeriods: 3,
         Description: 'Alarm when operation latency is high',
-      },
-      {
-        AlarmName: 'DynamoDBStore-CircuitBreakerOpen',
-        MetricName: 'CircuitBreakerState',
-        ComparisonOperator: 'GreaterThanOrEqualToThreshold',
-        Threshold: 2, // Open state
-        EvaluationPeriods: 1,
-        Description: 'Alarm when circuit breaker is open',
       },
     ];
   }

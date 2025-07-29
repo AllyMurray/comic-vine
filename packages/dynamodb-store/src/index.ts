@@ -8,7 +8,7 @@
  * - TTL-based caching with automatic cleanup
  * - Request deduplication with job tracking
  * - Resource-based rate limiting with adaptive algorithms
- * - Circuit breaker pattern for resilience
+ * - Exponential backoff retry logic for resilient operations
  * - Performance optimization with parallel processing
  * - CloudWatch metrics integration
  * - Structured logging with correlation IDs
@@ -34,22 +34,10 @@ export {
   StoreDestroyedError,
   ThrottlingError,
   ItemSizeError,
-  CircuitBreakerOpenError,
-  OperationTimeoutError,
-  CircuitBreakerState,
 } from './types.js';
 
-export type { CircuitBreakerStatus } from './types.js';
-
 // Client utilities
-export {
-  createDynamoDBClient,
-  destroyDynamoDBClient,
-  createCircuitBreaker,
-} from './client.js';
-
-// Circuit breaker
-export { CircuitBreaker } from './circuit-breaker.js';
+export { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 
 // Utility functions
 export {
@@ -61,7 +49,6 @@ export {
   calculateBackoffDelay,
   isThrottlingError,
   isConditionalCheckFailedError,
-  retryWithBackoff,
   chunkArray,
   isSevereError,
   calculateOptimalBatchSize,

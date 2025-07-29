@@ -1,10 +1,4 @@
-import { CircuitBreaker } from './circuit-breaker.js';
-import {
-  DynamoDBStoreError,
-  ThrottlingError,
-  ItemSizeError,
-  type DynamoDBStoreConfig,
-} from './types.js';
+import { DynamoDBStoreError, ItemSizeError } from './types.js';
 
 /**
  * Maximum item size for DynamoDB (400KB)
@@ -116,7 +110,7 @@ export function isThrottlingError(error: unknown): boolean {
   return (
     err.name === 'ThrottlingException' ||
     err.name === 'ProvisionedThroughputExceededException' ||
-    err.name === 'ThrottlingError' || // Wrapped error from retryWithBackoff
+    err.name === 'ThrottlingError' ||
     err.code === 'ThrottlingException' ||
     err.code === 'ProvisionedThroughputExceededException'
   );
@@ -135,65 +129,6 @@ export function isConditionalCheckFailedError(error: unknown): boolean {
     err.name === 'ConditionalCheckFailedException' ||
     err.code === 'ConditionalCheckFailedException'
   );
-}
-
-/**
- * Retry operation with exponential backoff and circuit breaker protection
- */
-export async function retryWithBackoff<T>(
-  operation: () => Promise<T>,
-  config: DynamoDBStoreConfig,
-  operationName: string,
-  circuitBreaker?: CircuitBreaker,
-): Promise<T> {
-  const executeOperation = async (): Promise<T> => {
-    let lastError: Error | undefined;
-
-    for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
-      try {
-        return await operation();
-      } catch (error) {
-        lastError = error instanceof Error ? error : new Error(String(error));
-
-        // Don't retry on the last attempt
-        if (attempt === config.maxRetries) {
-          break;
-        }
-
-        // Check if this is a throttling error that should be retried
-        if (isThrottlingError(error)) {
-          const delay = calculateBackoffDelay(attempt, config.retryDelayMs);
-          await sleep(delay);
-          continue;
-        }
-
-        // For non-throttling errors, don't retry
-        throw lastError;
-      }
-    }
-
-    // If we get here, we've exhausted all retries
-    if (!lastError) {
-      throw new Error(`Operation '${operationName}' failed with unknown error`);
-    }
-
-    if (isThrottlingError(lastError)) {
-      throw new ThrottlingError(operationName, lastError);
-    }
-
-    throw new DynamoDBStoreError(
-      `Operation '${operationName}' failed after ${config.maxRetries + 1} attempts`,
-      lastError,
-      operationName,
-    );
-  };
-
-  // Execute with circuit breaker if provided
-  if (circuitBreaker) {
-    return circuitBreaker.execute(executeOperation, operationName);
-  }
-
-  return executeOperation();
 }
 
 /**

@@ -24,7 +24,7 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import { calculateTTL, retryWithBackoff, chunkArray } from './utils.js';
+import { calculateTTL, chunkArray } from './utils.js';
 
 export interface DynamoDBRateLimitStoreOptions extends DynamoDBStoreOptions {
   /**
@@ -68,54 +68,38 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
   async canProceed(resource: string): Promise<boolean> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
-        const currentCount = await this.getCurrentRequestCount(resource);
-        return currentCount < config.limit;
-      },
-      this.config,
-      'rateLimit.canProceed',
-    );
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+    const currentCount = await this.getCurrentRequestCount(resource);
+    return currentCount < config.limit;
   }
 
   async record(resource: string): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const now = Date.now();
-        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
-        const timestamp = Math.floor(now / 1000); // Use seconds for timestamp
-        const uuid = randomUUID();
-        const ttl = calculateTTL(Math.floor(config.windowMs / 1000) * 2); // Keep records for 2x window for safety
+    const now = Date.now();
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+    const timestamp = Math.floor(now / 1000); // Use seconds for timestamp
+    const uuid = randomUUID();
+    const ttl = calculateTTL(Math.floor(config.windowMs / 1000) * 2); // Keep records for 2x window for safety
 
-        const key = buildRateLimitKey(resource, timestamp, uuid);
-        const gsi1Key = buildExpirationGSI1Key(
-          EntityTypes.RATELIMIT,
-          ttl,
-          key.PK,
-        );
+    const key = buildRateLimitKey(resource, timestamp, uuid);
+    const gsi1Key = buildExpirationGSI1Key(EntityTypes.RATELIMIT, ttl, key.PK);
 
-        const item: RateLimitItem = {
-          ...key,
-          ...gsi1Key,
-          TTL: ttl,
-          Data: {
-            createdAt: now,
-          },
-        };
-
-        const command = new PutCommand({
-          TableName: this.config.tableName,
-          Item: item,
-        });
-
-        await this.docClient.send(command);
+    const item: RateLimitItem = {
+      ...key,
+      ...gsi1Key,
+      TTL: ttl,
+      Data: {
+        createdAt: now,
       },
-      this.config,
-      'rateLimit.record',
-    );
+    };
+
+    const command = new PutCommand({
+      TableName: this.config.tableName,
+      Item: item,
+    });
+
+    await this.docClient.send(command);
   }
 
   async getStatus(resource: string): Promise<{
@@ -125,112 +109,94 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
   }> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
-        const currentCount = await this.getCurrentRequestCount(resource);
-        const remaining = Math.max(0, config.limit - currentCount);
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+    const currentCount = await this.getCurrentRequestCount(resource);
+    const remaining = Math.max(0, config.limit - currentCount);
 
-        // Calculate when the current window resets
-        const now = Date.now();
-        const windowSeconds = Math.floor(config.windowMs / 1000);
-        const currentWindowStart =
-          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
-        const nextWindowStart = currentWindowStart + windowSeconds;
-        const resetTime = new Date(nextWindowStart * 1000);
+    // Calculate when the current window resets
+    const now = Date.now();
+    const windowSeconds = Math.floor(config.windowMs / 1000);
+    const currentWindowStart =
+      Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+    const nextWindowStart = currentWindowStart + windowSeconds;
+    const resetTime = new Date(nextWindowStart * 1000);
 
-        return {
-          remaining,
-          resetTime,
-          limit: config.limit,
-        };
-      },
-      this.config,
-      'rateLimit.getStatus',
-    );
+    return {
+      remaining,
+      resetTime,
+      limit: config.limit,
+    };
   }
 
   async reset(resource: string): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
 
-        do {
-          // Query for all rate limit records for this resource
-          const queryCommand = new QueryCommand({
-            TableName: this.config.tableName,
-            KeyConditionExpression: '#pk = :pk',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
+    do {
+      // Query for all rate limit records for this resource
+      const queryCommand = new QueryCommand({
+        TableName: this.config.tableName,
+        KeyConditionExpression: '#pk = :pk',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+        },
+        ExpressionAttributeValues: {
+          ':pk': `${EntityTypes.RATELIMIT}#${resource}`,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
+
+      const queryResult = await this.docClient.send(queryCommand);
+
+      if (queryResult.Items && queryResult.Items.length > 0) {
+        // Delete items in batches
+        const chunks = chunkArray(queryResult.Items, this.config.batchSize);
+
+        for (const chunk of chunks) {
+          const deleteRequests = chunk.map((item) => ({
+            DeleteRequest: {
+              Key: {
+                [TableAttributes.PK]: item[TableAttributes.PK],
+                [TableAttributes.SK]: item[TableAttributes.SK],
+              },
             },
-            ExpressionAttributeValues: {
-              ':pk': `${EntityTypes.RATELIMIT}#${resource}`,
+          }));
+
+          const batchCommand = new BatchWriteCommand({
+            RequestItems: {
+              [this.config.tableName]: deleteRequests,
             },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
-            ExclusiveStartKey: lastEvaluatedKey,
           });
 
-          const queryResult = await this.docClient.send(queryCommand);
+          await this.docClient.send(batchCommand);
+        }
+      }
 
-          if (queryResult.Items && queryResult.Items.length > 0) {
-            // Delete items in batches
-            const chunks = chunkArray(queryResult.Items, this.config.batchSize);
-
-            for (const chunk of chunks) {
-              const deleteRequests = chunk.map((item) => ({
-                DeleteRequest: {
-                  Key: {
-                    [TableAttributes.PK]: item[TableAttributes.PK],
-                    [TableAttributes.SK]: item[TableAttributes.SK],
-                  },
-                },
-              }));
-
-              const batchCommand = new BatchWriteCommand({
-                RequestItems: {
-                  [this.config.tableName]: deleteRequests,
-                },
-              });
-
-              await this.docClient.send(batchCommand);
-            }
-          }
-
-          lastEvaluatedKey = queryResult.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-      },
-      this.config,
-      'rateLimit.reset',
-    );
+      lastEvaluatedKey = queryResult.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
   }
 
   async getWaitTime(resource: string): Promise<number> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const canProceed = await this.canProceed(resource);
+    const canProceed = await this.canProceed(resource);
 
-        if (canProceed) {
-          return 0;
-        }
+    if (canProceed) {
+      return 0;
+    }
 
-        // Calculate time until the current window resets
-        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
-        const now = Date.now();
-        const windowSeconds = Math.floor(config.windowMs / 1000);
-        const currentWindowStart =
-          Math.floor(now / 1000 / windowSeconds) * windowSeconds;
-        const nextWindowStart = currentWindowStart + windowSeconds;
-        const waitTimeMs = nextWindowStart * 1000 - now;
+    // Calculate time until the current window resets
+    const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+    const now = Date.now();
+    const windowSeconds = Math.floor(config.windowMs / 1000);
+    const currentWindowStart =
+      Math.floor(now / 1000 / windowSeconds) * windowSeconds;
+    const nextWindowStart = currentWindowStart + windowSeconds;
+    const waitTimeMs = nextWindowStart * 1000 - now;
 
-        return Math.max(0, waitTimeMs);
-      },
-      this.config,
-      'rateLimit.getWaitTime',
-    );
+    return Math.max(0, waitTimeMs);
   }
 
   /**
@@ -244,96 +210,89 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
   }> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const resourceMap = new Map<
-          string,
-          {
-            requestCount: number;
-            oldestTimestamp: number;
-            newestTimestamp: number;
-          }
-        >();
+    const resourceMap = new Map<
+      string,
+      {
+        requestCount: number;
+        oldestTimestamp: number;
+        newestTimestamp: number;
+      }
+    >();
 
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        let totalRequests = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    let totalRequests = 0;
 
-        do {
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression: 'begins_with(#pk, :rateLimitPrefix)',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-            },
-            ExpressionAttributeValues: {
-              ':rateLimitPrefix': `${EntityTypes.RATELIMIT}#`,
-            },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}, ${TableAttributes.Data}`,
-            ExclusiveStartKey: lastEvaluatedKey,
-          });
+    do {
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :rateLimitPrefix)',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+        },
+        ExpressionAttributeValues: {
+          ':rateLimitPrefix': `${EntityTypes.RATELIMIT}#`,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}, ${TableAttributes.Data}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
 
-          const result = await this.docClient.send(scanCommand);
+      const result = await this.docClient.send(scanCommand);
 
-          if (result.Items) {
-            for (const item of result.Items) {
-              totalRequests++;
+      if (result.Items) {
+        for (const item of result.Items) {
+          totalRequests++;
 
-              const resource = extractResourceFromRateLimitKey(
-                item[TableAttributes.PK] as string,
-              );
-              const { timestamp } = extractTimestampAndUuidFromRateLimitKey(
-                item[TableAttributes.SK] as string,
-              );
+          const resource = extractResourceFromRateLimitKey(
+            item[TableAttributes.PK] as string,
+          );
+          const { timestamp } = extractTimestampAndUuidFromRateLimitKey(
+            item[TableAttributes.SK] as string,
+          );
 
-              const existing = resourceMap.get(resource);
-              if (existing) {
-                existing.requestCount++;
-                existing.oldestTimestamp = Math.min(
-                  existing.oldestTimestamp,
-                  timestamp,
-                );
-                existing.newestTimestamp = Math.max(
-                  existing.newestTimestamp,
-                  timestamp,
-                );
-              } else {
-                resourceMap.set(resource, {
-                  requestCount: 1,
-                  oldestTimestamp: timestamp,
-                  newestTimestamp: timestamp,
-                });
-              }
-            }
-          }
-
-          lastEvaluatedKey = result.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-
-        // Calculate active and rate-limited resources
-        let activeResources = 0;
-        let rateLimitedResources = 0;
-
-        for (const [resource, stats] of resourceMap.entries()) {
-          if (stats.requestCount > 0) {
-            activeResources++;
-            const config =
-              this.resourceConfigs.get(resource) || this.defaultConfig;
-            if (stats.requestCount >= config.limit) {
-              rateLimitedResources++;
-            }
+          const existing = resourceMap.get(resource);
+          if (existing) {
+            existing.requestCount++;
+            existing.oldestTimestamp = Math.min(
+              existing.oldestTimestamp,
+              timestamp,
+            );
+            existing.newestTimestamp = Math.max(
+              existing.newestTimestamp,
+              timestamp,
+            );
+          } else {
+            resourceMap.set(resource, {
+              requestCount: 1,
+              oldestTimestamp: timestamp,
+              newestTimestamp: timestamp,
+            });
           }
         }
+      }
 
-        return {
-          totalResources: resourceMap.size,
-          activeResources,
-          rateLimitedResources,
-          totalRequests,
-        };
-      },
-      this.config,
-      'rateLimit.getStats',
-    );
+      lastEvaluatedKey = result.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
+
+    // Calculate active and rate-limited resources
+    let activeResources = 0;
+    let rateLimitedResources = 0;
+
+    for (const [resource, stats] of resourceMap.entries()) {
+      if (stats.requestCount > 0) {
+        activeResources++;
+        const config = this.resourceConfigs.get(resource) || this.defaultConfig;
+        if (stats.requestCount >= config.limit) {
+          rateLimitedResources++;
+        }
+      }
+    }
+
+    return {
+      totalResources: resourceMap.size,
+      activeResources,
+      rateLimitedResources,
+      totalRequests,
+    };
   }
 
   /**
@@ -342,65 +301,58 @@ export class DynamoDBRateLimitStore implements RateLimitStore {
   async cleanup(): Promise<number> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let deletedCount = 0;
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        const now = Math.floor(Date.now() / 1000);
+    let deletedCount = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    const now = Math.floor(Date.now() / 1000);
 
-        do {
-          // Scan for expired rate limit items
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression:
-              'begins_with(#pk, :rateLimitPrefix) AND #ttl <= :now',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-              '#ttl': TableAttributes.TTL,
+    do {
+      // Scan for expired rate limit items
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :rateLimitPrefix) AND #ttl <= :now',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+          '#ttl': TableAttributes.TTL,
+        },
+        ExpressionAttributeValues: {
+          ':rateLimitPrefix': `${EntityTypes.RATELIMIT}#`,
+          ':now': now,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
+
+      const scanResult = await this.docClient.send(scanCommand);
+
+      if (scanResult.Items && scanResult.Items.length > 0) {
+        // Delete expired items in batches
+        const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+
+        for (const chunk of chunks) {
+          const deleteRequests = chunk.map((item) => ({
+            DeleteRequest: {
+              Key: {
+                [TableAttributes.PK]: item[TableAttributes.PK],
+                [TableAttributes.SK]: item[TableAttributes.SK],
+              },
             },
-            ExpressionAttributeValues: {
-              ':rateLimitPrefix': `${EntityTypes.RATELIMIT}#`,
-              ':now': now,
+          }));
+
+          const batchCommand = new BatchWriteCommand({
+            RequestItems: {
+              [this.config.tableName]: deleteRequests,
             },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
-            ExclusiveStartKey: lastEvaluatedKey,
           });
 
-          const scanResult = await this.docClient.send(scanCommand);
+          await this.docClient.send(batchCommand);
+          deletedCount += chunk.length;
+        }
+      }
 
-          if (scanResult.Items && scanResult.Items.length > 0) {
-            // Delete expired items in batches
-            const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+      lastEvaluatedKey = scanResult.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
 
-            for (const chunk of chunks) {
-              const deleteRequests = chunk.map((item) => ({
-                DeleteRequest: {
-                  Key: {
-                    [TableAttributes.PK]: item[TableAttributes.PK],
-                    [TableAttributes.SK]: item[TableAttributes.SK],
-                  },
-                },
-              }));
-
-              const batchCommand = new BatchWriteCommand({
-                RequestItems: {
-                  [this.config.tableName]: deleteRequests,
-                },
-              });
-
-              await this.docClient.send(batchCommand);
-              deletedCount += chunk.length;
-            }
-          }
-
-          lastEvaluatedKey = scanResult.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-
-        return deletedCount;
-      },
-      this.config,
-      'rateLimit.cleanup',
-    );
+    return deletedCount;
   }
 
   /**

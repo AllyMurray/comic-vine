@@ -7,12 +7,7 @@ import {
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import type { CacheStore } from '@comic-vine/client';
-import { CircuitBreaker } from './circuit-breaker.js';
-import {
-  createDynamoDBClient,
-  destroyDynamoDBClient,
-  createCircuitBreaker,
-} from './client.js';
+import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildCacheKey,
   buildExpirationGSI1Key,
@@ -32,7 +27,6 @@ import {
   isExpired,
   serializeValue,
   deserializeValue,
-  retryWithBackoff,
   chunkArray,
 } from './utils.js';
 
@@ -42,7 +36,6 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   private readonly config: DynamoDBStoreConfig;
   private readonly clientWrapper: DynamoDBClientWrapper;
   private readonly docClient: DynamoDBDocumentClient;
-  private readonly circuitBreaker: CircuitBreaker;
   private cleanupInterval?: NodeJS.Timeout;
   private isDestroyed = false;
 
@@ -54,7 +47,6 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
         removeUndefinedValues: true,
       },
     });
-    this.circuitBreaker = createCircuitBreaker(this.config);
 
     this.startCleanupInterval();
   }
@@ -62,151 +54,123 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   async get(hash: string): Promise<T | undefined> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const key = buildCacheKey(hash);
+    const key = buildCacheKey(hash);
 
-        const command = new GetCommand({
-          TableName: this.config.tableName,
-          Key: key,
-          ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
-        });
+    const command = new GetCommand({
+      TableName: this.config.tableName,
+      Key: key,
+      ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
+    });
 
-        const result = await this.docClient.send(command);
+    const result = await this.docClient.send(command);
 
-        if (!result.Item) {
-          return undefined;
-        }
+    if (!result.Item) {
+      return undefined;
+    }
 
-        const item = result.Item as Pick<CacheItem, 'TTL' | 'Data'>;
+    const item = result.Item as Pick<CacheItem, 'TTL' | 'Data'>;
 
-        // Check if item has expired
-        if (isExpired(item.TTL)) {
-          // Delete expired item asynchronously
-          this.delete(hash).catch(() => {
-            // Ignore deletion errors for expired items
-          });
-          return undefined;
-        }
+    // Check if item has expired
+    if (isExpired(item.TTL)) {
+      // Delete expired item asynchronously
+      this.delete(hash).catch(() => {
+        // Ignore deletion errors for expired items
+      });
+      return undefined;
+    }
 
-        return deserializeValue<T>(item.Data.value as string);
-      },
-      this.config,
-      'cache.get',
-      this.circuitBreaker,
-    );
+    return deserializeValue<T>(item.Data.value as string);
   }
 
   async set(hash: string, value: T, ttlSeconds: number): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const serializedValue = serializeValue(value);
-        const ttl = calculateTTL(ttlSeconds);
-        const now = Date.now();
+    const serializedValue = serializeValue(value);
+    const ttl = calculateTTL(ttlSeconds);
+    const now = Date.now();
 
-        const key = buildCacheKey(hash);
-        const gsi1Key = buildExpirationGSI1Key(EntityTypes.CACHE, ttl, key.PK);
+    const key = buildCacheKey(hash);
+    const gsi1Key = buildExpirationGSI1Key(EntityTypes.CACHE, ttl, key.PK);
 
-        const item: CacheItem = {
-          ...key,
-          ...gsi1Key,
-          TTL: ttl,
-          Data: {
-            value: serializedValue,
-            createdAt: now,
-          },
-        };
-
-        const command = new PutCommand({
-          TableName: this.config.tableName,
-          Item: item,
-        });
-
-        await this.docClient.send(command);
+    const item: CacheItem = {
+      ...key,
+      ...gsi1Key,
+      TTL: ttl,
+      Data: {
+        value: serializedValue,
+        createdAt: now,
       },
-      this.config,
-      'cache.set',
-      this.circuitBreaker,
-    );
+    };
+
+    const command = new PutCommand({
+      TableName: this.config.tableName,
+      Item: item,
+    });
+
+    await this.docClient.send(command);
   }
 
   async delete(hash: string): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const key = buildCacheKey(hash);
+    const key = buildCacheKey(hash);
 
-        const command = new DeleteCommand({
-          TableName: this.config.tableName,
-          Key: key,
-        });
+    const command = new DeleteCommand({
+      TableName: this.config.tableName,
+      Key: key,
+    });
 
-        await this.docClient.send(command);
-      },
-      this.config,
-      'cache.delete',
-      this.circuitBreaker,
-    );
+    await this.docClient.send(command);
   }
 
   async clear(): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
 
-        do {
-          // Scan for all cache items
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression: 'begins_with(#pk, :cachePrefix)',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
+    do {
+      // Scan for all cache items
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :cachePrefix)',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+        },
+        ExpressionAttributeValues: {
+          ':cachePrefix': `${EntityTypes.CACHE}#`,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
+
+      const scanResult = await this.docClient.send(scanCommand);
+
+      if (scanResult.Items && scanResult.Items.length > 0) {
+        // Delete items in batches
+        const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+
+        for (const chunk of chunks) {
+          const deleteRequests = chunk.map((item) => ({
+            DeleteRequest: {
+              Key: {
+                [TableAttributes.PK]: item[TableAttributes.PK],
+                [TableAttributes.SK]: item[TableAttributes.SK],
+              },
             },
-            ExpressionAttributeValues: {
-              ':cachePrefix': `${EntityTypes.CACHE}#`,
+          }));
+
+          const batchCommand = new BatchWriteCommand({
+            RequestItems: {
+              [this.config.tableName]: deleteRequests,
             },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
-            ExclusiveStartKey: lastEvaluatedKey,
           });
 
-          const scanResult = await this.docClient.send(scanCommand);
+          await this.docClient.send(batchCommand);
+        }
+      }
 
-          if (scanResult.Items && scanResult.Items.length > 0) {
-            // Delete items in batches
-            const chunks = chunkArray(scanResult.Items, this.config.batchSize);
-
-            for (const chunk of chunks) {
-              const deleteRequests = chunk.map((item) => ({
-                DeleteRequest: {
-                  Key: {
-                    [TableAttributes.PK]: item[TableAttributes.PK],
-                    [TableAttributes.SK]: item[TableAttributes.SK],
-                  },
-                },
-              }));
-
-              const batchCommand = new BatchWriteCommand({
-                RequestItems: {
-                  [this.config.tableName]: deleteRequests,
-                },
-              });
-
-              await this.docClient.send(batchCommand);
-            }
-          }
-
-          lastEvaluatedKey = scanResult.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-      },
-      this.config,
-      'cache.clear',
-      this.circuitBreaker,
-    );
+      lastEvaluatedKey = scanResult.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
   }
 
   /**
@@ -219,63 +183,56 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   }> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let totalItems = 0;
-        let expiredItems = 0;
-        let estimatedSizeBytes = 0;
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        const now = Math.floor(Date.now() / 1000);
+    let totalItems = 0;
+    let expiredItems = 0;
+    let estimatedSizeBytes = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    const now = Math.floor(Date.now() / 1000);
 
-        do {
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression: 'begins_with(#pk, :cachePrefix)',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-            },
-            ExpressionAttributeValues: {
-              ':cachePrefix': `${EntityTypes.CACHE}#`,
-            },
-            ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
-            ExclusiveStartKey: lastEvaluatedKey,
-          });
+    do {
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :cachePrefix)',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+        },
+        ExpressionAttributeValues: {
+          ':cachePrefix': `${EntityTypes.CACHE}#`,
+        },
+        ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
 
-          const result = await this.docClient.send(scanCommand);
+      const result = await this.docClient.send(scanCommand);
 
-          if (result.Items) {
-            for (const item of result.Items) {
-              totalItems++;
+      if (result.Items) {
+        for (const item of result.Items) {
+          totalItems++;
 
-              if (item.TTL && item.TTL <= now) {
-                expiredItems++;
-              }
-
-              // Estimate size (rough approximation)
-              if (item.Data?.value) {
-                estimatedSizeBytes += Buffer.byteLength(
-                  typeof item.Data.value === 'string'
-                    ? item.Data.value
-                    : JSON.stringify(item.Data.value),
-                  'utf8',
-                );
-              }
-            }
+          if (item.TTL && item.TTL <= now) {
+            expiredItems++;
           }
 
-          lastEvaluatedKey = result.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
+          // Estimate size (rough approximation)
+          if (item.Data?.value) {
+            estimatedSizeBytes += Buffer.byteLength(
+              typeof item.Data.value === 'string'
+                ? item.Data.value
+                : JSON.stringify(item.Data.value),
+              'utf8',
+            );
+          }
+        }
+      }
 
-        return {
-          totalItems,
-          expiredItems,
-          estimatedSizeBytes,
-        };
-      },
-      this.config,
-      'cache.getStats',
-      this.circuitBreaker,
-    );
+      lastEvaluatedKey = result.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
+
+    return {
+      totalItems,
+      expiredItems,
+      estimatedSizeBytes,
+    };
   }
 
   /**
@@ -284,79 +241,58 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
   async cleanup(): Promise<number> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let deletedCount = 0;
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        const now = Math.floor(Date.now() / 1000);
+    let deletedCount = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    const now = Math.floor(Date.now() / 1000);
 
-        do {
-          // Scan for expired cache items
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression: 'begins_with(#pk, :cachePrefix) AND #ttl <= :now',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-              '#ttl': TableAttributes.TTL,
+    do {
+      // Scan for expired cache items
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :cachePrefix) AND #ttl <= :now',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+          '#ttl': TableAttributes.TTL,
+        },
+        ExpressionAttributeValues: {
+          ':cachePrefix': `${EntityTypes.CACHE}#`,
+          ':now': now,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
+
+      const scanResult = await this.docClient.send(scanCommand);
+
+      if (scanResult.Items && scanResult.Items.length > 0) {
+        // Delete expired items in batches
+        const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+
+        for (const chunk of chunks) {
+          const deleteRequests = chunk.map((item) => ({
+            DeleteRequest: {
+              Key: {
+                [TableAttributes.PK]: item[TableAttributes.PK],
+                [TableAttributes.SK]: item[TableAttributes.SK],
+              },
             },
-            ExpressionAttributeValues: {
-              ':cachePrefix': `${EntityTypes.CACHE}#`,
-              ':now': now,
+          }));
+
+          const batchCommand = new BatchWriteCommand({
+            RequestItems: {
+              [this.config.tableName]: deleteRequests,
             },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
-            ExclusiveStartKey: lastEvaluatedKey,
           });
 
-          const scanResult = await this.docClient.send(scanCommand);
+          await this.docClient.send(batchCommand);
+          deletedCount += chunk.length;
+        }
+      }
 
-          if (scanResult.Items && scanResult.Items.length > 0) {
-            // Delete expired items in batches
-            const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+      lastEvaluatedKey = scanResult.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
 
-            for (const chunk of chunks) {
-              const deleteRequests = chunk.map((item) => ({
-                DeleteRequest: {
-                  Key: {
-                    [TableAttributes.PK]: item[TableAttributes.PK],
-                    [TableAttributes.SK]: item[TableAttributes.SK],
-                  },
-                },
-              }));
-
-              const batchCommand = new BatchWriteCommand({
-                RequestItems: {
-                  [this.config.tableName]: deleteRequests,
-                },
-              });
-
-              await this.docClient.send(batchCommand);
-              deletedCount += chunk.length;
-            }
-          }
-
-          lastEvaluatedKey = scanResult.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-
-        return deletedCount;
-      },
-      this.config,
-      'cache.cleanup',
-      this.circuitBreaker,
-    );
-  }
-
-  /**
-   * Get circuit breaker status for monitoring
-   */
-  getCircuitBreakerStatus() {
-    return this.circuitBreaker.getStatus();
-  }
-
-  /**
-   * Reset circuit breaker to closed state
-   */
-  resetCircuitBreaker(): void {
-    this.circuitBreaker.reset();
+    return deletedCount;
   }
 
   /**
@@ -382,7 +318,6 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
         details: {
           operation: 'get',
           testKey,
-          circuitBreakerState: this.circuitBreaker.getStatus().state,
         },
       };
     } catch (error) {
@@ -393,7 +328,6 @@ export class DynamoDBCacheStore<T = unknown> implements CacheStore<T> {
         duration,
         details: {
           error: error instanceof Error ? error.message : String(error),
-          circuitBreakerState: this.circuitBreaker.getStatus().state,
         },
       };
     }

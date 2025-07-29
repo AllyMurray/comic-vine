@@ -1,5 +1,5 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { CircuitBreaker } from './circuit-breaker.js';
+import { StandardRetryStrategy } from '@smithy/util-retry';
 import type { DynamoDBStoreConfig, DynamoDBClientWrapper } from './types.js';
 
 /**
@@ -16,9 +16,9 @@ export function createDynamoDBClient(
     };
   }
 
-  // Create a new client with the provided configuration
+  // Create a new client with Smithy StandardRetryStrategy
   const clientConfig: ConstructorParameters<typeof DynamoDBClient>[0] = {
-    maxAttempts: config.maxRetries + 1, // AWS SDK uses attempts, not retries
+    retryStrategy: new StandardRetryStrategy(config.maxRetries + 1), // Smithy counts total attempts, not retries
   };
 
   if (config.region) {
@@ -35,15 +35,6 @@ export function createDynamoDBClient(
     client,
     isManaged: true,
   };
-}
-
-/**
- * Creates a circuit breaker for DynamoDB operations
- */
-export function createCircuitBreaker(
-  config: DynamoDBStoreConfig,
-): CircuitBreaker {
-  return new CircuitBreaker(config);
 }
 
 /**

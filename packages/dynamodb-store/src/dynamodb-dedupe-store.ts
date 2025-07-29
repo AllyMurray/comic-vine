@@ -29,7 +29,6 @@ import {
   isExpired,
   serializeValue,
   deserializeValue,
-  retryWithBackoff,
   chunkArray,
   sleep,
   isConditionalCheckFailedError,
@@ -117,184 +116,160 @@ export class DynamoDBDedupeStore<T = unknown> implements DedupeStore<T> {
   async register(hash: string): Promise<string> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const jobId = randomUUID();
-        const ttl = calculateTTL(this.defaultTtlSeconds);
-        const now = Date.now();
+    const jobId = randomUUID();
+    const ttl = calculateTTL(this.defaultTtlSeconds);
+    const now = Date.now();
 
-        const key = buildDedupeKey(hash, jobId);
-        const gsi1Key = buildExpirationGSI1Key(EntityTypes.DEDUPE, ttl, key.PK);
+    const key = buildDedupeKey(hash, jobId);
+    const gsi1Key = buildExpirationGSI1Key(EntityTypes.DEDUPE, ttl, key.PK);
 
-        const item: DedupeItem = {
-          ...key,
-          ...gsi1Key,
-          TTL: ttl,
-          Data: {
-            status: 'pending',
-            createdAt: now,
-            updatedAt: now,
-          },
-        };
-
-        // Use conditional put to ensure we don't overwrite existing jobs
-        // Check that no job with the same hash exists (regardless of jobId)
-        const command = new PutCommand({
-          TableName: this.config.tableName,
-          Item: item,
-          ConditionExpression: 'attribute_not_exists(#pk)',
-          ExpressionAttributeNames: {
-            '#pk': TableAttributes.PK,
-          },
-        });
-
-        try {
-          await this.docClient.send(command);
-          return jobId;
-        } catch (error) {
-          if (isConditionalCheckFailedError(error)) {
-            // Another job is already registered for this hash
-            // Check if it's still valid (not expired) and still pending
-            const existingJob = await this.getExistingJob(hash);
-            if (
-              existingJob &&
-              !isExpired(existingJob.TTL) &&
-              existingJob.Data.status === 'pending'
-            ) {
-              throw new Error(`Job already in progress for hash: ${hash}`);
-            }
-
-            // Existing job is expired, try again
-            throw error; // Will be retried by retryWithBackoff
-          }
-          throw error;
-        }
+    const item: DedupeItem = {
+      ...key,
+      ...gsi1Key,
+      TTL: ttl,
+      Data: {
+        status: 'pending',
+        createdAt: now,
+        updatedAt: now,
       },
-      this.config,
-      'dedupe.register',
-    );
+    };
+
+    // Use conditional put to ensure we don't overwrite existing jobs
+    // Check that no job with the same hash exists (regardless of jobId)
+    const command = new PutCommand({
+      TableName: this.config.tableName,
+      Item: item,
+      ConditionExpression: 'attribute_not_exists(#pk)',
+      ExpressionAttributeNames: {
+        '#pk': TableAttributes.PK,
+      },
+    });
+
+    try {
+      await this.docClient.send(command);
+      return jobId;
+    } catch (error) {
+      if (isConditionalCheckFailedError(error)) {
+        // Another job is already registered for this hash
+        // Check if it's still valid (not expired) and still pending
+        const existingJob = await this.getExistingJob(hash);
+        if (
+          existingJob &&
+          !isExpired(existingJob.TTL) &&
+          existingJob.Data.status === 'pending'
+        ) {
+          throw new Error(`Job already in progress for hash: ${hash}`);
+        }
+
+        // Existing job is expired, try again with Smithy retry
+        throw error;
+      }
+      throw error;
+    }
   }
 
   async complete(hash: string, value: T): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const serializedValue = serializeValue(value);
-        const now = Date.now();
+    const serializedValue = serializeValue(value);
+    const now = Date.now();
 
-        // Find the job for this hash
-        const existingJob = await this.getExistingJob(hash);
-        if (!existingJob) {
-          throw new Error(`No job found for hash: ${hash}`);
-        }
+    // Find the job for this hash
+    const existingJob = await this.getExistingJob(hash);
+    if (!existingJob) {
+      throw new Error(`No job found for hash: ${hash}`);
+    }
 
-        if (isExpired(existingJob.TTL)) {
-          throw new Error(`Job for hash ${hash} has expired`);
-        }
+    if (isExpired(existingJob.TTL)) {
+      throw new Error(`Job for hash ${hash} has expired`);
+    }
 
-        const jobId = extractJobIdFromDedupeKey(existingJob.SK);
-        const key = buildDedupeKey(hash, jobId);
+    const jobId = extractJobIdFromDedupeKey(existingJob.SK);
+    const key = buildDedupeKey(hash, jobId);
 
-        const command = new UpdateCommand({
-          TableName: this.config.tableName,
-          Key: key,
-          UpdateExpression:
-            'SET #data.#status = :status, #data.#result = :result, #data.#updatedAt = :updatedAt',
-          ConditionExpression: '#data.#status = :pendingStatus',
-          ExpressionAttributeNames: {
-            '#data': TableAttributes.Data,
-            '#status': 'status',
-            '#result': 'result',
-            '#updatedAt': 'updatedAt',
-          },
-          ExpressionAttributeValues: {
-            ':status': 'completed',
-            ':result': serializedValue,
-            ':updatedAt': now,
-            ':pendingStatus': 'pending',
-          },
-        });
-
-        try {
-          await this.docClient.send(command);
-        } catch (error) {
-          if (isConditionalCheckFailedError(error)) {
-            throw new Error(`Job for hash ${hash} is not in pending status`);
-          }
-          throw error;
-        }
+    const command = new UpdateCommand({
+      TableName: this.config.tableName,
+      Key: key,
+      UpdateExpression:
+        'SET #data.#status = :status, #data.#result = :result, #data.#updatedAt = :updatedAt',
+      ConditionExpression: '#data.#status = :pendingStatus',
+      ExpressionAttributeNames: {
+        '#data': TableAttributes.Data,
+        '#status': 'status',
+        '#result': 'result',
+        '#updatedAt': 'updatedAt',
       },
-      this.config,
-      'dedupe.complete',
-    );
+      ExpressionAttributeValues: {
+        ':status': 'completed',
+        ':result': serializedValue,
+        ':updatedAt': now,
+        ':pendingStatus': 'pending',
+      },
+    });
+
+    try {
+      await this.docClient.send(command);
+    } catch (error) {
+      if (isConditionalCheckFailedError(error)) {
+        throw new Error(`Job for hash ${hash} is not in pending status`);
+      }
+      throw error;
+    }
   }
 
   async fail(hash: string, error: Error): Promise<void> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const now = Date.now();
+    const now = Date.now();
 
-        // Find the job for this hash
-        const existingJob = await this.getExistingJob(hash);
-        if (!existingJob) {
-          throw new Error(`No job found for hash: ${hash}`);
-        }
+    // Find the job for this hash
+    const existingJob = await this.getExistingJob(hash);
+    if (!existingJob) {
+      throw new Error(`No job found for hash: ${hash}`);
+    }
 
-        if (isExpired(existingJob.TTL)) {
-          throw new Error(`Job for hash ${hash} has expired`);
-        }
+    if (isExpired(existingJob.TTL)) {
+      throw new Error(`Job for hash ${hash} has expired`);
+    }
 
-        const jobId = extractJobIdFromDedupeKey(existingJob.SK);
-        const key = buildDedupeKey(hash, jobId);
+    const jobId = extractJobIdFromDedupeKey(existingJob.SK);
+    const key = buildDedupeKey(hash, jobId);
 
-        const command = new UpdateCommand({
-          TableName: this.config.tableName,
-          Key: key,
-          UpdateExpression:
-            'SET #data.#status = :status, #data.#error = :error, #data.#updatedAt = :updatedAt',
-          ConditionExpression: '#data.#status = :pendingStatus',
-          ExpressionAttributeNames: {
-            '#data': TableAttributes.Data,
-            '#status': 'status',
-            '#error': 'error',
-            '#updatedAt': 'updatedAt',
-          },
-          ExpressionAttributeValues: {
-            ':status': 'failed',
-            ':error': error.message,
-            ':updatedAt': now,
-            ':pendingStatus': 'pending',
-          },
-        });
-
-        try {
-          await this.docClient.send(command);
-        } catch (err) {
-          if (isConditionalCheckFailedError(err)) {
-            throw new Error(`Job for hash ${hash} is not in pending status`);
-          }
-          throw err;
-        }
+    const command = new UpdateCommand({
+      TableName: this.config.tableName,
+      Key: key,
+      UpdateExpression:
+        'SET #data.#status = :status, #data.#error = :error, #data.#updatedAt = :updatedAt',
+      ConditionExpression: '#data.#status = :pendingStatus',
+      ExpressionAttributeNames: {
+        '#data': TableAttributes.Data,
+        '#status': 'status',
+        '#error': 'error',
+        '#updatedAt': 'updatedAt',
       },
-      this.config,
-      'dedupe.fail',
-    );
+      ExpressionAttributeValues: {
+        ':status': 'failed',
+        ':error': error.message,
+        ':updatedAt': now,
+        ':pendingStatus': 'pending',
+      },
+    });
+
+    try {
+      await this.docClient.send(command);
+    } catch (err) {
+      if (isConditionalCheckFailedError(err)) {
+        throw new Error(`Job for hash ${hash} is not in pending status`);
+      }
+      throw err;
+    }
   }
 
   async isInProgress(hash: string): Promise<boolean> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        const result = await this.checkJobStatus(hash);
-        return result?.status === 'pending' || false;
-      },
-      this.config,
-      'dedupe.isInProgress',
-    );
+    const result = await this.checkJobStatus(hash);
+    return result?.status === 'pending' || false;
   }
 
   /**
@@ -309,70 +284,64 @@ export class DynamoDBDedupeStore<T = unknown> implements DedupeStore<T> {
   }> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let totalJobs = 0;
-        let pendingJobs = 0;
-        let completedJobs = 0;
-        let failedJobs = 0;
-        let expiredJobs = 0;
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        const now = Math.floor(Date.now() / 1000);
+    let totalJobs = 0;
+    let pendingJobs = 0;
+    let completedJobs = 0;
+    let failedJobs = 0;
+    let expiredJobs = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    const now = Math.floor(Date.now() / 1000);
 
-        do {
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression: 'begins_with(#pk, :dedupePrefix)',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-            },
-            ExpressionAttributeValues: {
-              ':dedupePrefix': `${EntityTypes.DEDUPE}#`,
-            },
-            ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
-            ExclusiveStartKey: lastEvaluatedKey,
-          });
+    do {
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :dedupePrefix)',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+        },
+        ExpressionAttributeValues: {
+          ':dedupePrefix': `${EntityTypes.DEDUPE}#`,
+        },
+        ProjectionExpression: `${TableAttributes.TTL}, ${TableAttributes.Data}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
 
-          const result = await this.docClient.send(scanCommand);
+      const result = await this.docClient.send(scanCommand);
 
-          if (result.Items) {
-            for (const item of result.Items) {
-              totalJobs++;
+      if (result.Items) {
+        for (const item of result.Items) {
+          totalJobs++;
 
-              if (item.TTL && item.TTL <= now) {
-                expiredJobs++;
-                continue;
-              }
-
-              const status = item.Data?.status;
-              switch (status) {
-                case 'pending':
-                  pendingJobs++;
-                  break;
-                case 'completed':
-                  completedJobs++;
-                  break;
-                case 'failed':
-                  failedJobs++;
-                  break;
-              }
-            }
+          if (item.TTL && item.TTL <= now) {
+            expiredJobs++;
+            continue;
           }
 
-          lastEvaluatedKey = result.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
+          const status = item.Data?.status;
+          switch (status) {
+            case 'pending':
+              pendingJobs++;
+              break;
+            case 'completed':
+              completedJobs++;
+              break;
+            case 'failed':
+              failedJobs++;
+              break;
+          }
+        }
+      }
 
-        return {
-          totalJobs,
-          pendingJobs,
-          completedJobs,
-          failedJobs,
-          expiredJobs,
-        };
-      },
-      this.config,
-      'dedupe.getStats',
-    );
+      lastEvaluatedKey = result.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
+
+    return {
+      totalJobs,
+      pendingJobs,
+      completedJobs,
+      failedJobs,
+      expiredJobs,
+    };
   }
 
   /**
@@ -381,65 +350,58 @@ export class DynamoDBDedupeStore<T = unknown> implements DedupeStore<T> {
   async cleanup(): Promise<number> {
     this.ensureNotDestroyed();
 
-    return retryWithBackoff(
-      async () => {
-        let deletedCount = 0;
-        let lastEvaluatedKey: Record<string, unknown> | undefined;
-        const now = Math.floor(Date.now() / 1000);
+    let deletedCount = 0;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
+    const now = Math.floor(Date.now() / 1000);
 
-        do {
-          // Scan for expired dedupe items
-          const scanCommand = new ScanCommand({
-            TableName: this.config.tableName,
-            FilterExpression:
-              'begins_with(#pk, :dedupePrefix) AND #ttl <= :now',
-            ExpressionAttributeNames: {
-              '#pk': TableAttributes.PK,
-              '#ttl': TableAttributes.TTL,
+    do {
+      // Scan for expired dedupe items
+      const scanCommand = new ScanCommand({
+        TableName: this.config.tableName,
+        FilterExpression: 'begins_with(#pk, :dedupePrefix) AND #ttl <= :now',
+        ExpressionAttributeNames: {
+          '#pk': TableAttributes.PK,
+          '#ttl': TableAttributes.TTL,
+        },
+        ExpressionAttributeValues: {
+          ':dedupePrefix': `${EntityTypes.DEDUPE}#`,
+          ':now': now,
+        },
+        ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
+        ExclusiveStartKey: lastEvaluatedKey,
+      });
+
+      const scanResult = await this.docClient.send(scanCommand);
+
+      if (scanResult.Items && scanResult.Items.length > 0) {
+        // Delete expired items in batches
+        const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+
+        for (const chunk of chunks) {
+          const deleteRequests = chunk.map((item) => ({
+            DeleteRequest: {
+              Key: {
+                [TableAttributes.PK]: item[TableAttributes.PK],
+                [TableAttributes.SK]: item[TableAttributes.SK],
+              },
             },
-            ExpressionAttributeValues: {
-              ':dedupePrefix': `${EntityTypes.DEDUPE}#`,
-              ':now': now,
+          }));
+
+          const batchCommand = new BatchWriteCommand({
+            RequestItems: {
+              [this.config.tableName]: deleteRequests,
             },
-            ProjectionExpression: `${TableAttributes.PK}, ${TableAttributes.SK}`,
-            ExclusiveStartKey: lastEvaluatedKey,
           });
 
-          const scanResult = await this.docClient.send(scanCommand);
+          await this.docClient.send(batchCommand);
+          deletedCount += chunk.length;
+        }
+      }
 
-          if (scanResult.Items && scanResult.Items.length > 0) {
-            // Delete expired items in batches
-            const chunks = chunkArray(scanResult.Items, this.config.batchSize);
+      lastEvaluatedKey = scanResult.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
 
-            for (const chunk of chunks) {
-              const deleteRequests = chunk.map((item) => ({
-                DeleteRequest: {
-                  Key: {
-                    [TableAttributes.PK]: item[TableAttributes.PK],
-                    [TableAttributes.SK]: item[TableAttributes.SK],
-                  },
-                },
-              }));
-
-              const batchCommand = new BatchWriteCommand({
-                RequestItems: {
-                  [this.config.tableName]: deleteRequests,
-                },
-              });
-
-              await this.docClient.send(batchCommand);
-              deletedCount += chunk.length;
-            }
-          }
-
-          lastEvaluatedKey = scanResult.LastEvaluatedKey;
-        } while (lastEvaluatedKey);
-
-        return deletedCount;
-      },
-      this.config,
-      'dedupe.cleanup',
-    );
+    return deletedCount;
   }
 
   /**

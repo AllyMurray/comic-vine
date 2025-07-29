@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mockDynamoDBDocumentClient } from './__mocks__/dynamodb-client.js';
 import { DynamoDBCacheStore } from './dynamodb-cache-store.js';
-import { CircuitBreakerOpenError, OperationTimeoutError } from './types.js';
 
 // Mock the AWS SDK
 vi.mock('@aws-sdk/client-dynamodb', () => ({
@@ -28,9 +27,6 @@ describe('DynamoDBCacheStore', () => {
     store = new DynamoDBCacheStore({
       tableName: 'test-table',
       cleanupIntervalMs: 0, // Disable automatic cleanup for tests
-      circuitBreaker: {
-        enabled: false, // Disable circuit breaker for basic tests
-      },
     });
   });
 
@@ -209,73 +205,11 @@ describe('DynamoDBCacheStore', () => {
     });
   });
 
-  describe('circuit breaker functionality', () => {
-    beforeEach(() => {
-      mockDynamoDBDocumentClient.clear();
-      mockDynamoDBDocumentClient.disableThrottling();
-      mockDynamoDBDocumentClient.disableTimeout();
-
-      store = new DynamoDBCacheStore({
-        tableName: 'test-table',
-        cleanupIntervalMs: 0,
-        circuitBreaker: {
-          enabled: true,
-          failureThreshold: 2,
-          recoveryTimeoutMs: 1000,
-          timeoutMs: 2000, // Allow time for retries to complete
-        },
-      });
-    });
-
-    it('should provide circuit breaker status', () => {
-      const status = store.getCircuitBreakerStatus();
-      expect(status.state).toBe('closed');
-      expect(status.failureCount).toBe(0);
-    });
-
-    it('should reset circuit breaker', () => {
-      store.resetCircuitBreaker();
-      const status = store.getCircuitBreakerStatus();
-      expect(status.state).toBe('closed');
-      expect(status.failureCount).toBe(0);
-    });
-
-    it('should open circuit breaker after failures', async () => {
-      mockDynamoDBDocumentClient.enableThrottling();
-
-      // Cause failures to trip circuit breaker
-      await expect(store.get('key1')).rejects.toThrow();
-      await expect(store.get('key2')).rejects.toThrow();
-
-      const status = store.getCircuitBreakerStatus();
-      expect(status.state).toBe('open');
-    });
-
-    it('should handle circuit breaker open state', async () => {
-      mockDynamoDBDocumentClient.enableThrottling();
-
-      // Trip the circuit breaker
-      await expect(store.get('key1')).rejects.toThrow();
-      await expect(store.get('key2')).rejects.toThrow();
-
-      // Next call should be rejected by circuit breaker
-      await expect(store.get('key3')).rejects.toThrow(CircuitBreakerOpenError);
-    });
-
-    it('should handle operation timeouts', async () => {
-      mockDynamoDBDocumentClient.enableTimeout(3000); // Longer than circuit breaker timeout
-
-      await expect(store.get('key1')).rejects.toThrow(OperationTimeoutError);
-    });
-  });
-
   describe('error handling', () => {
     it('should handle DynamoDB throttling errors', async () => {
       mockDynamoDBDocumentClient.enableThrottling();
 
-      await expect(store.get('key1')).rejects.toThrow(
-        "DynamoDB operation 'cache.get' was throttled",
-      );
+      await expect(store.get('key1')).rejects.toThrow('ThrottlingException');
     });
 
     it('should throw error when store is destroyed', async () => {
@@ -354,7 +288,6 @@ describe('DynamoDBCacheStore', () => {
       const customStore = new DynamoDBCacheStore({
         tableName: 'custom-table-name',
         cleanupIntervalMs: 0,
-        circuitBreaker: { enabled: false },
       });
 
       await customStore.set('key1', 'value1', 60);
@@ -362,21 +295,6 @@ describe('DynamoDBCacheStore', () => {
       expect(value).toBe('value1');
 
       await customStore.close();
-    });
-
-    it('should handle custom circuit breaker configuration', () => {
-      const customStore = new DynamoDBCacheStore({
-        tableName: 'test-table',
-        circuitBreaker: {
-          enabled: true,
-          failureThreshold: 10,
-          recoveryTimeoutMs: 5000,
-          timeoutMs: 1000,
-        },
-      });
-
-      expect(customStore.getCircuitBreakerStatus().state).toBe('closed');
-      customStore.close();
     });
 
     it('should handle all configuration options', async () => {
@@ -387,12 +305,6 @@ describe('DynamoDBCacheStore', () => {
         retryDelayMs: 200,
         batchSize: 20,
         cleanupIntervalMs: 60000,
-        circuitBreaker: {
-          enabled: true,
-          failureThreshold: 3,
-          recoveryTimeoutMs: 30000,
-          timeoutMs: 5000,
-        },
       });
 
       // Should work with custom config

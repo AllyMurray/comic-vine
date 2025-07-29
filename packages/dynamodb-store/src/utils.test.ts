@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import { CircuitBreaker } from './circuit-breaker.js';
-import { ThrottlingError, DynamoDBStoreError } from './types.js';
+import { describe, it, expect } from 'vitest';
+import { DynamoDBStoreError } from './types.js';
 import {
   calculateTTL,
   isExpired,
@@ -14,11 +13,9 @@ import {
   calculateOptimalBatchSize,
   measureExecutionTime,
   chunkArray,
-  retryWithBackoff,
   MAX_ITEM_SIZE_BYTES,
   DEFAULT_DEDUPE_TTL_SECONDS,
 } from './utils.js';
-import * as utils from './utils.js';
 
 describe('utils', () => {
   describe('TTL utilities', () => {
@@ -419,111 +416,6 @@ describe('utils', () => {
         expect(chunks[0]).toEqual([1]);
         expect(chunks[1]).toEqual([2]);
         expect(chunks[2]).toEqual([3]);
-      });
-    });
-  });
-
-  describe('retry utilities', () => {
-    describe('retryWithBackoff', () => {
-      const mockConfig = {
-        maxRetries: 3,
-        retryDelayMs: 10,
-        circuitBreaker: { enabled: false },
-      };
-
-      it('should succeed on first attempt', async () => {
-        const operation = vi.fn().mockResolvedValue('success');
-
-        const result = await retryWithBackoff(operation, mockConfig, 'test-op');
-
-        expect(result).toBe('success');
-        expect(operation).toHaveBeenCalledOnce();
-      });
-
-      it('should retry on throttling errors', async () => {
-        const throttleError = new Error('Throttled');
-        (throttleError as Error & { name: string }).name =
-          'ThrottlingException';
-
-        const operation = vi
-          .fn()
-          .mockRejectedValueOnce(throttleError)
-          .mockRejectedValueOnce(throttleError)
-          .mockResolvedValue('success');
-
-        const result = await retryWithBackoff(
-          operation,
-          mockConfig,
-          'throttle-op',
-        );
-
-        expect(result).toBe('success');
-        expect(operation).toHaveBeenCalledTimes(3);
-      });
-
-      it('should not retry on non-throttling errors', async () => {
-        const validationError = new Error('Invalid input');
-        const operation = vi.fn().mockRejectedValue(validationError);
-
-        await expect(
-          retryWithBackoff(operation, mockConfig, 'validation-op'),
-        ).rejects.toThrow('Invalid input');
-
-        expect(operation).toHaveBeenCalledOnce();
-      });
-
-      it('should throw ThrottlingError after max retries', async () => {
-        const throttleError = new Error('Throttled');
-        (throttleError as Error & { name: string }).name =
-          'ThrottlingException';
-
-        const operation = vi.fn().mockRejectedValue(throttleError);
-
-        await expect(
-          retryWithBackoff(operation, mockConfig, 'max-retry-op'),
-        ).rejects.toThrow(ThrottlingError);
-
-        expect(operation).toHaveBeenCalledTimes(4); // Initial + 3 retries
-      });
-
-      it('should throw DynamoDBStoreError for other persistent failures', async () => {
-        const persistentError = new Error('Network error');
-        (persistentError as Error & { name: string }).name =
-          'ThrottlingException'; // Make it retryable
-
-        const operation = vi.fn().mockRejectedValue(persistentError);
-
-        // Override to make it not a throttling error for final throw
-        vi.spyOn(utils, 'isThrottlingError').mockReturnValue(false);
-
-        await expect(
-          retryWithBackoff(operation, mockConfig, 'persistent-op'),
-        ).rejects.toThrow(DynamoDBStoreError);
-
-        vi.restoreAllMocks();
-      });
-
-      it('should work with circuit breaker', async () => {
-        const circuitBreaker = new CircuitBreaker({
-          circuitBreaker: {
-            enabled: true,
-            failureThreshold: 2,
-            recoveryTimeoutMs: 1000,
-            timeoutMs: 100,
-          },
-        });
-
-        const operation = vi.fn().mockResolvedValue('cb-success');
-
-        const result = await retryWithBackoff(
-          operation,
-          mockConfig,
-          'cb-op',
-          circuitBreaker,
-        );
-
-        expect(result).toBe('cb-success');
-        expect(operation).toHaveBeenCalledOnce();
       });
     });
   });

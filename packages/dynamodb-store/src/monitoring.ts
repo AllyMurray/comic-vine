@@ -34,7 +34,6 @@ export interface PerformanceMetrics {
   errorType?: string;
   itemCount?: number;
   dataSize?: number;
-  circuitBreakerState?: string;
 }
 
 /**
@@ -270,31 +269,6 @@ export class Monitor {
   }
 
   /**
-   * Record circuit breaker state change
-   */
-  recordCircuitBreakerStateChange(
-    storeName: string,
-    oldState: string,
-    newState: string,
-  ): void {
-    this.recordMetric('CircuitBreakerStateChange', 1, 'Count', {
-      StoreName: storeName,
-      OldState: oldState,
-      NewState: newState,
-    });
-
-    if (this.config.loggingEnabled) {
-      this.logger.info(
-        `Circuit breaker state changed: ${oldState} -> ${newState}`,
-        {
-          storeName,
-          correlationId: this.getCurrentCorrelationId(),
-        },
-      );
-    }
-  }
-
-  /**
    * Record store statistics
    */
   recordStoreStats(storeName: string, stats: Record<string, number>): void {
@@ -433,9 +407,6 @@ export class Monitor {
       OperationName: metrics.operationName,
       Success: metrics.success.toString(),
       ...(metrics.errorType && { ErrorType: metrics.errorType }),
-      ...(metrics.circuitBreakerState && {
-        CircuitBreakerState: metrics.circuitBreakerState,
-      }),
     };
 
     // Record operation duration
