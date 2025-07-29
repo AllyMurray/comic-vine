@@ -8,7 +8,11 @@ import {
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import type { DedupeStore } from '@comic-vine/client';
+import { sleep } from './async-helpers.js';
+import { chunkArray } from './batch-operations.js';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
+import { DEFAULT_DEDUPE_TTL_SECONDS } from './constants.js';
+import { isConditionalCheckFailedError } from './error-detection.js';
 import {
   buildDedupeKey,
   buildExpirationGSI1Key,
@@ -17,6 +21,8 @@ import {
   extractJobIdFromDedupeKey,
   type DedupeItem,
 } from './schema.js';
+import { serializeValue, deserializeValue } from './serialization.js';
+import { calculateTTL, isExpired } from './ttl.js';
 import {
   DynamoDBStoreConfigSchema,
   StoreDestroyedError,
@@ -24,16 +30,6 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import {
-  calculateTTL,
-  isExpired,
-  serializeValue,
-  deserializeValue,
-  chunkArray,
-  sleep,
-  isConditionalCheckFailedError,
-  DEFAULT_DEDUPE_TTL_SECONDS,
-} from './utils.js';
 
 export interface DynamoDBDedupeStoreOptions extends DynamoDBStoreOptions {
   /**

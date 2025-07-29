@@ -14,7 +14,9 @@ import type {
   AdaptiveConfig,
   RateLimitConfig,
 } from '@comic-vine/client';
+import { chunkArray } from './batch-operations.js';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
+import { isConditionalCheckFailedError } from './error-detection.js';
 import {
   buildRateLimitKey,
   buildAdaptiveMetaKey,
@@ -25,6 +27,7 @@ import {
   type RateLimitItem,
   type AdaptiveMetaItem,
 } from './schema.js';
+import { calculateTTL } from './ttl.js';
 import {
   DynamoDBStoreConfigSchema,
   StoreDestroyedError,
@@ -32,11 +35,6 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import {
-  calculateTTL,
-  chunkArray,
-  isConditionalCheckFailedError,
-} from './utils.js';
 
 export interface DynamoDBAdaptiveRateLimitStoreOptions
   extends DynamoDBStoreOptions {

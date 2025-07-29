@@ -7,6 +7,7 @@ import {
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import type { CacheStore } from '@comic-vine/client';
+import { chunkArray } from './batch-operations.js';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildCacheKey,
@@ -15,6 +16,8 @@ import {
   EntityTypes,
   type CacheItem,
 } from './schema.js';
+import { serializeValue, deserializeValue } from './serialization.js';
+import { calculateTTL, isExpired } from './ttl.js';
 import {
   DynamoDBStoreConfigSchema,
   StoreDestroyedError,
@@ -22,13 +25,6 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import {
-  calculateTTL,
-  isExpired,
-  serializeValue,
-  deserializeValue,
-  chunkArray,
-} from './utils.js';
 
 export type DynamoDBCacheStoreOptions = DynamoDBStoreOptions;
 

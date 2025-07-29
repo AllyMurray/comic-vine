@@ -7,6 +7,7 @@ import {
   BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import type { RateLimitStore, RateLimitConfig } from '@comic-vine/client';
+import { chunkArray } from './batch-operations.js';
 import { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 import {
   buildRateLimitKey,
@@ -17,6 +18,7 @@ import {
   extractTimestampAndUuidFromRateLimitKey,
   type RateLimitItem,
 } from './schema.js';
+import { calculateTTL } from './ttl.js';
 import {
   DynamoDBStoreConfigSchema,
   StoreDestroyedError,
@@ -24,7 +26,6 @@ import {
   type DynamoDBStoreConfig,
   type DynamoDBClientWrapper,
 } from './types.js';
-import { calculateTTL, chunkArray } from './utils.js';
 
 export interface DynamoDBRateLimitStoreOptions extends DynamoDBStoreOptions {
   /**

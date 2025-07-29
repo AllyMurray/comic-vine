@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+import { sleep } from './async-helpers.js';
 import {
   executeInParallel,
   executeInBatches,
@@ -6,7 +7,6 @@ import {
   BatchWriter,
   AdaptiveDelayCalculator,
 } from './performance.js';
-import { sleep } from './utils.js';
 
 describe('performance utilities', () => {
   describe('executeInParallel', () => {

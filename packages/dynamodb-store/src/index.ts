@@ -40,22 +40,19 @@ export {
 export { createDynamoDBClient, destroyDynamoDBClient } from './client.js';
 
 // Utility functions
+export { calculateTTL, isExpired } from './ttl.js';
+export { serializeValue, deserializeValue } from './serialization.js';
+export { sleep, measureExecutionTime } from './async-helpers.js';
 export {
-  calculateTTL,
-  isExpired,
-  serializeValue,
-  deserializeValue,
-  sleep,
-  calculateBackoffDelay,
   isThrottlingError,
   isConditionalCheckFailedError,
-  chunkArray,
   isSevereError,
-  calculateOptimalBatchSize,
-  measureExecutionTime,
+} from './error-detection.js';
+export { chunkArray, calculateOptimalBatchSize } from './batch-operations.js';
+export {
   MAX_ITEM_SIZE_BYTES,
   DEFAULT_DEDUPE_TTL_SECONDS,
-} from './utils.js';
+} from './constants.js';
 
 // Performance optimization utilities
 export {
