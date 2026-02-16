@@ -22,7 +22,9 @@
     "pre-commit": "prettier --write . && eslint src && vitest run --dir=src",
     "dev": "tsup --watch",
     "clean": "rimraf lib dist node_modules",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sdk:generate": "tsx scripts/generate-sdk.ts",
+    "samples:fetch": "tsx scripts/fetch-samples.ts"
   },
   "author": {
     "name": "Ally Murray",
@@ -50,7 +52,15 @@
     "tsup": "8.5.0",
     "typescript": "5.8.3",
     "typescript-eslint": "^8.0.0",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "quicktype-core": "^23.0.0",
+    "change-case": "^5.0.0",
+    "cheerio": "^1.0.0",
+    "pluralize": "^8.0.0",
+    "@types/pluralize": "^0.0.33",
+    "tsx": "^4.0.0",
+    "axios": "^1.7.0",
+    "axios-rate-limit": "^1.4.0"
   },
   "keywords": [
     "comic-metadata",
