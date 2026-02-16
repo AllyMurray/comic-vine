@@ -920,12 +920,37 @@ const client = new ComicVine({
 - **Cons**: Requires file system, slightly slower than in-memory
 - **Use cases**: Production applications, multi-instance deployments
 
-## Examples
+## Code Generation
 
-See the `examples/` directory for complete usage examples:
+Resource types, classes, tests, and mock data are generated from sample API responses using an integrated code generation pipeline.
 
-- `rate-limited-client-usage.ts` - Rate limiting examples with per-resource configuration and error handling
-- `memory-managed-cache-usage.ts` - Memory-managed caching examples with LRU eviction and statistics monitoring
+### Generating SDK Code
+
+```bash
+# Generate all types, resource classes, tests, and mock data from samples
+pnpm sdk:generate
+
+# Format generated output to match project style
+pnpm format
+```
+
+### Fetching Fresh API Samples
+
+```bash
+# Requires COMIC_VINE_API_KEY environment variable
+COMIC_VINE_API_KEY=your-key pnpm samples:fetch
+```
+
+### How It Works
+
+1. Sample API responses are stored in `samples/api-data/` (38 folders, one per resource type)
+2. `scripts/generate-sdk.ts` orchestrates the pipeline:
+   - Generates JSON schemas from samples using quicktype-core
+   - Injects property descriptions from scraped API documentation
+   - Generates TypeScript interfaces with common type replacement
+   - Generates resource classes, tests, barrel files, and mock data
+3. All generator modules in `scripts/generate-sdk/` are pure functions (no I/O)
+4. Running `pnpm sdk:generate && pnpm format` produces deterministic output matching the committed code
 
 ## Contributing
 

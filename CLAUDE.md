@@ -21,6 +21,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Clean build artifacts: `pnpm run clean`
 - Build artifact tests: `pnpm run test:build`
 
+### Code Generation
+
+- Generate SDK (types, resources, tests, mock data): `pnpm run sdk:generate`
+- Fetch fresh API samples (requires `COMIC_VINE_API_KEY` env var): `pnpm run samples:fetch`
+- After generating, run `pnpm run format` to normalize formatting
+
 ## Architecture Overview
 
 This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vine API. HTTP, caching, deduplication, and rate limiting are delegated to `@http-client-toolkit/core`.
@@ -34,7 +40,16 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
   - **`src/errors/`** - Domain-specific error classes
   - **`src/utils/`** - Utilities (case conversion, etc.)
   - **`src/options/`** - Options validation with Zod
-- **`build-tests/`** - Build artifact validation tests (ESM, CJS, exports)
+- **`build-tests/`** - Build artifact validation tests (ESM, CJS, exports, all 19 resources)
+- **`scripts/`** - Code generation scripts
+  - **`scripts/generate-sdk.ts`** - Orchestrator entry point for generating all SDK code
+  - **`scripts/fetch-samples.ts`** - Fetches sample API responses (needs API key)
+  - **`scripts/generate-sdk/`** - Generator modules (pure functions, no I/O)
+- **`samples/`** - Input data for code generation
+  - **`samples/config.json`** - Resource config with sample URLs
+  - **`samples/api-data/`** - Sample API response JSON files (38 folders)
+  - **`samples/code-comments/`** - Extracted property descriptions
+  - **`samples/documentation.html`** - Scraped Comic Vine API docs
 
 ### Key Architecture Patterns
 
@@ -80,3 +95,12 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 - Dual ESM/CJS builds via tsup
 - Automatic type generation with TypeScript
 - Output in `lib/` directory
+
+### Code Generation Architecture
+
+- `scripts/generate-sdk.ts` is the orchestrator that reads `samples/config.json` and `samples/api-data/`
+- Generator modules in `scripts/generate-sdk/` are pure functions (take input, return strings/objects)
+- The orchestrator handles all file I/O; generators never read or write files
+- Pipeline: sample JSON → JSON schema (quicktype-core) → inject comments → TypeScript interfaces (quicktype-core) → replace common types → write to `src/`
+- Also generates: resource classes, tests, mock data, barrel files, ResourceType enum
+- Running `pnpm sdk:generate && pnpm format` should produce zero `git diff` on `src/`
