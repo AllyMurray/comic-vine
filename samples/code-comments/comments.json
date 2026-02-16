@@ -1,0 +1,2651 @@
+[
+  {
+    "title": "characterDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the character is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the character detail resource."
+      },
+      {
+        "propertyName": "birth",
+        "comment": "A date, if one exists, that the character was born on. Not an origin date."
+      },
+      {
+        "propertyName": "character_enemies",
+        "comment": "List of characters that are enemies with this character."
+      },
+      {
+        "propertyName": "character_friends",
+        "comment": "List of characters that are friends with this character."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this character appears in."
+      },
+      {
+        "propertyName": "creators",
+        "comment": "List of the real life people who created this character."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the character was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the character was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the character." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the character."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the character made its first appearance."
+      },
+      {
+        "propertyName": "gender",
+        "comment": "Gender of the character. Available options are: Male, Female, Other"
+      },
+      { "propertyName": "id", "comment": "Unique ID of the character." },
+      { "propertyName": "image", "comment": "Main image of the character." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this character appears in."
+      },
+      {
+        "propertyName": "issues_died_in",
+        "comment": "List of issues this character died in."
+      },
+      { "propertyName": "movies", "comment": "Movies the character was in." },
+      { "propertyName": "name", "comment": "Name of the character." },
+      {
+        "propertyName": "origin",
+        "comment": "The origin of the character. Human, Alien, Robot ...etc"
+      },
+      {
+        "propertyName": "powers",
+        "comment": "List of super powers a character has."
+      },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a character is attached to."
+      },
+      { "propertyName": "real_name", "comment": "Real name of the character." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the character on Giant Bomb."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this character appears in."
+      },
+      {
+        "propertyName": "team_enemies",
+        "comment": "List of teams that are enemies of this character."
+      },
+      {
+        "propertyName": "team_friends",
+        "comment": "List of teams that are friends with this character."
+      },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams this character is a member of."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this character appears in."
+      }
+    ]
+  },
+  {
+    "title": "characterListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the character is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the character detail resource."
+      },
+      {
+        "propertyName": "birth",
+        "comment": "A date, if one exists, that the character was born on. Not an origin date."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this character appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the character was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the character was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the character." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the character."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the character made its first appearance."
+      },
+      {
+        "propertyName": "gender",
+        "comment": "Gender of the character. Available options are: Male, Female, Other"
+      },
+      { "propertyName": "id", "comment": "Unique ID of the character." },
+      { "propertyName": "image", "comment": "Main image of the character." },
+      { "propertyName": "name", "comment": "Name of the character." },
+      {
+        "propertyName": "origin",
+        "comment": "The origin of the character. Human, Alien, Robot ...etc"
+      },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a character is attached to."
+      },
+      { "propertyName": "real_name", "comment": "Real name of the character." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the character on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "chatDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the chat detail resource."
+      },
+      {
+        "propertyName": "channel_name",
+        "comment": "Name of the video streaming channel associated with the chat."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the chat." },
+      { "propertyName": "image", "comment": "Main image of the chat." },
+      { "propertyName": "password", "comment": "chat password." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the chat on Giant Bomb."
+      },
+      { "propertyName": "title", "comment": "Title of the chat." }
+    ]
+  },
+  {
+    "title": "chatListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the chat detail resource."
+      },
+      {
+        "propertyName": "channel_name",
+        "comment": "Name of the video streaming channel associated with the chat."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the chat." },
+      { "propertyName": "image", "comment": "Main image of the chat." },
+      { "propertyName": "password", "comment": "chat password." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the chat on Giant Bomb."
+      },
+      { "propertyName": "title", "comment": "Title of the chat." }
+    ]
+  },
+  {
+    "title": "conceptDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the concept is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the concept detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this concept appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the concept was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the concept was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the concept." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the concept."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the concept made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the concept." },
+      { "propertyName": "image", "comment": "Main image of the concept." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this concept appears in."
+      },
+      { "propertyName": "movies", "comment": "Movies the concept was in." },
+      { "propertyName": "name", "comment": "Name of the concept." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the concept on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this concept appeared in comics."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this concept appears in."
+      }
+    ]
+  },
+  {
+    "title": "conceptListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the concept is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the concept detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this concept appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the concept was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the concept was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the concept." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the concept."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the concept made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the concept." },
+      { "propertyName": "image", "comment": "Main image of the concept." },
+      { "propertyName": "name", "comment": "Name of the concept." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the concept on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this concept appeared in comics."
+      }
+    ]
+  },
+  {
+    "title": "episodeDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the episode is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the episode detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "A list of characters that appear in this episode."
+      },
+      {
+        "propertyName": "characters_died_in",
+        "comment": "A list of characters that died in this episode."
+      },
+      {
+        "propertyName": "concepts",
+        "comment": "A list of concepts that appear in this episode."
+      },
+      { "propertyName": "air_date", "comment": "The air date of the episode." },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the episode was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the episode was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the episode." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the episode."
+      },
+      {
+        "propertyName": "first_appearance_characters",
+        "comment": "A list of characters in which this episode is the first appearance of the character."
+      },
+      {
+        "propertyName": "first_appearance_concepts",
+        "comment": "A list of concepts in which this episode is the first appearance of the concept."
+      },
+      {
+        "propertyName": "first_appearance_locations",
+        "comment": "A list of locations in which this episode is the first appearance of the location."
+      },
+      {
+        "propertyName": "first_appearance_objects",
+        "comment": "A list of things in which this episode is the first appearance of the object."
+      },
+      {
+        "propertyName": "first_appearance_storyarcs",
+        "comment": "A list of storyarcs in which this episode is the first appearance of the story arc."
+      },
+      {
+        "propertyName": "first_appearance_teams",
+        "comment": "A list of teams in which this episode is the first appearance of the team."
+      },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the episode." },
+      { "propertyName": "image", "comment": "Main image of the episode." },
+      {
+        "propertyName": "episode_number",
+        "comment": "The number assigned to the episode within a series."
+      },
+      {
+        "propertyName": "locations",
+        "comment": "List of locations that appeared in this episode."
+      },
+      { "propertyName": "name", "comment": "Name of the episode." },
+      {
+        "propertyName": "objects",
+        "comment": "List of things that appeared in this episode."
+      },
+      {
+        "propertyName": "persons",
+        "comment": "List of people that worked on this episode."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the episode on Giant Bomb."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this episode appears in."
+      },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams that appear in this episode."
+      },
+      {
+        "propertyName": "series",
+        "comment": "The series the episode belongs to."
+      }
+    ]
+  },
+  {
+    "title": "episodeListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the episode is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the episode detail resource."
+      },
+      { "propertyName": "air_date", "comment": "The air date of the episode." },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the episode was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the episode was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the episode." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the episode."
+      },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the episode." },
+      { "propertyName": "image", "comment": "Main image of the episode." },
+      {
+        "propertyName": "issue_number",
+        "comment": "The number assigned to the episode within the volume set."
+      },
+      { "propertyName": "name", "comment": "Name of the episode." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the episode on Giant Bomb."
+      },
+      {
+        "propertyName": "series",
+        "comment": "The series the episode belongs to."
+      }
+    ]
+  },
+  {
+    "title": "issueDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the issue is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the issue detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "A list of characters that appear in this issue."
+      },
+      {
+        "propertyName": "characters_died_in",
+        "comment": "A list of characters that died in this issue."
+      },
+      {
+        "propertyName": "concepts",
+        "comment": "A list of concepts that appear in this issue."
+      },
+      {
+        "propertyName": "cover_date",
+        "comment": "The publish date printed on the cover of an issue."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the issue was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the issue was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the issue." },
+      { "propertyName": "description", "comment": "Description of the issue." },
+      {
+        "propertyName": "disbanded_teams",
+        "comment": "A list of teams that disbanded in this issue."
+      },
+      {
+        "propertyName": "first_appearance_characters",
+        "comment": "A list of characters in which this issue is the first appearance of the character."
+      },
+      {
+        "propertyName": "first_appearance_concepts",
+        "comment": "A list of concepts in which this issue is the first appearance of the concept."
+      },
+      {
+        "propertyName": "first_appearance_locations",
+        "comment": "A list of locations in which this issue is the first appearance of the location."
+      },
+      {
+        "propertyName": "first_appearance_objects",
+        "comment": "A list of things in which this issue is the first appearance of the object."
+      },
+      {
+        "propertyName": "first_appearance_storyarcs",
+        "comment": "A list of storyarcs in which this issue is the first appearance of the story arc."
+      },
+      {
+        "propertyName": "first_appearance_teams",
+        "comment": "A list of teams in which this issue is the first appearance of the team."
+      },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the issue." },
+      { "propertyName": "image", "comment": "Main image of the issue." },
+      {
+        "propertyName": "issue_number",
+        "comment": "The number assigned to the issue within the volume set."
+      },
+      {
+        "propertyName": "locations",
+        "comment": "List of locations that appeared in this issue."
+      },
+      { "propertyName": "name", "comment": "Name of the issue." },
+      {
+        "propertyName": "objects",
+        "comment": "List of things that appeared in this issue."
+      },
+      {
+        "propertyName": "persons",
+        "comment": "List of people that worked on this issue."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the issue on Giant Bomb."
+      },
+      {
+        "propertyName": "store_date",
+        "comment": "The date the issue was first sold in stores."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this issue appears in."
+      },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams that appear in this issue."
+      },
+      {
+        "propertyName": "teams_disbanded_in",
+        "comment": "List of teams that disbanded in this issue."
+      },
+      {
+        "propertyName": "volume",
+        "comment": "The volume this issue is a part of."
+      }
+    ]
+  },
+  {
+    "title": "issueListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the issue is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the issue detail resource."
+      },
+      {
+        "propertyName": "cover_date",
+        "comment": "The publish date printed on the cover of an issue."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the issue was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the issue was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the issue." },
+      { "propertyName": "description", "comment": "Description of the issue." },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the issue." },
+      { "propertyName": "image", "comment": "Main image of the issue." },
+      {
+        "propertyName": "issue_number",
+        "comment": "The number assigned to the issue within the volume set."
+      },
+      { "propertyName": "name", "comment": "Name of the issue." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the issue on Giant Bomb."
+      },
+      {
+        "propertyName": "store_date",
+        "comment": "The date the issue was first sold in stores."
+      },
+      {
+        "propertyName": "volume",
+        "comment": "The volume this issue is a part of."
+      }
+    ]
+  },
+  {
+    "title": "locationDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the location is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the location detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this location appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the location was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the location was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the location." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the location."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the location made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the location." },
+      { "propertyName": "image", "comment": "Main image of the location." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this location appears in."
+      },
+      { "propertyName": "movies", "comment": "Movies the location was in." },
+      { "propertyName": "name", "comment": "Name of the location." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the location on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this location appeared in comics."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this location appears in."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this location appears in."
+      }
+    ]
+  },
+  {
+    "title": "locationListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the location is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the location detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this location appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the location was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the location was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the location." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the location."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the location made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the location." },
+      { "propertyName": "image", "comment": "Main image of the location." },
+      { "propertyName": "name", "comment": "Name of the location." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the location on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this location appeared in comics."
+      }
+    ]
+  },
+  {
+    "title": "movieDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the movie detail resource."
+      },
+      {
+        "propertyName": "box_office_revenue",
+        "comment": "The total revenue made in the box offices for this movie."
+      },
+      { "propertyName": "budget", "comment": "The cost of making this movie." },
+      {
+        "propertyName": "characters",
+        "comment": "Characters related to the movie."
+      },
+      {
+        "propertyName": "concepts",
+        "comment": "Concepts related to the movie."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the movie was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the movie was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the movie." },
+      { "propertyName": "description", "comment": "Description of the movie." },
+      { "propertyName": "distributor", "comment": "" },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the movie." },
+      { "propertyName": "image", "comment": "Main image of the movie." },
+      {
+        "propertyName": "locations",
+        "comment": "Locations related to the movie."
+      },
+      { "propertyName": "name", "comment": "Name of the movie." },
+      {
+        "propertyName": "producers",
+        "comment": "The producers of this movie."
+      },
+      { "propertyName": "rating", "comment": "The rating of this movie." },
+      { "propertyName": "release_date", "comment": "Date of the movie." },
+      { "propertyName": "runtime", "comment": "The length of this movie." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the movie on Giant Bomb."
+      },
+      { "propertyName": "studios", "comment": "" },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams this movie is a member of."
+      },
+      {
+        "propertyName": "things",
+        "comment": "List of things found in this movie."
+      },
+      {
+        "propertyName": "total_revenue",
+        "comment": "Total revenue generated by this movie."
+      },
+      { "propertyName": "writers", "comment": "Writers for this movie." }
+    ]
+  },
+  {
+    "title": "movieListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the movie detail resource."
+      },
+      {
+        "propertyName": "box_office_revenue",
+        "comment": "The total revenue made in the box offices for this movie."
+      },
+      { "propertyName": "budget", "comment": "The cost of making this movie." },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the movie was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the movie was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the movie." },
+      { "propertyName": "description", "comment": "Description of the movie." },
+      { "propertyName": "distributor", "comment": "" },
+      { "propertyName": "has_staff_review", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the movie." },
+      { "propertyName": "image", "comment": "Main image of the movie." },
+      { "propertyName": "name", "comment": "Name of the movie." },
+      {
+        "propertyName": "producers",
+        "comment": "The producers of this movie."
+      },
+      { "propertyName": "rating", "comment": "The rating of this movie." },
+      { "propertyName": "release_date", "comment": "Date of the movie." },
+      { "propertyName": "runtime", "comment": "The length of this movie." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the movie on Giant Bomb."
+      },
+      { "propertyName": "studios", "comment": "" },
+      {
+        "propertyName": "total_revenue",
+        "comment": "Total revenue generated by this movie."
+      },
+      { "propertyName": "writers", "comment": "Writers for this movie." }
+    ]
+  },
+  {
+    "title": "thingDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the thing is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the thing detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this thing appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the thing was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the thing was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the thing." },
+      { "propertyName": "description", "comment": "Description of the thing." },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the thing made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the thing." },
+      { "propertyName": "image", "comment": "Main image of the thing." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this thing appears in."
+      },
+      { "propertyName": "movies", "comment": "Movies the thing was in." },
+      { "propertyName": "name", "comment": "Name of the thing." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the thing on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this thing appeared in comics."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this thing appears in."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this thing appears in."
+      }
+    ]
+  },
+  {
+    "title": "thingListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the thing is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the thing detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this thing appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the thing was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the thing was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the thing." },
+      { "propertyName": "description", "comment": "Description of the thing." },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the thing made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the thing." },
+      { "propertyName": "image", "comment": "Main image of the thing." },
+      { "propertyName": "name", "comment": "Name of the thing." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the thing on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this thing appeared in comics."
+      }
+    ]
+  },
+  {
+    "title": "originDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the origin detail resource."
+      },
+      { "propertyName": "character_set", "comment": "" },
+      { "propertyName": "id", "comment": "Unique ID of the origin." },
+      { "propertyName": "name", "comment": "Name of the origin." },
+      { "propertyName": "profiles", "comment": "" },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the origin on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "originListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the origin detail resource."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the origin." },
+      { "propertyName": "name", "comment": "Name of the origin." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the origin on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "personDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the person is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the person detail resource."
+      },
+      {
+        "propertyName": "birth",
+        "comment": "A date, if one exists, that the person was born on. Not an origin date."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this person appears in."
+      },
+      {
+        "propertyName": "country",
+        "comment": "Country the person resides in."
+      },
+      {
+        "propertyName": "created_characters",
+        "comment": "Comic characters this person created."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the person was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the person was last updated on Comic Vine."
+      },
+      { "propertyName": "death", "comment": "Date this person died on." },
+      { "propertyName": "deck", "comment": "Brief summary of the person." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the person."
+      },
+      { "propertyName": "email", "comment": "The email of this person." },
+      {
+        "propertyName": "gender",
+        "comment": "Gender of the person. Available options are: Male, Female, Other"
+      },
+      {
+        "propertyName": "hometown",
+        "comment": "City or town the person resides in."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the person." },
+      { "propertyName": "image", "comment": "Main image of the person." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this person appears in."
+      },
+      { "propertyName": "name", "comment": "Name of the person." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the person on Giant Bomb."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this person appears in."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this person appears in."
+      },
+      { "propertyName": "website", "comment": "URL to the person website." }
+    ]
+  },
+  {
+    "title": "personListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the person is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the person detail resource."
+      },
+      {
+        "propertyName": "birth",
+        "comment": "A date, if one exists, that the person was born on. Not an origin date."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this person appears in."
+      },
+      {
+        "propertyName": "country",
+        "comment": "Country the person resides in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the person was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the person was last updated on Comic Vine."
+      },
+      { "propertyName": "death", "comment": "Date this person died on." },
+      { "propertyName": "deck", "comment": "Brief summary of the person." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the person."
+      },
+      { "propertyName": "email", "comment": "The email of this person." },
+      {
+        "propertyName": "gender",
+        "comment": "Gender of the person. Available options are: Male, Female, Other"
+      },
+      {
+        "propertyName": "hometown",
+        "comment": "City or town the person resides in."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the person." },
+      { "propertyName": "image", "comment": "Main image of the person." },
+      { "propertyName": "name", "comment": "Name of the person." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the person on Giant Bomb."
+      },
+      { "propertyName": "website", "comment": "URL to the person website." }
+    ]
+  },
+  {
+    "title": "powerDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the power is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the power detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "Characters related to the power."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the power was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the power was last updated on Comic Vine."
+      },
+      { "propertyName": "description", "comment": "Description of the power." },
+      { "propertyName": "id", "comment": "Unique ID of the power." },
+      { "propertyName": "name", "comment": "Name of the power." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the power on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "powerListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the power is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the power detail resource."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the power was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the power was last updated on Comic Vine."
+      },
+      { "propertyName": "description", "comment": "Description of the power." },
+      { "propertyName": "id", "comment": "Unique ID of the power." },
+      { "propertyName": "name", "comment": "Name of the power." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the power on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "promoDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the promo detail resource."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the promo was added to Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the promo." },
+      { "propertyName": "id", "comment": "Unique ID of the promo." },
+      { "propertyName": "image", "comment": "Main image of the promo." },
+      { "propertyName": "link", "comment": "The link that promo points to." },
+      { "propertyName": "name", "comment": "Name of the promo." },
+      {
+        "propertyName": "resource_type",
+        "comment": "The type of resource the promo is pointing towards."
+      },
+      { "propertyName": "user", "comment": "Author of the promo." }
+    ]
+  },
+  {
+    "title": "promoListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the promo detail resource."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the promo was added to Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the promo." },
+      { "propertyName": "id", "comment": "Unique ID of the promo." },
+      { "propertyName": "image", "comment": "Main image of the promo." },
+      { "propertyName": "link", "comment": "The link that promo points to." },
+      { "propertyName": "name", "comment": "Name of the promo." },
+      {
+        "propertyName": "resource_type",
+        "comment": "The type of resource the promo is pointing towards."
+      },
+      { "propertyName": "user", "comment": "Author of the promo." }
+    ]
+  },
+  {
+    "title": "publisherDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the publisher is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the publisher detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "Characters related to the publisher."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the publisher was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the publisher was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the publisher." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the publisher."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the publisher." },
+      { "propertyName": "image", "comment": "Main image of the publisher." },
+      {
+        "propertyName": "location_address",
+        "comment": "Street address of the publisher."
+      },
+      {
+        "propertyName": "location_city",
+        "comment": "City the publisher resides in."
+      },
+      {
+        "propertyName": "location_state",
+        "comment": "State the publisher resides in."
+      },
+      { "propertyName": "name", "comment": "Name of the publisher." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the publisher on Giant Bomb."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs tied to this publisher."
+      },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams this publisher is a member of."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of volumes this publisher has put out."
+      }
+    ]
+  },
+  {
+    "title": "publisherListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the publisher is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the publisher detail resource."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the publisher was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the publisher was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the publisher." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the publisher."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the publisher." },
+      { "propertyName": "image", "comment": "Main image of the publisher." },
+      {
+        "propertyName": "location_address",
+        "comment": "Street address of the publisher."
+      },
+      {
+        "propertyName": "location_city",
+        "comment": "City the publisher resides in."
+      },
+      {
+        "propertyName": "location_state",
+        "comment": "State the publisher resides in."
+      },
+      { "propertyName": "name", "comment": "Name of the publisher." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the publisher on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "seriesDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the series is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the series detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "A list of characters that appear in this series."
+      },
+      {
+        "propertyName": "count_of_episodes",
+        "comment": "Number of episodes included in this series."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the series was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the series was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the series." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the series."
+      },
+      {
+        "propertyName": "first_episode",
+        "comment": "The first episode in this series."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the series." },
+      { "propertyName": "image", "comment": "Main image of the series." },
+      {
+        "propertyName": "last_episode",
+        "comment": "The last episode in this series."
+      },
+      {
+        "propertyName": "locations",
+        "comment": "List of locations that appeared in this series."
+      },
+      { "propertyName": "name", "comment": "Name of the series." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a series is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the series on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this series appeared in comics."
+      }
+    ]
+  },
+  {
+    "title": "seriesListDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the series_list is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the series_list detail resource."
+      },
+      {
+        "propertyName": "count_of_episodes",
+        "comment": "Number of episodes included in this series_list."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the series_list was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the series_list was last updated on Comic Vine."
+      },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the series_list."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the series_list."
+      },
+      {
+        "propertyName": "first_episode",
+        "comment": "The first episode in this series_list."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the series_list." },
+      { "propertyName": "image", "comment": "Main image of the series_list." },
+      {
+        "propertyName": "last_episode",
+        "comment": "The last episode in this series_list."
+      },
+      { "propertyName": "name", "comment": "Name of the series_list." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a series_list is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the series_list on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this series_list appeared in comics."
+      }
+    ]
+  },
+  {
+    "title": "searchDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      { "propertyName": "api_key", "comment": "Your API Key" },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 10 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      { "propertyName": "query", "comment": "The search string." },
+      {
+        "propertyName": "resources",
+        "comment": "List of resources to filter results.  This filter can accept multiple arguments, each delimited with a \",\".  Available options\nare:\n\n\n    character\n    concept\n    origin\n    thing\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\n\n\n    character\n    concept\n    origin\n    object\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\nconcept"
+      },
+      { "propertyName": "subscriber_only", "comment": "NEED DESCRIPTION" }
+    ],
+    "fields": [
+      {
+        "propertyName": "resource_type",
+        "comment": "The type of resource the result is mapped to. Available options are:\n\n\n    character\n    concept\n    origin\n    thing\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\n\n\n    character\n    concept\n    origin\n    object\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\nconcept"
+      }
+    ]
+  },
+  {
+    "title": "storyArcDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the story_arc is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the story_arc detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this story_arc appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the story_arc was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the story_arc was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the story_arc." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the story_arc."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the story_arc made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the story_arc." },
+      { "propertyName": "image", "comment": "Main image of the story_arc." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues included in this story_arc."
+      },
+      { "propertyName": "movies", "comment": "Movies the story_arc was in." },
+      { "propertyName": "name", "comment": "Name of the story_arc." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a story_arc is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the story_arc on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "storyArcListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the story_arc is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the story_arc detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this story_arc appears in."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the story_arc was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the story_arc was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the story_arc." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the story_arc."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the story_arc made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the story_arc." },
+      { "propertyName": "image", "comment": "Main image of the story_arc." },
+      { "propertyName": "name", "comment": "Name of the story_arc." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a story_arc is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the story_arc on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "teamDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the team is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the team detail resource."
+      },
+      {
+        "propertyName": "character_enemies",
+        "comment": "List of characters that are enemies with this team."
+      },
+      {
+        "propertyName": "character_friends",
+        "comment": "List of characters that are friends with this team."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "Characters related to the team."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this team appears in."
+      },
+      {
+        "propertyName": "count_of_team_members",
+        "comment": "Number of team members in this team."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the team was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the team was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the team." },
+      { "propertyName": "description", "comment": "Description of the team." },
+      {
+        "propertyName": "disbanded_in_issues",
+        "comment": "List of issues this team disbanded in."
+      },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the team made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the team." },
+      { "propertyName": "image", "comment": "Main image of the team." },
+      {
+        "propertyName": "issues",
+        "comment": "List of issues this team appears in."
+      },
+      {
+        "propertyName": "issues_disbanded_in",
+        "comment": "List of issues this team disbanded in."
+      },
+      { "propertyName": "movies", "comment": "Movies the team was in." },
+      { "propertyName": "name", "comment": "Name of the team." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a team is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the team on Giant Bomb."
+      },
+      {
+        "propertyName": "story_arcs",
+        "comment": "List of story arcs this team appears in."
+      },
+      {
+        "propertyName": "volumes",
+        "comment": "List of comic volumes this team appears in."
+      }
+    ]
+  },
+  {
+    "title": "teamListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the team is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the team detail resource."
+      },
+      {
+        "propertyName": "count_of_issue_appearances",
+        "comment": "Number of issues this team appears in."
+      },
+      {
+        "propertyName": "count_of_team_members",
+        "comment": "Number of team members in this team."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the team was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the team was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the team." },
+      { "propertyName": "description", "comment": "Description of the team." },
+      {
+        "propertyName": "first_appeared_in_issue",
+        "comment": "Issue where the team made its first appearance."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the team." },
+      { "propertyName": "image", "comment": "Main image of the team." },
+      { "propertyName": "name", "comment": "Name of the team." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a team is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the team on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "typeListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "detail_resource_name",
+        "comment": "The name of the type's detail resource."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the type." },
+      {
+        "propertyName": "list_resource_name",
+        "comment": "The name of the type's list resource."
+      }
+    ]
+  },
+  {
+    "title": "videoDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video detail resource."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the video." },
+      {
+        "propertyName": "hd_url",
+        "comment": "URL to the HD version of the video."
+      },
+      {
+        "propertyName": "high_url",
+        "comment": "URL to the High Res version of the video."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the video." },
+      { "propertyName": "image", "comment": "Main image of the video." },
+      {
+        "propertyName": "length_seconds",
+        "comment": "Length (in seconds) of the video."
+      },
+      {
+        "propertyName": "low_url",
+        "comment": "URL to the Low Res version of the video."
+      },
+      { "propertyName": "name", "comment": "Name of the video." },
+      {
+        "propertyName": "publish_date",
+        "comment": "Date the video was published on Comic Vine."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video on Giant Bomb."
+      },
+      { "propertyName": "url", "comment": "The video's filename." },
+      { "propertyName": "user", "comment": "Author of the video." }
+    ]
+  },
+  {
+    "title": "videoListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      { "propertyName": "api_key", "comment": "Your API Key" },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      { "propertyName": "subscriber_only", "comment": "NEED DESCRIPTION" },
+      {
+        "propertyName": "video_type",
+        "comment": "Filters results by video_type. The value passed to this filter should be the ID of the video_type to filter results by."
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video detail resource."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the video." },
+      {
+        "propertyName": "hd_url",
+        "comment": "URL to the HD version of the video."
+      },
+      {
+        "propertyName": "high_url",
+        "comment": "URL to the High Res version of the video."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the video." },
+      { "propertyName": "image", "comment": "Main image of the video." },
+      {
+        "propertyName": "length_seconds",
+        "comment": "Length (in seconds) of the video."
+      },
+      {
+        "propertyName": "low_url",
+        "comment": "URL to the Low Res version of the video."
+      },
+      { "propertyName": "name", "comment": "Name of the video." },
+      {
+        "propertyName": "publish_date",
+        "comment": "Date the video was published on Comic Vine."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video on Giant Bomb."
+      },
+      { "propertyName": "url", "comment": "The video's filename." },
+      { "propertyName": "user", "comment": "Author of the video." }
+    ]
+  },
+  {
+    "title": "videoTypeDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video_type detail resource."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the video_type." },
+      { "propertyName": "id", "comment": "Unique ID of the video_type." },
+      { "propertyName": "name", "comment": "Name of the video_type." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video_type on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "videoTypeListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video_type detail resource."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the video_type." },
+      { "propertyName": "id", "comment": "Unique ID of the video_type." },
+      { "propertyName": "name", "comment": "Name of the video_type." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video_type on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "videoCategoryDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video_category detail resource."
+      },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video_category."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the video_category." },
+      { "propertyName": "name", "comment": "Name of the video_category." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video_category on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "videoCategoryListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the video_category detail resource."
+      },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video_category."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the video_category." },
+      { "propertyName": "name", "comment": "Name of the video_category." },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the video_category on Giant Bomb."
+      }
+    ]
+  },
+  {
+    "title": "volumeDetails",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the volume is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the volume detail resource."
+      },
+      {
+        "propertyName": "characters",
+        "comment": "A list of characters that appear in this volume."
+      },
+      {
+        "propertyName": "concepts",
+        "comment": "A list of concepts that appear in this volume."
+      },
+      {
+        "propertyName": "count_of_issues",
+        "comment": "Number of issues included in this volume."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the volume was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the volume was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the volume." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the volume."
+      },
+      {
+        "propertyName": "first_issue",
+        "comment": "The first issue in this volume."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the volume." },
+      { "propertyName": "image", "comment": "Main image of the volume." },
+      {
+        "propertyName": "last_issue",
+        "comment": "The last issue in this volume."
+      },
+      {
+        "propertyName": "locations",
+        "comment": "List of locations that appeared in this volume."
+      },
+      { "propertyName": "name", "comment": "Name of the volume." },
+      {
+        "propertyName": "objects",
+        "comment": "List of things that appeared in this volume."
+      },
+      {
+        "propertyName": "persons",
+        "comment": "List of people that worked on this volume."
+      },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a volume is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the volume on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this volume appeared in comics."
+      },
+      {
+        "propertyName": "teams",
+        "comment": "List of teams that appear in this volume."
+      }
+    ]
+  },
+  {
+    "title": "volumeListItem",
+    "filters": [
+      {
+        "propertyName": "format",
+        "comment": "The data format of the response takes either xml, json, or jsonp."
+      },
+      {
+        "propertyName": "field_list",
+        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
+      },
+      {
+        "propertyName": "limit",
+        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
+      },
+      {
+        "propertyName": "offset",
+        "comment": "Return results starting with the thing at the offset specified."
+      },
+      {
+        "propertyName": "sort",
+        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
+      },
+      {
+        "propertyName": "filter",
+        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
+      }
+    ],
+    "fields": [
+      {
+        "propertyName": "aliases",
+        "comment": "List of aliases the volume is known by. A \\n (newline) seperates each alias."
+      },
+      {
+        "propertyName": "api_detail_url",
+        "comment": "URL pointing to the volume detail resource."
+      },
+      {
+        "propertyName": "count_of_issues",
+        "comment": "Number of issues included in this volume."
+      },
+      {
+        "propertyName": "date_added",
+        "comment": "Date the volume was added to Comic Vine."
+      },
+      {
+        "propertyName": "date_last_updated",
+        "comment": "Date the volume was last updated on Comic Vine."
+      },
+      { "propertyName": "deck", "comment": "Brief summary of the volume." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the volume."
+      },
+      {
+        "propertyName": "first_issue",
+        "comment": "The first issue in this volume."
+      },
+      { "propertyName": "id", "comment": "Unique ID of the volume." },
+      { "propertyName": "image", "comment": "Main image of the volume." },
+      {
+        "propertyName": "last_issue",
+        "comment": "The last issue in this volume."
+      },
+      { "propertyName": "name", "comment": "Name of the volume." },
+      {
+        "propertyName": "publisher",
+        "comment": "The primary publisher a volume is attached to."
+      },
+      {
+        "propertyName": "site_detail_url",
+        "comment": "URL pointing to the volume on Giant Bomb."
+      },
+      {
+        "propertyName": "start_year",
+        "comment": "The first year this volume appeared in comics."
+      }
+    ]
+  }
+]

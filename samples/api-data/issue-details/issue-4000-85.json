@@ -1,0 +1,122 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-85/",
+    "associated_images": [],
+    "character_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-29507/",
+        "id": 29507,
+        "name": "Andre Blanc-Dumont",
+        "site_detail_url": "https://comicvine.gamespot.com/andre-blanc-dumont/4005-29507/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-35166/",
+        "id": 35166,
+        "name": "Blackhawk",
+        "site_detail_url": "https://comicvine.gamespot.com/blackhawk/4005-35166/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-31309/",
+        "id": 31309,
+        "name": "Chop-Chop",
+        "site_detail_url": "https://comicvine.gamespot.com/chop-chop/4005-31309/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-58639/",
+        "id": 58639,
+        "name": "Chuck Wilson",
+        "site_detail_url": "https://comicvine.gamespot.com/chuck-wilson/4005-58639/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-31308/",
+        "id": 31308,
+        "name": "Hans Hendrickson",
+        "site_detail_url": "https://comicvine.gamespot.com/hans-hendrickson/4005-31308/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-31310/",
+        "id": 31310,
+        "name": "Olaf Friedriksen",
+        "site_detail_url": "https://comicvine.gamespot.com/olaf-friedriksen/4005-31310/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-75478/",
+        "id": 75478,
+        "name": "Spider",
+        "site_detail_url": "https://comicvine.gamespot.com/spider/4005-75478/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-31307/",
+        "id": 31307,
+        "name": "Stanislaus Drozdowski",
+        "site_detail_url": "https://comicvine.gamespot.com/stanislaus-drozdowski/4005-31307/"
+      }
+    ],
+    "character_died_in": [],
+    "concept_credits": [],
+    "cover_date": "1952-11-01",
+    "date_added": "2008-06-06 11:09:32",
+    "date_last_updated": "2013-08-09 07:36:08",
+    "deck": null,
+    "description": null,
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 85,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/84-989-85-1-blackhawk.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/84-989-85-1-blackhawk.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/84-989-85-1-blackhawk.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/84-989-85-1-blackhawk.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/84-989-85-1-blackhawk.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/84-989-85-1-blackhawk.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/84-989-85-1-blackhawk.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/84-989-85-1-blackhawk.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/4/84-989-85-1-blackhawk.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_number": "58",
+    "location_credits": [],
+    "name": "King Cobra",
+    "object_credits": [],
+    "person_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-31165/",
+        "id": 31165,
+        "name": "Reed Crandall",
+        "site_detail_url": "https://comicvine.gamespot.com/reed-crandall/4040-31165/",
+        "role": "cover"
+      }
+    ],
+    "site_detail_url": "https://comicvine.gamespot.com/blackhawk-58-king-cobra/4000-85/",
+    "store_date": null,
+    "story_arc_credits": [],
+    "team_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-24605/",
+        "id": 24605,
+        "name": "Blackhawk Squadron",
+        "site_detail_url": "https://comicvine.gamespot.com/blackhawk-squadron/4060-24605/"
+      }
+    ],
+    "team_disbanded_in": [],
+    "volume": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-1819/",
+      "id": 1819,
+      "name": "Blackhawk",
+      "site_detail_url": "https://comicvine.gamespot.com/blackhawk/4050-1819/"
+    }
+  },
+  "version": "1.0"
+}

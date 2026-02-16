@@ -1,0 +1,166 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1289/",
+    "birth": null,
+    "character_enemies": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1296/",
+        "id": 1296,
+        "name": "Electrocute",
+        "site_detail_url": "https://comicvine.gamespot.com/electrocute/4005-1296/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1288/",
+        "id": 1288,
+        "name": "Lady Killer",
+        "site_detail_url": "https://comicvine.gamespot.com/lady-killer/4005-1288/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-14073/",
+        "id": 14073,
+        "name": "Night Man",
+        "site_detail_url": "https://comicvine.gamespot.com/night-man/4005-14073/"
+      }
+    ],
+    "character_friends": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1281/",
+        "id": 1281,
+        "name": "Tyrannosaurus",
+        "site_detail_url": "https://comicvine.gamespot.com/tyrannosaurus/4005-1281/"
+      }
+    ],
+    "count_of_issue_appearances": 6,
+    "creators": [],
+    "date_added": "2008-06-06 11:27:03",
+    "date_last_updated": "2011-05-05 16:43:24",
+    "deck": "Naiad is a member of TNTNT. She has power over water, conjuring and controlling it. Her powers are both mystical and scientific in nature.",
+    "description": null,
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-37649/",
+      "id": 37649,
+      "name": "TNTNT",
+      "issue_number": "3"
+    },
+    "gender": 2,
+    "id": 1289,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/3664/282048-67056-naiad.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/3664/282048-67056-naiad.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/3664/282048-67056-naiad.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/3664/282048-67056-naiad.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/3664/282048-67056-naiad.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/3664/282048-67056-naiad.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/3664/282048-67056-naiad.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/3664/282048-67056-naiad.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/3664/282048-67056-naiad.jpg",
+      "image_tags": "All Images,Naiad"
+    },
+    "issue_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-118312/",
+        "id": 118312,
+        "name": "Dark Destiny",
+        "site_detail_url": "https://comicvine.gamespot.com/the-all-new-exiles-11-dark-destiny/4000-118312/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105291/",
+        "id": 105291,
+        "name": "The Subject Is... TNTNT II!",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers-24-the-subject-is-tntnt-ii/4000-105291/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105289/",
+        "id": 105289,
+        "name": "Machines In Wartime!",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers-22-machines-in-wartime/4000-105289/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105288/",
+        "id": 105288,
+        "name": "Life In Wartime!",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers-21-life-in-wartime/4000-105288/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-38774/",
+        "id": 38774,
+        "name": "Ghosts",
+        "site_detail_url": "https://comicvine.gamespot.com/the-night-man-6-ghosts/4000-38774/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-37649/",
+        "id": 37649,
+        "name": "TNTNT",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers-3-tntnt/4000-37649/"
+      }
+    ],
+    "issues_died_in": [],
+    "movies": [],
+    "name": "Naiad",
+    "origin": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/origin/4030-1/",
+      "id": 1,
+      "name": "Mutant"
+    },
+    "powers": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-53/",
+        "id": 53,
+        "name": "Sub-Mariner"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-118/",
+        "id": 118,
+        "name": "Water Control"
+      }
+    ],
+    "publisher": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-447/",
+      "id": 447,
+      "name": "Malibu"
+    },
+    "real_name": null,
+    "site_detail_url": "https://comicvine.gamespot.com/naiad/4005-1289/",
+    "story_arc_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-60626/",
+        "id": 60626,
+        "name": "Impel Down Arc",
+        "site_detail_url": "https://comicvine.gamespot.com/impel-down-arc/4045-60626/"
+      }
+    ],
+    "team_enemies": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-40891/",
+        "id": 40891,
+        "name": "The Strangers",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers/4060-40891/"
+      }
+    ],
+    "team_friends": [],
+    "teams": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-50223/",
+        "id": 50223,
+        "name": "TNTNT",
+        "site_detail_url": "https://comicvine.gamespot.com/tntnt/4060-50223/"
+      }
+    ],
+    "volume_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-5154/",
+        "id": 5154,
+        "name": "The Strangers",
+        "site_detail_url": "https://comicvine.gamespot.com/the-strangers/4050-5154/"
+      }
+    ]
+  },
+  "version": "1.0"
+}

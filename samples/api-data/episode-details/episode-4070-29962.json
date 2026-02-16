@@ -1,0 +1,186 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "air_date": "2019-05-13",
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/episode/4070-29962/",
+    "character_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-71568/",
+        "id": 71568,
+        "name": "Bethany Snow",
+        "site_detail_url": "https://comicvine.gamespot.com/bethany-snow/4005-71568/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-150865/",
+        "id": 150865,
+        "name": "Black Siren",
+        "site_detail_url": "https://comicvine.gamespot.com/black-siren/4005-150865/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-23535/",
+        "id": 23535,
+        "name": "Bronze Tiger",
+        "site_detail_url": "https://comicvine.gamespot.com/bronze-tiger/4005-23535/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-14257/",
+        "id": 14257,
+        "name": "Connor Hawke",
+        "site_detail_url": "https://comicvine.gamespot.com/connor-hawke/4005-14257/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-94264/",
+        "id": 94264,
+        "name": "Dinah Drake",
+        "site_detail_url": "https://comicvine.gamespot.com/dinah-drake/4005-94264/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-87910/",
+        "id": 87910,
+        "name": "Emiko Queen",
+        "site_detail_url": "https://comicvine.gamespot.com/emiko-queen/4005-87910/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2541/",
+        "id": 2541,
+        "name": "Felicity Smoak",
+        "site_detail_url": "https://comicvine.gamespot.com/felicity-smoak/4005-2541/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-5936/",
+        "id": 5936,
+        "name": "Green Arrow",
+        "site_detail_url": "https://comicvine.gamespot.com/green-arrow/4005-5936/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-86315/",
+        "id": 86315,
+        "name": "John Diggle",
+        "site_detail_url": "https://comicvine.gamespot.com/john-diggle/4005-86315/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-72170/",
+        "id": 72170,
+        "name": "Mia Dearden",
+        "site_detail_url": "https://comicvine.gamespot.com/mia-dearden/4005-72170/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-19179/",
+        "id": 19179,
+        "name": "Mr. Terrific",
+        "site_detail_url": "https://comicvine.gamespot.com/mr-terrific/4005-19179/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3404/",
+        "id": 3404,
+        "name": "Roy Harper",
+        "site_detail_url": "https://comicvine.gamespot.com/roy-harper/4005-3404/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-31018/",
+        "id": 31018,
+        "name": "The Monitor",
+        "site_detail_url": "https://comicvine.gamespot.com/the-monitor/4005-31018/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-131471/",
+        "id": 131471,
+        "name": "Virgil",
+        "site_detail_url": "https://comicvine.gamespot.com/virgil/4005-131471/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-43656/",
+        "id": 43656,
+        "name": "Wild Dog",
+        "site_detail_url": "https://comicvine.gamespot.com/wild-dog/4005-43656/"
+      }
+    ],
+    "character_died_in": [],
+    "concept_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-55822/",
+        "id": 55822,
+        "name": "Dystopia",
+        "site_detail_url": "https://comicvine.gamespot.com/dystopia/4015-55822/"
+      }
+    ],
+    "date_added": "2019-05-13 20:49:34",
+    "date_last_updated": "2019-05-13 20:53:23",
+    "deck": null,
+    "description": "<p><em>The battle between Oliver and Emiko comes to a boiling point which</em> brings back some familiar faces and leaves others in dire jeopardy.</p>",
+    "episode_number": "722",
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 29962,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/original/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/11131/111313070/6929380-mv5bndc0mdm0ndytnwixoc00mzy3lwe0m2itmtfjmjgxodqxyzkwxkeyxkfqcgdeqxvynzkzmzeymjy%40__v1_sy1000_cr0%2C0%2C1560%2C1000_al_.jpg",
+      "image_tags": "All Images"
+    },
+    "location_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-47878/",
+        "id": 47878,
+        "name": "Star City",
+        "site_detail_url": "https://comicvine.gamespot.com/star-city/4020-47878/"
+      }
+    ],
+    "name": "You Have Saved This City  ",
+    "object_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-55833/",
+        "id": 55833,
+        "name": "Trick Arrow",
+        "site_detail_url": "https://comicvine.gamespot.com/trick-arrow/4055-55833/"
+      }
+    ],
+    "series": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/series/4075-3/",
+      "id": 3,
+      "name": "Arrow",
+      "site_detail_url": "https://comicvine.gamespot.com/arrow/4075-3/"
+    },
+    "site_detail_url": "https://comicvine.gamespot.com/arrow-722-you-have-saved-this-city/4070-29962/",
+    "story_arc_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-40764/",
+        "id": 40764,
+        "name": "Crisis on Infinite Earths",
+        "site_detail_url": "https://comicvine.gamespot.com/crisis-on-infinite-earths/4045-40764/"
+      }
+    ],
+    "team_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-62632/",
+        "id": 62632,
+        "name": "Ninth Circle",
+        "site_detail_url": "https://comicvine.gamespot.com/ninth-circle/4060-62632/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-60986/",
+        "id": 60986,
+        "name": "Team Arrow",
+        "site_detail_url": "https://comicvine.gamespot.com/team-arrow/4060-60986/"
+      }
+    ]
+  },
+  "version": "1.0"
+}

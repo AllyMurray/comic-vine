@@ -1,0 +1,103 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-68/",
+    "associated_images": [],
+    "character_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2350/",
+        "id": 2350,
+        "name": "Billy Batson",
+        "site_detail_url": "https://comicvine.gamespot.com/billy-batson/4005-2350/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-19152/",
+        "id": 19152,
+        "name": "Golden Arrow",
+        "site_detail_url": "https://comicvine.gamespot.com/golden-arrow/4005-19152/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-19146/",
+        "id": 19146,
+        "name": "Ibis the Invincible",
+        "site_detail_url": "https://comicvine.gamespot.com/ibis-the-invincible/4005-19146/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-63413/",
+        "id": 63413,
+        "name": "Lance O'Casey",
+        "site_detail_url": "https://comicvine.gamespot.com/lance-ocasey/4005-63413/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-19155/",
+        "id": 19155,
+        "name": "Spy Smasher",
+        "site_detail_url": "https://comicvine.gamespot.com/spy-smasher/4005-19155/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40329/",
+        "id": 40329,
+        "name": "Taia",
+        "site_detail_url": "https://comicvine.gamespot.com/taia/4005-40329/"
+      }
+    ],
+    "character_died_in": [],
+    "concept_credits": [],
+    "cover_date": "1952-11-01",
+    "date_added": "2008-06-06 11:09:18",
+    "date_last_updated": "2022-07-07 12:22:21",
+    "deck": null,
+    "description": null,
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 68,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/67-843-68-1-whiz-comics.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/67-843-68-1-whiz-comics.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/67-843-68-1-whiz-comics.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/67-843-68-1-whiz-comics.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/67-843-68-1-whiz-comics.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/67-843-68-1-whiz-comics.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/67-843-68-1-whiz-comics.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/67-843-68-1-whiz-comics.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/4/67-843-68-1-whiz-comics.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_number": "151",
+    "location_credits": [],
+    "name": null,
+    "object_credits": [],
+    "person_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-38780/",
+        "id": 38780,
+        "name": "Pete Costanza",
+        "site_detail_url": "https://comicvine.gamespot.com/pete-costanza/4040-38780/",
+        "role": "penciler, inker"
+      }
+    ],
+    "site_detail_url": "https://comicvine.gamespot.com/whiz-comics-151/4000-68/",
+    "store_date": null,
+    "story_arc_credits": [],
+    "team_credits": [],
+    "team_disbanded_in": [],
+    "volume": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-843/",
+      "id": 843,
+      "name": "Whiz Comics",
+      "site_detail_url": "https://comicvine.gamespot.com/whiz-comics/4050-843/"
+    }
+  },
+  "version": "1.0"
+}
