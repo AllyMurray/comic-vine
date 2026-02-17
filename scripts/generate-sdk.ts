@@ -83,8 +83,9 @@ async function main() {
   writeJson(path.join(SAMPLES_DIR, 'code-comments', 'comments.json'), comments);
   console.log(`  Extracted comments for ${comments.length} resources`);
 
-  // ─── Read all sample data once ─────────────────────────────────────
+  // ─── Read all sample data and flatten results in a single pass ─────
   const sampleDataByResource = new Map<string, Record<string, unknown>[]>();
+  const flatSamplesByResource = new Map<string, Record<string, unknown>[]>();
   for (const resourceFolder of fs.readdirSync(apiDataDir)) {
     const resourceFolderPath = path.join(apiDataDir, resourceFolder);
     const sampleFiles = fs.readdirSync(resourceFolderPath);
@@ -92,6 +93,17 @@ async function main() {
       readJson<Record<string, unknown>>(path.join(resourceFolderPath, file)),
     );
     sampleDataByResource.set(resourceFolder, data);
+
+    const flatResults: Record<string, unknown>[] = [];
+    for (const d of data) {
+      const results = d.results;
+      if (Array.isArray(results)) {
+        flatResults.push(...(results as Record<string, unknown>[]));
+      } else {
+        flatResults.push(results as Record<string, unknown>);
+      }
+    }
+    flatSamplesByResource.set(resourceFolder, flatResults);
   }
   console.log(`Found ${sampleDataByResource.size} sample data folders`);
 
@@ -113,21 +125,10 @@ async function main() {
 
   // ─── Step 2: Extract common types across all schemas ───────────────
   console.log('\n--- Step 2: Extracting common types ---');
-  const samples = new Map<string, Record<string, unknown>[]>();
-  for (const [resourceFolder, data] of sampleDataByResource) {
-    const flatResults: Record<string, unknown>[] = [];
-    for (const d of data) {
-      const results = d.results;
-      if (Array.isArray(results)) {
-        flatResults.push(...(results as Record<string, unknown>[]));
-      } else {
-        flatResults.push(results as Record<string, unknown>);
-      }
-    }
-    samples.set(resourceFolder, flatResults);
-  }
 
-  const commonTypes: CommonTypeMapping[] = extractCommonTypes(samples);
+  const commonTypes: CommonTypeMapping[] = extractCommonTypes(
+    flatSamplesByResource,
+  );
   console.log(`  Found ${commonTypes.length} common type mappings`);
 
   // ─── Step 3: Generate TypeScript type files ────────────────────────
