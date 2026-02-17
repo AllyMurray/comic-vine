@@ -20,7 +20,7 @@ const client = new ComicVine({
   stores: {
     cache: new InMemoryCacheStore({
       maxSize: 5000,
-      ttl: 600000,           // 10 minutes
+      ttl: 600000, // 10 minutes
       cleanupIntervalMs: 120000, // Cleanup every 2 minutes
     }),
   },
@@ -105,10 +105,10 @@ const client = new ComicVine({
 
 ## Store Comparison
 
-| Feature | In-Memory | SQLite |
-| --- | --- | --- |
-| Performance | Fastest | Fast |
-| Persistence | No (lost on restart) | Yes |
-| Cross-process | No | Yes |
-| Setup | Zero | Requires file system |
-| Best for | Development, single-instance | Production, multi-instance |
+| Feature       | In-Memory                    | SQLite                     |
+| ------------- | ---------------------------- | -------------------------- |
+| Performance   | Fastest                      | Fast                       |
+| Persistence   | No (lost on restart)         | Yes                        |
+| Cross-process | No                           | Yes                        |
+| Setup         | Zero                         | Requires file system       |
+| Best for      | Development, single-instance | Production, multi-instance |

@@ -17,9 +17,9 @@ const client = new ComicVine({
     rateLimit: new InMemoryRateLimitStore({
       defaultConfig: { limit: 200, windowMs: 3600000 }, // 200 req/hour default
       resourceConfigs: new Map([
-        ['issues', { limit: 100, windowMs: 3600000 }],     // 100 req/hour
-        ['characters', { limit: 300, windowMs: 3600000 }],  // 300 req/hour
-        ['volumes', { limit: 50, windowMs: 3600000 }],      // 50 req/hour
+        ['issues', { limit: 100, windowMs: 3600000 }], // 100 req/hour
+        ['characters', { limit: 300, windowMs: 3600000 }], // 300 req/hour
+        ['volumes', { limit: 50, windowMs: 3600000 }], // 50 req/hour
       ]),
     }),
   },
@@ -44,7 +44,9 @@ async function processRequest(url) {
 
   // 3. Rate Limiting - check if request is allowed
   const canProceed = await rateLimit.canProceed(resource);
-  if (!canProceed) { /* throw or wait */ }
+  if (!canProceed) {
+    /* throw or wait */
+  }
 
   // 4. Execute HTTP Request
   const response = await httpClient.get(url);

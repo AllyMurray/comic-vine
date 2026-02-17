@@ -7,17 +7,17 @@ The SDK provides detailed error types for different failure scenarios. All error
 
 ## Error Types
 
-| Error Class | Description |
-| --- | --- |
-| `UnauthorizedError` | Invalid or missing API key |
-| `ObjectNotFoundError` | Requested resource does not exist |
-| `FilterError` | Invalid filter parameters |
-| `GenericRequestError` | General API request failure |
-| `GenericError` | Unexpected API error |
-| `SubscriberOnlyError` | Resource requires a subscriber account |
-| `UrlFormatError` | Malformed request URL |
-| `JsonpCallbackMissingError` | JSONP callback parameter missing |
-| `OptionsValidationError` | Invalid client configuration |
+| Error Class                 | Description                            |
+| --------------------------- | -------------------------------------- |
+| `UnauthorizedError`         | Invalid or missing API key             |
+| `ObjectNotFoundError`       | Requested resource does not exist      |
+| `FilterError`               | Invalid filter parameters              |
+| `GenericRequestError`       | General API request failure            |
+| `GenericError`              | Unexpected API error                   |
+| `SubscriberOnlyError`       | Resource requires a subscriber account |
+| `UrlFormatError`            | Malformed request URL                  |
+| `JsonpCallbackMissingError` | JSONP callback parameter missing       |
+| `OptionsValidationError`    | Invalid client configuration           |
 
 ## Catching Specific Errors
 
@@ -54,7 +54,7 @@ try {
 } catch (error) {
   if (error instanceof ObjectNotFoundError) {
     console.error(error.message); // Error description
-    console.error(error.help);    // Guidance for resolving the error
+    console.error(error.help); // Guidance for resolving the error
   }
 }
 ```

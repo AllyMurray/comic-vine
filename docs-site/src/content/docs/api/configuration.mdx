@@ -13,8 +13,12 @@ import ComicVine from '@comic-vine/client';
 const client = new ComicVine({
   apiKey: 'your-api-key',
   baseUrl: 'https://comicvine.gamespot.com/api',
-  stores: { /* ... */ },
-  client: { /* ... */ },
+  stores: {
+    /* ... */
+  },
+  client: {
+    /* ... */
+  },
 });
 ```
 
@@ -93,18 +97,18 @@ Configure HTTP client behavior:
 const client = new ComicVine({
   apiKey: 'your-api-key',
   client: {
-    defaultCacheTTL: 3600,     // Default cache TTL in seconds
-    throwOnRateLimit: true,    // Throw errors on rate limit (default: true)
-    maxWaitTime: 60000,        // Max wait time for rate limits in ms
+    defaultCacheTTL: 3600, // Default cache TTL in seconds
+    throwOnRateLimit: true, // Throw errors on rate limit (default: true)
+    maxWaitTime: 60000, // Max wait time for rate limits in ms
   },
 });
 ```
 
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `defaultCacheTTL` | `number` | — | Default cache TTL in seconds |
-| `throwOnRateLimit` | `boolean` | `true` | Throw errors when rate limited |
-| `maxWaitTime` | `number` | — | Maximum time to wait when rate limited (ms) |
+| Option             | Type      | Default | Description                                 |
+| ------------------ | --------- | ------- | ------------------------------------------- |
+| `defaultCacheTTL`  | `number`  | —       | Default cache TTL in seconds                |
+| `throwOnRateLimit` | `boolean` | `true`  | Throw errors when rate limited              |
+| `maxWaitTime`      | `number`  | —       | Maximum time to wait when rate limited (ms) |
 
 ## SQLite Store Configuration
 

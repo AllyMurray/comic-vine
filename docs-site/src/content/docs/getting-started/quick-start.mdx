@@ -40,7 +40,7 @@ const characters = await client.character.list({
 });
 
 console.log(characters.totalCount); // Total matching results
-console.log(characters.results);    // Array of characters
+console.log(characters.results); // Array of characters
 ```
 
 ## Select Specific Fields
@@ -52,7 +52,7 @@ const issue = await client.issue.retrieve(12345, {
   fieldList: ['id', 'name', 'issueNumber', 'coverDate'],
 });
 
-console.log(issue.name);        // string - available
+console.log(issue.name); // string - available
 console.log(issue.issueNumber); // number - available
 // issue.description            // TypeScript error - not selected
 ```

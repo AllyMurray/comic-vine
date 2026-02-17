@@ -21,16 +21,20 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid stagger>
   <Card title="Type-Safe API" icon="approve-check">
-    Full TypeScript support with detailed type definitions for all 19 Comic Vine resources. Field selection automatically narrows return types.
+    Full TypeScript support with detailed type definitions for all 19 Comic Vine
+    resources. Field selection automatically narrows return types.
   </Card>
   <Card title="Adaptive Rate Limiting" icon="random">
-    Intelligent priority-based rate limiting that maximizes API utilization by dynamically allocating capacity between user and background requests.
+    Intelligent priority-based rate limiting that maximizes API utilization by
+    dynamically allocating capacity between user and background requests.
   </Card>
   <Card title="Caching & Deduplication" icon="rocket">
-    Configurable caching with TTL support and automatic deduplication of concurrent identical requests. Choose from in-memory or SQLite stores.
+    Configurable caching with TTL support and automatic deduplication of
+    concurrent identical requests. Choose from in-memory or SQLite stores.
   </Card>
   <Card title="Auto Pagination" icon="list-format">
-    Iterate through all results with `for await...of` syntax. The client automatically fetches subsequent pages as needed.
+    Iterate through all results with `for await...of` syntax. The client
+    automatically fetches subsequent pages as needed.
   </Card>
 </CardGrid>
 
@@ -60,15 +64,15 @@ const characters = await client.character.list({
     [Install now &rarr;](/comic-vine/getting-started/installation/)
   </Card>
   <Card title="Quick Start" icon="rocket">
-    Set up your first client and make API requests in minutes.
-    [Get started &rarr;](/comic-vine/getting-started/quick-start/)
+    Set up your first client and make API requests in minutes. [Get started
+    &rarr;](/comic-vine/getting-started/quick-start/)
   </Card>
   <Card title="Guides" icon="open-book">
-    Learn about field selection, filtering, pagination, and more.
-    [Read guides &rarr;](/comic-vine/guides/field-selection/)
+    Learn about field selection, filtering, pagination, and more. [Read guides
+    &rarr;](/comic-vine/guides/field-selection/)
   </Card>
   <Card title="API Reference" icon="setting">
-    Explore all 19 resources, configuration options, and error types.
-    [View reference &rarr;](/comic-vine/api/resources/)
+    Explore all 19 resources, configuration options, and error types. [View
+    reference &rarr;](/comic-vine/api/resources/)
   </Card>
 </CardGrid>

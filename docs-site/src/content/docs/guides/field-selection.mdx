@@ -15,8 +15,8 @@ const issue = await client.issue.retrieve(12345, {
 });
 
 // TypeScript knows exactly what fields are available
-console.log(issue.id);          // number
-console.log(issue.name);        // string
+console.log(issue.id); // number
+console.log(issue.name); // string
 console.log(issue.issueNumber); // number
 console.log(issue.description); // TypeScript error - not selected
 ```
@@ -32,8 +32,8 @@ const characters = await client.character.list({
 });
 
 characters.results.forEach((character) => {
-  console.log(character.name);        // Available
-  console.log(character.image);       // Available
+  console.log(character.name); // Available
+  console.log(character.image); // Available
   console.log(character.description); // TypeScript error
 });
 ```

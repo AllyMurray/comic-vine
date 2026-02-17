@@ -53,21 +53,23 @@ for await (const issue of client.issue.list({ priority: 'background' })) {
 
 The system monitors activity in real-time and transitions between four strategies:
 
-| Strategy | User Activity | User Capacity | Background Capacity |
-| --- | --- | --- | --- |
-| Night Mode | Zero | 0% | 100% (200/200) |
-| Low Activity | Low | 30% reserved | 70% |
-| Moderate Activity | Moderate | Dynamic scaling | Dynamic scaling |
-| High Activity | High | 90% priority | 10% (paused on increasing trend) |
+| Strategy          | User Activity | User Capacity   | Background Capacity              |
+| ----------------- | ------------- | --------------- | -------------------------------- |
+| Night Mode        | Zero          | 0%              | 100% (200/200)                   |
+| Low Activity      | Low           | 30% reserved    | 70%                              |
+| Moderate Activity | Moderate      | Dynamic scaling | Dynamic scaling                  |
+| High Activity     | High          | 90% priority    | 10% (paused on increasing trend) |
 
 ## Priority Guidelines
 
 Use `priority: 'user'` for:
+
 - Interactive user requests (searches, detail views)
 - Real-time features (autocomplete, live updates)
 - Time-sensitive operations
 
 Use `priority: 'background'` for:
+
 - Bulk data processing
 - Scheduled synchronization
 - Cache warming
@@ -81,13 +83,13 @@ const client = new ComicVine({
   stores: {
     rateLimit: new AdaptiveRateLimitStore({
       adaptiveConfig: {
-        highActivityThreshold: 15,              // Requests per 15min for high activity
-        moderateActivityThreshold: 5,           // Requests per 15min for moderate
-        monitoringWindowMs: 20 * 60 * 1000,     // 20 minute monitoring window
+        highActivityThreshold: 15, // Requests per 15min for high activity
+        moderateActivityThreshold: 5, // Requests per 15min for moderate
+        monitoringWindowMs: 20 * 60 * 1000, // 20 minute monitoring window
         sustainedInactivityThresholdMs: 45 * 60 * 1000, // 45min before full background
-        recalculationIntervalMs: 60000,         // Recalculate every 60 seconds
-        maxUserScaling: 1.5,                    // Max user capacity multiplier
-        minUserReserved: 10,                    // Minimum guaranteed user requests
+        recalculationIntervalMs: 60000, // Recalculate every 60 seconds
+        maxUserScaling: 1.5, // Max user capacity multiplier
+        minUserReserved: 10, // Minimum guaranteed user requests
         backgroundPauseOnIncreasingTrend: true, // Pause background on rising activity
       },
     }),
