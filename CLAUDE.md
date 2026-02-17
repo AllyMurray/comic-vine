@@ -101,6 +101,12 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 - `scripts/generate-sdk.ts` is the orchestrator that reads `samples/config.json` and `samples/api-data/`
 - Generator modules in `scripts/generate-sdk/` are pure functions (take input, return strings/objects)
 - The orchestrator handles all file I/O; generators never read or write files
-- Pipeline: sample JSON → JSON schema (quicktype-core) → inject comments → TypeScript interfaces (quicktype-core) → replace common types → write to `src/`
+- Pipeline: sample JSON → infer type graph → apply comments → apply common types → apply overrides → emit TypeScript → write to `src/`
+- Key generator modules:
+  - `sample-inferrer.ts` — infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, enums, index signatures)
+  - `type-emitter.ts` — walks type graph and emits TypeScript source with imports, interfaces, enums
+  - `comment-injector.ts` — applies JSDoc descriptions from API documentation HTML
+  - `common-types-generator.ts` — replaces nested types matching shared shapes (Image, Death, ApiResource, etc.) with common type imports
+  - `type-overrides.ts` — applies known type overrides where sample data is ambiguous (hasStaffReview, aliases)
 - Also generates: resource classes, tests, mock data, barrel files, ResourceType enum
 - Running `pnpm sdk:generate && pnpm format` should produce zero `git diff` on `src/`
