@@ -1,0 +1,90 @@
+---
+title: Installation
+description: Install the Comic Vine SDK and optional store packages.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Install the SDK
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @comic-vine/client
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @comic-vine/client
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @comic-vine/client
+    ```
+  </TabItem>
+</Tabs>
+
+## Optional Store Packages
+
+The client works without any stores by default (no caching, deduplication, or rate limiting). Install store packages to enable these optimization features:
+
+### In-Memory Stores
+
+Best for development, testing, and single-instance applications. Fastest performance with zero setup.
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @comic-vine/in-memory-store
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @comic-vine/in-memory-store
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @comic-vine/in-memory-store
+    ```
+  </TabItem>
+</Tabs>
+
+### SQLite Stores
+
+Recommended for production. Persistent across restarts with cross-process support.
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @comic-vine/sqlite-store
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @comic-vine/sqlite-store
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @comic-vine/sqlite-store
+    ```
+  </TabItem>
+</Tabs>
+
+## TypeScript Support
+
+The SDK is written in TypeScript and provides comprehensive type definitions out of the box:
+
+- **Full type safety** for all Comic Vine resources and fields
+- **Intelligent field selection** with automatic type narrowing
+- **Auto-completion** for all methods, parameters, and response properties
+- **Filter validation** with type-safe filter options per resource
+
+No additional `@types` packages are needed. Types are generated from actual Comic Vine API responses, ensuring accuracy and up-to-date definitions.
+
+## Requirements
+
+- Node.js 20 or later
+- TypeScript 5.0+ (recommended, but not required)

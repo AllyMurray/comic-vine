@@ -24,7 +24,10 @@
     "clean": "rimraf lib dist node_modules",
     "prepare": "husky",
     "sdk:generate": "tsx scripts/generate-sdk.ts",
-    "samples:fetch": "tsx scripts/fetch-samples.ts"
+    "samples:fetch": "tsx scripts/fetch-samples.ts",
+    "docs:dev": "pnpm --dir docs-site dev",
+    "docs:build": "pnpm --dir docs-site build",
+    "docs:preview": "pnpm --dir docs-site preview"
   },
   "author": {
     "name": "Ally Murray",

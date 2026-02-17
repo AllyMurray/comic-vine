@@ -1,0 +1,46 @@
+---
+title: Field Selection
+description: Use type-safe field selection to reduce response size and get automatic type narrowing.
+---
+
+Field selection lets you request only the properties you need from the API. This reduces response size and provides **automatic TypeScript type narrowing** — the return type only includes the fields you selected.
+
+## Basic Field Selection
+
+Both `retrieve()` and `list()` accept a `fieldList` option:
+
+```typescript
+const issue = await client.issue.retrieve(12345, {
+  fieldList: ['id', 'name', 'issueNumber', 'coverDate', 'volume'],
+});
+
+// TypeScript knows exactly what fields are available
+console.log(issue.id);          // number
+console.log(issue.name);        // string
+console.log(issue.issueNumber); // number
+console.log(issue.description); // TypeScript error - not selected
+```
+
+## Field Selection with Lists
+
+Field selection works the same way for list operations:
+
+```typescript
+const characters = await client.character.list({
+  fieldList: ['id', 'name', 'image', 'publisher'],
+  filter: { name: 'Spider-Man' },
+});
+
+characters.results.forEach((character) => {
+  console.log(character.name);        // Available
+  console.log(character.image);       // Available
+  console.log(character.description); // TypeScript error
+});
+```
+
+## Why Use Field Selection?
+
+1. **Smaller responses** — The API only returns the fields you request, reducing bandwidth
+2. **Type safety** — TypeScript prevents you from accessing fields that weren't requested
+3. **Better IntelliSense** — Auto-completion only shows available fields
+4. **Compile-time validation** — Catch mistakes before runtime

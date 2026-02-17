@@ -1,0 +1,107 @@
+---
+title: Basic Usage
+description: Common patterns for using the Comic Vine SDK.
+---
+
+## Search for Characters
+
+```typescript
+import ComicVine from '@comic-vine/client';
+
+const client = new ComicVine({ apiKey: 'your-api-key' });
+
+// Search by name
+const results = await client.character.list({
+  filter: { name: 'Spider-Man' },
+  limit: 10,
+});
+
+for (const character of results.results) {
+  console.log(`${character.name} (ID: ${character.id})`);
+}
+```
+
+## Get Issue Details
+
+```typescript
+// Retrieve a specific issue with selected fields
+const issue = await client.issue.retrieve(6, {
+  fieldList: ['id', 'name', 'issueNumber', 'coverDate', 'volume', 'image'],
+});
+
+console.log(`${issue.volume?.name} #${issue.issueNumber}`);
+console.log(`Cover Date: ${issue.coverDate}`);
+console.log(`Image: ${issue.image?.originalUrl}`);
+```
+
+## Browse a Volume's Issues
+
+```typescript
+// Get all issues in a volume
+const issues = await client.issue.list({
+  fieldList: ['id', 'name', 'issueNumber', 'coverDate'],
+  filter: { volume: 796 },
+  sort: { field: 'issueNumber', direction: 'asc' },
+  limit: 100,
+});
+
+console.log(`Found ${issues.totalCount} issues`);
+for (const issue of issues.results) {
+  console.log(`#${issue.issueNumber}: ${issue.name} (${issue.coverDate})`);
+}
+```
+
+## List Publishers
+
+```typescript
+const publishers = await client.publisher.list({
+  fieldList: ['id', 'name', 'image'],
+  limit: 20,
+});
+
+for (const pub of publishers.results) {
+  console.log(pub.name);
+}
+```
+
+## Get Character with Full Details
+
+```typescript
+const character = await client.character.retrieve(1443);
+
+console.log(`Name: ${character.name}`);
+console.log(`Real Name: ${character.realName}`);
+console.log(`Publisher: ${character.publisher?.name}`);
+console.log(`First Appeared In: ${character.firstAppearedInIssue?.name}`);
+```
+
+## Search Story Arcs
+
+```typescript
+const arcs = await client.storyArc.list({
+  filter: { name: 'Civil War' },
+  fieldList: ['id', 'name', 'publisher'],
+});
+
+for (const arc of arcs.results) {
+  console.log(`${arc.name} (${arc.publisher?.name})`);
+}
+```
+
+## Field Selection for Smaller Responses
+
+When you only need a few fields, use `fieldList` to reduce response size:
+
+```typescript
+// Full response - all fields returned
+const full = await client.character.retrieve(1443);
+
+// Minimal response - only selected fields
+const minimal = await client.character.retrieve(1443, {
+  fieldList: ['id', 'name', 'image'],
+});
+
+// TypeScript enforces which fields are available
+console.log(minimal.name);        // OK
+// console.log(minimal.realName); // TypeScript error
+```

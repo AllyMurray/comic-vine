@@ -1,0 +1,114 @@
+---
+title: Caching
+description: Configure caching and request deduplication to optimize API usage.
+---
+
+The SDK supports pluggable cache and deduplication stores. Without stores configured, every request goes directly to the API.
+
+## Cache Stores
+
+### In-Memory Cache
+
+Best for development, testing, and single-instance applications:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { InMemoryCacheStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 5000,
+      ttl: 600000,           // 10 minutes
+      cleanupIntervalMs: 120000, // Cleanup every 2 minutes
+    }),
+  },
+});
+```
+
+### SQLite Cache (Persistent)
+
+Recommended for production. Data survives application restarts:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { SQLiteCacheStore } from '@comic-vine/sqlite-store';
+import Database from 'better-sqlite3';
+
+const db = new Database('./comic-vine.db');
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: db }),
+  },
+});
+```
+
+## How Caching Works
+
+Cached responses are returned immediately without making an API call:
+
+```typescript
+const issue1 = await client.issue.retrieve(1); // API call
+const issue2 = await client.issue.retrieve(1); // Cache hit - instant return
+```
+
+## Deduplication
+
+Deduplication prevents concurrent identical requests from hitting the API multiple times. When multiple calls request the same resource simultaneously, only one HTTP request is made:
+
+```typescript
+import { InMemoryDedupeStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    dedupe: new InMemoryDedupeStore({
+      jobTimeoutMs: 300000, // 5 minutes
+    }),
+  },
+});
+
+// All three requests share a single HTTP call
+const [a, b, c] = await Promise.all([
+  client.issue.retrieve(1), // Makes API call
+  client.issue.retrieve(1), // Waits for first call
+  client.issue.retrieve(1), // Waits for first call
+]);
+```
+
+## Combining Cache and Deduplication
+
+Use both stores together for maximum optimization:
+
+```typescript
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+} from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxSize: 1000,
+      ttl: 300000,
+    }),
+    dedupe: new InMemoryDedupeStore({
+      jobTimeoutMs: 300000,
+    }),
+  },
+});
+```
+
+## Store Comparison
+
+| Feature | In-Memory | SQLite |
+| --- | --- | --- |
+| Performance | Fastest | Fast |
+| Persistence | No (lost on restart) | Yes |
+| Cross-process | No | Yes |
+| Setup | Zero | Requires file system |
+| Best for | Development, single-instance | Production, multi-instance |

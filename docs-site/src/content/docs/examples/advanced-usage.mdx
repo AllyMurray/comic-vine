@@ -1,0 +1,186 @@
+---
+title: Advanced Usage
+description: Advanced patterns including custom rate limiting, request flow, and real-world scenarios.
+---
+
+## Custom Rate Limiting Per Resource
+
+Configure different rate limits for different resource types:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 200, windowMs: 3600000 }, // 200 req/hour default
+      resourceConfigs: new Map([
+        ['issues', { limit: 100, windowMs: 3600000 }],     // 100 req/hour
+        ['characters', { limit: 300, windowMs: 3600000 }],  // 300 req/hour
+        ['volumes', { limit: 50, windowMs: 3600000 }],      // 50 req/hour
+      ]),
+    }),
+  },
+});
+```
+
+## Request Processing Flow
+
+Every API request follows a 7-step priority sequence:
+
+```typescript
+// Simplified internal flow
+async function processRequest(url) {
+  // 1. Cache Check - immediate return if cached
+  const cached = await cache.get(requestHash);
+  if (cached) return cached;
+
+  // 2. Deduplication - wait for in-progress identical request
+  const inProgress = await dedupe.waitFor(requestHash);
+  if (inProgress) return inProgress;
+  await dedupe.register(requestHash);
+
+  // 3. Rate Limiting - check if request is allowed
+  const canProceed = await rateLimit.canProceed(resource);
+  if (!canProceed) { /* throw or wait */ }
+
+  // 4. Execute HTTP Request
+  const response = await httpClient.get(url);
+
+  // 5. Record for Rate Limiting
+  await rateLimit.record(resource);
+
+  // 6. Store in Cache
+  await cache.set(requestHash, response);
+
+  // 7. Complete Deduplication
+  await dedupe.complete(requestHash, response);
+
+  return response;
+}
+```
+
+## Deduplication in Practice
+
+Deduplication is especially useful when multiple parts of your application request the same data:
+
+```typescript
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+} from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({ maxSize: 1000, ttl: 300000 }),
+    dedupe: new InMemoryDedupeStore({ jobTimeoutMs: 300000 }),
+  },
+});
+
+// Multiple components requesting the same character simultaneously
+// Only one HTTP request is made
+const [sidebar, header, detail] = await Promise.all([
+  client.character.retrieve(1443, { fieldList: ['id', 'name', 'image'] }),
+  client.character.retrieve(1443, { fieldList: ['id', 'name', 'image'] }),
+  client.character.retrieve(1443, { fieldList: ['id', 'name', 'image'] }),
+]);
+```
+
+## Collecting All Items with Auto Pagination
+
+Build a complete collection by iterating through all pages:
+
+```typescript
+// Collect all issues in a volume
+const allIssues = [];
+
+for await (const issue of client.issue.list({
+  fieldList: ['id', 'name', 'issueNumber', 'coverDate'],
+  filter: { volume: 796 },
+  limit: 100,
+})) {
+  allIssues.push(issue);
+}
+
+console.log(`Collected ${allIssues.length} issues`);
+
+// Sort by issue number
+allIssues.sort((a, b) => (a.issueNumber ?? 0) - (b.issueNumber ?? 0));
+```
+
+## Adaptive Rate Limiting for Mixed Workloads
+
+Use priority-based rate limiting when your application has both interactive and background operations:
+
+```typescript
+import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({}),
+  },
+});
+
+// User-facing search gets priority
+async function searchCharacters(query: string) {
+  return client.character.list({
+    filter: { name: query },
+    fieldList: ['id', 'name', 'image', 'publisher'],
+    priority: 'user',
+    limit: 20,
+  });
+}
+
+// Background sync gets remaining capacity
+async function syncVolumes() {
+  for await (const volume of client.volume.list({
+    priority: 'background',
+    limit: 100,
+  })) {
+    await saveToDatabase(volume);
+  }
+}
+```
+
+## Persistent Stores for Production
+
+Use SQLite stores for data that survives restarts and works across processes:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+import {
+  SQLiteCacheStore,
+  SQLiteDedupeStore,
+  SQLiteRateLimitStore,
+} from '@comic-vine/sqlite-store';
+import Database from 'better-sqlite3';
+
+const db = new Database('./comic-vine.db');
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: db }),
+    dedupe: new SQLiteDedupeStore({ database: db }),
+    rateLimit: new SQLiteRateLimitStore({ database: db }),
+  },
+});
+```
+
+## Browser Usage with CORS Proxy
+
+The Comic Vine API doesn't support CORS. Use a proxy server for browser requests:
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  baseUrl: 'https://your-proxy-server.com/api/',
+});
+
+// Note: Never expose your API key in browser JavaScript
+// The proxy should handle API key injection server-side
+```

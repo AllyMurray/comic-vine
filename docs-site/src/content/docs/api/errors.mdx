@@ -1,0 +1,121 @@
+---
+title: Errors
+description: Complete reference for all error types thrown by the Comic Vine SDK.
+---
+
+All SDK errors extend `BaseError`, which extends `HttpClientError` from `@http-client-toolkit/core`. Every error includes a `message` and a `help` property with guidance for resolving the issue.
+
+## Error Classes
+
+### `UnauthorizedError`
+
+Thrown when the API key is invalid or missing.
+
+```typescript
+import { UnauthorizedError } from '@comic-vine/client';
+
+try {
+  const issue = await client.issue.retrieve(1);
+} catch (error) {
+  if (error instanceof UnauthorizedError) {
+    console.error('Check your API key');
+  }
+}
+```
+
+### `ObjectNotFoundError`
+
+Thrown when the requested resource does not exist.
+
+```typescript
+import { ObjectNotFoundError } from '@comic-vine/client';
+
+try {
+  const issue = await client.issue.retrieve(999999);
+} catch (error) {
+  if (error instanceof ObjectNotFoundError) {
+    console.error('Resource not found');
+  }
+}
+```
+
+### `FilterError`
+
+Thrown when the request contains invalid filter parameters.
+
+```typescript
+import { FilterError } from '@comic-vine/client';
+
+try {
+  const issues = await client.issue.list({ filter: { invalid: 'field' } });
+} catch (error) {
+  if (error instanceof FilterError) {
+    console.error('Invalid filter:', error.message);
+  }
+}
+```
+
+### `GenericRequestError`
+
+Thrown for general API request failures.
+
+### `GenericError`
+
+Thrown for unexpected API errors that don't match a specific error type.
+
+### `SubscriberOnlyError`
+
+Thrown when accessing a resource that requires a subscriber account.
+
+### `UrlFormatError`
+
+Thrown when the constructed request URL is malformed.
+
+### `JsonpCallbackMissingError`
+
+Thrown when a JSONP callback parameter is missing from the request.
+
+### `OptionsValidationError`
+
+Thrown when the client configuration is invalid. This is a client-side validation error that occurs before any API call is made.
+
+```typescript
+import { OptionsValidationError } from '@comic-vine/client';
+
+try {
+  const client = new ComicVine({ apiKey: '' });
+} catch (error) {
+  if (error instanceof OptionsValidationError) {
+    console.error('Invalid configuration:', error.message);
+  }
+}
+```
+
+## Error Hierarchy
+
+```
+HttpClientError (@http-client-toolkit/core)
+  └── BaseError
+        ├── UnauthorizedError
+        ├── ObjectNotFoundError
+        ├── FilterError
+        ├── GenericRequestError
+        ├── GenericError
+        ├── SubscriberOnlyError
+        ├── UrlFormatError
+        └── JsonpCallbackMissingError
+        └── OptionsValidationError
+```
+
+## Common Error Properties
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `message` | `string` | Error description |
+| `help` | `string` | Guidance for resolving the error |
+| `name` | `string` | Error class name |
+| `stack` | `string` | Stack trace |
+
+## See Also
+
+- [Error Handling Guide](/comic-vine/guides/error-handling/) — Patterns for handling errors

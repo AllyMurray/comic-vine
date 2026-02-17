@@ -1,0 +1,64 @@
+---
+title: Filtering
+description: Filter API results by name, date, and other resource-specific fields.
+---
+
+The `list()` method supports filtering to narrow down results. Filters are type-safe and specific to each resource type.
+
+## Filter by Name
+
+```typescript
+const characters = await client.character.list({
+  filter: { name: 'Spider-Man' },
+});
+```
+
+## Multiple Filters
+
+Combine multiple filter fields to narrow results further:
+
+```typescript
+const issues = await client.issue.list({
+  filter: {
+    volume: 1234,
+    issue_number: 1,
+  },
+});
+```
+
+## Date Range Filtering
+
+Use pipe-delimited date strings for range filtering:
+
+```typescript
+const recentIssues = await client.issue.list({
+  filter: {
+    date_added: '2023-01-01 00:00:00|2023-12-31 23:59:59',
+  },
+});
+```
+
+## Sorting
+
+Control the order of results with the `sort` option:
+
+```typescript
+const issues = await client.issue.list({
+  filter: { volume: 12345 },
+  sort: { field: 'issueNumber', direction: 'asc' },
+});
+```
+
+## Combining Options
+
+Filters work alongside field selection, pagination, and sorting:
+
+```typescript
+const issues = await client.issue.list({
+  fieldList: ['id', 'name', 'issueNumber'],
+  filter: { volume: 12345 },
+  limit: 50,
+  offset: 0,
+  sort: { field: 'issueNumber', direction: 'asc' },
+});
+```

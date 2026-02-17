@@ -1,0 +1,136 @@
+---
+title: Configuration
+description: All configuration options for the Comic Vine SDK client.
+---
+
+## ComicVineOptions
+
+The `ComicVine` constructor accepts a configuration object with the following options:
+
+```typescript
+import ComicVine from '@comic-vine/client';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  baseUrl: 'https://comicvine.gamespot.com/api',
+  stores: { /* ... */ },
+  client: { /* ... */ },
+});
+```
+
+## Required Options
+
+### `apiKey`
+
+Your Comic Vine API key. Get one for free at [comicvine.gamespot.com/api](https://comicvine.gamespot.com/api/).
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+});
+```
+
+## Optional Options
+
+### `baseUrl`
+
+Override the default API base URL. Useful for proxy servers, API gateways, or testing:
+
+```typescript
+// Route through a CORS proxy for browser usage
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  baseUrl: 'https://your-proxy-server.com/api/',
+});
+
+// Point to a mock server for testing
+const client = new ComicVine({
+  apiKey: 'test-key',
+  baseUrl: 'http://localhost:3000/api/',
+});
+```
+
+### `stores`
+
+Configure cache, deduplication, and rate limit stores:
+
+```typescript
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+  InMemoryRateLimitStore,
+} from '@comic-vine/in-memory-store';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({ maxSize: 1000, ttl: 300000 }),
+    dedupe: new InMemoryDedupeStore({ jobTimeoutMs: 300000 }),
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 100, windowMs: 60000 },
+    }),
+  },
+});
+```
+
+All stores are optional. You can use any combination:
+
+```typescript
+// Only caching
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({ maxSize: 1000, ttl: 300000 }),
+  },
+});
+```
+
+### `client`
+
+Configure HTTP client behavior:
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    defaultCacheTTL: 3600,     // Default cache TTL in seconds
+    throwOnRateLimit: true,    // Throw errors on rate limit (default: true)
+    maxWaitTime: 60000,        // Max wait time for rate limits in ms
+  },
+});
+```
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `defaultCacheTTL` | `number` | — | Default cache TTL in seconds |
+| `throwOnRateLimit` | `boolean` | `true` | Throw errors when rate limited |
+| `maxWaitTime` | `number` | — | Maximum time to wait when rate limited (ms) |
+
+## SQLite Store Configuration
+
+For persistent stores that survive application restarts:
+
+```typescript
+import {
+  SQLiteCacheStore,
+  SQLiteDedupeStore,
+  SQLiteRateLimitStore,
+} from '@comic-vine/sqlite-store';
+import Database from 'better-sqlite3';
+
+const db = new Database('./comic-vine.db');
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new SQLiteCacheStore({ database: db }),
+    dedupe: new SQLiteDedupeStore({ database: db }),
+    rateLimit: new SQLiteRateLimitStore({ database: db }),
+  },
+});
+```
+
+## See Also
+
+- [Caching Guide](/comic-vine/guides/caching/) — Caching and deduplication details
+- [Rate Limiting Guide](/comic-vine/guides/rate-limiting/) — Rate limiting strategies
