@@ -59,13 +59,3 @@ export interface Image {
 }
 
 export type IsoString = string;
-
-export interface DateRange {
-  start: IsoString;
-  end?: IsoString;
-}
-
-export interface DateTimeRange {
-  start: IsoString;
-  end?: IsoString;
-}
