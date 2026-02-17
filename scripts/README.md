@@ -65,13 +65,13 @@ flowchart LR
     emit --> ts["*.ts file"]
 ```
 
-| Stage | Module | Purpose |
-| --- | --- | --- |
-| Infer | `sample-inferrer.ts` | Analyse sample JSON to determine property types, nullability, arrays, nested objects, and enums |
-| Comments | `comment-injector.ts` | Inject JSDoc descriptions parsed from `documentation.html` |
+| Stage        | Module                      | Purpose                                                                                           |
+| ------------ | --------------------------- | ------------------------------------------------------------------------------------------------- |
+| Infer        | `sample-inferrer.ts`        | Analyse sample JSON to determine property types, nullability, arrays, nested objects, and enums   |
+| Comments     | `comment-injector.ts`       | Inject JSDoc descriptions parsed from `documentation.html`                                        |
 | Common types | `common-types-generator.ts` | Replace recurring object shapes (Image, ApiResource, SiteResource, etc.) with shared type imports |
-| Overrides | `type-overrides.ts` | Apply manual fixes for properties where sample data is ambiguous |
-| Emit | `type-emitter.ts` | Walk the type graph and emit TypeScript source with imports, interfaces, and enums |
+| Overrides    | `type-overrides.ts`         | Apply manual fixes for properties where sample data is ambiguous                                  |
+| Emit         | `type-emitter.ts`           | Walk the type graph and emit TypeScript source with imports, interfaces, and enums                |
 
 ## Scripts
 
@@ -101,17 +101,17 @@ Runs the full generation pipeline (`generate-sdk.ts`):
 
 All modules in `generate-sdk/` are **pure functions** &mdash; they take input and return strings or objects. The orchestrator (`generate-sdk.ts`) handles all file I/O.
 
-| Module | Responsibility |
-| --- | --- |
-| `sample-inferrer.ts` | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, enums, index signatures) |
-| `type-emitter.ts` | Walks type graph and emits TypeScript source with imports, interfaces, and enums |
-| `comment-injector.ts` | Parses API documentation HTML and injects JSDoc descriptions into type graphs |
-| `common-types-generator.ts` | Detects and replaces nested types matching shared shapes with common type imports |
-| `type-overrides.ts` | Applies known type corrections where sample data is ambiguous |
-| `resource-generator.ts` | Generates resource class files extending `BaseResource` |
-| `test-generator.ts` | Generates test files that verify correct `resourceType` |
-| `mock-data-generator.ts` | Creates snake_case and camelCase test fixtures from sample data |
-| `barrel-generator.ts` | Generates index/barrel files and the `ResourceType` enum |
+| Module                      | Responsibility                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| `sample-inferrer.ts`        | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, enums, index signatures) |
+| `type-emitter.ts`           | Walks type graph and emits TypeScript source with imports, interfaces, and enums                  |
+| `comment-injector.ts`       | Parses API documentation HTML and injects JSDoc descriptions into type graphs                     |
+| `common-types-generator.ts` | Detects and replaces nested types matching shared shapes with common type imports                 |
+| `type-overrides.ts`         | Applies known type corrections where sample data is ambiguous                                     |
+| `resource-generator.ts`     | Generates resource class files extending `BaseResource`                                           |
+| `test-generator.ts`         | Generates test files that verify correct `resourceType`                                           |
+| `mock-data-generator.ts`    | Creates snake_case and camelCase test fixtures from sample data                                   |
+| `barrel-generator.ts`       | Generates index/barrel files and the `ResourceType` enum                                          |
 
 ## Sample Data Structure
 
