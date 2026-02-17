@@ -64,6 +64,9 @@ export interface TeamDetails {
    */
   image: Image;
   isssuesDisbandedIn: Array<SiteResource>;
+  /**
+   * List of issues this team appears in.
+   */
   issueCredits: Array<SiteResource>;
   /**
    * Movies the team was in.
@@ -81,6 +84,12 @@ export interface TeamDetails {
    * URL pointing to the team on Giant Bomb.
    */
   siteDetailUrl: string;
+  /**
+   * List of story arcs this team appears in.
+   */
   storyArcCredits: Array<SiteResource>;
+  /**
+   * List of comic volumes this team appears in.
+   */
   volumeCredits: Array<SiteResource>;
 }

@@ -41,6 +41,9 @@ export interface ThingDetails {
    * Main image of the thing.
    */
   image: Image;
+  /**
+   * List of issues this thing appears in.
+   */
   issueCredits: Array<SiteResource>;
   /**
    * Movies the thing was in.
@@ -58,6 +61,12 @@ export interface ThingDetails {
    * The first year this thing appeared in comics.
    */
   startYear: null | string;
+  /**
+   * List of story arcs this thing appears in.
+   */
   storyArcCredits: Array<SiteResource>;
+  /**
+   * List of comic volumes this thing appears in.
+   */
   volumeCredits: Array<SiteResource>;
 }

@@ -41,6 +41,9 @@ export interface LocationDetails {
    * Main image of the location.
    */
   image: Image;
+  /**
+   * List of issues this location appears in.
+   */
   issueCredits: Array<SiteResource>;
   /**
    * Movies the location was in.
@@ -58,6 +61,12 @@ export interface LocationDetails {
    * The first year this location appeared in comics.
    */
   startYear: string;
+  /**
+   * List of story arcs this location appears in.
+   */
   storyArcCredits: Array<unknown>;
+  /**
+   * List of comic volumes this location appears in.
+   */
   volumeCredits: Array<SiteResource>;
 }

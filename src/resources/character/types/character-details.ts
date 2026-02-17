@@ -66,6 +66,9 @@ export interface CharacterDetails {
    * Main image of the character.
    */
   image: Image;
+  /**
+   * List of issues this character appears in.
+   */
   issueCredits: Array<SiteResource>;
   /**
    * List of issues this character died in.
@@ -99,6 +102,9 @@ export interface CharacterDetails {
    * URL pointing to the character on Giant Bomb.
    */
   siteDetailUrl: string;
+  /**
+   * List of story arcs this character appears in.
+   */
   storyArcCredits: Array<SiteResource>;
   /**
    * List of teams that are enemies of this character.
@@ -112,5 +118,8 @@ export interface CharacterDetails {
    * List of teams this character is a member of.
    */
   teams: Array<SiteResource>;
+  /**
+   * List of comic volumes this character appears in.
+   */
   volumeCredits: Array<SiteResource>;
 }

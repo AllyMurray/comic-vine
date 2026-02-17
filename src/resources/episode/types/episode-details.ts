@@ -13,8 +13,14 @@ export interface EpisodeDetails {
    * URL pointing to the episode detail resource.
    */
   apiDetailUrl: string;
+  /**
+   * A list of characters that appear in this episode.
+   */
   characterCredits: Array<SiteResource>;
   characterDiedIn: Array<unknown>;
+  /**
+   * A list of concepts that appear in this episode.
+   */
   conceptCredits: Array<SiteResource>;
   /**
    * Date the episode was added to Comic Vine.
@@ -69,11 +75,17 @@ export interface EpisodeDetails {
    * Main image of the episode.
    */
   image: Image;
+  /**
+   * List of locations that appeared in this episode.
+   */
   locationCredits: Array<SiteResource>;
   /**
    * Name of the episode.
    */
   name: string;
+  /**
+   * List of things that appeared in this episode.
+   */
   objectCredits: Array<SiteResource>;
   /**
    * The series the episode belongs to.
@@ -83,6 +95,12 @@ export interface EpisodeDetails {
    * URL pointing to the episode on Giant Bomb.
    */
   siteDetailUrl: string;
+  /**
+   * List of story arcs this episode appears in.
+   */
   storyArcCredits: Array<SiteResource>;
+  /**
+   * List of teams that appear in this episode.
+   */
   teamCredits: Array<SiteResource>;
 }

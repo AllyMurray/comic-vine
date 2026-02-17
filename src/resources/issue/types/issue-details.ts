@@ -15,8 +15,14 @@ export interface IssueDetails {
    */
   apiDetailUrl: string;
   associatedImages: Array<AssociatedImage>;
+  /**
+   * A list of characters that appear in this issue.
+   */
   characterCredits: Array<SiteResource>;
   characterDiedIn: Array<SiteResource>;
+  /**
+   * A list of concepts that appear in this issue.
+   */
   conceptCredits: Array<SiteResource>;
   /**
    * The publish date printed on the cover of an issue.
@@ -75,12 +81,21 @@ export interface IssueDetails {
    * The number assigned to the issue within the volume set.
    */
   issueNumber: string;
+  /**
+   * List of locations that appeared in this issue.
+   */
   locationCredits: Array<SiteResource>;
   /**
    * Name of the issue.
    */
   name: null | string;
+  /**
+   * List of things that appeared in this issue.
+   */
   objectCredits: Array<SiteResource>;
+  /**
+   * List of people that worked on this issue.
+   */
   personCredits: Array<PersonCreditSiteResource>;
   /**
    * URL pointing to the issue on Giant Bomb.
@@ -90,7 +105,13 @@ export interface IssueDetails {
    * The date the issue was first sold in stores.
    */
   storeDate: Date | null;
+  /**
+   * List of story arcs this issue appears in.
+   */
   storyArcCredits: Array<SiteResource>;
+  /**
+   * List of teams that appear in this issue.
+   */
   teamCredits: Array<SiteResource>;
   teamDisbandedIn: Array<SiteResource>;
   /**

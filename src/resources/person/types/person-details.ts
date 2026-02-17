@@ -74,7 +74,13 @@ export interface PersonDetails {
    * URL pointing to the person on Giant Bomb.
    */
   siteDetailUrl: string;
+  /**
+   * List of story arcs this person appears in.
+   */
   storyArcCredits: Array<SiteResource>;
+  /**
+   * List of comic volumes this person appears in.
+   */
   volumeCredits: Array<SiteResource>;
   /**
    * URL to the person website.

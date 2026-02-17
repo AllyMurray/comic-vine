@@ -38,6 +38,9 @@ export interface ConceptDetails {
    * Main image of the concept.
    */
   image: Image;
+  /**
+   * List of issues this concept appears in.
+   */
   issueCredits: Array<SiteResource>;
   /**
    * Movies the concept was in.
@@ -55,5 +58,8 @@ export interface ConceptDetails {
    * The first year this concept appeared in comics.
    */
   startYear: string;
+  /**
+   * List of comic volumes this concept appears in.
+   */
   volumeCredits: Array<SiteResource>;
 }

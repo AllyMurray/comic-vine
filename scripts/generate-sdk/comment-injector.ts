@@ -87,8 +87,12 @@ export function applyComments(
   );
   if (rootComments) {
     for (const prop of graph.rootType.properties) {
+      // The HTML docs use e.g. "issue_credits" which is stored as "issues"
+      // after _credit stripping (line 62). Apply the same normalisation to
+      // the API property name so they match.
+      const normalised = snakeCase(prop.name).replace('_credit', '');
       const found = rootComments.fields?.find(
-        (x) => x.propertyName === snakeCase(prop.name),
+        (x) => x.propertyName === normalised,
       );
       if (found) {
         prop.description = found.comment;
