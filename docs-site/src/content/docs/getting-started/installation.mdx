@@ -8,14 +8,26 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ## Install the SDK
 
 <Tabs>
-  <TabItem label="pnpm">```bash pnpm add comic-vine-sdk ```</TabItem>
-  <TabItem label="npm">```bash npm install comic-vine-sdk ```</TabItem>
-  <TabItem label="yarn">```bash yarn add comic-vine-sdk ```</TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add comic-vine-sdk
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install comic-vine-sdk
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add comic-vine-sdk
+    ```
+  </TabItem>
 </Tabs>
 
 ## Optional Store Packages
 
-The client works without any stores by default (no caching, deduplication, or rate limiting). Install store packages to enable these optimization features:
+The client works without any stores by default (no caching, deduplication, or rate limiting). Install store packages from [`@http-client-toolkit`](https://github.com/AllyMurray/http-client-toolkit) to enable these features:
 
 ### In-Memory Stores
 
@@ -23,13 +35,19 @@ Best for development, testing, and single-instance applications. Fastest perform
 
 <Tabs>
   <TabItem label="pnpm">
-    ```bash pnpm add @comic-vine/in-memory-store ```
+    ```bash
+    pnpm add @http-client-toolkit/store-memory
+    ```
   </TabItem>
   <TabItem label="npm">
-    ```bash npm install @comic-vine/in-memory-store ```
+    ```bash
+    npm install @http-client-toolkit/store-memory
+    ```
   </TabItem>
   <TabItem label="yarn">
-    ```bash yarn add @comic-vine/in-memory-store ```
+    ```bash
+    yarn add @http-client-toolkit/store-memory
+    ```
   </TabItem>
 </Tabs>
 
@@ -38,11 +56,21 @@ Best for development, testing, and single-instance applications. Fastest perform
 Recommended for production. Persistent across restarts with cross-process support.
 
 <Tabs>
-  <TabItem label="pnpm">```bash pnpm add @comic-vine/sqlite-store ```</TabItem>
-  <TabItem label="npm">
-    ```bash npm install @comic-vine/sqlite-store ```
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @http-client-toolkit/store-sqlite
+    ```
   </TabItem>
-  <TabItem label="yarn">```bash yarn add @comic-vine/sqlite-store ```</TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @http-client-toolkit/store-sqlite
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @http-client-toolkit/store-sqlite
+    ```
+  </TabItem>
 </Tabs>
 
 ## TypeScript Support

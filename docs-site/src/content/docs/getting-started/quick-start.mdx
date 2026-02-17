@@ -67,18 +67,15 @@ import {
   InMemoryCacheStore,
   InMemoryDedupeStore,
   InMemoryRateLimitStore,
-} from '@comic-vine/in-memory-store';
+} from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
   stores: {
     cache: new InMemoryCacheStore({
-      maxSize: 1000,
-      ttl: 300000, // 5 minutes
+      maxItems: 1000,
     }),
-    dedupe: new InMemoryDedupeStore({
-      jobTimeoutMs: 300000,
-    }),
+    dedupe: new InMemoryDedupeStore(),
     rateLimit: new InMemoryRateLimitStore({
       defaultConfig: { limit: 100, windowMs: 60000 },
     }),

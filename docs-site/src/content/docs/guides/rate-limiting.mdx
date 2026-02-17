@@ -3,13 +3,13 @@ title: Rate Limiting
 description: Configure rate limiting with traditional or adaptive strategies.
 ---
 
-The SDK supports both traditional rate limiting and an advanced adaptive system that dynamically allocates API capacity based on real-time user activity.
+The SDK supports both traditional rate limiting and an advanced adaptive system that dynamically allocates API capacity based on real-time user activity. Rate limiting is provided by [`@http-client-toolkit`](https://github.com/AllyMurray/http-client-toolkit) store packages.
 
 ## Traditional Rate Limiting
 
 ```typescript
 import ComicVine from 'comic-vine-sdk';
-import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
+import { InMemoryRateLimitStore } from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
@@ -27,14 +27,12 @@ The adaptive system dynamically allocates API capacity between **user requests**
 
 ```typescript
 import ComicVine from 'comic-vine-sdk';
-import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+import { AdaptiveRateLimitStore } from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
   stores: {
-    rateLimit: new AdaptiveRateLimitStore({
-      // Zero configuration required - great defaults included
-    }),
+    rateLimit: new AdaptiveRateLimitStore(),
   },
 });
 
@@ -102,14 +100,12 @@ const client = new ComicVine({
 Check the current adaptive status:
 
 ```typescript
-const status = await client.stores.rateLimit.getStatus('characters');
-console.log(status.adaptive);
+const status = await client.getRateLimitStatus('characters');
+console.log(status);
 // {
-//   userReserved: 120,
-//   backgroundMax: 80,
-//   backgroundPaused: false,
-//   recentUserActivity: 6,
-//   reason: "Moderate user activity - dynamic scaling (1.3x user capacity)"
+//   remaining: 120,
+//   resetTime: Date,
+//   limit: 200,
 // }
 ```
 
@@ -118,7 +114,7 @@ console.log(status.adaptive);
 Use SQLite stores for rate limiting that survives application restarts:
 
 ```typescript
-import { SqliteAdaptiveRateLimitStore } from '@comic-vine/sqlite-store';
+import { SqliteAdaptiveRateLimitStore } from '@http-client-toolkit/store-sqlite';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',

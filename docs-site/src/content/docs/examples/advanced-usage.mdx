@@ -9,7 +9,7 @@ Configure different rate limits for different resource types:
 
 ```typescript
 import ComicVine from 'comic-vine-sdk';
-import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
+import { InMemoryRateLimitStore } from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
@@ -72,13 +72,16 @@ Deduplication is especially useful when multiple parts of your application reque
 import {
   InMemoryCacheStore,
   InMemoryDedupeStore,
-} from '@comic-vine/in-memory-store';
+} from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
   stores: {
-    cache: new InMemoryCacheStore({ maxSize: 1000, ttl: 300000 }),
+    cache: new InMemoryCacheStore({ maxItems: 1000 }),
     dedupe: new InMemoryDedupeStore({ jobTimeoutMs: 300000 }),
+  },
+  client: {
+    defaultCacheTTL: 300, // 5 minutes
   },
 });
 
@@ -118,12 +121,12 @@ allIssues.sort((a, b) => (a.issueNumber ?? 0) - (b.issueNumber ?? 0));
 Use priority-based rate limiting when your application has both interactive and background operations:
 
 ```typescript
-import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
+import { AdaptiveRateLimitStore } from '@http-client-toolkit/store-memory';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
   stores: {
-    rateLimit: new AdaptiveRateLimitStore({}),
+    rateLimit: new AdaptiveRateLimitStore(),
   },
 });
 
@@ -158,17 +161,14 @@ import {
   SQLiteCacheStore,
   SQLiteDedupeStore,
   SQLiteRateLimitStore,
-} from '@comic-vine/sqlite-store';
-import Database from 'better-sqlite3';
-
-const db = new Database('./comic-vine.db');
+} from '@http-client-toolkit/store-sqlite';
 
 const client = new ComicVine({
   apiKey: 'your-api-key',
   stores: {
-    cache: new SQLiteCacheStore({ database: db }),
-    dedupe: new SQLiteDedupeStore({ database: db }),
-    rateLimit: new SQLiteRateLimitStore({ database: db }),
+    cache: new SQLiteCacheStore({ database: './comic-vine.db' }),
+    dedupe: new SQLiteDedupeStore({ database: './comic-vine.db' }),
+    rateLimit: new SQLiteRateLimitStore({ database: './comic-vine.db' }),
   },
 });
 ```
