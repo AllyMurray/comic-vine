@@ -64,6 +64,11 @@ function writeJson(filePath: string, data: unknown): void {
   writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
+/** Strip the `-details` or `-list-item` suffix from a resource folder name. */
+function extractResourceName(folder: string): string {
+  return folder.replace(/-(details|list-item)$/, '');
+}
+
 function main() {
   // ─── Validate required inputs ──────────────────────────────────────
   const docPath = path.join(SAMPLES_DIR, 'documentation.html');
@@ -133,9 +138,7 @@ function main() {
     applyTypeOverrides(graph);
     const types = emitTypeScript(graph);
 
-    const resourceName = resourceFolder.split(
-      resourceFolder.includes('details') ? '-details' : '-list',
-    )[0];
+    const resourceName = extractResourceName(resourceFolder);
     const kebabResourceName = kebabCase(resourceName);
 
     // Write type file
@@ -194,7 +197,7 @@ function main() {
   // ─── Step 3: Generate mock data ────────────────────────────────────
   console.log('\n--- Step 3: Generating mock data ---');
   for (const [resourceFolder, data] of sampleDataByResource) {
-    const resourceName = resourceFolder.replace('-item', '');
+    const resourceName = resourceFolder.replace(/-item$/, '');
     const kebabResourceName = kebabCase(resourceName);
 
     // Use the first sample file for mock data
