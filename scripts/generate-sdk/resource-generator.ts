@@ -1,5 +1,3 @@
-import { toPascalCase, toParamCase } from './utils.js';
-
 /**
  * Generate the source for a resource class file.
  * Template matches the current pattern in src/resources/character/character.ts.
@@ -16,11 +14,4 @@ export class ${pascalName} extends BaseResource<
   protected resourceType: ResourceType = ResourceType.${pascalName};
 }
 `;
-}
-
-/**
- * Generate the resource class file name from a resource name.
- */
-export function getResourceFileName(resourceName: string): string {
-  return toParamCase(resourceName);
 }

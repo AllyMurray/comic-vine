@@ -23,10 +23,3 @@ export interface CommonTypeMapping {
   resource: string;
   propertyConversions: CommonTypeConversion[];
 }
-
-export interface GeneratorContext {
-  samplesDir: string;
-  outputDir: string;
-  comments: CodeComment[];
-  commonTypes: CommonTypeMapping[];
-}

@@ -12,10 +12,6 @@ export function toParamCase(s: string): string {
   return kebabCase(s);
 }
 
-export function toKebabCase(s: string): string {
-  return kebabCase(s);
-}
-
 export function toSnakeCase(s: string): string {
   return snakeCase(s);
 }
