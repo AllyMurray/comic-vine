@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import pluralize from 'pluralize';
-import { toCamelCase } from './utils.js';
+import { toCamelCase, toSnakeCase } from './utils.js';
 import type { CodeComment } from './types.js';
 
 const replaceReservedWords = (input: string): string => {
@@ -90,12 +90,7 @@ export function injectComments(
       if (properties) {
         for (const property of Object.keys(properties)) {
           const found = propertyComments.fields?.find(
-            (x) =>
-              x.propertyName ===
-              property
-                .replace(/([A-Z])/g, '_$1')
-                .toLowerCase()
-                .replace(/^_/, ''),
+            (x) => x.propertyName === toSnakeCase(property),
           );
           if (found) {
             properties[property].description = found.comment;

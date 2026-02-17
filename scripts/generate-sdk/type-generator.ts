@@ -154,7 +154,7 @@ function replaceCommonTypes(
     const foundIndex = lines.findIndex((line) =>
       line.includes(type.searchValue),
     );
-    if (foundIndex) {
+    if (foundIndex !== -1) {
       lines[foundIndex] = type.replaceWith;
     }
   });
