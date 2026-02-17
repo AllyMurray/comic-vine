@@ -8,7 +8,7 @@ export function toCamelCase(s: string): string {
   return camelCase(s);
 }
 
-export function toParamCase(s: string): string {
+export function toKebabCase(s: string): string {
   return kebabCase(s);
 }
 

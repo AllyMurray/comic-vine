@@ -1,4 +1,4 @@
-import { toParamCase } from './utils.js';
+import { toKebabCase } from './utils.js';
 
 /**
  * Generate the resource index barrel file.
@@ -25,7 +25,7 @@ export function generateResourceList(resourceNames: string[]): string {
   return (
     resourceNames
       .map((name) => {
-        const kebab = toParamCase(name);
+        const kebab = toKebabCase(name);
         return `export * from './${kebab}/index.js';`;
       })
       .join('\n') + '\n'

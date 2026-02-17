@@ -16,7 +16,7 @@ import {
   generateResourceList,
   generateResourceType,
 } from './generate-sdk/barrel-generator.js';
-import { toPascalCase, toParamCase } from './generate-sdk/utils.js';
+import { toPascalCase, toKebabCase } from './generate-sdk/utils.js';
 import type { CommonTypeMapping } from './generate-sdk/types.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -135,7 +135,7 @@ async function main() {
     const resourceName = typeName.split(
       typeName.includes('details') ? '-details' : '-list',
     )[0];
-    const kebabResourceName = toParamCase(resourceName);
+    const kebabResourceName = toKebabCase(resourceName);
 
     // Create resource directory if needed
     const shouldCreateResourceFolder =
@@ -152,7 +152,7 @@ async function main() {
       'types',
     );
     writeFile(
-      path.join(typesDir, `${toParamCase(typeName)}.ts`),
+      path.join(typesDir, `${toKebabCase(typeName)}.ts`),
       types.trim() + '\n',
     );
 
@@ -203,7 +203,7 @@ async function main() {
     const resourceFolderPath = path.join(apiDataDir, resourceFolder);
     const sampleFiles = fs.readdirSync(resourceFolderPath);
     const resourceName = resourceFolder.replace('-item', '');
-    const kebabResourceName = toParamCase(resourceName);
+    const kebabResourceName = toKebabCase(resourceName);
 
     // Use the first sample file for mock data
     const apiResponse = readJson<Record<string, unknown>>(
