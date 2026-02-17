@@ -43,33 +43,15 @@ Full documentation is available at **[allymurray.github.io/comic-vine](https://a
 
 ## Code Generation
 
-Resource types, classes, tests, and mock data are generated from sample API responses.
+Resource types, classes, tests, and mock data are generated from sample API responses. See [`scripts/README.md`](scripts/README.md) for the full pipeline documentation and architecture diagrams.
 
 ```bash
 # Generate all types, resource classes, tests, and mock data from samples
 pnpm sdk:generate
 
-# Format generated output to match project style
-pnpm format
-```
-
-### Fetching Fresh API Samples
-
-```bash
-# Requires COMIC_VINE_API_KEY environment variable
+# Fetch fresh API samples (requires COMIC_VINE_API_KEY)
 COMIC_VINE_API_KEY=your-key pnpm samples:fetch
 ```
-
-### How It Works
-
-1. Sample API responses are stored in `samples/api-data/` (38 folders, one per resource type)
-2. `scripts/generate-sdk.ts` orchestrates the pipeline:
-   - Infers a type graph from sample JSON (types, nullable fields, arrays, enums, index signatures)
-   - Injects property descriptions from scraped API documentation
-   - Generates TypeScript interfaces with common type replacement
-   - Generates resource classes, tests, barrel files, and mock data
-3. All generator modules in `scripts/generate-sdk/` are pure functions (no I/O)
-4. Running `pnpm sdk:generate && pnpm format` produces deterministic output matching the committed code
 
 ## Contributing
 
