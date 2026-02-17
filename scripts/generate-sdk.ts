@@ -61,36 +61,46 @@ function writeJson(filePath: string, data: unknown): void {
 }
 
 async function main() {
+  // ─── Validate required inputs ──────────────────────────────────────
+  const docPath = path.join(SAMPLES_DIR, 'documentation.html');
+  if (!fs.existsSync(docPath)) {
+    throw new Error(
+      `Missing required input: ${docPath}\nRun "pnpm samples:fetch" to download API samples first.`,
+    );
+  }
+
+  const apiDataDir = path.join(SAMPLES_DIR, 'api-data');
+  if (!fs.existsSync(apiDataDir) || fs.readdirSync(apiDataDir).length === 0) {
+    throw new Error(
+      `Missing or empty required input: ${apiDataDir}\nRun "pnpm samples:fetch" to download API samples first.`,
+    );
+  }
+
   // ─── Step 0: Generate code comments from documentation HTML ─────────
   console.log('\n--- Step 0: Generating code comments from documentation ---');
-  const htmlContent = fs.readFileSync(
-    path.join(SAMPLES_DIR, 'documentation.html'),
-    'utf-8',
-  );
+  const htmlContent = fs.readFileSync(docPath, 'utf-8');
   const comments = extractCommentsFromHtml(htmlContent);
   writeJson(path.join(SAMPLES_DIR, 'code-comments', 'comments.json'), comments);
   console.log(`  Extracted comments for ${comments.length} resources`);
 
-  const apiDataDir = path.join(SAMPLES_DIR, 'api-data');
-
-  // Validate all sample data exists
-  const resourceFolders = fs.readdirSync(apiDataDir);
-  console.log(`Found ${resourceFolders.length} sample data folders`);
+  // ─── Read all sample data once ─────────────────────────────────────
+  const sampleDataByResource = new Map<string, Record<string, unknown>[]>();
+  for (const resourceFolder of fs.readdirSync(apiDataDir)) {
+    const resourceFolderPath = path.join(apiDataDir, resourceFolder);
+    const sampleFiles = fs.readdirSync(resourceFolderPath);
+    const data = sampleFiles.map((file) =>
+      readJson<Record<string, unknown>>(path.join(resourceFolderPath, file)),
+    );
+    sampleDataByResource.set(resourceFolder, data);
+  }
+  console.log(`Found ${sampleDataByResource.size} sample data folders`);
 
   // ─── Step 1: Generate JSON schemas from sample data ────────────────
   console.log('\n--- Step 1: Generating JSON schemas ---');
   const schemas = new Map<string, Record<string, unknown>>();
 
-  for (const resourceFolder of resourceFolders) {
-    const resourceFolderPath = path.join(apiDataDir, resourceFolder);
-    const sampleFiles = fs.readdirSync(resourceFolderPath);
-
-    const jsonSamples = sampleFiles.map((file) => {
-      const data = readJson<Record<string, unknown>>(
-        path.join(resourceFolderPath, file),
-      );
-      return JSON.stringify(data.results);
-    });
+  for (const [resourceFolder, data] of sampleDataByResource) {
+    const jsonSamples = data.map((d) => JSON.stringify(d.results));
 
     console.log(`  Generating schema for ${resourceFolder}`);
     const schema = await generateJsonSchema(resourceFolder, jsonSamples);
@@ -104,17 +114,17 @@ async function main() {
   // ─── Step 2: Extract common types across all schemas ───────────────
   console.log('\n--- Step 2: Extracting common types ---');
   const samples = new Map<string, Record<string, unknown>[]>();
-  for (const resourceFolder of resourceFolders) {
-    const resourceFolderPath = path.join(apiDataDir, resourceFolder);
-    const sampleFiles = fs.readdirSync(resourceFolderPath);
-
-    const sampleResults = sampleFiles.map((file) => {
-      const data = readJson<Record<string, unknown>>(
-        path.join(resourceFolderPath, file),
-      );
-      return data.results as Record<string, unknown>;
-    });
-    samples.set(resourceFolder, sampleResults);
+  for (const [resourceFolder, data] of sampleDataByResource) {
+    const flatResults: Record<string, unknown>[] = [];
+    for (const d of data) {
+      const results = d.results;
+      if (Array.isArray(results)) {
+        flatResults.push(...(results as Record<string, unknown>[]));
+      } else {
+        flatResults.push(results as Record<string, unknown>);
+      }
+    }
+    samples.set(resourceFolder, flatResults);
   }
 
   const commonTypes: CommonTypeMapping[] = extractCommonTypes(samples);
@@ -122,11 +132,9 @@ async function main() {
 
   // ─── Step 3: Generate TypeScript type files ────────────────────────
   console.log('\n--- Step 3: Generating TypeScript types ---');
-  const resourceFoldersGenerated: string[] = [];
   const classList: string[] = [];
 
-  for (const resourceFolder of resourceFolders) {
-    const schema = schemas.get(resourceFolder)!;
+  for (const [resourceFolder, schema] of schemas) {
     const typeName = resourceFolder;
 
     console.log(`  Generating types for ${typeName}`);
@@ -136,13 +144,6 @@ async function main() {
       typeName.includes('details') ? '-details' : '-list',
     )[0];
     const kebabResourceName = toKebabCase(resourceName);
-
-    // Create resource directory if needed
-    const shouldCreateResourceFolder =
-      !resourceFoldersGenerated.includes(resourceName);
-    if (shouldCreateResourceFolder) {
-      resourceFoldersGenerated.push(resourceName);
-    }
 
     // Write type file
     const typesDir = path.join(
@@ -199,16 +200,12 @@ async function main() {
 
   // ─── Step 4: Generate mock data ────────────────────────────────────
   console.log('\n--- Step 4: Generating mock data ---');
-  for (const resourceFolder of resourceFolders) {
-    const resourceFolderPath = path.join(apiDataDir, resourceFolder);
-    const sampleFiles = fs.readdirSync(resourceFolderPath);
+  for (const [resourceFolder, data] of sampleDataByResource) {
     const resourceName = resourceFolder.replace('-item', '');
     const kebabResourceName = toKebabCase(resourceName);
 
     // Use the first sample file for mock data
-    const apiResponse = readJson<Record<string, unknown>>(
-      path.join(resourceFolderPath, sampleFiles[0]),
-    );
+    const apiResponse = data[0];
 
     console.log(`  Generating mock data for ${kebabResourceName}`);
     const mockOutput = generateMockData(resourceFolder, apiResponse);
