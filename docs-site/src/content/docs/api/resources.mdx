@@ -1,0 +1,282 @@
+---
+title: Resources
+description: Overview of all 19 Comic Vine API resources with links to detailed documentation.
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+The SDK exposes an object for each Comic Vine resource. Each object provides a `retrieve()` method for fetching a single item and a `list()` method for fetching paginated results. See the [official Comic Vine API documentation](https://comicvine.gamespot.com/api/documentation) for full endpoint details.
+
+<Aside>
+  The API's `object` resource is mapped to `thing` since `object` is a reserved
+  word in JavaScript. The name `thing` matches Comic Vine's wiki terminology.
+</Aside>
+
+## Characters & People
+
+<CardGrid>
+  <Card title="Character" icon="star">
+    Comic book characters (heroes, villains, etc.)
+
+    [View reference](/comic-vine/api/resources/character/)
+
+  </Card>
+  <Card title="Person" icon="star">
+    Real-life creators (writers, artists, editors)
+
+    [View reference](/comic-vine/api/resources/person/)
+
+  </Card>
+  <Card title="Team" icon="star">
+    Groups and teams of characters
+
+    [View reference](/comic-vine/api/resources/team/)
+
+  </Card>
+</CardGrid>
+
+## Comics & Publishing
+
+<CardGrid>
+  <Card title="Issue" icon="document">
+    Individual comic book issues
+
+    [View reference](/comic-vine/api/resources/issue/)
+
+  </Card>
+  <Card title="Volume" icon="document">
+    Collected volumes / series runs
+
+    [View reference](/comic-vine/api/resources/volume/)
+
+  </Card>
+  <Card title="Publisher" icon="document">
+    Publishing companies
+
+    [View reference](/comic-vine/api/resources/publisher/)
+
+  </Card>
+  <Card title="Story Arc" icon="document">
+    Cross-issue story arcs
+
+    [View reference](/comic-vine/api/resources/story-arc/)
+
+  </Card>
+</CardGrid>
+
+## Concepts & Lore
+
+<CardGrid>
+  <Card title="Concept" icon="puzzle">
+    Abstract concepts in the comic universe
+
+    [View reference](/comic-vine/api/resources/concept/)
+
+  </Card>
+  <Card title="Location" icon="puzzle">
+    Fictional and real-world locations
+
+    [View reference](/comic-vine/api/resources/location/)
+
+  </Card>
+  <Card title="Thing" icon="puzzle">
+    Notable objects in the comic universe
+
+    [View reference](/comic-vine/api/resources/thing/)
+
+  </Card>
+  <Card title="Origin" icon="puzzle">
+    Character origin types (Human, Alien, Robot, etc.)
+
+    [View reference](/comic-vine/api/resources/origin/)
+
+  </Card>
+  <Card title="Power" icon="puzzle">
+    Super powers and abilities
+
+    [View reference](/comic-vine/api/resources/power/)
+
+  </Card>
+</CardGrid>
+
+## Media
+
+<CardGrid>
+  <Card title="Movie" icon="seti:video">
+    Comic book movies
+
+    [View reference](/comic-vine/api/resources/movie/)
+
+  </Card>
+  <Card title="Series" icon="seti:video">
+    TV series
+
+    [View reference](/comic-vine/api/resources/series/)
+
+  </Card>
+  <Card title="Episode" icon="seti:video">
+    Individual TV episodes
+
+    [View reference](/comic-vine/api/resources/episode/)
+
+  </Card>
+  <Card title="Video" icon="seti:video">
+    Comic Vine video content
+
+    [View reference](/comic-vine/api/resources/video/)
+
+  </Card>
+  <Card title="Video Category" icon="seti:video">
+    Video category classifications
+
+    [View reference](/comic-vine/api/resources/video-category/)
+
+  </Card>
+  <Card title="Video Type" icon="seti:video">
+    Video type classifications
+
+    [View reference](/comic-vine/api/resources/video-type/)
+
+  </Card>
+</CardGrid>
+
+## Other
+
+<CardGrid>
+  <Card title="Promo" icon="information">
+    Promotional content on Comic Vine
+
+    [View reference](/comic-vine/api/resources/promo/)
+
+  </Card>
+</CardGrid>
+
+## Common Types
+
+The following shared types are referenced across multiple resource response interfaces. They represent recurring structures in the Comic Vine API.
+
+### `ApiResource`
+
+A minimal reference to another API resource.
+
+```typescript
+interface ApiResource {
+  apiDetailUrl: string;
+  id: number;
+  name: string | null;
+}
+```
+
+### `SiteResource`
+
+Extends `ApiResource` with a link to the Comic Vine website.
+
+```typescript
+interface SiteResource extends ApiResource {
+  siteDetailUrl: string;
+}
+```
+
+### `IssueApiResource`
+
+An issue reference that includes the issue number.
+
+```typescript
+interface IssueApiResource extends ApiResource {
+  issueNumber: string;
+}
+```
+
+### `IssueSiteResource`
+
+An issue reference with both site URL and issue number.
+
+```typescript
+interface IssueSiteResource extends SiteResource {
+  issueNumber: string;
+}
+```
+
+### `SiteResourceWithCount`
+
+A site resource with a count property (used in volume/series credits).
+
+```typescript
+interface SiteResourceWithCount extends SiteResource {
+  count: string;
+}
+```
+
+### `EpisodeApiResource`
+
+An episode reference that includes the episode number.
+
+```typescript
+interface EpisodeApiResource extends ApiResource {
+  episodeNumber: string;
+}
+```
+
+### `EpisodeSiteResource`
+
+An episode reference with both site URL and episode number.
+
+```typescript
+interface EpisodeSiteResource extends SiteResource {
+  episodeNumber: string;
+}
+```
+
+### `PersonCreditSiteResource`
+
+A person credit reference that includes their role.
+
+```typescript
+interface PersonCreditSiteResource extends SiteResource {
+  role: string;
+}
+```
+
+### `Death`
+
+Represents a death date with timezone information.
+
+```typescript
+interface Death {
+  date: string;
+  timezoneType: number;
+  timezone: string;
+}
+```
+
+### `AssociatedImage`
+
+An additional image associated with a resource.
+
+```typescript
+interface AssociatedImage {
+  caption: null;
+  id: number;
+  imageTags: string;
+  originalUrl: string;
+}
+```
+
+### `Image`
+
+The standard image object returned for most resources, containing URLs at various sizes.
+
+```typescript
+interface Image {
+  iconUrl: string;
+  mediumUrl: string;
+  screenUrl: string;
+  screenLargeUrl: string;
+  smallUrl: string;
+  superUrl: string;
+  thumbUrl: string;
+  tinyUrl: string;
+  originalUrl: string;
+  imageTags: string;
+}
+```
