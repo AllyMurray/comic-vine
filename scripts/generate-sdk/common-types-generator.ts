@@ -1,17 +1,19 @@
-import { toCamelCase } from './utils.js';
+import { toCamelCase, isObject } from './utils.js';
 import type { CommonTypeMapping, CommonTypeConversion } from './types.js';
 
 const isObjectOrNonEmptyArray = (
   maybeObject: unknown,
 ): maybeObject is Record<string, unknown> | unknown[] => {
-  const isObj =
-    typeof maybeObject === 'object' &&
-    !Array.isArray(maybeObject) &&
-    maybeObject !== null;
-  const isNonEmptyArray = Array.isArray(maybeObject) && maybeObject.length > 0;
-  return isObj || isNonEmptyArray;
+  return (
+    isObject(maybeObject) ||
+    (Array.isArray(maybeObject) && maybeObject.length > 0)
+  );
 };
 
+// Each entry matches a shared interface in src/resources/common-types.ts.
+// The property lists define the expected shape — when a sample object's keys
+// are a subset of a config entry's propList, that property is replaced with
+// an import of the shared type.
 const commonTypeConfig = [
   {
     typeName: 'AssociatedImage',
@@ -79,35 +81,25 @@ function getCommonTypeConversion(
 
 function extractFromSample(
   sample: Record<string, unknown>,
-  commonTypes: CommonTypeMapping[],
+  commonTypesMap: Map<string, CommonTypeConversion[]>,
   resourceFolder: string,
 ): void {
   for (const key of Object.keys(sample)) {
-    const propertyConversion = getCommonTypeConversion(key, sample[key]);
-    if (propertyConversion) {
-      const findResourceIndex = commonTypes.findIndex(
-        (x) => x.resource === resourceFolder,
-      );
+    const conversion = getCommonTypeConversion(key, sample[key]);
+    if (!conversion) continue;
 
-      if (findResourceIndex >= 0) {
-        const conversionNotInList = !commonTypes[
-          findResourceIndex
-        ].propertyConversions.some(
-          (x) =>
-            x.property === propertyConversion.property &&
-            x.newType === propertyConversion.newType,
-        );
-        if (conversionNotInList) {
-          commonTypes[findResourceIndex].propertyConversions.push(
-            propertyConversion,
-          );
-        }
-      } else {
-        commonTypes.push({
-          resource: resourceFolder,
-          propertyConversions: [propertyConversion],
-        });
-      }
+    const existing = commonTypesMap.get(resourceFolder);
+    if (!existing) {
+      commonTypesMap.set(resourceFolder, [conversion]);
+      continue;
+    }
+
+    const isDuplicate = existing.some(
+      (c) =>
+        c.property === conversion.property && c.newType === conversion.newType,
+    );
+    if (!isDuplicate) {
+      existing.push(conversion);
     }
   }
 }
@@ -120,19 +112,16 @@ function extractFromSample(
 export function extractCommonTypes(
   samples: Map<string, Record<string, unknown>[]>,
 ): CommonTypeMapping[] {
-  const commonTypes: CommonTypeMapping[] = [];
+  const commonTypesMap = new Map<string, CommonTypeConversion[]>();
 
   for (const [resourceFolder, sampleList] of samples) {
     for (const sample of sampleList) {
-      if (Array.isArray(sample)) {
-        for (const item of sample as unknown as Record<string, unknown>[]) {
-          extractFromSample(item, commonTypes, resourceFolder);
-        }
-      } else {
-        extractFromSample(sample, commonTypes, resourceFolder);
-      }
+      extractFromSample(sample, commonTypesMap, resourceFolder);
     }
   }
 
-  return commonTypes;
+  return Array.from(commonTypesMap, ([resource, propertyConversions]) => ({
+    resource,
+    propertyConversions,
+  }));
 }
