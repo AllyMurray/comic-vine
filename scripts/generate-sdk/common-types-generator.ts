@@ -1,5 +1,5 @@
 import { camelCase } from 'change-case';
-import { isObject } from './utils.js';
+import { isObject } from '../../src/utils/is-object.js';
 import type { CommonTypeMapping, CommonTypeConversion } from './types.js';
 
 const isObjectOrNonEmptyArray = (
