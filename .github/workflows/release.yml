@@ -1,9 +1,11 @@
 name: release
+
 on:
   push:
     branches:
       - main
   workflow_dispatch: {}
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -18,57 +20,79 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Configure git
         run: |
-          # Get author info from the most recent commit
           AUTHOR_NAME=$(git log -1 --pretty=format:'%an')
           AUTHOR_EMAIL=$(git log -1 --pretty=format:'%ae')
-
           echo "Setting git config to: $AUTHOR_NAME <$AUTHOR_EMAIL>"
           git config user.name "$AUTHOR_NAME"
           git config user.email "$AUTHOR_EMAIL"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build packages
-        run: npx turbo build
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Test
+        run: pnpm test
+
       - name: Test Build Artifacts
-        run: npx turbo test:build
-      - name: Version packages
+        run: pnpm run test:build
+
+      - name: Check for changesets
+        id: changesets
         run: |
-          # Apply version changes and commit them
+          CHANGESET_COUNT=$(ls .changeset/*.md 2>/dev/null | grep -v README.md | wc -l | tr -d ' ')
+          echo "count=$CHANGESET_COUNT"
+          if [ "$CHANGESET_COUNT" -gt 0 ]; then
+            echo "has_changesets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changesets=false" >> "$GITHUB_OUTPUT"
+            echo "No changesets found, skipping publish"
+          fi
+
+      - name: Version packages
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: |
           npx changeset version
           git add .
-          git commit -m "chore: release packages" || echo "No changes to commit"
+          git commit -m "chore: release packages"
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update npm for trusted publishing
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: npm install -g npm@latest
+
       - name: Publish packages
-        run: |
-          # Publish packages directly
-          pnpm release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: pnpm publish --provenance --access public
+
       - name: Push tags
-        run: |
-          # Push any tags created by changeset publish
-          git push origin --tags
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: git push origin --tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
+        if: steps.changesets.outputs.has_changesets == 'true'
         run: |
-          # Get the version from package.json
-          PACKAGE_VERSION=$(node -p "require('./packages/client/package.json').version")
-          PACKAGE_NAME=$(node -p "require('./packages/client/package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
           echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
-          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME@$PACKAGE_VERSION" --generate-notes || echo "Release may already exist"
+          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME@$PACKAGE_VERSION" --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
