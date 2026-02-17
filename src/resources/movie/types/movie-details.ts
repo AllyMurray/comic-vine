@@ -37,7 +37,7 @@ export interface MovieDetails {
    * Description of the movie.
    */
   description: null | string;
-  distributor: null | unknown;
+  distributor: unknown;
   hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the movie.

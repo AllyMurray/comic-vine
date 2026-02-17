@@ -6,7 +6,7 @@ export interface OriginDetails {
    */
   apiDetailUrl: string;
   characters: Array<ApiResource>;
-  characterSet: null | unknown;
+  characterSet: unknown;
   /**
    * Unique ID of the origin.
    */

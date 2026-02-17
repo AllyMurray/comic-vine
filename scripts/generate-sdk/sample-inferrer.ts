@@ -106,12 +106,10 @@ function buildUnion(members: InferredType[]): InferredType {
   const hasNull = members.some((m) => m.kind === 'null');
   const nonNull = members.filter((m) => m.kind !== 'null');
 
-  // All samples are null — the non-null shape is unknown
+  // All samples are null — the non-null shape is unknown.
+  // Emit `unknown` rather than `null | unknown` (which is redundant in TS).
   if (hasNull && nonNull.length === 0) {
-    return {
-      kind: 'union',
-      members: [{ kind: 'null' }, { kind: 'unknown' }],
-    };
+    return { kind: 'unknown' };
   }
 
   if (members.length === 1) return members[0];

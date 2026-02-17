@@ -25,7 +25,7 @@ export interface IssueListItem {
   /**
    * Brief summary of the issue.
    */
-  deck: null | unknown;
+  deck: unknown;
   /**
    * Description of the issue.
    */

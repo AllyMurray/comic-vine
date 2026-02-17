@@ -39,27 +39,27 @@ export interface EpisodeDetails {
   /**
    * A list of characters in which this episode is the first appearance of the character.
    */
-  firstAppearanceCharacters: null | unknown;
+  firstAppearanceCharacters: unknown;
   /**
    * A list of concepts in which this episode is the first appearance of the concept.
    */
-  firstAppearanceConcepts: null | unknown;
+  firstAppearanceConcepts: unknown;
   /**
    * A list of locations in which this episode is the first appearance of the location.
    */
-  firstAppearanceLocations: null | unknown;
+  firstAppearanceLocations: unknown;
   /**
    * A list of things in which this episode is the first appearance of the object.
    */
-  firstAppearanceObjects: null | unknown;
+  firstAppearanceObjects: unknown;
   /**
    * A list of storyarcs in which this episode is the first appearance of the story arc.
    */
-  firstAppearanceStoryarcs: null | unknown;
+  firstAppearanceStoryarcs: unknown;
   /**
    * A list of teams in which this episode is the first appearance of the team.
    */
-  firstAppearanceTeams: null | unknown;
+  firstAppearanceTeams: unknown;
   hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the episode.
