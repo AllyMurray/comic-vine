@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import pluralize from 'pluralize';
 import { camelCase, snakeCase } from 'change-case';
-import type { CodeComment } from './types.js';
+import type { CodeComment, InferredTypeGraph } from './types.js';
 
 const replaceReservedWords = (input: string): string => {
   return input.replace('object', 'thing');
@@ -74,35 +74,25 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
 }
 
 /**
- * Inject property descriptions from comments into a JSON schema's definitions.
+ * Apply property descriptions from comments to an InferredTypeGraph.
+ * Sets the `description` field on matching PropertyInfo entries.
  */
-export function injectComments(
-  schema: Record<string, unknown>,
+export function applyComments(
+  graph: InferredTypeGraph,
   comments: CodeComment[],
-): Record<string, unknown> {
-  const definitions = schema.definitions as Record<
-    string,
-    { properties?: Record<string, { description?: string }> }
-  >;
-  if (!definitions) return schema;
-
-  for (const key of Object.keys(definitions)) {
-    const propertyComments = comments.find((x) => x.title === camelCase(key));
-    if (propertyComments) {
-      const properties = definitions[key].properties;
-
-      if (properties) {
-        for (const property of Object.keys(properties)) {
-          const found = propertyComments.fields?.find(
-            (x) => x.propertyName === snakeCase(property),
-          );
-          if (found) {
-            properties[property].description = found.comment;
-          }
-        }
+): void {
+  // Match the root type against comments
+  const rootComments = comments.find(
+    (x) => x.title === camelCase(graph.rootType.name),
+  );
+  if (rootComments) {
+    for (const prop of graph.rootType.properties) {
+      const found = rootComments.fields?.find(
+        (x) => x.propertyName === snakeCase(prop.name),
+      );
+      if (found) {
+        prop.description = found.comment;
       }
     }
   }
-
-  return schema;
 }
