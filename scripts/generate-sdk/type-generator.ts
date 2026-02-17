@@ -5,7 +5,7 @@ import {
   FetchingJSONSchemaStore,
 } from 'quicktype-core';
 import { toPascalCase } from './utils.js';
-import type { CommonTypeMapping } from './types.js';
+import type { CommonTypeMapping, CommonTypeConversion } from './types.js';
 
 async function quickTypeTs(
   typeName: string,
@@ -29,6 +29,9 @@ async function quickTypeTs(
 }
 
 function removeUnnecessaryInterfaces(typeName: string, types: string): string {
+  // Interfaces that quicktype generates inline but are already defined in
+  // src/resources/common-types.ts. We remove them to avoid duplicates and
+  // instead import the shared definitions.
   const unnecessaryInterfaces = [
     'AssociatedImage',
     'Character',
@@ -64,82 +67,43 @@ function removeType(
   name: string,
   tsType: 'interface' | 'enum',
 ): string {
-  const indexOfInterface = types.indexOf(`export ${tsType} ${name} `);
-  if (indexOfInterface > 0) {
-    let startIndex = -1;
-    for (let index = indexOfInterface; index >= 0; index--) {
-      const character = types[index];
-      const previousCharacter = types[index + 1];
-
-      // Failed to find comment
-      if (character === '}') {
-        startIndex = indexOfInterface;
-        break;
-      }
-
-      if (character + previousCharacter === '/*') {
-        startIndex = index;
-        break;
-      }
-    }
-    let endIndex = -1;
-    for (let index = indexOfInterface; index <= types.length; index++) {
-      const character = types[index];
-      if (character === '}') {
-        endIndex = index;
-        break;
-      }
-    }
-    if (startIndex > 0 && endIndex > 0) {
-      types =
-        types.substring(0, startIndex - 1) +
-        types.substring(endIndex + 1, types.length);
-    }
-  }
-  return types;
+  // Match an optional JSDoc comment (/**...*/) followed by the type declaration.
+  // The JSDoc content uses (?:[^*]|\*(?!/))* instead of [\s\S]*? to prevent
+  // backtracking past the closing */ into subsequent code.
+  const pattern = new RegExp(
+    `(?:/\\*\\*(?:[^*]|\\*(?!/))*\\*/\\s*)?export ${tsType} ${name} \\{[\\s\\S]*?\\n\\}`,
+  );
+  return types.replace(pattern, '');
 }
 
-function replaceCommonTypes(
-  allCommonTypes: CommonTypeMapping[],
-  typeName: string,
+function applyCommonTypeReplacements(
   lines: string[],
-): string {
-  const commonTypes = allCommonTypes.find(
-    (commonType) => commonType.resource === typeName,
-  );
-  const requiredCommonImports: string[] = [];
-  if (commonTypes) {
-    for (const commonType of commonTypes.propertyConversions) {
-      const findIndex = lines.findIndex(
-        (x) =>
-          x.includes(`${commonType.property}:`) ||
-          x.includes(`${commonType.property}?:`),
-      );
-      if (findIndex > 0) {
-        const whitespace = lines[findIndex].substring(
-          0,
-          lines[findIndex].indexOf(commonType.property),
-        );
-        const type = commonType.isArray
-          ? `Array<${commonType.newType}>`
-          : commonType.newType;
-        lines[findIndex] = `${whitespace}${commonType.property}: ${type};`;
-      }
-    }
-    requiredCommonImports.push(
-      ...new Set(commonTypes.propertyConversions.map((x) => x.newType)),
+  conversions: CommonTypeConversion[],
+): void {
+  for (const conversion of conversions) {
+    const index = lines.findIndex(
+      (x) =>
+        x.includes(`${conversion.property}:`) ||
+        x.includes(`${conversion.property}?:`),
     );
+    if (index > 0) {
+      const whitespace = lines[index].substring(
+        0,
+        lines[index].indexOf(conversion.property),
+      );
+      const type = conversion.isArray
+        ? `Array<${conversion.newType}>`
+        : conversion.newType;
+      lines[index] = `${whitespace}${conversion.property}: ${type};`;
+    }
   }
+}
 
-  const imageType = lines.find((line) => line.includes('Image')) ? 'Image' : '';
-  const deathType = lines.find((line) => line.includes('Death')) ? 'Death' : '';
-  lines.unshift(
-    `import { ${[...requiredCommonImports, imageType, deathType]
-      .filter(Boolean)
-      .join(', ')} } from '../../common-types.js';\n`,
-  );
-
-  const knownTypes = [
+// quicktype infers incorrect types for these properties from ambiguous sample data:
+// - hasStaffReview can be null, false, or a SiteResource object
+// - aliases can be null or a newline-delimited string
+function applyKnownTypeOverrides(lines: string[]): void {
+  const overrides = [
     {
       searchValue: 'hasStaffReview:',
       replaceWith: 'hasStaffReview: null | false | SiteResource;',
@@ -150,14 +114,41 @@ function replaceCommonTypes(
     },
   ];
 
-  knownTypes.forEach((type) => {
-    const foundIndex = lines.findIndex((line) =>
-      line.includes(type.searchValue),
+  for (const override of overrides) {
+    const index = lines.findIndex((line) =>
+      line.includes(override.searchValue),
     );
-    if (foundIndex !== -1) {
-      lines[foundIndex] = type.replaceWith;
+    if (index !== -1) {
+      lines[index] = override.replaceWith;
     }
-  });
+  }
+}
+
+function prependCommonTypeImports(
+  lines: string[],
+  conversions: CommonTypeConversion[],
+): void {
+  const imports = new Set<string>(conversions.map((c) => c.newType));
+  if (lines.some((line) => line.includes('Image'))) imports.add('Image');
+  if (lines.some((line) => line.includes('Death'))) imports.add('Death');
+  lines.unshift(
+    `import { ${[...imports].join(', ')} } from '../../common-types.js';\n`,
+  );
+}
+
+function applyCommonTypes(
+  allCommonTypes: CommonTypeMapping[],
+  typeName: string,
+  lines: string[],
+): string {
+  const mapping = allCommonTypes.find(
+    (commonType) => commonType.resource === typeName,
+  );
+  const conversions = mapping?.propertyConversions ?? [];
+
+  applyCommonTypeReplacements(lines, conversions);
+  applyKnownTypeOverrides(lines);
+  prependCommonTypeImports(lines, conversions);
 
   return lines.join('\n');
 }
@@ -176,7 +167,7 @@ export async function generateTypeScript(
     JSON.stringify(schema),
   );
 
-  let types = replaceCommonTypes(commonTypes, typeName, lines);
+  let types = applyCommonTypes(commonTypes, typeName, lines);
   types = removeUnnecessaryInterfaces(typeName, types);
   types = types.replaceAll('any[]', 'Array<unknown>');
   types = types.replaceAll(': null;', ': null | unknown;');
