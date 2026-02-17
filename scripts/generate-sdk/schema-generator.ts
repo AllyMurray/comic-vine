@@ -53,37 +53,62 @@ function convertPropertiesToCamelCase(schema: {
   }
 }
 
-function removeClassFromInterfaceNames(schema: {
-  definitions: Record<string, Record<string, unknown>>;
-}): Record<string, unknown> {
-  const replaceProps: Array<{ find: string; replace: string }> = [];
-  for (const key of Object.keys(schema.definitions)) {
-    if (key.includes('Class')) {
-      const newKey = key.substring(0, key.indexOf('Class'));
-      schema.definitions[newKey] = schema.definitions[key];
-      (schema.definitions[newKey] as Record<string, unknown>).title = newKey;
+function replaceRefPaths(
+  obj: unknown,
+  replacements: Map<string, string>,
+): void {
+  if (typeof obj !== 'object' || obj === null) return;
 
-      delete schema.definitions[key];
-
-      replaceProps.push({ find: key, replace: newKey });
+  if (Array.isArray(obj)) {
+    for (const item of obj) {
+      replaceRefPaths(item, replacements);
     }
+    return;
   }
 
-  let schemaString = JSON.stringify(schema);
-  replaceProps.forEach(
-    (x) =>
-      (schemaString = schemaString.replaceAll(
-        `#/definitions/${x.find}`,
-        `#/definitions/${x.replace}`,
-      )),
-  );
+  const record = obj as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    if (key === '$ref' && typeof record[key] === 'string') {
+      const replacement = replacements.get(record[key] as string);
+      if (replacement) {
+        record[key] = replacement;
+      }
+    } else {
+      replaceRefPaths(record[key], replacements);
+    }
+  }
+}
 
-  return JSON.parse(schemaString);
+function cleanDefinitionNames(schema: {
+  definitions: Record<string, Record<string, unknown>>;
+}): Record<string, unknown> {
+  // Process in two passes: Element first, then Class.
+  // When both resolve to the same base name (e.g. PromoListItemElement and
+  // PromoListItemClass both → PromoListItem), the Class pass overwrites the
+  // Element result. This is correct because Class definitions are the actual
+  // object types while Element definitions are array/union wrappers.
+  for (const suffix of ['Element', 'Class']) {
+    const refReplacements = new Map<string, string>();
+
+    for (const key of Object.keys(schema.definitions)) {
+      if (!key.endsWith(suffix)) continue;
+
+      const newKey = key.slice(0, -suffix.length);
+      schema.definitions[newKey] = schema.definitions[key];
+      (schema.definitions[newKey] as Record<string, unknown>).title = newKey;
+      delete schema.definitions[key];
+      refReplacements.set(`#/definitions/${key}`, `#/definitions/${newKey}`);
+    }
+
+    replaceRefPaths(schema, refReplacements);
+  }
+
+  return schema as Record<string, unknown>;
 }
 
 /**
  * Generate a JSON schema from multiple sample JSON strings using quicktype.
- * Converts snake_case keys to camelCase and removes "Class" suffix from type names.
+ * Converts snake_case keys to camelCase and cleans quicktype disambiguation suffixes from type names.
  */
 export async function generateJsonSchema(
   typeName: string,
@@ -91,13 +116,10 @@ export async function generateJsonSchema(
 ): Promise<Record<string, unknown>> {
   const { lines } = await quickTypeJsonSchema(typeName, jsonSamples);
 
-  // Replace all occurrences of 'Element' in the generated JSON string
-  const schemaString = lines.join('\n').replaceAll('Element', '');
-
-  let schema = JSON.parse(schemaString);
+  let schema = JSON.parse(lines.join('\n'));
 
   convertPropertiesToCamelCase(schema);
-  schema = removeClassFromInterfaceNames(schema);
+  schema = cleanDefinitionNames(schema);
 
   return schema;
 }
