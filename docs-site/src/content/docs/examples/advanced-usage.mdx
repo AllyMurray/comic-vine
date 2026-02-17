@@ -8,7 +8,7 @@ description: Advanced patterns including custom rate limiting, request flow, and
 Configure different rate limits for different resource types:
 
 ```typescript
-import ComicVine from '@comic-vine/client';
+import ComicVine from 'comic-vine-sdk';
 import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
 
 const client = new ComicVine({
@@ -153,7 +153,7 @@ async function syncVolumes() {
 Use SQLite stores for data that survives restarts and works across processes:
 
 ```typescript
-import ComicVine from '@comic-vine/client';
+import ComicVine from 'comic-vine-sdk';
 import {
   SQLiteCacheStore,
   SQLiteDedupeStore,

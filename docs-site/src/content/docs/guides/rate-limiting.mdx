@@ -8,7 +8,7 @@ The SDK supports both traditional rate limiting and an advanced adaptive system 
 ## Traditional Rate Limiting
 
 ```typescript
-import ComicVine from '@comic-vine/client';
+import ComicVine from 'comic-vine-sdk';
 import { InMemoryRateLimitStore } from '@comic-vine/in-memory-store';
 
 const client = new ComicVine({
@@ -26,7 +26,7 @@ const client = new ComicVine({
 The adaptive system dynamically allocates API capacity between **user requests** (interactive, time-sensitive) and **background requests** (bulk operations, scheduled tasks):
 
 ```typescript
-import ComicVine from '@comic-vine/client';
+import ComicVine from 'comic-vine-sdk';
 import { AdaptiveRateLimitStore } from '@comic-vine/in-memory-store';
 
 const client = new ComicVine({

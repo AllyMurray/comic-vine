@@ -13,7 +13,7 @@ A TypeScript client library for the [Comic Vine API](https://comicvine.gamespot.
 ## Quick Start
 
 ```typescript
-import ComicVine from '@comic-vine/client';
+import ComicVine from 'comic-vine-sdk';
 
 const client = new ComicVine({ apiKey: 'your-api-key' });
 

@@ -12,7 +12,7 @@ All SDK errors extend `BaseError`, which extends `HttpClientError` from `@http-c
 Thrown when the API key is invalid or missing.
 
 ```typescript
-import { UnauthorizedError } from '@comic-vine/client';
+import { UnauthorizedError } from 'comic-vine-sdk';
 
 try {
   const issue = await client.issue.retrieve(1);
@@ -28,7 +28,7 @@ try {
 Thrown when the requested resource does not exist.
 
 ```typescript
-import { ObjectNotFoundError } from '@comic-vine/client';
+import { ObjectNotFoundError } from 'comic-vine-sdk';
 
 try {
   const issue = await client.issue.retrieve(999999);
@@ -44,7 +44,7 @@ try {
 Thrown when the request contains invalid filter parameters.
 
 ```typescript
-import { FilterError } from '@comic-vine/client';
+import { FilterError } from 'comic-vine-sdk';
 
 try {
   const issues = await client.issue.list({ filter: { invalid: 'field' } });
@@ -80,7 +80,7 @@ Thrown when a JSONP callback parameter is missing from the request.
 Thrown when the client configuration is invalid. This is a client-side validation error that occurs before any API call is made.
 
 ```typescript
-import { OptionsValidationError } from '@comic-vine/client';
+import { OptionsValidationError } from 'comic-vine-sdk';
 
 try {
   const client = new ComicVine({ apiKey: '' });
