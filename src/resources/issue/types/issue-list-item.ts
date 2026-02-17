@@ -1,4 +1,4 @@
-import { AssociatedImage, SiteResource, Image } from '../../common-types.js';
+import { AssociatedImage, Image, SiteResource } from '../../common-types.js';
 
 export interface IssueListItem {
   /**

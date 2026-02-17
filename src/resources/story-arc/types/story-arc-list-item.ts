@@ -1,8 +1,8 @@
 import {
-  IssueApiResource,
-  SiteResource,
   EpisodeApiResource,
   Image,
+  IssueApiResource,
+  SiteResource,
 } from '../../common-types.js';
 
 export interface StoryArcListItem {
@@ -31,7 +31,7 @@ export interface StoryArcListItem {
    * Description of the story_arc.
    */
   description: null | string;
-  firstAppearedInEpisode: EpisodeApiResource;
+  firstAppearedInEpisode: EpisodeApiResource | null;
   /**
    * Issue where the story_arc made its first appearance.
    */

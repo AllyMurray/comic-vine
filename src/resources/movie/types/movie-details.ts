@@ -1,4 +1,4 @@
-import { SiteResource, Image } from '../../common-types.js';
+import { Image, SiteResource } from '../../common-types.js';
 
 export interface MovieDetails {
   /**
@@ -37,7 +37,7 @@ export interface MovieDetails {
    * Description of the movie.
    */
   description: null | string;
-  distributor: null;
+  distributor: null | unknown;
   hasStaffReview: null | false | SiteResource;
   /**
    * Unique ID of the movie.

@@ -1,8 +1,8 @@
 import {
-  SiteResource,
-  PersonCreditSiteResource,
   AssociatedImage,
   Image,
+  PersonCreditSiteResource,
+  SiteResource,
 } from '../../common-types.js';
 
 export interface IssueDetails {

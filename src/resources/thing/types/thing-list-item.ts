@@ -1,4 +1,4 @@
-import { IssueApiResource, Image } from '../../common-types.js';
+import { Image, IssueApiResource } from '../../common-types.js';
 
 export interface ThingListItem {
   /**
@@ -32,7 +32,7 @@ export interface ThingListItem {
   /**
    * Issue where the thing made its first appearance.
    */
-  firstAppearedInIssue: IssueApiResource;
+  firstAppearedInIssue: IssueApiResource | null;
   /**
    * Unique ID of the thing.
    */

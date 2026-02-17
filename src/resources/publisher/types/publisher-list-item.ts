@@ -57,7 +57,7 @@ export interface PublisherListItem {
 
 export enum LocationState {
   California = 'California',
-  LocationStateNewYork = 'New York ',
   NewYork = 'New York',
+  LocationStateNewYork = 'New York ',
   Pennsylvania = 'Pennsylvania',
 }

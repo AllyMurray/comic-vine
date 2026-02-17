@@ -1,4 +1,4 @@
-import { SiteResource, Image } from '../../common-types.js';
+import { Image, SiteResource } from '../../common-types.js';
 
 export interface EpisodeDetails {
   /**

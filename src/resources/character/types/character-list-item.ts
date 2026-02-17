@@ -1,4 +1,4 @@
-import { IssueApiResource, ApiResource, Image } from '../../common-types.js';
+import { ApiResource, Image, IssueApiResource } from '../../common-types.js';
 
 export interface CharacterListItem {
   /**
@@ -56,7 +56,7 @@ export interface CharacterListItem {
   /**
    * The origin of the character. Human, Alien, Robot ...etc
    */
-  origin: ApiResource;
+  origin: ApiResource | null;
   /**
    * The primary publisher a character is attached to.
    */

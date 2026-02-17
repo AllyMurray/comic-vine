@@ -71,7 +71,3 @@ export interface PersonListItem {
    */
   website: null | string;
 }
-
-export enum Timezone {
-  AmericaLosAngeles = 'America/Los_Angeles',
-}

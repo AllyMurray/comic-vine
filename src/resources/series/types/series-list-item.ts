@@ -1,4 +1,4 @@
-import { EpisodeApiResource, ApiResource, Image } from '../../common-types.js';
+import { ApiResource, EpisodeApiResource, Image } from '../../common-types.js';
 
 export interface SeriesListItem {
   aliases: null | string;
@@ -13,7 +13,7 @@ export interface SeriesListItem {
   image: Image;
   lastEpisode: EpisodeApiResource;
   name: string;
-  publisher: ApiResource;
+  publisher: ApiResource | null;
   siteDetailUrl: string;
   startYear: string;
 }

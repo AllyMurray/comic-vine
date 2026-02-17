@@ -1,4 +1,4 @@
-import { IssueApiResource, SiteResource, Image } from '../../common-types.js';
+import { Image, IssueApiResource, SiteResource } from '../../common-types.js';
 
 export interface ConceptDetails {
   /**

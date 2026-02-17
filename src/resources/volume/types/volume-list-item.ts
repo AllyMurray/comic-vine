@@ -1,4 +1,4 @@
-import { IssueApiResource, ApiResource, Image } from '../../common-types.js';
+import { ApiResource, Image, IssueApiResource } from '../../common-types.js';
 
 export interface VolumeListItem {
   /**

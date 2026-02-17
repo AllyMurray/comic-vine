@@ -1,8 +1,8 @@
 import {
-  SiteResource,
   EpisodeApiResource,
-  IssueApiResource,
   Image,
+  IssueApiResource,
+  SiteResource,
 } from '../../common-types.js';
 
 export interface StoryArcDetails {
@@ -32,7 +32,7 @@ export interface StoryArcDetails {
    */
   description: string;
   episodes: Array<SiteResource>;
-  firstAppearedInEpisode: EpisodeApiResource;
+  firstAppearedInEpisode: EpisodeApiResource | null;
   /**
    * Issue where the story_arc made its first appearance.
    */

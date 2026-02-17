@@ -1,8 +1,8 @@
 import {
-  SiteResource,
-  IssueApiResource,
   ApiResource,
   Image,
+  IssueApiResource,
+  SiteResource,
 } from '../../common-types.js';
 
 export interface CharacterDetails {
@@ -82,7 +82,7 @@ export interface CharacterDetails {
   /**
    * The origin of the character. Human, Alien, Robot ...etc
    */
-  origin: ApiResource;
+  origin: ApiResource | null;
   /**
    * List of super powers a character has.
    */

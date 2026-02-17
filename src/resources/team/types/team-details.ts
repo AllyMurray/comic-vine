@@ -1,8 +1,8 @@
 import {
-  SiteResource,
-  IssueApiResource,
   ApiResource,
   Image,
+  IssueApiResource,
+  SiteResource,
 } from '../../common-types.js';
 
 export interface TeamDetails {

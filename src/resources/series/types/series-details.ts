@@ -1,9 +1,9 @@
 import {
-  SiteResourceWithCount,
-  EpisodeSiteResource,
-  EpisodeApiResource,
   ApiResource,
+  EpisodeApiResource,
+  EpisodeSiteResource,
   Image,
+  SiteResourceWithCount,
 } from '../../common-types.js';
 
 export interface SeriesDetails {
@@ -63,7 +63,7 @@ export interface SeriesDetails {
   /**
    * The primary publisher a series is attached to.
    */
-  publisher: ApiResource;
+  publisher: ApiResource | null;
   /**
    * URL pointing to the series on Giant Bomb.
    */

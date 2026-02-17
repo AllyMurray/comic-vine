@@ -1,9 +1,9 @@
 import {
-  SiteResourceWithCount,
-  IssueApiResource,
-  IssueSiteResource,
   ApiResource,
   Image,
+  IssueApiResource,
+  IssueSiteResource,
+  SiteResourceWithCount,
 } from '../../common-types.js';
 
 export interface VolumeDetails {
@@ -18,11 +18,11 @@ export interface VolumeDetails {
   /**
    * A list of characters that appear in this volume.
    */
-  characters: Array<SiteResourceWithCount>;
+  characters?: Array<SiteResourceWithCount>;
   /**
    * A list of concepts that appear in this volume.
    */
-  concepts: Array<SiteResourceWithCount>;
+  concepts?: Array<SiteResourceWithCount>;
   /**
    * Number of issues included in this volume.
    */
@@ -67,7 +67,7 @@ export interface VolumeDetails {
   /**
    * List of things that appeared in this volume.
    */
-  objects: Array<SiteResourceWithCount>;
+  objects?: Array<SiteResourceWithCount>;
   people: Array<SiteResourceWithCount>;
   /**
    * The primary publisher a volume is attached to.

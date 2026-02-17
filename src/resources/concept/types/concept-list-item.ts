@@ -1,4 +1,4 @@
-import { IssueApiResource, Image } from '../../common-types.js';
+import { Image, IssueApiResource } from '../../common-types.js';
 
 export interface ConceptListItem {
   /**
@@ -29,7 +29,7 @@ export interface ConceptListItem {
   /**
    * Issue where the concept made its first appearance.
    */
-  firstAppearedInIssue: IssueApiResource;
+  firstAppearedInIssue: IssueApiResource | null;
   /**
    * Unique ID of the concept.
    */
