@@ -1,16 +1,6 @@
 [
   {
     "title": "characterDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -132,32 +122,6 @@
   },
   {
     "title": "characterListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -231,16 +195,6 @@
   },
   {
     "title": "chatDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -274,16 +228,6 @@
   },
   {
     "title": "chatListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -317,16 +261,6 @@
   },
   {
     "title": "conceptDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -396,32 +330,6 @@
   },
   {
     "title": "conceptListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -479,16 +387,6 @@
   },
   {
     "title": "episodeDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -606,32 +504,6 @@
   },
   {
     "title": "episodeListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -693,16 +565,6 @@
   },
   {
     "title": "issueDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -832,32 +694,6 @@
   },
   {
     "title": "issueListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -923,16 +759,6 @@
   },
   {
     "title": "locationDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1006,32 +832,6 @@
   },
   {
     "title": "locationListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1089,16 +889,6 @@
   },
   {
     "title": "movieDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -1204,32 +994,6 @@
   },
   {
     "title": "movieListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -1315,16 +1079,6 @@
   },
   {
     "title": "thingDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1398,32 +1152,6 @@
   },
   {
     "title": "thingListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1481,16 +1209,6 @@
   },
   {
     "title": "originDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -1520,32 +1238,6 @@
   },
   {
     "title": "originListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -1567,16 +1259,6 @@
   },
   {
     "title": "personDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1670,32 +1352,6 @@
   },
   {
     "title": "personListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1773,16 +1429,6 @@
   },
   {
     "title": "powerDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1824,32 +1470,6 @@
   },
   {
     "title": "powerListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -1887,16 +1507,6 @@
   },
   {
     "title": "promoDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -1938,32 +1548,6 @@
   },
   {
     "title": "promoListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -2005,16 +1589,6 @@
   },
   {
     "title": "publisherDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2088,32 +1662,6 @@
   },
   {
     "title": "publisherListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2171,16 +1719,6 @@
   },
   {
     "title": "seriesDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2254,32 +1792,6 @@
   },
   {
     "title": "seriesListDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2345,40 +1857,6 @@
   },
   {
     "title": "searchDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "api_key",
-        "comment": "Your API Key"
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 10 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "query",
-        "comment": "The search string."
-      },
-      {
-        "propertyName": "resources",
-        "comment": "List of resources to filter results.  This filter can accept multiple arguments, each delimited with a \",\".  Available options\nare:\n\n\n    character\n    concept\n    origin\n    thing\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\n\n\n    character\n    concept\n    origin\n    object\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\nconcept"
-      },
-      {
-        "propertyName": "subscriber_only",
-        "comment": "NEED DESCRIPTION"
-      }
-    ],
     "fields": [
       {
         "propertyName": "resource_type",
@@ -2388,16 +1866,6 @@
   },
   {
     "title": "storyArcDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2463,32 +1931,6 @@
   },
   {
     "title": "storyArcListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2546,16 +1988,6 @@
   },
   {
     "title": "teamDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2653,32 +2085,6 @@
   },
   {
     "title": "teamListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -2740,12 +2146,6 @@
   },
   {
     "title": "typeListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      }
-    ],
     "fields": [
       {
         "propertyName": "detail_resource_name",
@@ -2763,16 +2163,6 @@
   },
   {
     "title": "videoDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -2830,44 +2220,6 @@
   },
   {
     "title": "videoListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "api_key",
-        "comment": "Your API Key"
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "subscriber_only",
-        "comment": "NEED DESCRIPTION"
-      },
-      {
-        "propertyName": "video_type",
-        "comment": "Filters results by video_type. The value passed to this filter should be the ID of the video_type to filter results by."
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -2925,16 +2277,6 @@
   },
   {
     "title": "videoTypeDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -2960,24 +2302,6 @@
   },
   {
     "title": "videoTypeListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -3003,16 +2327,6 @@
   },
   {
     "title": "videoCategoryDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -3038,24 +2352,6 @@
   },
   {
     "title": "videoCategoryListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      }
-    ],
     "fields": [
       {
         "propertyName": "api_detail_url",
@@ -3081,16 +2377,6 @@
   },
   {
     "title": "volumeDetails",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",
@@ -3180,32 +2466,6 @@
   },
   {
     "title": "volumeListItem",
-    "filters": [
-      {
-        "propertyName": "format",
-        "comment": "The data format of the response takes either xml, json, or jsonp."
-      },
-      {
-        "propertyName": "field_list",
-        "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
-      },
-      {
-        "propertyName": "limit",
-        "comment": "The number of results to display per page.  This value defaults to 100 and can not exceed this number."
-      },
-      {
-        "propertyName": "offset",
-        "comment": "Return results starting with the thing at the offset specified."
-      },
-      {
-        "propertyName": "sort",
-        "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
-      },
-      {
-        "propertyName": "filter",
-        "comment": "The result can be filtered by the marked fields in the Fields section below. \nSingle filter: &filter=field:value\nMultiple filters: &filter=field:value,field:value\nDate filters: &filter=field:start value|end value (using datetime format)\n"
-      }
-    ],
     "fields": [
       {
         "propertyName": "aliases",

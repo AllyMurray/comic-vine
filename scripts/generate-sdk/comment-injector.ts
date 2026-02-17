@@ -17,8 +17,9 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
 
   const resourceMetaCollection: CodeComment[] = [];
   $resourceTables.each((_i, table) => {
-    let currentPropertyCollection = '';
-    const resourceMeta: Record<string, unknown> = {};
+    let title = '';
+    const fields: CodeComment['fields'] = [];
+    let currentSection = '';
 
     $(table)
       .children()
@@ -28,15 +29,17 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
         // Extract the title from the first row
         const isTitleRow = i === 0;
         if (isTitleRow) {
-          const title = replaceReservedWords(
+          const rawTitle = replaceReservedWords(
             toCamelCase($tableRow.first().first().text().replace('URL: /', '')),
           );
-          resourceMeta.title = pluralize.isSingular(title)
-            ? `${title}Details`
-            : `${pluralize.singular(title)}ListItem`;
+          title = pluralize.isSingular(rawTitle)
+            ? `${rawTitle}Details`
+            : `${pluralize.singular(rawTitle)}ListItem`;
           return;
         }
 
+        // Comic Vine docs: resource detail tables have 1-column header rows,
+        // resource list tables have 3-column header rows
         const resourceHeaderRow = 1;
         const resourceListHeaderRow = 3;
         const isNewSection = [
@@ -44,12 +47,13 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
           resourceListHeaderRow,
         ].includes($tableRow.children().length);
         if (isNewSection) {
-          currentPropertyCollection = toCamelCase(
-            $tableRow.children().first().text(),
-          );
-          resourceMeta[currentPropertyCollection] = [];
+          currentSection = toCamelCase($tableRow.children().first().text());
           return;
         }
+
+        // Only collect property descriptions from the "fields" section,
+        // not from "filters" (which describe query parameters)
+        if (currentSection !== 'fields') return;
 
         const propertyName = $tableRow
           .children()
@@ -57,13 +61,13 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
           .text()
           .replace('_credit', '');
         const comment = $tableRow.find(':nth-child(2)').text();
-        (resourceMeta[currentPropertyCollection] as Array<unknown>).push({
+        fields.push({
           propertyName,
           comment: replaceReservedWords(comment),
         });
       });
 
-    resourceMetaCollection.push(resourceMeta as unknown as CodeComment);
+    resourceMetaCollection.push({ title, fields });
   });
 
   return resourceMetaCollection;

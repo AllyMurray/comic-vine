@@ -10,7 +10,6 @@ export interface CodeComment {
     propertyName: string;
     comment: string;
   }>;
-  [key: string]: unknown;
 }
 
 export interface CommonTypeConversion {
