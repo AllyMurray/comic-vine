@@ -1,0 +1,127 @@
+---
+title: Promo
+description: API reference for the Promo resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access promotional content data from the Comic Vine API. Official API docs: [`/promo`](https://comicvine.gamespot.com/api/documentation#toc-0-24) | [`/promos`](https://comicvine.gamespot.com/api/documentation#toc-0-25)
+
+```typescript
+const promo = client.promo;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the promo |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<PromoDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const promo = await client.promo.retrieve(12345);
+
+    // With field selection
+    const promo = await client.promo.retrieve(12345, {
+      fieldList: ['id', 'name', 'deck'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface PromoDetails {
+      /** URL pointing to the promo detail resource. */
+      apiDetailUrl: string;
+      /** Date the promo was added to Comic Vine. */
+      dateAdded: Date;
+      /** Brief summary of the promo. */
+      deck: string;
+      guid: string;
+      /** Unique ID of the promo. */
+      id: number;
+      /** Main image of the promo. */
+      image: Image;
+      /** The link that promo points to. */
+      link: string;
+      /** Name of the promo. */
+      name: string;
+      /** The type of resource the promo is pointing towards. */
+      resourceType: string;
+      /** Author of the promo. */
+      user: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<PromoListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const promos = await client.promo.list();
+
+    // With auto pagination
+    for await (const promo of client.promo.list()) {
+      console.log(promo.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface PromoListItem {
+      /** URL pointing to the promo detail resource. */
+      apiDetailUrl: string;
+      /** Date the promo was added to Comic Vine. */
+      dateAdded: Date;
+      /** Brief summary of the promo. */
+      deck: string;
+      guid: string;
+      /** Unique ID of the promo. */
+      id: number;
+      /** Main image of the promo. */
+      image: Image;
+      /** The link that promo points to. */
+      link: string;
+      /** Name of the promo. */
+      name: string;
+      /** The type of resource the promo is pointing towards. */
+      resourceType: string;
+      /** Author of the promo. */
+      user: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::

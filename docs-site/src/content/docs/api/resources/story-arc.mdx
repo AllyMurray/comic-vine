@@ -1,0 +1,148 @@
+---
+title: Story Arc
+description: API reference for the Story Arc resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access cross-issue story arc data from the Comic Vine API. Official API docs: [`/story_arc`](https://comicvine.gamespot.com/api/documentation#toc-0-31) | [`/story_arcs`](https://comicvine.gamespot.com/api/documentation#toc-0-32)
+
+```typescript
+const storyArc = client.storyArc;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the story arc |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<StoryArcDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const storyArc = await client.storyArc.retrieve(55766);
+
+    // With field selection
+    const storyArc = await client.storyArc.retrieve(55766, {
+      fieldList: ['id', 'name', 'deck', 'publisher'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface StoryArcDetails {
+      /** List of aliases the story_arc is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the story_arc detail resource. */
+      apiDetailUrl: string;
+      countOfIsssueAppearances: number;
+      /** Date the story_arc was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the story_arc was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Brief summary of the story_arc. */
+      deck: string;
+      /** Description of the story_arc. */
+      description: string;
+      episodes: Array<SiteResource>;
+      firstAppearedInEpisode: EpisodeApiResource | null;
+      /** Issue where the story_arc made its first appearance. */
+      firstAppearedInIssue: IssueApiResource;
+      /** Unique ID of the story_arc. */
+      id: number;
+      /** Main image of the story_arc. */
+      image: Image;
+      /** List of issues included in this story_arc. */
+      issues: Array<SiteResource>;
+      /** Movies the story_arc was in. */
+      movies?: Array<unknown>;
+      /** Name of the story_arc. */
+      name: string;
+      /** The primary publisher a story_arc is attached to. */
+      publisher: SiteResource;
+      /** URL pointing to the story_arc on Giant Bomb. */
+      siteDetailUrl: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<StoryArcListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const storyArcs = await client.storyArc.list({
+      filter: { name: 'Civil War' },
+    });
+
+    // With auto pagination
+    for await (const storyArc of client.storyArc.list()) {
+      console.log(storyArc.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface StoryArcListItem {
+      /** List of aliases the story_arc is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the story_arc detail resource. */
+      apiDetailUrl: string;
+      countOfIsssueAppearances: number;
+      /** Date the story_arc was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the story_arc was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Brief summary of the story_arc. */
+      deck: null | string;
+      /** Description of the story_arc. */
+      description: null | string;
+      firstAppearedInEpisode: EpisodeApiResource | null;
+      /** Issue where the story_arc made its first appearance. */
+      firstAppearedInIssue: IssueApiResource;
+      /** Unique ID of the story_arc. */
+      id: number;
+      /** Main image of the story_arc. */
+      image: Image;
+      /** Name of the story_arc. */
+      name: string;
+      /** The primary publisher a story_arc is attached to. */
+      publisher: SiteResource;
+      /** URL pointing to the story_arc on Giant Bomb. */
+      siteDetailUrl: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::

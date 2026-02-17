@@ -1,0 +1,137 @@
+---
+title: Series
+description: API reference for the Series resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access TV series data from the Comic Vine API. Official API docs: [`/series`](https://comicvine.gamespot.com/api/documentation#toc-0-28) | [`/series_list`](https://comicvine.gamespot.com/api/documentation#toc-0-29)
+
+```typescript
+const series = client.series;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the series |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<SeriesDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const series = await client.series.retrieve(12345);
+
+    // With field selection
+    const series = await client.series.retrieve(12345, {
+      fieldList: ['id', 'name', 'startYear', 'countOfEpisodes'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface SeriesDetails {
+      /** List of aliases the series is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the series detail resource. */
+      apiDetailUrl: string;
+      /** A list of characters that appear in this series. */
+      characters: Array<SiteResourceWithCount>;
+      /** Number of episodes included in this series. */
+      countOfEpisodes: number;
+      /** Date the series was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the series was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Brief summary of the series. */
+      deck: null | string;
+      /** Description of the series. */
+      description: string;
+      episodes: Array<EpisodeSiteResource>;
+      /** The first episode in this series. */
+      firstEpisode: EpisodeApiResource;
+      /** Unique ID of the series. */
+      id: number;
+      /** Main image of the series. */
+      image: Image;
+      /** The last episode in this series. */
+      lastEpisode: EpisodeApiResource;
+      /** Name of the series. */
+      name: string;
+      /** The primary publisher a series is attached to. */
+      publisher: ApiResource | null;
+      /** URL pointing to the series on Giant Bomb. */
+      siteDetailUrl: string;
+      /** The first year this series appeared in comics. */
+      startYear: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<SeriesListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const seriesList = await client.series.list();
+
+    // With auto pagination
+    for await (const series of client.series.list()) {
+      console.log(series.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface SeriesListItem {
+      aliases: null | string;
+      apiDetailUrl: string;
+      countOfEpisodes: number;
+      dateAdded: Date;
+      dateLastUpdated: Date;
+      deck: null | string;
+      description: null | string;
+      firstEpisode: EpisodeApiResource;
+      id: number;
+      image: Image;
+      lastEpisode: EpisodeApiResource;
+      name: string;
+      publisher: ApiResource | null;
+      siteDetailUrl: string;
+      startYear: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::
