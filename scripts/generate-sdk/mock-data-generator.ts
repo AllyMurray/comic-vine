@@ -1,5 +1,4 @@
-import { isObject } from './utils.js';
-import { toCamelCase } from './utils.js';
+import { convertSnakeCaseToCamelCase } from '../../src/utils/case-converter.js';
 
 export interface MockDataOutput {
   apiResponse: Record<string, unknown>;
@@ -9,24 +8,6 @@ export interface MockDataOutput {
     apiResponse: Record<string, unknown>;
     expectedResponse: Record<string, unknown>;
   }>;
-}
-
-function convertPropertiesToCamelCase(object: unknown): unknown {
-  if (isObject(object)) {
-    const newObject: Record<string, unknown> = {};
-
-    Object.keys(object).forEach((key) => {
-      newObject[toCamelCase(key)] = convertPropertiesToCamelCase(object[key]);
-    });
-
-    return newObject;
-  } else if (Array.isArray(object)) {
-    return object.map((arrayElement) =>
-      convertPropertiesToCamelCase(arrayElement),
-    );
-  }
-
-  return object;
 }
 
 function generatePagedData({
@@ -112,9 +93,8 @@ export function generateMockData(
   resourceFolder: string,
   apiResponseSnakeCase: Record<string, unknown>,
 ): MockDataOutput {
-  const apiResponseCamelCase = convertPropertiesToCamelCase(
-    apiResponseSnakeCase,
-  ) as Record<string, unknown>;
+  const apiResponseCamelCase =
+    convertSnakeCaseToCamelCase<Record<string, unknown>>(apiResponseSnakeCase);
 
   const isListResource = Array.isArray(apiResponseCamelCase.results);
 
