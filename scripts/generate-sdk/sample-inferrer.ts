@@ -426,9 +426,13 @@ function detectEnums(
   for (const [key, values] of sortedCandidates) {
     let merged = false;
     for (const group of enumGroups) {
-      const overlaps = [...values].some((v) => group.values.has(v));
-      if (overlaps) {
-        for (const v of values) group.values.add(v);
+      // Only merge when value sets are identical — overlapping values
+      // across semantically different properties (e.g. crew vs hosts)
+      // should not be combined into one enum.
+      const identical =
+        values.size === group.values.size &&
+        [...values].every((v) => group.values.has(v));
+      if (identical) {
         group.propNames.push(key);
         merged = true;
         break;

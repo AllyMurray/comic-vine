@@ -16,7 +16,7 @@ export interface VideoListItem {
    * URL to the High Res version of the video.
    */
   highUrl: string;
-  hosts: Crew | null;
+  hosts: Hosts | null;
   /**
    * Unique ID of the video.
    */
@@ -54,7 +54,7 @@ export interface VideoListItem {
   /**
    * Author of the video.
    */
-  user: Crew | null;
+  user: User | null;
   videoCategories: Array<SiteResource>;
   videoShow: unknown;
   videoType: VideoType | null;
@@ -64,13 +64,27 @@ export interface VideoListItem {
 export enum Crew {
   Aclarkp = 'aclarkp',
   Buddyhutton = 'buddyhutton',
-  Cadamien = 'cadamien',
   Gmanfromheck = 'gmanfromheck',
   GmanfromheckRyanerikp = 'gmanfromheck, ryanerikp',
   GmanfromheckRyanerikpBuddyhutton = 'gmanfromheck, ryanerikp, buddyhutton',
-  Inferiorego = 'inferiorego',
   Ryanerikp = 'ryanerikp',
   RyanerikpBuddyhutton = 'ryanerikp, buddyhutton',
+}
+
+export enum Hosts {
+  Aclarkp = 'aclarkp',
+  Buddyhutton = 'buddyhutton',
+  Gmanfromheck = 'gmanfromheck',
+  Inferiorego = 'inferiorego',
+  Ryanerikp = 'ryanerikp',
+}
+
+export enum User {
+  Aclarkp = 'aclarkp',
+  Buddyhutton = 'buddyhutton',
+  Cadamien = 'cadamien',
+  Gmanfromheck = 'gmanfromheck',
+  Ryanerikp = 'ryanerikp',
 }
 
 export enum VideoType {
