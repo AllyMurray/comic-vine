@@ -3,7 +3,7 @@ import {
   InputData,
   jsonInputForTargetLanguage,
 } from 'quicktype-core';
-import { toCamelCase } from './utils.js';
+import { camelCase } from 'change-case';
 
 async function quickTypeJsonSchema(
   typeName: string,
@@ -36,7 +36,7 @@ function convertPropertiesToCamelCase(schema: {
     if (properties) {
       for (const property of Object.keys(properties)) {
         if (property.includes('_')) {
-          properties[toCamelCase(property)] = properties[property];
+          properties[camelCase(property)] = properties[property];
           delete properties[property];
         }
       }
@@ -47,7 +47,7 @@ function convertPropertiesToCamelCase(schema: {
       | undefined;
     if (requiredProperties) {
       for (const [index, requiredProperty] of requiredProperties.entries()) {
-        requiredProperties[index] = toCamelCase(requiredProperty);
+        requiredProperties[index] = camelCase(requiredProperty);
       }
     }
   }

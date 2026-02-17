@@ -4,7 +4,7 @@ import {
   JSONSchemaInput,
   FetchingJSONSchemaStore,
 } from 'quicktype-core';
-import { toPascalCase } from './utils.js';
+import { pascalCase } from 'change-case';
 import type { CommonTypeMapping, CommonTypeConversion } from './types.js';
 
 async function quickTypeTs(
@@ -49,7 +49,7 @@ function removeUnnecessaryInterfaces(typeName: string, types: string): string {
     'VideoCategory',
     'Volume',
   ].filter(
-    (unnecessaryInterface) => unnecessaryInterface !== toPascalCase(typeName),
+    (unnecessaryInterface) => unnecessaryInterface !== pascalCase(typeName),
   );
   const unnecessaryEnums = ['ImageTags'];
 
@@ -163,7 +163,7 @@ export async function generateTypeScript(
   commonTypes: CommonTypeMapping[],
 ): Promise<string> {
   const { lines } = await quickTypeTs(
-    toPascalCase(typeName),
+    pascalCase(typeName),
     JSON.stringify(schema),
   );
 

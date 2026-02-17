@@ -16,7 +16,7 @@ import {
   generateResourceList,
   generateResourceType,
 } from './generate-sdk/barrel-generator.js';
-import { toPascalCase, toKebabCase } from './generate-sdk/utils.js';
+import { pascalCase, kebabCase } from 'change-case';
 import type { CommonTypeMapping } from './generate-sdk/types.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -143,7 +143,7 @@ async function main() {
     const resourceName = typeName.split(
       typeName.includes('details') ? '-details' : '-list',
     )[0];
-    const kebabResourceName = toKebabCase(resourceName);
+    const kebabResourceName = kebabCase(resourceName);
 
     // Write type file
     const typesDir = path.join(
@@ -153,13 +153,13 @@ async function main() {
       'types',
     );
     writeFile(
-      path.join(typesDir, `${toKebabCase(typeName)}.ts`),
+      path.join(typesDir, `${kebabCase(typeName)}.ts`),
       types.trim() + '\n',
     );
 
     // For details resources, also generate resource class, test, and barrel files
     if (!typeName.includes('list')) {
-      const pascalName = toPascalCase(resourceName);
+      const pascalName = pascalCase(resourceName);
       classList.push(pascalName);
 
       // Resource class
@@ -202,7 +202,7 @@ async function main() {
   console.log('\n--- Step 4: Generating mock data ---');
   for (const [resourceFolder, data] of sampleDataByResource) {
     const resourceName = resourceFolder.replace('-item', '');
-    const kebabResourceName = toKebabCase(resourceName);
+    const kebabResourceName = kebabCase(resourceName);
 
     // Use the first sample file for mock data
     const apiResponse = data[0];

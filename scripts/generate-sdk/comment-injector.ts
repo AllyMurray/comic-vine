@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import pluralize from 'pluralize';
-import { toCamelCase, toSnakeCase } from './utils.js';
+import { camelCase, snakeCase } from 'change-case';
 import type { CodeComment } from './types.js';
 
 const replaceReservedWords = (input: string): string => {
@@ -30,7 +30,7 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
         const isTitleRow = i === 0;
         if (isTitleRow) {
           const rawTitle = replaceReservedWords(
-            toCamelCase($tableRow.first().first().text().replace('URL: /', '')),
+            camelCase($tableRow.first().first().text().replace('URL: /', '')),
           );
           title = pluralize.isSingular(rawTitle)
             ? `${rawTitle}Details`
@@ -47,7 +47,7 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
           resourceListHeaderRow,
         ].includes($tableRow.children().length);
         if (isNewSection) {
-          currentSection = toCamelCase($tableRow.children().first().text());
+          currentSection = camelCase($tableRow.children().first().text());
           return;
         }
 
@@ -87,14 +87,14 @@ export function injectComments(
   if (!definitions) return schema;
 
   for (const key of Object.keys(definitions)) {
-    const propertyComments = comments.find((x) => x.title === toCamelCase(key));
+    const propertyComments = comments.find((x) => x.title === camelCase(key));
     if (propertyComments) {
       const properties = definitions[key].properties;
 
       if (properties) {
         for (const property of Object.keys(properties)) {
           const found = propertyComments.fields?.find(
-            (x) => x.propertyName === toSnakeCase(property),
+            (x) => x.propertyName === snakeCase(property),
           );
           if (found) {
             properties[property].description = found.comment;

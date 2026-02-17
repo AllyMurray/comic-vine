@@ -1,4 +1,5 @@
-import { toCamelCase, isObject } from './utils.js';
+import { camelCase } from 'change-case';
+import { isObject } from './utils.js';
 import type { CommonTypeMapping, CommonTypeConversion } from './types.js';
 
 const isObjectOrNonEmptyArray = (
@@ -69,9 +70,9 @@ function getCommonTypeConversion(
   );
 
   for (const item of commonTypeConfig) {
-    if (objectKeys.every((prop) => item.propList.includes(toCamelCase(prop)))) {
+    if (objectKeys.every((prop) => item.propList.includes(camelCase(prop)))) {
       return {
-        property: toCamelCase(key),
+        property: camelCase(key),
         newType: item.typeName,
         isArray: isCollection,
       };

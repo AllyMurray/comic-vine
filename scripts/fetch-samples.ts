@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import axios from 'axios';
 import rateLimit from 'axios-rate-limit';
-import { toKebabCase } from './generate-sdk/utils.js';
+import { kebabCase } from 'change-case';
 import type { ResourceConfig } from './generate-sdk/types.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -45,7 +45,7 @@ async function main() {
     const resourcePath = path.join(
       SAMPLES_DIR,
       'api-data',
-      toKebabCase(resourceConfig.typeName),
+      kebabCase(resourceConfig.typeName),
     );
     fs.mkdirSync(resourcePath, { recursive: true });
 
