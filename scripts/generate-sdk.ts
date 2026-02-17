@@ -1,12 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { generateJsonSchema } from './generate-sdk/schema-generator.js';
 import {
   extractCommentsFromHtml,
-  injectComments,
+  applyComments,
 } from './generate-sdk/comment-injector.js';
-import { generateTypeScript } from './generate-sdk/type-generator.js';
-import { extractCommonTypes } from './generate-sdk/common-types-generator.js';
+import { inferTypeGraph } from './generate-sdk/sample-inferrer.js';
+import { emitTypeScript } from './generate-sdk/type-emitter.js';
+import { applyTypeOverrides } from './generate-sdk/type-overrides.js';
+import {
+  extractCommonTypes,
+  applyCommonTypesToGraph,
+} from './generate-sdk/common-types-generator.js';
 import { generateResourceClass } from './generate-sdk/resource-generator.js';
 import { generateResourceTest } from './generate-sdk/test-generator.js';
 import { generateMockData } from './generate-sdk/mock-data-generator.js';
@@ -60,7 +64,7 @@ function writeJson(filePath: string, data: unknown): void {
   writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
-async function main() {
+function main() {
   // ─── Validate required inputs ──────────────────────────────────────
   const docPath = path.join(SAMPLES_DIR, 'documentation.html');
   if (!fs.existsSync(docPath)) {
@@ -107,42 +111,30 @@ async function main() {
   }
   console.log(`Found ${sampleDataByResource.size} sample data folders`);
 
-  // ─── Step 1: Generate JSON schemas from sample data ────────────────
-  console.log('\n--- Step 1: Generating JSON schemas ---');
-  const schemas = new Map<string, Record<string, unknown>>();
-
-  for (const [resourceFolder, data] of sampleDataByResource) {
-    const jsonSamples = data.map((d) => JSON.stringify(d.results));
-
-    console.log(`  Generating schema for ${resourceFolder}`);
-    const schema = await generateJsonSchema(resourceFolder, jsonSamples);
-
-    // Inject property descriptions from comments
-    injectComments(schema, comments);
-
-    schemas.set(resourceFolder, schema);
-  }
-
-  // ─── Step 2: Extract common types across all schemas ───────────────
-  console.log('\n--- Step 2: Extracting common types ---');
+  // ─── Step 1: Extract common types across all samples ───────────────
+  console.log('\n--- Step 1: Extracting common types ---');
 
   const commonTypes: CommonTypeMapping[] = extractCommonTypes(
     flatSamplesByResource,
   );
   console.log(`  Found ${commonTypes.length} common type mappings`);
 
-  // ─── Step 3: Generate TypeScript type files ────────────────────────
-  console.log('\n--- Step 3: Generating TypeScript types ---');
+  // ─── Step 2: Generate TypeScript type files ────────────────────────
+  console.log('\n--- Step 2: Generating TypeScript types ---');
   const classList: string[] = [];
 
-  for (const [resourceFolder, schema] of schemas) {
-    const typeName = resourceFolder;
+  for (const [resourceFolder, flatSamples] of flatSamplesByResource) {
+    console.log(`  Generating types for ${resourceFolder}`);
 
-    console.log(`  Generating types for ${typeName}`);
-    const types = await generateTypeScript(schema, typeName, commonTypes);
+    // Infer → apply comments → apply common types → apply overrides → emit
+    const graph = inferTypeGraph(resourceFolder, flatSamples);
+    applyComments(graph, comments);
+    applyCommonTypesToGraph(graph, commonTypes, resourceFolder);
+    applyTypeOverrides(graph);
+    const types = emitTypeScript(graph);
 
-    const resourceName = typeName.split(
-      typeName.includes('details') ? '-details' : '-list',
+    const resourceName = resourceFolder.split(
+      resourceFolder.includes('details') ? '-details' : '-list',
     )[0];
     const kebabResourceName = kebabCase(resourceName);
 
@@ -154,12 +146,12 @@ async function main() {
       'types',
     );
     writeFile(
-      path.join(typesDir, `${kebabCase(typeName)}.ts`),
+      path.join(typesDir, `${kebabCase(resourceFolder)}.ts`),
       types.trim() + '\n',
     );
 
     // For details resources, also generate resource class, test, and barrel files
-    if (!typeName.includes('list')) {
+    if (!resourceFolder.includes('list')) {
       const pascalName = pascalCase(resourceName);
       classList.push(pascalName);
 
@@ -199,8 +191,8 @@ async function main() {
     }
   }
 
-  // ─── Step 4: Generate mock data ────────────────────────────────────
-  console.log('\n--- Step 4: Generating mock data ---');
+  // ─── Step 3: Generate mock data ────────────────────────────────────
+  console.log('\n--- Step 3: Generating mock data ---');
   for (const [resourceFolder, data] of sampleDataByResource) {
     const resourceName = resourceFolder.replace('-item', '');
     const kebabResourceName = kebabCase(resourceName);
@@ -258,8 +250,8 @@ async function main() {
     }
   }
 
-  // ─── Step 5: Generate barrel and enum files ────────────────────────
-  console.log('\n--- Step 5: Generating barrel files ---');
+  // ─── Step 4: Generate barrel and enum files ────────────────────────
+  console.log('\n--- Step 4: Generating barrel files ---');
 
   // Sort resources alphabetically by PascalCase name for consistent ordering
   classList.sort();
@@ -289,7 +281,4 @@ async function main() {
   console.log(classList.map((name) => `  - ${name}`).join('\n'));
 }
 
-main().catch((error) => {
-  console.error('Failed to generate SDK:', error);
-  process.exit(1);
-});
+main();
