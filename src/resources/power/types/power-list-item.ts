@@ -1,5 +1,3 @@
-import {} from '../../common-types.js';
-
 export interface PowerListItem {
   /**
    * List of aliases the power is known by. A \n (newline) seperates each alias.

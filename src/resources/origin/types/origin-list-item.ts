@@ -1,5 +1,3 @@
-import {} from '../../common-types.js';
-
 export interface OriginListItem {
   /**
    * URL pointing to the origin detail resource.

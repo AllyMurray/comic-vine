@@ -1,5 +1,3 @@
-import {} from '../../common-types.js';
-
 export interface VideoTypeListItem {
   /**
    * URL pointing to the video_type detail resource.

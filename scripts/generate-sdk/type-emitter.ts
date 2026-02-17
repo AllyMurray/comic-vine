@@ -114,8 +114,12 @@ export function emitTypeScript(graph: InferredTypeGraph): string {
 
   // Import statement
   const imports = collectImports(graph);
-  lines.push(`import { ${imports.join(', ')} } from '../../common-types.js';`);
-  lines.push('');
+  if (imports.length > 0) {
+    lines.push(
+      `import { ${imports.join(', ')} } from '../../common-types.js';`,
+    );
+    lines.push('');
+  }
 
   // Root interface
   lines.push(...emitInterface(graph.rootType));
