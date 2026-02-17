@@ -48,7 +48,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the character was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the character." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the character."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the character."
@@ -61,8 +64,14 @@
         "propertyName": "gender",
         "comment": "Gender of the character. Available options are: Male, Female, Other"
       },
-      { "propertyName": "id", "comment": "Unique ID of the character." },
-      { "propertyName": "image", "comment": "Main image of the character." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the character."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the character."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this character appears in."
@@ -71,8 +80,14 @@
         "propertyName": "issues_died_in",
         "comment": "List of issues this character died in."
       },
-      { "propertyName": "movies", "comment": "Movies the character was in." },
-      { "propertyName": "name", "comment": "Name of the character." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the character was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the character."
+      },
       {
         "propertyName": "origin",
         "comment": "The origin of the character. Human, Alien, Robot ...etc"
@@ -85,7 +100,10 @@
         "propertyName": "publisher",
         "comment": "The primary publisher a character is attached to."
       },
-      { "propertyName": "real_name", "comment": "Real name of the character." },
+      {
+        "propertyName": "real_name",
+        "comment": "Real name of the character."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the character on Giant Bomb."
@@ -165,7 +183,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the character was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the character." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the character."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the character."
@@ -178,9 +199,18 @@
         "propertyName": "gender",
         "comment": "Gender of the character. Available options are: Male, Female, Other"
       },
-      { "propertyName": "id", "comment": "Unique ID of the character." },
-      { "propertyName": "image", "comment": "Main image of the character." },
-      { "propertyName": "name", "comment": "Name of the character." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the character."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the character."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the character."
+      },
       {
         "propertyName": "origin",
         "comment": "The origin of the character. Human, Alien, Robot ...etc"
@@ -189,7 +219,10 @@
         "propertyName": "publisher",
         "comment": "The primary publisher a character is attached to."
       },
-      { "propertyName": "real_name", "comment": "Real name of the character." },
+      {
+        "propertyName": "real_name",
+        "comment": "Real name of the character."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the character on Giant Bomb."
@@ -217,14 +250,26 @@
         "propertyName": "channel_name",
         "comment": "Name of the video streaming channel associated with the chat."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the chat." },
-      { "propertyName": "image", "comment": "Main image of the chat." },
-      { "propertyName": "password", "comment": "chat password." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the chat."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the chat."
+      },
+      {
+        "propertyName": "password",
+        "comment": "chat password."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the chat on Giant Bomb."
       },
-      { "propertyName": "title", "comment": "Title of the chat." }
+      {
+        "propertyName": "title",
+        "comment": "Title of the chat."
+      }
     ]
   },
   {
@@ -248,14 +293,26 @@
         "propertyName": "channel_name",
         "comment": "Name of the video streaming channel associated with the chat."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the chat." },
-      { "propertyName": "image", "comment": "Main image of the chat." },
-      { "propertyName": "password", "comment": "chat password." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the chat."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the chat."
+      },
+      {
+        "propertyName": "password",
+        "comment": "chat password."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the chat on Giant Bomb."
       },
-      { "propertyName": "title", "comment": "Title of the chat." }
+      {
+        "propertyName": "title",
+        "comment": "Title of the chat."
+      }
     ]
   },
   {
@@ -291,7 +348,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the concept was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the concept." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the concept."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the concept."
@@ -300,14 +360,26 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the concept made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the concept." },
-      { "propertyName": "image", "comment": "Main image of the concept." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the concept."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the concept."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this concept appears in."
       },
-      { "propertyName": "movies", "comment": "Movies the concept was in." },
-      { "propertyName": "name", "comment": "Name of the concept." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the concept was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the concept."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the concept on Giant Bomb."
@@ -371,7 +443,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the concept was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the concept." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the concept."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the concept."
@@ -380,9 +455,18 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the concept made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the concept." },
-      { "propertyName": "image", "comment": "Main image of the concept." },
-      { "propertyName": "name", "comment": "Name of the concept." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the concept."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the concept."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the concept."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the concept on Giant Bomb."
@@ -426,7 +510,10 @@
         "propertyName": "concepts",
         "comment": "A list of concepts that appear in this episode."
       },
-      { "propertyName": "air_date", "comment": "The air date of the episode." },
+      {
+        "propertyName": "air_date",
+        "comment": "The air date of the episode."
+      },
       {
         "propertyName": "date_added",
         "comment": "Date the episode was added to Comic Vine."
@@ -435,7 +522,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the episode was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the episode." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the episode."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the episode."
@@ -464,9 +554,18 @@
         "propertyName": "first_appearance_teams",
         "comment": "A list of teams in which this episode is the first appearance of the team."
       },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the episode." },
-      { "propertyName": "image", "comment": "Main image of the episode." },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the episode."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the episode."
+      },
       {
         "propertyName": "episode_number",
         "comment": "The number assigned to the episode within a series."
@@ -475,7 +574,10 @@
         "propertyName": "locations",
         "comment": "List of locations that appeared in this episode."
       },
-      { "propertyName": "name", "comment": "Name of the episode." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the episode."
+      },
       {
         "propertyName": "objects",
         "comment": "List of things that appeared in this episode."
@@ -539,7 +641,10 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the episode detail resource."
       },
-      { "propertyName": "air_date", "comment": "The air date of the episode." },
+      {
+        "propertyName": "air_date",
+        "comment": "The air date of the episode."
+      },
       {
         "propertyName": "date_added",
         "comment": "Date the episode was added to Comic Vine."
@@ -548,19 +653,34 @@
         "propertyName": "date_last_updated",
         "comment": "Date the episode was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the episode." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the episode."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the episode."
       },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the episode." },
-      { "propertyName": "image", "comment": "Main image of the episode." },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the episode."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the episode."
+      },
       {
         "propertyName": "issue_number",
         "comment": "The number assigned to the episode within the volume set."
       },
-      { "propertyName": "name", "comment": "Name of the episode." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the episode."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the episode on Giant Bomb."
@@ -616,8 +736,14 @@
         "propertyName": "date_last_updated",
         "comment": "Date the issue was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the issue." },
-      { "propertyName": "description", "comment": "Description of the issue." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the issue."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the issue."
+      },
       {
         "propertyName": "disbanded_teams",
         "comment": "A list of teams that disbanded in this issue."
@@ -646,9 +772,18 @@
         "propertyName": "first_appearance_teams",
         "comment": "A list of teams in which this issue is the first appearance of the team."
       },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the issue." },
-      { "propertyName": "image", "comment": "Main image of the issue." },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the issue."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the issue."
+      },
       {
         "propertyName": "issue_number",
         "comment": "The number assigned to the issue within the volume set."
@@ -657,7 +792,10 @@
         "propertyName": "locations",
         "comment": "List of locations that appeared in this issue."
       },
-      { "propertyName": "name", "comment": "Name of the issue." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the issue."
+      },
       {
         "propertyName": "objects",
         "comment": "List of things that appeared in this issue."
@@ -741,16 +879,34 @@
         "propertyName": "date_last_updated",
         "comment": "Date the issue was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the issue." },
-      { "propertyName": "description", "comment": "Description of the issue." },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the issue." },
-      { "propertyName": "image", "comment": "Main image of the issue." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the issue."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the issue."
+      },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the issue."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the issue."
+      },
       {
         "propertyName": "issue_number",
         "comment": "The number assigned to the issue within the volume set."
       },
-      { "propertyName": "name", "comment": "Name of the issue." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the issue."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the issue on Giant Bomb."
@@ -798,7 +954,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the location was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the location." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the location."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the location."
@@ -807,14 +966,26 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the location made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the location." },
-      { "propertyName": "image", "comment": "Main image of the location." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the location."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the location."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this location appears in."
       },
-      { "propertyName": "movies", "comment": "Movies the location was in." },
-      { "propertyName": "name", "comment": "Name of the location." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the location was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the location."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the location on Giant Bomb."
@@ -882,7 +1053,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the location was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the location." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the location."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the location."
@@ -891,9 +1065,18 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the location made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the location." },
-      { "propertyName": "image", "comment": "Main image of the location." },
-      { "propertyName": "name", "comment": "Name of the location." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the location."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the location."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the location."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the location on Giant Bomb."
@@ -925,7 +1108,10 @@
         "propertyName": "box_office_revenue",
         "comment": "The total revenue made in the box offices for this movie."
       },
-      { "propertyName": "budget", "comment": "The cost of making this movie." },
+      {
+        "propertyName": "budget",
+        "comment": "The cost of making this movie."
+      },
       {
         "propertyName": "characters",
         "comment": "Characters related to the movie."
@@ -942,29 +1128,62 @@
         "propertyName": "date_last_updated",
         "comment": "Date the movie was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the movie." },
-      { "propertyName": "description", "comment": "Description of the movie." },
-      { "propertyName": "distributor", "comment": "" },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the movie." },
-      { "propertyName": "image", "comment": "Main image of the movie." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the movie."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the movie."
+      },
+      {
+        "propertyName": "distributor",
+        "comment": ""
+      },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the movie."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the movie."
+      },
       {
         "propertyName": "locations",
         "comment": "Locations related to the movie."
       },
-      { "propertyName": "name", "comment": "Name of the movie." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the movie."
+      },
       {
         "propertyName": "producers",
         "comment": "The producers of this movie."
       },
-      { "propertyName": "rating", "comment": "The rating of this movie." },
-      { "propertyName": "release_date", "comment": "Date of the movie." },
-      { "propertyName": "runtime", "comment": "The length of this movie." },
+      {
+        "propertyName": "rating",
+        "comment": "The rating of this movie."
+      },
+      {
+        "propertyName": "release_date",
+        "comment": "Date of the movie."
+      },
+      {
+        "propertyName": "runtime",
+        "comment": "The length of this movie."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the movie on Giant Bomb."
       },
-      { "propertyName": "studios", "comment": "" },
+      {
+        "propertyName": "studios",
+        "comment": ""
+      },
       {
         "propertyName": "teams",
         "comment": "List of teams this movie is a member of."
@@ -977,7 +1196,10 @@
         "propertyName": "total_revenue",
         "comment": "Total revenue generated by this movie."
       },
-      { "propertyName": "writers", "comment": "Writers for this movie." }
+      {
+        "propertyName": "writers",
+        "comment": "Writers for this movie."
+      }
     ]
   },
   {
@@ -1017,7 +1239,10 @@
         "propertyName": "box_office_revenue",
         "comment": "The total revenue made in the box offices for this movie."
       },
-      { "propertyName": "budget", "comment": "The cost of making this movie." },
+      {
+        "propertyName": "budget",
+        "comment": "The cost of making this movie."
+      },
       {
         "propertyName": "date_added",
         "comment": "Date the movie was added to Comic Vine."
@@ -1026,30 +1251,66 @@
         "propertyName": "date_last_updated",
         "comment": "Date the movie was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the movie." },
-      { "propertyName": "description", "comment": "Description of the movie." },
-      { "propertyName": "distributor", "comment": "" },
-      { "propertyName": "has_staff_review", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the movie." },
-      { "propertyName": "image", "comment": "Main image of the movie." },
-      { "propertyName": "name", "comment": "Name of the movie." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the movie."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the movie."
+      },
+      {
+        "propertyName": "distributor",
+        "comment": ""
+      },
+      {
+        "propertyName": "has_staff_review",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the movie."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the movie."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the movie."
+      },
       {
         "propertyName": "producers",
         "comment": "The producers of this movie."
       },
-      { "propertyName": "rating", "comment": "The rating of this movie." },
-      { "propertyName": "release_date", "comment": "Date of the movie." },
-      { "propertyName": "runtime", "comment": "The length of this movie." },
+      {
+        "propertyName": "rating",
+        "comment": "The rating of this movie."
+      },
+      {
+        "propertyName": "release_date",
+        "comment": "Date of the movie."
+      },
+      {
+        "propertyName": "runtime",
+        "comment": "The length of this movie."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the movie on Giant Bomb."
       },
-      { "propertyName": "studios", "comment": "" },
+      {
+        "propertyName": "studios",
+        "comment": ""
+      },
       {
         "propertyName": "total_revenue",
         "comment": "Total revenue generated by this movie."
       },
-      { "propertyName": "writers", "comment": "Writers for this movie." }
+      {
+        "propertyName": "writers",
+        "comment": "Writers for this movie."
+      }
     ]
   },
   {
@@ -1085,20 +1346,38 @@
         "propertyName": "date_last_updated",
         "comment": "Date the thing was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the thing." },
-      { "propertyName": "description", "comment": "Description of the thing." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the thing."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the thing."
+      },
       {
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the thing made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the thing." },
-      { "propertyName": "image", "comment": "Main image of the thing." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the thing."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the thing."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this thing appears in."
       },
-      { "propertyName": "movies", "comment": "Movies the thing was in." },
-      { "propertyName": "name", "comment": "Name of the thing." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the thing was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the thing."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the thing on Giant Bomb."
@@ -1166,15 +1445,30 @@
         "propertyName": "date_last_updated",
         "comment": "Date the thing was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the thing." },
-      { "propertyName": "description", "comment": "Description of the thing." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the thing."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the thing."
+      },
       {
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the thing made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the thing." },
-      { "propertyName": "image", "comment": "Main image of the thing." },
-      { "propertyName": "name", "comment": "Name of the thing." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the thing."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the thing."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the thing."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the thing on Giant Bomb."
@@ -1202,10 +1496,22 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the origin detail resource."
       },
-      { "propertyName": "character_set", "comment": "" },
-      { "propertyName": "id", "comment": "Unique ID of the origin." },
-      { "propertyName": "name", "comment": "Name of the origin." },
-      { "propertyName": "profiles", "comment": "" },
+      {
+        "propertyName": "character_set",
+        "comment": ""
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the origin."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the origin."
+      },
+      {
+        "propertyName": "profiles",
+        "comment": ""
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the origin on Giant Bomb."
@@ -1245,8 +1551,14 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the origin detail resource."
       },
-      { "propertyName": "id", "comment": "Unique ID of the origin." },
-      { "propertyName": "name", "comment": "Name of the origin." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the origin."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the origin."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the origin on Giant Bomb."
@@ -1298,13 +1610,22 @@
         "propertyName": "date_last_updated",
         "comment": "Date the person was last updated on Comic Vine."
       },
-      { "propertyName": "death", "comment": "Date this person died on." },
-      { "propertyName": "deck", "comment": "Brief summary of the person." },
+      {
+        "propertyName": "death",
+        "comment": "Date this person died on."
+      },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the person."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the person."
       },
-      { "propertyName": "email", "comment": "The email of this person." },
+      {
+        "propertyName": "email",
+        "comment": "The email of this person."
+      },
       {
         "propertyName": "gender",
         "comment": "Gender of the person. Available options are: Male, Female, Other"
@@ -1313,13 +1634,22 @@
         "propertyName": "hometown",
         "comment": "City or town the person resides in."
       },
-      { "propertyName": "id", "comment": "Unique ID of the person." },
-      { "propertyName": "image", "comment": "Main image of the person." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the person."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the person."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this person appears in."
       },
-      { "propertyName": "name", "comment": "Name of the person." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the person."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the person on Giant Bomb."
@@ -1332,7 +1662,10 @@
         "propertyName": "volumes",
         "comment": "List of comic volumes this person appears in."
       },
-      { "propertyName": "website", "comment": "URL to the person website." }
+      {
+        "propertyName": "website",
+        "comment": "URL to the person website."
+      }
     ]
   },
   {
@@ -1392,13 +1725,22 @@
         "propertyName": "date_last_updated",
         "comment": "Date the person was last updated on Comic Vine."
       },
-      { "propertyName": "death", "comment": "Date this person died on." },
-      { "propertyName": "deck", "comment": "Brief summary of the person." },
+      {
+        "propertyName": "death",
+        "comment": "Date this person died on."
+      },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the person."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the person."
       },
-      { "propertyName": "email", "comment": "The email of this person." },
+      {
+        "propertyName": "email",
+        "comment": "The email of this person."
+      },
       {
         "propertyName": "gender",
         "comment": "Gender of the person. Available options are: Male, Female, Other"
@@ -1407,14 +1749,26 @@
         "propertyName": "hometown",
         "comment": "City or town the person resides in."
       },
-      { "propertyName": "id", "comment": "Unique ID of the person." },
-      { "propertyName": "image", "comment": "Main image of the person." },
-      { "propertyName": "name", "comment": "Name of the person." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the person."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the person."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the person."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the person on Giant Bomb."
       },
-      { "propertyName": "website", "comment": "URL to the person website." }
+      {
+        "propertyName": "website",
+        "comment": "URL to the person website."
+      }
     ]
   },
   {
@@ -1450,9 +1804,18 @@
         "propertyName": "date_last_updated",
         "comment": "Date the power was last updated on Comic Vine."
       },
-      { "propertyName": "description", "comment": "Description of the power." },
-      { "propertyName": "id", "comment": "Unique ID of the power." },
-      { "propertyName": "name", "comment": "Name of the power." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the power."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the power."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the power."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the power on Giant Bomb."
@@ -1504,9 +1867,18 @@
         "propertyName": "date_last_updated",
         "comment": "Date the power was last updated on Comic Vine."
       },
-      { "propertyName": "description", "comment": "Description of the power." },
-      { "propertyName": "id", "comment": "Unique ID of the power." },
-      { "propertyName": "name", "comment": "Name of the power." },
+      {
+        "propertyName": "description",
+        "comment": "Description of the power."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the power."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the power."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the power on Giant Bomb."
@@ -1534,16 +1906,34 @@
         "propertyName": "date_added",
         "comment": "Date the promo was added to Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the promo." },
-      { "propertyName": "id", "comment": "Unique ID of the promo." },
-      { "propertyName": "image", "comment": "Main image of the promo." },
-      { "propertyName": "link", "comment": "The link that promo points to." },
-      { "propertyName": "name", "comment": "Name of the promo." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the promo."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the promo."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the promo."
+      },
+      {
+        "propertyName": "link",
+        "comment": "The link that promo points to."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the promo."
+      },
       {
         "propertyName": "resource_type",
         "comment": "The type of resource the promo is pointing towards."
       },
-      { "propertyName": "user", "comment": "Author of the promo." }
+      {
+        "propertyName": "user",
+        "comment": "Author of the promo."
+      }
     ]
   },
   {
@@ -1583,16 +1973,34 @@
         "propertyName": "date_added",
         "comment": "Date the promo was added to Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the promo." },
-      { "propertyName": "id", "comment": "Unique ID of the promo." },
-      { "propertyName": "image", "comment": "Main image of the promo." },
-      { "propertyName": "link", "comment": "The link that promo points to." },
-      { "propertyName": "name", "comment": "Name of the promo." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the promo."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the promo."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the promo."
+      },
+      {
+        "propertyName": "link",
+        "comment": "The link that promo points to."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the promo."
+      },
       {
         "propertyName": "resource_type",
         "comment": "The type of resource the promo is pointing towards."
       },
-      { "propertyName": "user", "comment": "Author of the promo." }
+      {
+        "propertyName": "user",
+        "comment": "Author of the promo."
+      }
     ]
   },
   {
@@ -1628,13 +2036,22 @@
         "propertyName": "date_last_updated",
         "comment": "Date the publisher was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the publisher." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the publisher."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the publisher."
       },
-      { "propertyName": "id", "comment": "Unique ID of the publisher." },
-      { "propertyName": "image", "comment": "Main image of the publisher." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the publisher."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the publisher."
+      },
       {
         "propertyName": "location_address",
         "comment": "Street address of the publisher."
@@ -1647,7 +2064,10 @@
         "propertyName": "location_state",
         "comment": "State the publisher resides in."
       },
-      { "propertyName": "name", "comment": "Name of the publisher." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the publisher."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the publisher on Giant Bomb."
@@ -1711,13 +2131,22 @@
         "propertyName": "date_last_updated",
         "comment": "Date the publisher was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the publisher." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the publisher."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the publisher."
       },
-      { "propertyName": "id", "comment": "Unique ID of the publisher." },
-      { "propertyName": "image", "comment": "Main image of the publisher." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the publisher."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the publisher."
+      },
       {
         "propertyName": "location_address",
         "comment": "Street address of the publisher."
@@ -1730,7 +2159,10 @@
         "propertyName": "location_state",
         "comment": "State the publisher resides in."
       },
-      { "propertyName": "name", "comment": "Name of the publisher." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the publisher."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the publisher on Giant Bomb."
@@ -1774,7 +2206,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the series was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the series." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the series."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the series."
@@ -1783,8 +2218,14 @@
         "propertyName": "first_episode",
         "comment": "The first episode in this series."
       },
-      { "propertyName": "id", "comment": "Unique ID of the series." },
-      { "propertyName": "image", "comment": "Main image of the series." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the series."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the series."
+      },
       {
         "propertyName": "last_episode",
         "comment": "The last episode in this series."
@@ -1793,7 +2234,10 @@
         "propertyName": "locations",
         "comment": "List of locations that appeared in this series."
       },
-      { "propertyName": "name", "comment": "Name of the series." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the series."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a series is attached to."
@@ -1869,13 +2313,22 @@
         "propertyName": "first_episode",
         "comment": "The first episode in this series_list."
       },
-      { "propertyName": "id", "comment": "Unique ID of the series_list." },
-      { "propertyName": "image", "comment": "Main image of the series_list." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the series_list."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the series_list."
+      },
       {
         "propertyName": "last_episode",
         "comment": "The last episode in this series_list."
       },
-      { "propertyName": "name", "comment": "Name of the series_list." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the series_list."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a series_list is attached to."
@@ -1897,7 +2350,10 @@
         "propertyName": "format",
         "comment": "The data format of the response takes either xml, json, or jsonp."
       },
-      { "propertyName": "api_key", "comment": "Your API Key" },
+      {
+        "propertyName": "api_key",
+        "comment": "Your API Key"
+      },
       {
         "propertyName": "field_list",
         "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
@@ -1910,12 +2366,18 @@
         "propertyName": "offset",
         "comment": "Return results starting with the thing at the offset specified."
       },
-      { "propertyName": "query", "comment": "The search string." },
+      {
+        "propertyName": "query",
+        "comment": "The search string."
+      },
       {
         "propertyName": "resources",
         "comment": "List of resources to filter results.  This filter can accept multiple arguments, each delimited with a \",\".  Available options\nare:\n\n\n    character\n    concept\n    origin\n    thing\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\n\n\n    character\n    concept\n    origin\n    object\n    location\n    issue\n    story_arc\n    volume\n    publisher\n    person\n    team\n    video\nconcept"
       },
-      { "propertyName": "subscriber_only", "comment": "NEED DESCRIPTION" }
+      {
+        "propertyName": "subscriber_only",
+        "comment": "NEED DESCRIPTION"
+      }
     ],
     "fields": [
       {
@@ -1957,7 +2419,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the story_arc was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the story_arc." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the story_arc."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the story_arc."
@@ -1966,14 +2431,26 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the story_arc made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the story_arc." },
-      { "propertyName": "image", "comment": "Main image of the story_arc." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the story_arc."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the story_arc."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues included in this story_arc."
       },
-      { "propertyName": "movies", "comment": "Movies the story_arc was in." },
-      { "propertyName": "name", "comment": "Name of the story_arc." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the story_arc was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the story_arc."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a story_arc is attached to."
@@ -2033,7 +2510,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the story_arc was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the story_arc." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the story_arc."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the story_arc."
@@ -2042,9 +2522,18 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the story_arc made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the story_arc." },
-      { "propertyName": "image", "comment": "Main image of the story_arc." },
-      { "propertyName": "name", "comment": "Name of the story_arc." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the story_arc."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the story_arc."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the story_arc."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a story_arc is attached to."
@@ -2104,8 +2593,14 @@
         "propertyName": "date_last_updated",
         "comment": "Date the team was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the team." },
-      { "propertyName": "description", "comment": "Description of the team." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the team."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the team."
+      },
       {
         "propertyName": "disbanded_in_issues",
         "comment": "List of issues this team disbanded in."
@@ -2114,8 +2609,14 @@
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the team made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the team." },
-      { "propertyName": "image", "comment": "Main image of the team." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the team."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the team."
+      },
       {
         "propertyName": "issues",
         "comment": "List of issues this team appears in."
@@ -2124,8 +2625,14 @@
         "propertyName": "issues_disbanded_in",
         "comment": "List of issues this team disbanded in."
       },
-      { "propertyName": "movies", "comment": "Movies the team was in." },
-      { "propertyName": "name", "comment": "Name of the team." },
+      {
+        "propertyName": "movies",
+        "comment": "Movies the team was in."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the team."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a team is attached to."
@@ -2197,15 +2704,30 @@
         "propertyName": "date_last_updated",
         "comment": "Date the team was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the team." },
-      { "propertyName": "description", "comment": "Description of the team." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the team."
+      },
+      {
+        "propertyName": "description",
+        "comment": "Description of the team."
+      },
       {
         "propertyName": "first_appeared_in_issue",
         "comment": "Issue where the team made its first appearance."
       },
-      { "propertyName": "id", "comment": "Unique ID of the team." },
-      { "propertyName": "image", "comment": "Main image of the team." },
-      { "propertyName": "name", "comment": "Name of the team." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the team."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the team."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the team."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a team is attached to."
@@ -2229,7 +2751,10 @@
         "propertyName": "detail_resource_name",
         "comment": "The name of the type's detail resource."
       },
-      { "propertyName": "id", "comment": "Unique ID of the type." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the type."
+      },
       {
         "propertyName": "list_resource_name",
         "comment": "The name of the type's list resource."
@@ -2253,7 +2778,10 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the video detail resource."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the video." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video."
+      },
       {
         "propertyName": "hd_url",
         "comment": "URL to the HD version of the video."
@@ -2262,8 +2790,14 @@
         "propertyName": "high_url",
         "comment": "URL to the High Res version of the video."
       },
-      { "propertyName": "id", "comment": "Unique ID of the video." },
-      { "propertyName": "image", "comment": "Main image of the video." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the video."
+      },
       {
         "propertyName": "length_seconds",
         "comment": "Length (in seconds) of the video."
@@ -2272,7 +2806,10 @@
         "propertyName": "low_url",
         "comment": "URL to the Low Res version of the video."
       },
-      { "propertyName": "name", "comment": "Name of the video." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video."
+      },
       {
         "propertyName": "publish_date",
         "comment": "Date the video was published on Comic Vine."
@@ -2281,8 +2818,14 @@
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video on Giant Bomb."
       },
-      { "propertyName": "url", "comment": "The video's filename." },
-      { "propertyName": "user", "comment": "Author of the video." }
+      {
+        "propertyName": "url",
+        "comment": "The video's filename."
+      },
+      {
+        "propertyName": "user",
+        "comment": "Author of the video."
+      }
     ]
   },
   {
@@ -2292,7 +2835,10 @@
         "propertyName": "format",
         "comment": "The data format of the response takes either xml, json, or jsonp."
       },
-      { "propertyName": "api_key", "comment": "Your API Key" },
+      {
+        "propertyName": "api_key",
+        "comment": "Your API Key"
+      },
       {
         "propertyName": "field_list",
         "comment": "List of field names to include in the response. Use this if you want to reduce the size of the response payload. This filter can\naccept multiple arguments, each delimited with a \",\"\n"
@@ -2309,7 +2855,10 @@
         "propertyName": "sort",
         "comment": "The result set can be sorted by the marked fields in the Fields section below. Format: &sort=field:direction where direction is\neither asc or desc.\n"
       },
-      { "propertyName": "subscriber_only", "comment": "NEED DESCRIPTION" },
+      {
+        "propertyName": "subscriber_only",
+        "comment": "NEED DESCRIPTION"
+      },
       {
         "propertyName": "video_type",
         "comment": "Filters results by video_type. The value passed to this filter should be the ID of the video_type to filter results by."
@@ -2324,7 +2873,10 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the video detail resource."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the video." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video."
+      },
       {
         "propertyName": "hd_url",
         "comment": "URL to the HD version of the video."
@@ -2333,8 +2885,14 @@
         "propertyName": "high_url",
         "comment": "URL to the High Res version of the video."
       },
-      { "propertyName": "id", "comment": "Unique ID of the video." },
-      { "propertyName": "image", "comment": "Main image of the video." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the video."
+      },
       {
         "propertyName": "length_seconds",
         "comment": "Length (in seconds) of the video."
@@ -2343,7 +2901,10 @@
         "propertyName": "low_url",
         "comment": "URL to the Low Res version of the video."
       },
-      { "propertyName": "name", "comment": "Name of the video." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video."
+      },
       {
         "propertyName": "publish_date",
         "comment": "Date the video was published on Comic Vine."
@@ -2352,8 +2913,14 @@
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video on Giant Bomb."
       },
-      { "propertyName": "url", "comment": "The video's filename." },
-      { "propertyName": "user", "comment": "Author of the video." }
+      {
+        "propertyName": "url",
+        "comment": "The video's filename."
+      },
+      {
+        "propertyName": "user",
+        "comment": "Author of the video."
+      }
     ]
   },
   {
@@ -2373,9 +2940,18 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the video_type detail resource."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the video_type." },
-      { "propertyName": "id", "comment": "Unique ID of the video_type." },
-      { "propertyName": "name", "comment": "Name of the video_type." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video_type."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video_type."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video_type."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video_type on Giant Bomb."
@@ -2407,9 +2983,18 @@
         "propertyName": "api_detail_url",
         "comment": "URL pointing to the video_type detail resource."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the video_type." },
-      { "propertyName": "id", "comment": "Unique ID of the video_type." },
-      { "propertyName": "name", "comment": "Name of the video_type." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the video_type."
+      },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video_type."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video_type."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video_type on Giant Bomb."
@@ -2437,8 +3022,14 @@
         "propertyName": "deck",
         "comment": "Brief summary of the video_category."
       },
-      { "propertyName": "id", "comment": "Unique ID of the video_category." },
-      { "propertyName": "name", "comment": "Name of the video_category." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video_category."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video_category."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video_category on Giant Bomb."
@@ -2474,8 +3065,14 @@
         "propertyName": "deck",
         "comment": "Brief summary of the video_category."
       },
-      { "propertyName": "id", "comment": "Unique ID of the video_category." },
-      { "propertyName": "name", "comment": "Name of the video_category." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the video_category."
+      },
+      {
+        "propertyName": "name",
+        "comment": "Name of the video_category."
+      },
       {
         "propertyName": "site_detail_url",
         "comment": "URL pointing to the video_category on Giant Bomb."
@@ -2523,7 +3120,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the volume was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the volume." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the volume."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the volume."
@@ -2532,8 +3132,14 @@
         "propertyName": "first_issue",
         "comment": "The first issue in this volume."
       },
-      { "propertyName": "id", "comment": "Unique ID of the volume." },
-      { "propertyName": "image", "comment": "Main image of the volume." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the volume."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the volume."
+      },
       {
         "propertyName": "last_issue",
         "comment": "The last issue in this volume."
@@ -2542,7 +3148,10 @@
         "propertyName": "locations",
         "comment": "List of locations that appeared in this volume."
       },
-      { "propertyName": "name", "comment": "Name of the volume." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the volume."
+      },
       {
         "propertyName": "objects",
         "comment": "List of things that appeared in this volume."
@@ -2618,7 +3227,10 @@
         "propertyName": "date_last_updated",
         "comment": "Date the volume was last updated on Comic Vine."
       },
-      { "propertyName": "deck", "comment": "Brief summary of the volume." },
+      {
+        "propertyName": "deck",
+        "comment": "Brief summary of the volume."
+      },
       {
         "propertyName": "description",
         "comment": "Description of the volume."
@@ -2627,13 +3239,22 @@
         "propertyName": "first_issue",
         "comment": "The first issue in this volume."
       },
-      { "propertyName": "id", "comment": "Unique ID of the volume." },
-      { "propertyName": "image", "comment": "Main image of the volume." },
+      {
+        "propertyName": "id",
+        "comment": "Unique ID of the volume."
+      },
+      {
+        "propertyName": "image",
+        "comment": "Main image of the volume."
+      },
       {
         "propertyName": "last_issue",
         "comment": "The last issue in this volume."
       },
-      { "propertyName": "name", "comment": "Name of the volume." },
+      {
+        "propertyName": "name",
+        "comment": "Name of the volume."
+      },
       {
         "propertyName": "publisher",
         "comment": "The primary publisher a volume is attached to."

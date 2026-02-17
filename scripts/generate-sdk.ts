@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { generateJsonSchema } from './generate-sdk/schema-generator.js';
-import { injectComments } from './generate-sdk/comment-injector.js';
+import {
+  extractCommentsFromHtml,
+  injectComments,
+} from './generate-sdk/comment-injector.js';
 import { generateTypeScript } from './generate-sdk/type-generator.js';
 import { extractCommonTypes } from './generate-sdk/common-types-generator.js';
 import { generateResourceClass } from './generate-sdk/resource-generator.js';
@@ -14,11 +17,7 @@ import {
   generateResourceType,
 } from './generate-sdk/barrel-generator.js';
 import { toPascalCase, toParamCase } from './generate-sdk/utils.js';
-import type {
-  ResourceConfig,
-  CodeComment,
-  CommonTypeMapping,
-} from './generate-sdk/types.js';
+import type { CommonTypeMapping } from './generate-sdk/types.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SAMPLES_DIR = path.join(ROOT, 'samples');
@@ -61,24 +60,16 @@ function writeJson(filePath: string, data: unknown): void {
   writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
-function getResourceName(typeName: string): string {
-  // "CharacterDetails" -> "character", "CharacterListItem" -> "character"
-  return typeName.replace('Details', '').replace('ListItem', '');
-}
-
-function getResourceFolderName(typeName: string): string {
-  // "CharacterDetails" -> "character-details", "CharacterListItem" -> "character-list-item"
-  return toParamCase(typeName);
-}
-
 async function main() {
-  console.log('Reading configuration...');
-  const config: ResourceConfig[] = readJson(
-    path.join(SAMPLES_DIR, 'config.json'),
+  // ─── Step 0: Generate code comments from documentation HTML ─────────
+  console.log('\n--- Step 0: Generating code comments from documentation ---');
+  const htmlContent = fs.readFileSync(
+    path.join(SAMPLES_DIR, 'documentation.html'),
+    'utf-8',
   );
-  const comments: CodeComment[] = readJson(
-    path.join(SAMPLES_DIR, 'code-comments', 'comments.json'),
-  );
+  const comments = extractCommentsFromHtml(htmlContent);
+  writeJson(path.join(SAMPLES_DIR, 'code-comments', 'comments.json'), comments);
+  console.log(`  Extracted comments for ${comments.length} resources`);
 
   const apiDataDir = path.join(SAMPLES_DIR, 'api-data');
 
