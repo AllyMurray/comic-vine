@@ -3,7 +3,8 @@ import pluralize from 'pluralize';
 import { camelCase, snakeCase } from 'change-case';
 import type { CodeComment, InferredTypeGraph } from './types.js';
 
-const replaceReservedWords = (input: string): string => {
+/** The Comic Vine API calls the "Thing" resource "object"; remap for the SDK. */
+const mapApiNameToSdkName = (input: string): string => {
   return input.replace('object', 'thing');
 };
 
@@ -29,7 +30,7 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
         // Extract the title from the first row
         const isTitleRow = i === 0;
         if (isTitleRow) {
-          const rawTitle = replaceReservedWords(
+          const rawTitle = mapApiNameToSdkName(
             camelCase($tableRow.first().first().text().replace('URL: /', '')),
           );
           title = pluralize.isSingular(rawTitle)
@@ -63,7 +64,7 @@ export function extractCommentsFromHtml(htmlContent: string): CodeComment[] {
         const comment = $tableRow.find(':nth-child(2)').text();
         fields.push({
           propertyName,
-          comment: replaceReservedWords(comment),
+          comment: mapApiNameToSdkName(comment),
         });
       });
 
