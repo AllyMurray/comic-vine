@@ -67,9 +67,14 @@ function writeJson(filePath: string, data: unknown): void {
   writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
-/** Strip the `-details` or `-list-item` suffix from a resource folder name. */
+/** Strip the `-details` or `-list-item` suffix to get the base resource name (e.g. `character`). */
 function extractResourceName(folder: string): string {
   return folder.replace(/-(details|list-item)$/, '');
+}
+
+/** Strip only the trailing `-item` to get the mock file stem (e.g. `character-details` or `character-list`). */
+function extractMockName(folder: string): string {
+  return folder.replace(/-item$/, '');
 }
 
 function main() {
@@ -200,7 +205,7 @@ function main() {
   // ─── Step 3: Generate mock data ────────────────────────────────────
   console.log('\n--- Step 3: Generating mock data ---');
   for (const [resourceFolder, data] of sampleDataByResource) {
-    const resourceName = resourceFolder.replace(/-item$/, '');
+    const resourceName = extractMockName(resourceFolder);
     const kebabResourceName = kebabCase(resourceName);
 
     // Use the first sample file for mock data
