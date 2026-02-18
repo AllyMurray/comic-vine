@@ -41,7 +41,7 @@ flowchart TD
         classes["src/resources/*/*.ts"]
         tests["src/resources/*/*.test.ts"]
         mocks["src/__mocks__/**/*.json"]
-        barrels["src/resources/resource-list.ts\nsrc/resources/resource-type.ts"]
+        barrels["src/resources/resource-list.ts\nsrc/resources/resource-type.ts\nsrc/resources/resource-map.ts"]
     end
 
     S2 --> types
@@ -67,7 +67,7 @@ flowchart LR
 
 | Stage        | Module                      | Purpose                                                                                           |
 | ------------ | --------------------------- | ------------------------------------------------------------------------------------------------- |
-| Infer        | `sample-inferrer.ts`        | Analyse sample JSON to determine property types, nullability, arrays, nested objects, and enums   |
+| Infer        | `sample-inferrer.ts`        | Analyse sample JSON to determine property types, nullability, arrays, and nested objects          |
 | Comments     | `comment-injector.ts`       | Inject JSDoc descriptions parsed from `documentation.html`                                        |
 | Common types | `common-types-generator.ts` | Replace recurring object shapes (Image, ApiResource, SiteResource, etc.) with shared type imports |
 | Overrides    | `type-overrides.ts`         | Apply manual fixes for properties where sample data is ambiguous                                  |
@@ -95,7 +95,7 @@ Runs the full generation pipeline (`generate-sdk.ts`):
 
 **Step 3 &mdash; Generate mock data:** Takes the first sample from each resource folder, writes a snake_case version to `src/__mocks__/api-response/` and a camelCase-transformed version to `src/__mocks__/expected-responses/`. Issue list resources get additional pagination variants.
 
-**Step 4 &mdash; Generate barrels & enums:** Creates `resource-list.ts` (re-exports all resource classes) and `resource-type.ts` (ResourceType enum with Comic Vine API type IDs).
+**Step 4 &mdash; Generate barrels & enums:** Creates `resource-list.ts` (re-exports all resource classes), `resource-type.ts` (ResourceType enum with Comic Vine API type IDs), and `resource-map.ts` (maps ResourceType values to API endpoint names).
 
 ## Generator Modules
 
@@ -103,7 +103,9 @@ All modules in `generate-sdk/` are **pure functions** &mdash; they take input an
 
 | Module                      | Responsibility                                                                                    |
 | --------------------------- | ------------------------------------------------------------------------------------------------- |
-| `sample-inferrer.ts`        | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, enums, index signatures) |
+| `sample-inferrer.ts`        | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, nested objects)          |
+| `enum-detector.ts`          | Detects enum patterns in list resources and replaces string types with generated enums            |
+| `type-utils.ts`             | Shared type helpers: structural equality, deduplication, union construction                       |
 | `type-emitter.ts`           | Walks type graph and emits TypeScript source with imports, interfaces, and enums                  |
 | `comment-injector.ts`       | Parses API documentation HTML and injects JSDoc descriptions into type graphs                     |
 | `common-types-generator.ts` | Detects and replaces nested types matching shared shapes with common type imports                 |
@@ -111,7 +113,8 @@ All modules in `generate-sdk/` are **pure functions** &mdash; they take input an
 | `resource-generator.ts`     | Generates resource class files extending `BaseResource`                                           |
 | `test-generator.ts`         | Generates test files that verify correct `resourceType`                                           |
 | `mock-data-generator.ts`    | Creates snake_case and camelCase test fixtures from sample data                                   |
-| `barrel-generator.ts`       | Generates index/barrel files and the `ResourceType` enum                                          |
+| `barrel-generator.ts`       | Generates index/barrel files, `ResourceType` enum, and `resource-map.ts`                         |
+| `types.ts`                  | Shared type definitions (`InferredType`, `TypeDefinition`, etc.) and naming utilities             |
 
 ## Sample Data Structure
 
