@@ -27,7 +27,7 @@ const resourceMap = new Map<ResourceType, Resource>([
     { detailName: 'video_category', listName: 'video_categories' },
   ],
   [
-    ResourceType.VideoCategory,
+    ResourceType.VideoType,
     { detailName: 'video_type', listName: 'video_types' },
   ],
   [ResourceType.Volume, { detailName: 'volume', listName: 'volumes' }],

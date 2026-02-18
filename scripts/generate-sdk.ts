@@ -45,6 +45,9 @@ const RESOURCE_TYPE_IDS: Record<string, number> = {
   Team: 4060,
   Thing: 4055,
   Video: 2300,
+  // VideoCategory and VideoType share the same resource type ID in the
+  // Comic Vine API. The generated enum uses an eslint-disable comment
+  // to allow the duplicate values.
   VideoCategory: 2320,
   VideoType: 2320,
   Volume: 4050,
