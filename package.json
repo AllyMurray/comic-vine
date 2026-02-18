@@ -11,11 +11,14 @@
     "build": "tsup",
     "test": "vitest run --dir=src",
     "test:watch": "vitest --dir=src",
-    "test:build": "npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality",
+    "test:build": "npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality && npm run test:build:browser && npm run test:build:types && npm run test:build:size",
     "test:build:esm": "node build-tests/esm-import.test.js",
     "test:build:cjs": "node build-tests/cjs-require.test.cjs",
     "test:build:exports": "node build-tests/exports.test.cjs",
     "test:build:functionality": "node build-tests/functionality.test.cjs",
+    "test:build:browser": "node build-tests/browser-bundle.test.js",
+    "test:build:types": "tsd",
+    "test:build:size": "size-limit",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -40,12 +43,14 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
+    "@size-limit/file": "^11.0.0",
     "@eslint/js": "^9.0.0",
     "@http-client-toolkit/store-memory": "0.10.0",
     "@types/node": "20",
     "@types/pluralize": "^0.0.33",
     "change-case": "^5.0.0",
     "cheerio": "^1.0.0",
+    "esbuild": "^0.25.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-node": "^0.3.9",
@@ -58,6 +63,8 @@
     "pluralize": "^8.0.0",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
+    "size-limit": "^11.0.0",
+    "tsd": "^0.31.0",
     "tsup": "8.5.0",
     "tsx": "^4.0.0",
     "typescript": "5.8.3",
@@ -121,5 +128,27 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "tsd": {
+    "directory": "build-tests",
+    "compilerOptions": {
+      "moduleResolution": "node16",
+      "module": "node16"
+    }
+  },
+  "size-limit": [
+    {
+      "path": "lib/index.js",
+      "limit": "30 KB"
+    },
+    {
+      "path": "lib/index.cjs",
+      "limit": "30 KB"
+    },
+    {
+      "path": "lib/index.js",
+      "gzip": true,
+      "limit": "10 KB"
+    }
+  ]
 }
