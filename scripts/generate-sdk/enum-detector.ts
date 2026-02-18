@@ -82,8 +82,10 @@ export function detectEnums(
     // and the value variety must be much smaller than total occurrences
     const nonNullCount = totalNonNull.get(key) ?? 0;
     if (nonNullCount > 0) {
-      // Only enum if unique values are a small fraction of total non-null values
-      // This prevents normal string fields with few samples from becoming enums
+      // Enum if: unique values <= 25% of total occurrences, OR at most 3 unique
+      // values. The 25% ratio prevents free-text fields (high cardinality) from
+      // becoming enums. The <=3 escape allows small genuine enums (e.g. "Male",
+      // "Female", "Other") even when samples are few.
       if (values.size > nonNullCount * 0.25 && values.size > 3) continue;
     }
     enumCandidates.set(key, values);
