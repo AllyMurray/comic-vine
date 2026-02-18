@@ -78,6 +78,23 @@ interface CollectionContext {
 }
 
 /**
+ * Find or create a nested type definition, merging additional samples
+ * into an existing definition when one already exists.
+ */
+function upsertNestedType(
+  typeName: string,
+  samples: Record<string, unknown>[],
+  ctx: CollectionContext,
+): void {
+  const existing = ctx.nestedTypes.find((t) => t.name === typeName);
+  if (existing) {
+    mergeIntoNestedType(existing, samples, ctx);
+  } else {
+    ctx.nestedTypes.push(inferObjectType(typeName, samples, ctx));
+  }
+}
+
+/**
  * Infer the type of a property from all observed values across samples.
  * For object-typed properties, we need to check ALL samples' values for
  * index-signature detection (not just one at a time).
@@ -108,23 +125,11 @@ function inferPropertyType(
         });
       } else if (isObject(value[0])) {
         const elementTypeName = pascalCase(propName);
-        const existingNested = ctx.nestedTypes.find(
-          (t) => t.name === elementTypeName,
+        upsertNestedType(
+          elementTypeName,
+          value as Record<string, unknown>[],
+          ctx,
         );
-        if (!existingNested) {
-          const nestedDef = inferObjectType(
-            elementTypeName,
-            value as Record<string, unknown>[],
-            ctx,
-          );
-          ctx.nestedTypes.push(nestedDef);
-        } else {
-          mergeIntoNestedType(
-            existingNested,
-            value as Record<string, unknown>[],
-            ctx,
-          );
-        }
         addUniqueType(uniqueTypes, {
           kind: 'array',
           elementType: { kind: 'object', typeName: elementTypeName },
@@ -170,15 +175,7 @@ function inferPropertyType(
       });
     } else {
       const nestedTypeName = pascalCase(propName);
-      const existingNested = ctx.nestedTypes.find(
-        (t) => t.name === nestedTypeName,
-      );
-      if (!existingNested) {
-        const nestedDef = inferObjectType(nestedTypeName, objectValues, ctx);
-        ctx.nestedTypes.push(nestedDef);
-      } else {
-        mergeIntoNestedType(existingNested, objectValues, ctx);
-      }
+      upsertNestedType(nestedTypeName, objectValues, ctx);
       addUniqueType(uniqueTypes, {
         kind: 'object',
         typeName: nestedTypeName,
