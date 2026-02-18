@@ -38,3 +38,12 @@ jobs:
 
       - name: Test Build Artifacts
         run: pnpm run test:build
+
+      - name: Verify generated code is up to date
+        run: |
+          pnpm run sdk:generate
+          pnpm run format
+          git diff --exit-code -- src/ samples/code-comments/ || {
+            echo "::error::Generated code is out of date. Run 'pnpm sdk:generate && pnpm format' and commit the result."
+            exit 1
+          }
