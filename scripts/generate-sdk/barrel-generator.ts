@@ -32,6 +32,44 @@ export function generateResourceList(resourceNames: string[]): string {
   );
 }
 
+export interface ResourceMapEntry {
+  enumName: string;
+  detailName: string;
+  listName: string;
+}
+
+/**
+ * Generate the resource-map.ts file with the ResourceType → API name mapping.
+ */
+export function generateResourceMap(entries: ResourceMapEntry[]): string {
+  const mapEntries = entries
+    .map(
+      (e) =>
+        `  [ResourceType.${e.enumName}, { detailName: '${e.detailName}', listName: '${e.listName}' }],`,
+    )
+    .join('\n');
+
+  return `import { ResourceType } from './resource-type.js';
+
+interface Resource {
+  detailName: string;
+  listName: string;
+}
+
+const resourceMap = new Map<ResourceType, Resource>([
+${mapEntries}
+]);
+
+export const getResource = (resourceType: ResourceType) => {
+  const resource = resourceMap.get(resourceType);
+  if (!resource) {
+    throw new Error(\`Resource type (\${resourceType}) not found\`);
+  }
+  return resource;
+};
+`;
+}
+
 /**
  * Generate the ResourceType enum with resource type IDs.
  */

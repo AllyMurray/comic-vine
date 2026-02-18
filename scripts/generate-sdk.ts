@@ -20,8 +20,10 @@ import {
   generateTypesIndex,
   generateResourceList,
   generateResourceType,
+  generateResourceMap,
 } from './generate-sdk/barrel-generator.js';
-import { pascalCase, kebabCase } from 'change-case';
+import { pascalCase, kebabCase, snakeCase } from 'change-case';
+import pluralize from 'pluralize';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SAMPLES_DIR = path.join(ROOT, 'samples');
@@ -51,6 +53,16 @@ const RESOURCE_TYPE_IDS: Record<string, number> = {
   VideoCategory: 2320,
   VideoType: 2320,
   Volume: 4050,
+};
+
+// Overrides for resources whose API names don't follow the standard
+// snakeCase / pluralize(snakeCase) pattern.
+const RESOURCE_API_NAME_OVERRIDES: Record<
+  string,
+  { detailName?: string; listName?: string }
+> = {
+  Thing: { detailName: 'object', listName: 'objects' },
+  Series: { listName: 'series_list' },
 };
 
 function readJson<T>(filePath: string): T {
@@ -291,6 +303,22 @@ function main() {
   writeFile(
     path.join(SRC_DIR, 'resources', 'resource-type.ts'),
     generateResourceType(resourceTypeMap),
+  );
+
+  // resource-map.ts
+  const resourceMapEntries = classList.map((name) => {
+    const overrides = RESOURCE_API_NAME_OVERRIDES[name];
+    const defaultDetail = snakeCase(name);
+    const defaultList = pluralize(defaultDetail);
+    return {
+      enumName: name,
+      detailName: overrides?.detailName ?? defaultDetail,
+      listName: overrides?.listName ?? defaultList,
+    };
+  });
+  writeFile(
+    path.join(SRC_DIR, 'resources', 'resource-map.ts'),
+    generateResourceMap(resourceMapEntries),
   );
 
   console.log(`\nDone! Generated files for ${classList.length} resources:`);
