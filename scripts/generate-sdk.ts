@@ -22,6 +22,7 @@ import {
   generateResourceType,
   generateResourceMap,
 } from './generate-sdk/barrel-generator.js';
+import { isListResource } from './generate-sdk/types.js';
 import { pascalCase, kebabCase, snakeCase } from 'change-case';
 import pluralize from 'pluralize';
 
@@ -179,7 +180,7 @@ function main() {
     );
 
     // For details resources, also generate resource class, test, and barrel files
-    if (!resourceFolder.includes('list')) {
+    if (!isListResource(resourceFolder)) {
       const pascalName = pascalCase(resourceName);
       classList.push(pascalName);
 

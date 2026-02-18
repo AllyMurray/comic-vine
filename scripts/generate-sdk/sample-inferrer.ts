@@ -2,12 +2,13 @@ import { camelCase, pascalCase } from 'change-case';
 import { isObject } from '../../src/utils/is-object.js';
 import { addUniqueType, buildUnion } from './type-utils.js';
 import { detectEnums } from './enum-detector.js';
-import type {
-  InferredType,
-  PropertyInfo,
-  TypeDefinition,
-  EnumDefinition,
-  InferredTypeGraph,
+import {
+  isListResource,
+  type InferredType,
+  type PropertyInfo,
+  type TypeDefinition,
+  type EnumDefinition,
+  type InferredTypeGraph,
 } from './types.js';
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2}(\.\d+)?)?$/;
@@ -293,7 +294,7 @@ export function inferTypeGraph(
   };
 
   // Detect enums in list resources
-  if (resourceFolder.includes('list')) {
+  if (isListResource(resourceFolder)) {
     detectEnums(graph, validSamples);
   }
 

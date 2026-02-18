@@ -28,6 +28,11 @@ export interface CommonTypeMapping {
   propertyConversions: CommonTypeConversion[];
 }
 
+/** Convention: sample folders with "list" in the name are list resources. */
+export function isListResource(resourceFolder: string): boolean {
+  return resourceFolder.includes('list');
+}
+
 // ─── Internal type representation for code generation ─────────────────────────
 
 export type InferredType =
