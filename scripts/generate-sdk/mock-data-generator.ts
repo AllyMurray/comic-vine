@@ -29,60 +29,37 @@ function generatePagedData({
   apiResponse: Record<string, unknown>;
   expectedResponse: Record<string, unknown>;
 } {
-  const numberOfPages = (numberOfTotalResults - offset) / limit;
-  let page = offset ? offset / limit : 1;
+  const numberOfPages = Math.ceil((numberOfTotalResults - offset) / limit);
+  const startPage = Math.floor(offset / limit) + 1;
 
-  const pageNumbers = Array.from({ length: numberOfPages }, (_, i) => i + page);
+  const snakeResults = apiResponseSnakeCase.results as unknown[];
+  const camelResults = apiResponseCamelCase.results as unknown[];
 
-  const response = {
-    limit,
-    number_of_page_results: limit,
-    number_of_total_results: numberOfTotalResults,
-  };
-  const autoPaginatedResponse = pageNumbers.reduce(
-    (previousValue: Record<string, unknown>, currentPage: number) => {
-      const currentOffset = (currentPage - 1) * limit;
-      const results = apiResponseSnakeCase.results as unknown[];
+  const apiResponse: Record<string, unknown> = {};
+  const expectedResponse: Record<string, unknown> = {};
 
-      return {
-        ...previousValue,
-        [`page${currentPage}`]: {
-          ...response,
-          offset: currentOffset,
-          results: results.slice(currentOffset, currentOffset + limit),
-        },
-      };
-    },
-    {},
-  );
+  for (let i = 0; i < numberOfPages; i++) {
+    const page = startPage + i;
+    const currentOffset = (page - 1) * limit;
 
-  const expectedResponseBase = {
-    limit,
-    numberOfPageResults: limit,
-    numberOfTotalResults,
-  };
-  const autoPaginatedExpectedResponse = pageNumbers.reduce(
-    (previousValue: Record<string, unknown>, currentPage: number) => {
-      const currentOffset = (currentPage - 1) * limit;
-      const results = apiResponseCamelCase.results as unknown[];
+    apiResponse[`page${page}`] = {
+      limit,
+      number_of_page_results: limit,
+      number_of_total_results: numberOfTotalResults,
+      offset: currentOffset,
+      results: snakeResults.slice(currentOffset, currentOffset + limit),
+    };
 
-      return {
-        ...previousValue,
-        [`page${currentPage}`]: {
-          ...expectedResponseBase,
-          offset: currentOffset,
-          data: results.slice(currentOffset, currentOffset + limit),
-        },
-      };
-    },
-    {},
-  );
+    expectedResponse[`page${page}`] = {
+      limit,
+      numberOfPageResults: limit,
+      numberOfTotalResults,
+      offset: currentOffset,
+      data: camelResults.slice(currentOffset, currentOffset + limit),
+    };
+  }
 
-  return {
-    fileSuffix,
-    apiResponse: autoPaginatedResponse,
-    expectedResponse: autoPaginatedExpectedResponse,
-  };
+  return { fileSuffix, apiResponse, expectedResponse };
 }
 
 /**
