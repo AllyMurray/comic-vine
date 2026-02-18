@@ -8,6 +8,7 @@ import { inferTypeGraph } from './generate-sdk/sample-inferrer.js';
 import { emitTypeScript } from './generate-sdk/type-emitter.js';
 import { applyTypeOverrides } from './generate-sdk/type-overrides.js';
 import {
+  parseCommonTypesSource,
   extractCommonTypes,
   applyCommonTypesToGraph,
 } from './generate-sdk/common-types-generator.js';
@@ -21,7 +22,6 @@ import {
   generateResourceType,
 } from './generate-sdk/barrel-generator.js';
 import { pascalCase, kebabCase } from 'change-case';
-import type { CommonTypeMapping } from './generate-sdk/types.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SAMPLES_DIR = path.join(ROOT, 'samples');
@@ -124,12 +124,17 @@ function main() {
   }
   console.log(`Found ${sampleDataByResource.size} sample data folders`);
 
+  // ─── Parse common-types.ts to derive matching configs ───────────────
+  const commonTypesSource = fs.readFileSync(
+    path.join(SRC_DIR, 'resources', 'common-types.ts'),
+    'utf-8',
+  );
+  const { sampleBased, graphBased } = parseCommonTypesSource(commonTypesSource);
+
   // ─── Step 1: Extract common types across all samples ───────────────
   console.log('\n--- Step 1: Extracting common types ---');
 
-  const commonTypes: CommonTypeMapping[] = extractCommonTypes(
-    flatSamplesByResource,
-  );
+  const commonTypes = extractCommonTypes(flatSamplesByResource, sampleBased);
   console.log(`  Found ${commonTypes.length} common type mappings`);
 
   // ─── Step 2: Generate TypeScript type files ────────────────────────
@@ -142,7 +147,7 @@ function main() {
     // Infer → apply comments → apply common types → apply overrides → emit
     const graph = inferTypeGraph(resourceFolder, flatSamples);
     applyComments(graph, comments);
-    applyCommonTypesToGraph(graph, commonTypes, resourceFolder);
+    applyCommonTypesToGraph(graph, commonTypes, resourceFolder, graphBased);
     applyTypeOverrides(graph);
     const types = emitTypeScript(graph);
 

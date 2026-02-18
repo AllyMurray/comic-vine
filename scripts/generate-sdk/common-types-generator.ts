@@ -3,6 +3,7 @@ import { isObject } from '../../src/utils/is-object.js';
 import type {
   CommonTypeMapping,
   CommonTypeConversion,
+  CommonTypeShape,
   InferredTypeGraph,
   InferredType,
 } from './types.js';
@@ -16,52 +17,67 @@ const isObjectOrNonEmptyArray = (
   );
 };
 
-// Each entry matches a shared interface in src/resources/common-types.ts.
-// The property lists define the expected shape — when a sample object's keys
-// are a subset of a config entry's propList, that property is replaced with
-// an import of the shared type.
-const commonTypeConfig = [
-  {
-    typeName: 'AssociatedImage',
-    propList: ['caption', 'id', 'imageTags', 'originalUrl'],
-  },
-  {
-    typeName: 'ApiResource',
-    propList: ['apiDetailUrl', 'id', 'name'],
-  },
-  {
-    typeName: 'IssueApiResource',
-    propList: ['apiDetailUrl', 'id', 'issueNumber', 'name'],
-  },
-  {
-    typeName: 'SiteResource',
-    propList: ['apiDetailUrl', 'id', 'name', 'siteDetailUrl'],
-  },
-  {
-    typeName: 'SiteResourceWithCount',
-    propList: ['apiDetailUrl', 'id', 'name', 'siteDetailUrl', 'count'],
-  },
-  {
-    typeName: 'IssueSiteResource',
-    propList: ['apiDetailUrl', 'id', 'issueNumber', 'name', 'siteDetailUrl'],
-  },
-  {
-    typeName: 'EpisodeApiResource',
-    propList: ['apiDetailUrl', 'id', 'name', 'episodeNumber'],
-  },
-  {
-    typeName: 'EpisodeSiteResource',
-    propList: ['apiDetailUrl', 'id', 'name', 'siteDetailUrl', 'episodeNumber'],
-  },
-  {
-    typeName: 'PersonCreditSiteResource',
-    propList: ['apiDetailUrl', 'id', 'name', 'siteDetailUrl', 'role'],
-  },
-];
+// Types matched against the inferred type graph (exact property set match)
+// rather than raw sample JSON (subset match). These appear as nested type
+// definitions rather than direct property values in samples.
+const GRAPH_MATCHED_TYPES = new Set(['Image', 'Death']);
+
+interface ParsedInterface {
+  name: string;
+  extends?: string;
+  ownProperties: string[];
+}
+
+/**
+ * Parse common-types.ts source and split interfaces into sample-based
+ * and graph-based matching groups. Property lists include inherited
+ * properties. Sample-based types are sorted by property count (ascending)
+ * so that exact matches are preferred over superset matches.
+ */
+export function parseCommonTypesSource(source: string): {
+  sampleBased: CommonTypeShape[];
+  graphBased: CommonTypeShape[];
+} {
+  const interfaceRegex =
+    /export\s+interface\s+(\w+)(?:\s+extends\s+(\w+))?\s*\{([^}]+)\}/g;
+  const parsed = new Map<string, ParsedInterface>();
+
+  let match;
+  while ((match = interfaceRegex.exec(source)) !== null) {
+    const [, name, extendsClause, body] = match;
+    const propRegex = /^\s*(\w+)\s*[?]?\s*:/gm;
+    const ownProperties: string[] = [];
+    let propMatch;
+    while ((propMatch = propRegex.exec(body)) !== null) {
+      ownProperties.push(propMatch[1]);
+    }
+    parsed.set(name, { name, extends: extendsClause, ownProperties });
+  }
+
+  function resolveProps(name: string): string[] {
+    const iface = parsed.get(name);
+    if (!iface) return [];
+    const inherited = iface.extends ? resolveProps(iface.extends) : [];
+    return [...inherited, ...iface.ownProperties];
+  }
+
+  const all = Array.from(parsed.keys()).map((name) => ({
+    typeName: name,
+    propList: resolveProps(name),
+  }));
+
+  return {
+    sampleBased: all
+      .filter((t) => !GRAPH_MATCHED_TYPES.has(t.typeName))
+      .sort((a, b) => a.propList.length - b.propList.length),
+    graphBased: all.filter((t) => GRAPH_MATCHED_TYPES.has(t.typeName)),
+  };
+}
 
 function getCommonTypeConversion(
   key: string,
   maybeObject: unknown,
+  sampleTypes: CommonTypeShape[],
 ): CommonTypeConversion | undefined {
   if (!isObjectOrNonEmptyArray(maybeObject)) {
     return;
@@ -74,7 +90,7 @@ function getCommonTypeConversion(
       : (maybeObject as Record<string, unknown>),
   );
 
-  for (const item of commonTypeConfig) {
+  for (const item of sampleTypes) {
     if (objectKeys.every((prop) => item.propList.includes(camelCase(prop)))) {
       return {
         property: camelCase(key),
@@ -89,9 +105,10 @@ function extractFromSample(
   sample: Record<string, unknown>,
   commonTypesMap: Map<string, CommonTypeConversion[]>,
   resourceFolder: string,
+  sampleTypes: CommonTypeShape[],
 ): void {
   for (const key of Object.keys(sample)) {
-    const conversion = getCommonTypeConversion(key, sample[key]);
+    const conversion = getCommonTypeConversion(key, sample[key], sampleTypes);
     if (!conversion) continue;
 
     const existing = commonTypesMap.get(resourceFolder);
@@ -117,12 +134,13 @@ function extractFromSample(
  */
 export function extractCommonTypes(
   samples: Map<string, Record<string, unknown>[]>,
+  sampleTypes: CommonTypeShape[],
 ): CommonTypeMapping[] {
   const commonTypesMap = new Map<string, CommonTypeConversion[]>();
 
   for (const [resourceFolder, sampleList] of samples) {
     for (const sample of sampleList) {
-      extractFromSample(sample, commonTypesMap, resourceFolder);
+      extractFromSample(sample, commonTypesMap, resourceFolder, sampleTypes);
     }
   }
 
@@ -131,31 +149,6 @@ export function extractCommonTypes(
     propertyConversions,
   }));
 }
-
-// Additional common types that are detected by shape matching on the type graph
-// rather than by the sample-based extraction above. Image and Death are handled
-// here because they were previously matched by quicktype's naming + text search.
-const graphCommonTypeConfig = [
-  {
-    typeName: 'Image',
-    propList: [
-      'iconUrl',
-      'imageTags',
-      'mediumUrl',
-      'originalUrl',
-      'screenLargeUrl',
-      'screenUrl',
-      'smallUrl',
-      'superUrl',
-      'thumbUrl',
-      'tinyUrl',
-    ],
-  },
-  {
-    typeName: 'Death',
-    propList: ['date', 'timezone', 'timezoneType'],
-  },
-];
 
 /**
  * Check whether a nested type name is still referenced by any property in
@@ -185,13 +178,14 @@ function isTypeReferenced(typeName: string, graph: InferredTypeGraph): boolean {
  * Apply common type replacements to an InferredTypeGraph.
  *
  * 1. Replaces property types whose sample-based conversion matches a common type
- * 2. Replaces nested type definitions that match Image or Death shapes
+ * 2. Replaces nested type definitions that match graph-based common type shapes
  * 3. Removes nested type definitions that were fully replaced
  */
 export function applyCommonTypesToGraph(
   graph: InferredTypeGraph,
   allCommonTypes: CommonTypeMapping[],
   resourceFolder: string,
+  graphTypes: CommonTypeShape[],
 ): void {
   const mapping = allCommonTypes.find((ct) => ct.resource === resourceFolder);
   const conversions = mapping?.propertyConversions ?? [];
@@ -224,10 +218,10 @@ export function applyCommonTypesToGraph(
     }
   }
 
-  // Apply graph-based common type matching (Image, Death)
+  // Apply graph-based common type matching
   const replacedNestedTypes = new Set<string>();
 
-  for (const config of graphCommonTypeConfig) {
+  for (const config of graphTypes) {
     for (const nested of graph.nestedTypes) {
       const nestedPropNames = nested.properties.map((p) => p.name).sort();
       const configPropNames = [...config.propList].sort();

@@ -12,6 +12,11 @@ export interface CodeComment {
   }>;
 }
 
+export interface CommonTypeShape {
+  typeName: string;
+  propList: string[];
+}
+
 export interface CommonTypeConversion {
   property: string;
   newType: string;
