@@ -10,14 +10,11 @@ import { UrlBuilder } from '../http-client/url-builder.js';
 import type { ValueOf } from '../types/index.js';
 
 describe('ResourceFactory', () => {
-  const httpClient = new HttpClient(
-    {},
-    {
-      responseTransformer: comicVineResponseTransformer,
-      responseHandler: comicVineResponseHandler,
-      errorHandler: comicVineErrorHandler,
-    },
-  );
+  const httpClient = new HttpClient({
+    responseTransformer: comicVineResponseTransformer,
+    responseHandler: comicVineResponseHandler,
+    errorHandler: comicVineErrorHandler,
+  });
   const urlBuilder = new UrlBuilder('mock-api-key', 'https://mock-base-url/');
   const resourceFactory = new ResourceFactory(httpClient, urlBuilder);
 

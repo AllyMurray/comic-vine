@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import axios from 'axios';
-import rateLimit from 'axios-rate-limit';
+import { HttpClient } from '@http-client-toolkit/core';
+import { InMemoryRateLimitStore } from '@http-client-toolkit/store-memory';
 import { kebabCase } from 'change-case';
 import type { ResourceConfig } from './generate-sdk/types.js';
 
@@ -14,13 +14,17 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const http = rateLimit(axios.create(), {
-  maxRPS: 3,
+const http = new HttpClient({
+  rateLimit: new InMemoryRateLimitStore({
+    defaultConfig: { limit: 3, windowMs: 1000 },
+  }),
+  throwOnRateLimit: false,
+  maxWaitTime: 10_000,
+  retry: { maxRetries: 3 },
 });
 
 async function fetchResource(url: string): Promise<unknown> {
-  const response = await http.get(`${url}?format=json&api_key=${apiKey}`);
-  return response.data;
+  return http.get(`${url}?format=json&api_key=${apiKey}`);
 }
 
 function getFileName(url: string): string {

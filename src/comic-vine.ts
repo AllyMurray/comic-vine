@@ -100,11 +100,12 @@ export class ComicVine implements ResourcePropertyMap {
 
     const _options = loadOptions({ baseUrl });
 
-    const httpClient = new HttpClient(stores, {
+    const httpClient = new HttpClient({
+      ...stores,
       responseTransformer: comicVineResponseTransformer,
       responseHandler: comicVineResponseHandler,
       errorHandler: comicVineErrorHandler,
-      defaultCacheTTL: client.defaultCacheTTL,
+      cacheTTL: client.defaultCacheTTL,
       throwOnRateLimit: client.throwOnRateLimit,
       maxWaitTime: client.maxWaitTime,
     });

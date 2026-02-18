@@ -32,14 +32,11 @@ const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
 
 describe('Issue', () => {
   const MOCK_SUCCESSFUL_ISSUE_ID = 1;
-  const httpClient = new HttpClient(
-    {},
-    {
-      responseTransformer: comicVineResponseTransformer,
-      responseHandler: comicVineResponseHandler,
-      errorHandler: comicVineErrorHandler,
-    },
-  );
+  const httpClient = new HttpClient({
+    responseTransformer: comicVineResponseTransformer,
+    responseHandler: comicVineResponseHandler,
+    errorHandler: comicVineErrorHandler,
+  });
   const urlBuilder = new UrlBuilder('mock-api-key', baseUrl);
 
   describe('retrieve', () => {

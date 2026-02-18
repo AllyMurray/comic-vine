@@ -101,20 +101,20 @@ Runs the full generation pipeline (`generate-sdk.ts`):
 
 All modules in `generate-sdk/` are **pure functions** &mdash; they take input and return strings or objects. The orchestrator (`generate-sdk.ts`) handles all file I/O.
 
-| Module                      | Responsibility                                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------------------------- |
-| `sample-inferrer.ts`        | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, nested objects)          |
-| `enum-detector.ts`          | Detects enum patterns in list resources and replaces string types with generated enums            |
-| `type-utils.ts`             | Shared type helpers: structural equality, deduplication, union construction                       |
-| `type-emitter.ts`           | Walks type graph and emits TypeScript source with imports, interfaces, and enums                  |
-| `comment-injector.ts`       | Parses API documentation HTML and injects JSDoc descriptions into type graphs                     |
-| `common-types-generator.ts` | Detects and replaces nested types matching shared shapes with common type imports                 |
-| `type-overrides.ts`         | Applies known type corrections where sample data is ambiguous                                     |
-| `resource-generator.ts`     | Generates resource class files extending `BaseResource`                                           |
-| `test-generator.ts`         | Generates test files that verify correct `resourceType`                                           |
-| `mock-data-generator.ts`    | Creates snake_case and camelCase test fixtures from sample data                                   |
-| `barrel-generator.ts`       | Generates index/barrel files, `ResourceType` enum, and `resource-map.ts`                         |
-| `types.ts`                  | Shared type definitions (`InferredType`, `TypeDefinition`, etc.) and naming utilities             |
+| Module                      | Responsibility                                                                           |
+| --------------------------- | ---------------------------------------------------------------------------------------- |
+| `sample-inferrer.ts`        | Infers `InferredTypeGraph` from sample JSON (types, nullability, arrays, nested objects) |
+| `enum-detector.ts`          | Detects enum patterns in list resources and replaces string types with generated enums   |
+| `type-utils.ts`             | Shared type helpers: structural equality, deduplication, union construction              |
+| `type-emitter.ts`           | Walks type graph and emits TypeScript source with imports, interfaces, and enums         |
+| `comment-injector.ts`       | Parses API documentation HTML and injects JSDoc descriptions into type graphs            |
+| `common-types-generator.ts` | Detects and replaces nested types matching shared shapes with common type imports        |
+| `type-overrides.ts`         | Applies known type corrections where sample data is ambiguous                            |
+| `resource-generator.ts`     | Generates resource class files extending `BaseResource`                                  |
+| `test-generator.ts`         | Generates test files that verify correct `resourceType`                                  |
+| `mock-data-generator.ts`    | Creates snake_case and camelCase test fixtures from sample data                          |
+| `barrel-generator.ts`       | Generates index/barrel files, `ResourceType` enum, and `resource-map.ts`                 |
+| `types.ts`                  | Shared type definitions (`InferredType`, `TypeDefinition`, etc.) and naming utilities    |
 
 ## Sample Data Structure
 
