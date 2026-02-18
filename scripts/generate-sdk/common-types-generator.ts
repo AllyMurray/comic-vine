@@ -54,10 +54,12 @@ export function parseCommonTypesSource(source: string): {
     parsed.set(name, { name, extends: extendsClause, ownProperties });
   }
 
-  function resolveProps(name: string): string[] {
+  function resolveProps(name: string, visited = new Set<string>()): string[] {
+    if (visited.has(name)) return [];
+    visited.add(name);
     const iface = parsed.get(name);
     if (!iface) return [];
-    const inherited = iface.extends ? resolveProps(iface.extends) : [];
+    const inherited = iface.extends ? resolveProps(iface.extends, visited) : [];
     return [...inherited, ...iface.ownProperties];
   }
 
