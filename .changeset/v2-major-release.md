@@ -1,5 +1,5 @@
 ---
-"comic-vine-sdk": major
+'comic-vine-sdk': major
 ---
 
 Rewrite as a single-package SDK with `@http-client-toolkit/core` for HTTP, caching, deduplication, and rate limiting.
