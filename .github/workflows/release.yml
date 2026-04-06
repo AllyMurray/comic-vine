@@ -16,7 +16,7 @@ jobs:
       CI: 'true'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,12 +30,12 @@ jobs:
           git config user.email "$AUTHOR_EMAIL"
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6.1.0
         with:
-          node-version: 22.x
+          node-version: 24.x
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
@@ -69,9 +69,17 @@ jobs:
           npx changeset version
           git add .
           git commit -m "chore: release packages"
-          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read release metadata
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_ENV"
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=$PACKAGE_NAME@$PACKAGE_VERSION" >> "$GITHUB_ENV"
 
       - name: Update npm for trusted publishing
         if: steps.changesets.outputs.has_changesets == 'true'
@@ -81,18 +89,19 @@ jobs:
         if: steps.changesets.outputs.has_changesets == 'true'
         run: pnpm publish --provenance --access public
 
-      - name: Push tags
+      - name: Tag and push release commit
         if: steps.changesets.outputs.has_changesets == 'true'
-        run: git push origin --tags
+        run: |
+          git tag "$RELEASE_TAG"
+          git push origin main
+          git push origin "$RELEASE_TAG"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         if: steps.changesets.outputs.has_changesets == 'true'
         run: |
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          PACKAGE_NAME=$(node -p "require('./package.json').name")
-          echo "Creating GitHub release for $PACKAGE_NAME@$PACKAGE_VERSION"
-          gh release create "$PACKAGE_NAME@$PACKAGE_VERSION" --title "$PACKAGE_NAME@$PACKAGE_VERSION" --generate-notes
+          echo "Creating GitHub release for $RELEASE_TAG"
+          gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
