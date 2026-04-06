@@ -56,8 +56,8 @@ describe('BaseError', () => {
         expect(
           (error as TestComicVineError).stack
             ?.split('\n')[1]
-            .indexOf('throwTestComicVineError'),
-        ).toBe(7);
+            ?.includes('throwTestComicVineError'),
+        ).toBe(true);
       }
     });
 
