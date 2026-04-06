@@ -1,0 +1,146 @@
+---
+title: Migrating From v1
+description: Upgrade from @comic-vine/client v1 to comic-vine-sdk v2.
+---
+
+## Overview
+
+Comic Vine SDK v2 is a major release. The largest changes are:
+
+- The package name changed from `@comic-vine/client` to `comic-vine-sdk`
+- The SDK moved from a multi-package setup to a single package
+- The internal HTTP layer now uses `@http-client-toolkit/core`
+- Store integrations now use generic toolkit store interfaces
+- The client constructor now accepts a single options object
+- Some generated TypeScript types are narrower and more accurate
+
+If you are upgrading from v1, plan for both runtime API changes and TypeScript changes.
+
+## 1. Update The Package Name
+
+Replace:
+
+```bash
+npm install @comic-vine/client
+```
+
+With:
+
+```bash
+npm install comic-vine-sdk
+```
+
+Update imports:
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+```
+
+## 2. Replace Old Store Packages
+
+v1 used Comic Vine-specific store packages. v2 uses generic packages from the `@http-client-toolkit` ecosystem.
+
+Replace old store packages such as:
+
+- `@comic-vine/in-memory-store`
+- `@comic-vine/sqlite-store`
+
+With toolkit packages such as:
+
+- `@http-client-toolkit/store-memory`
+- `@http-client-toolkit/store-sqlite`
+
+These stores are passed through the `stores` field on the client options object.
+
+## 3. Update Client Construction
+
+v2 standardizes client setup around a single `ComicVineOptions` object.
+
+Example:
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+
+const client = new ComicVine({
+  apiKey: process.env.COMIC_VINE_API_KEY!,
+  baseUrl: 'https://comicvine.gamespot.com/api/',
+  stores: {
+    cache,
+    dedupe,
+    rateLimit,
+  },
+  client: {
+    throwOnRateLimit: false,
+    maxWaitTime: 30_000,
+  },
+});
+```
+
+In v2:
+
+- `apiKey` lives at the top level
+- store instances live under `stores`
+- HTTP client behavior lives under `client`
+
+## 4. Migrate To Toolkit Store Interfaces
+
+If you implemented custom stores in v1, you will need to migrate them to the interfaces exported by `@http-client-toolkit/core`:
+
+- `CacheStore`
+- `DedupeStore`
+- `RateLimitStore`
+
+Those interfaces are generic and reusable outside this SDK, but they are not drop-in compatible with the old Comic Vine-specific packages.
+
+## 5. Expect TypeScript Surface Changes
+
+v2 includes regenerated types from broader sample coverage plus explicit overrides for fields that are always `null` in the Comic Vine API.
+
+Notable changes:
+
+- `person.death` is now `Death | null`
+- `person.email` is now `string | null`
+- `person.hometown` is now `string | null`
+- `origin.characterSet` is now `null`
+- `movie.distributor` is omitted from SDK types
+- `video.savedTime` is omitted from SDK types
+- `video.videoShow` is omitted from SDK types
+
+If your v1 code depended on broad `unknown` fields or accessed always-null fields directly, TypeScript may now report errors. In most cases the fix is to remove dead field access or narrow your code to the actual typed values.
+
+## 6. Resource Access Is Lazy
+
+Resource properties such as `client.issue`, `client.character`, and `client.person` are lazily created in v2. This should be transparent for normal usage, but it is a behavioral change if you relied on eager construction side effects.
+
+## 7. Pagination Behavior
+
+`list()` in v2 returns a dual `Promise & AsyncIterable`, so you can either await the first page or iterate automatically across pages.
+
+Example:
+
+```typescript
+for await (const issue of client.issue.list({ filter: { volume: 796 } })) {
+  console.log(issue.name);
+}
+```
+
+If your v1 code manually paged through result sets, you may be able to simplify it.
+
+## Migration Checklist
+
+- Replace `@comic-vine/client` with `comic-vine-sdk`
+- Replace old `@comic-vine/*` store packages with `@http-client-toolkit/*`
+- Update client construction to the single options object
+- Migrate custom stores to toolkit interfaces
+- Fix any TypeScript errors caused by narrower field types
+- Remove usage of fields that are no longer exposed because the API never populates them
+
+## Need To Support Both Versions?
+
+If you need a staged rollout:
+
+- migrate imports first
+- move store wiring to the new toolkit packages
+- then fix TypeScript errors from the narrower v2 type surface
+
+That usually gives the cleanest upgrade path.

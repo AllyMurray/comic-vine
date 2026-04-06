@@ -37,9 +37,12 @@ for await (const issue of client.issue.list({ filter: { volume: 796 } })) {
 Full documentation is available at **[allymurray.github.io/comic-vine](https://allymurray.github.io/comic-vine)**, including:
 
 - [Getting Started](https://allymurray.github.io/comic-vine/getting-started/introduction/) - Installation, configuration, and quick start
+- [Migration Guide](https://allymurray.github.io/comic-vine/getting-started/migrating-from-v1/) - Upgrading from `@comic-vine/client` v1 to `comic-vine-sdk` v2
 - [Guides](https://allymurray.github.io/comic-vine/guides/field-selection/) - Field selection, filtering, pagination, caching, and rate limiting
 - [API Reference](https://allymurray.github.io/comic-vine/api/resources/) - All 19 resources with full TypeScript interfaces
 - [Examples](https://allymurray.github.io/comic-vine/examples/basic-usage/) - Basic and advanced usage patterns
+
+For store internals, custom implementations, and advanced caching or rate limiting behavior, see the **[HTTP Client Toolkit documentation](https://allymurray.github.io/http-client-toolkit/)**.
 
 ## Code Generation
 

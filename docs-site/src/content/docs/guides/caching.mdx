@@ -5,6 +5,10 @@ description: Configure caching and request deduplication to optimize API usage.
 
 The SDK supports pluggable cache and deduplication stores via [`@http-client-toolkit`](https://github.com/AllyMurray/http-client-toolkit). Without stores configured, every request goes directly to the API.
 
+:::note[Need custom store details?]
+For store internals and custom cache or deduplication implementations, see the [HTTP Client Toolkit documentation](https://allymurray.github.io/http-client-toolkit/).
+:::
+
 ## Cache Stores
 
 ### In-Memory Cache
