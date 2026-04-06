@@ -1,5 +1,6 @@
 import { describe, test, expect, vi } from 'vitest';
 import { ComicVine } from './comic-vine.js';
+import { StatusCode } from './http-client/status-code.js';
 import * as resources from './resources/resource-list.js';
 import type { ValueOf } from './types/index.js';
 
@@ -80,4 +81,98 @@ describe('ComicVine', () => {
       expect(comicVine[resourceProperty]).toBeInstanceOf(ResourceType);
     },
   );
+
+  describe('rate limiting', () => {
+    test('should use the same canonical resource name for list, retrieve, and status APIs', async () => {
+      const fetchMock = vi
+        .fn<typeof fetch>()
+        .mockResolvedValueOnce(
+          new Response(
+            JSON.stringify({
+              error: 'OK',
+              limit: 1,
+              offset: 0,
+              number_of_page_results: 1,
+              number_of_total_results: 1,
+              status_code: StatusCode.OK,
+              results: [{ id: 1, name: 'Issue 1' }],
+            }),
+            {
+              status: 200,
+              headers: { 'content-type': 'application/json' },
+            },
+          ),
+        )
+        .mockResolvedValueOnce(
+          new Response(
+            JSON.stringify({
+              error: 'OK',
+              limit: 1,
+              offset: 0,
+              number_of_page_results: 1,
+              number_of_total_results: 1,
+              status_code: StatusCode.OK,
+              results: { id: 1, name: 'Issue 1' },
+            }),
+            {
+              status: 200,
+              headers: { 'content-type': 'application/json' },
+            },
+          ),
+        );
+
+      vi.stubGlobal('fetch', fetchMock);
+
+      const rateLimitStore = {
+        canProceed: vi.fn().mockResolvedValue(true),
+        record: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockResolvedValue({
+          remaining: 59,
+          resetTime: new Date(),
+          limit: 60,
+        }),
+        reset: vi.fn().mockResolvedValue(undefined),
+        getWaitTime: vi.fn().mockResolvedValue(0),
+      };
+
+      try {
+        const comicVine = new ComicVine({
+          apiKey: mockApiKey,
+          stores: { rateLimit: rateLimitStore },
+        });
+
+        await comicVine.issue.list({ limit: 1 });
+        await comicVine.issue.retrieve(1);
+        await comicVine.getRateLimitStatus('issue');
+        await comicVine.getRateLimitStatus('issues');
+        await comicVine.resetRateLimit('issue');
+
+        expect(rateLimitStore.canProceed).toHaveBeenNthCalledWith(
+          1,
+          'issues',
+          'background',
+        );
+        expect(rateLimitStore.canProceed).toHaveBeenNthCalledWith(
+          2,
+          'issues',
+          'background',
+        );
+        expect(rateLimitStore.record).toHaveBeenNthCalledWith(
+          1,
+          'issues',
+          'background',
+        );
+        expect(rateLimitStore.record).toHaveBeenNthCalledWith(
+          2,
+          'issues',
+          'background',
+        );
+        expect(rateLimitStore.getStatus).toHaveBeenNthCalledWith(1, 'issues');
+        expect(rateLimitStore.getStatus).toHaveBeenNthCalledWith(2, 'issues');
+        expect(rateLimitStore.reset).toHaveBeenCalledWith('issues');
+      } finally {
+        vi.unstubAllGlobals();
+      }
+    });
+  });
 });

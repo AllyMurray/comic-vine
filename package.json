@@ -38,14 +38,14 @@
     "organization": false
   },
   "dependencies": {
-    "@http-client-toolkit/core": "0.10.0",
+    "@http-client-toolkit/core": "4.0.0",
     "zod": "3.25.71"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@size-limit/file": "^11.0.0",
     "@eslint/js": "^9.0.0",
-    "@http-client-toolkit/store-memory": "0.10.0",
+    "@http-client-toolkit/store-memory": "4.0.0",
     "@types/node": "20",
     "@types/pluralize": "^0.0.33",
     "change-case": "^5.0.0",

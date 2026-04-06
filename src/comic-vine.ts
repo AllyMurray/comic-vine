@@ -14,6 +14,9 @@ import { loadOptions } from './options/index.js';
 import type { ResourceInterface } from './resources/base-resource.js';
 import { ResourceFactory } from './resources/index.js';
 import * as resources from './resources/resource-list.js';
+import { getResource } from './resources/resource-map.js';
+import { ResourceType } from './resources/resource-type.js';
+import { toSnakeCase } from './utils/index.js';
 
 function classNameToPropertyName(className: string): string {
   if (!className) {
@@ -31,6 +34,42 @@ type ResourcePropertyMap = {
     (typeof resources)[K]
   >;
 };
+
+const resourceMappings = Object.values(ResourceType)
+  .filter((value): value is ResourceType => typeof value === 'number')
+  .map((resourceType) => getResource(resourceType));
+
+const canonicalRateLimitResourceNames = new Map<string, string>();
+for (const { detailName, listName } of resourceMappings) {
+  canonicalRateLimitResourceNames.set(detailName, listName);
+  canonicalRateLimitResourceNames.set(listName, listName);
+  canonicalRateLimitResourceNames.set(toSnakeCase(detailName), listName);
+  canonicalRateLimitResourceNames.set(toSnakeCase(listName), listName);
+}
+
+function normalizeRateLimitResourceName(resourceName: string): string {
+  return (
+    canonicalRateLimitResourceNames.get(toSnakeCase(resourceName)) ??
+    resourceName
+  );
+}
+
+function inferComicVineRateLimitResource(url: string): string {
+  try {
+    const pathname = new URL(url).pathname;
+    const segments = pathname.split('/').filter(Boolean);
+    const apiIndex = segments.indexOf('api');
+    const endpoint = apiIndex >= 0 ? segments[apiIndex + 1] : segments[0];
+
+    if (!endpoint) {
+      return 'unknown';
+    }
+
+    return normalizeRateLimitResourceName(endpoint);
+  } catch {
+    return 'unknown';
+  }
+}
 
 /**
  * Consolidated options interface for ComicVine client
@@ -101,13 +140,25 @@ export class ComicVine implements ResourcePropertyMap {
     const _options = loadOptions({ baseUrl });
 
     const httpClient = new HttpClient({
-      ...stores,
+      name: 'comic-vine-sdk',
+      cache: stores.cache
+        ? {
+            store: stores.cache,
+            ttl: client.defaultCacheTTL,
+          }
+        : undefined,
+      dedupe: stores.dedupe,
+      rateLimit: stores.rateLimit
+        ? {
+            store: stores.rateLimit,
+            throw: client.throwOnRateLimit,
+            maxWaitTime: client.maxWaitTime,
+          }
+        : undefined,
       responseTransformer: comicVineResponseTransformer,
       responseHandler: comicVineResponseHandler,
       errorHandler: comicVineErrorHandler,
-      cacheTTL: client.defaultCacheTTL,
-      throwOnRateLimit: client.throwOnRateLimit,
-      maxWaitTime: client.maxWaitTime,
+      resourceKeyResolver: inferComicVineRateLimitResource,
     });
     const urlBuilder = new UrlBuilder(apiKey, _options.baseUrl);
 
@@ -190,14 +241,18 @@ export class ComicVine implements ResourcePropertyMap {
 
   async getRateLimitStatus(resourceName: string) {
     if (this.stores.rateLimit) {
-      return this.stores.rateLimit.getStatus(resourceName);
+      return this.stores.rateLimit.getStatus(
+        normalizeRateLimitResourceName(resourceName),
+      );
     }
     return null;
   }
 
   async resetRateLimit(resourceName: string): Promise<void> {
     if (this.stores.rateLimit) {
-      await this.stores.rateLimit.reset(resourceName);
+      await this.stores.rateLimit.reset(
+        normalizeRateLimitResourceName(resourceName),
+      );
     }
   }
 }
