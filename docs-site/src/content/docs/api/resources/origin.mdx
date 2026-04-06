@@ -44,7 +44,7 @@ const origin = client.origin;
       /** URL pointing to the origin detail resource. */
       apiDetailUrl: string;
       characters: Array<ApiResource>;
-      characterSet: null | unknown;
+      characterSet: null;
       /** Unique ID of the origin. */
       id: number;
       /** Name of the origin. */
@@ -105,4 +105,8 @@ const origin = client.origin;
 
 :::note
 See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::
+
+:::caution[Always-null field]
+The `characterSet` field is always `null` across the entire origin dataset (a closed set of 10 entries). The `characters` property serves the purpose of listing characters with a given origin.
 :::

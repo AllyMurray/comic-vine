@@ -59,7 +59,6 @@ const movie = client.movie;
       deck: string;
       /** Description of the movie. */
       description: null | string;
-      distributor: null | unknown;
       hasStaffReview: null | false | SiteResource;
       /** Unique ID of the movie. */
       id: number;
@@ -139,7 +138,6 @@ const movie = client.movie;
       deck: null | string;
       /** Description of the movie. */
       description: null | string;
-      distributor: null | unknown;
       hasStaffReview: null | false | SiteResource;
       /** Unique ID of the movie. */
       id: number;
@@ -169,4 +167,8 @@ const movie = client.movie;
 
 :::note
 See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::
+
+:::caution[Omitted API fields]
+The `distributor` field from the Comic Vine API is not included in this SDK. An exhaustive scan of all 2,982 movies in the API confirmed this field is always `null` and has no discernible type.
 :::

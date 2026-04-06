@@ -42,7 +42,6 @@ export interface VideoDetails {
    * Date the video was published on Comic Vine.
    */
   publishDate: Date;
-  savedTime: unknown;
   /**
    * URL pointing to the video on Giant Bomb.
    */
@@ -56,7 +55,6 @@ export interface VideoDetails {
    */
   user: null | string;
   videoCategories: Array<SiteResource>;
-  videoShow: unknown;
   videoType: string;
   youtubeId: null | string;
 }

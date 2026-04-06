@@ -1,4 +1,4 @@
-import { Image, SiteResource } from '../../common-types.js';
+import { Death, Image, SiteResource } from '../../common-types.js';
 
 export interface PersonDetails {
   /**
@@ -33,7 +33,7 @@ export interface PersonDetails {
   /**
    * Date this person died on.
    */
-  death: unknown;
+  death: Death | null;
   /**
    * Brief summary of the person.
    */
@@ -45,7 +45,7 @@ export interface PersonDetails {
   /**
    * The email of this person.
    */
-  email: unknown;
+  email: null | string;
   /**
    * Gender of the person. Available options are: Male, Female, Other
    */
@@ -53,7 +53,7 @@ export interface PersonDetails {
   /**
    * City or town the person resides in.
    */
-  hometown: unknown;
+  hometown: null | string;
   /**
    * Unique ID of the person.
    */

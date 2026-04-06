@@ -64,7 +64,6 @@ const video = client.video;
       premium: boolean;
       /** Date the video was published on Comic Vine. */
       publishDate: Date;
-      savedTime: null | unknown;
       /** URL pointing to the video on Giant Bomb. */
       siteDetailUrl: string;
       /** The video's filename. */
@@ -72,7 +71,6 @@ const video = client.video;
       /** Author of the video. */
       user: null | string;
       videoCategories: Array<SiteResource>;
-      videoShow: null | unknown;
       videoType: string;
       youtubeId: null | string;
     }
@@ -136,7 +134,6 @@ const video = client.video;
       premium: boolean;
       /** Date the video was published on Comic Vine. */
       publishDate: Date;
-      savedTime: null | unknown;
       /** URL pointing to the video on Giant Bomb. */
       siteDetailUrl: string;
       /** The video's filename. */
@@ -144,7 +141,6 @@ const video = client.video;
       /** Author of the video. */
       user: Crew | null;
       videoCategories: Array<SiteResource>;
-      videoShow: null | unknown;
       videoType: VideoType | null;
       youtubeId: null | string;
     }
@@ -179,4 +175,8 @@ const video = client.video;
 
 :::note
 See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::
+
+:::caution[Omitted API fields]
+The `savedTime` and `videoShow` fields from the Comic Vine API are not included in this SDK. An exhaustive scan of all 3,119 videos in the API confirmed these fields are always `null` and have no discernible type.
 :::
