@@ -15,6 +15,24 @@ function testCJSRequire() {
       throw new Error('CJS export should be a constructor function');
     }
 
+    if (ComicVine.default !== ComicVine) {
+      throw new Error('CJS default export should reference the constructor');
+    }
+
+    if (ComicVine.ComicVine !== ComicVine) {
+      throw new Error(
+        'CJS named ComicVine export should reference the constructor',
+      );
+    }
+
+    if (typeof ComicVine.StatusCode?.OK !== 'number') {
+      throw new Error('CJS named StatusCode export should be available');
+    }
+
+    if (typeof ComicVine.ComicVineUnauthorizedError !== 'function') {
+      throw new Error('CJS named error exports should be available');
+    }
+
     // Test that we can create an instance
     const client = new ComicVine({ apiKey: 'test-key' });
 

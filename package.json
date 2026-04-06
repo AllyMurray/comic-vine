@@ -8,10 +8,10 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && esbuild src/index-wrapper.cjs --bundle --platform=node --format=cjs --target=es2015 --outfile=lib/index.cjs --sourcemap --packages=external",
     "test": "vitest run --dir=src",
     "test:watch": "vitest --dir=src",
-    "test:build": "npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality && npm run test:build:browser && npm run test:build:types && npm run test:build:size",
+    "test:build": "npm run build && npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality && npm run test:build:browser && npm run test:build:types && npm run test:build:size",
     "test:build:esm": "node build-tests/esm-import.test.js",
     "test:build:cjs": "node build-tests/cjs-require.test.cjs",
     "test:build:exports": "node build-tests/exports.test.cjs",
@@ -111,7 +111,7 @@
         "default": "./lib/index.js"
       },
       "require": {
-        "types": "./lib/index.d.cts",
+        "types": "./lib/index.d.ts",
         "default": "./lib/index.cjs"
       }
     }
