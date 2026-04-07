@@ -2,12 +2,12 @@
 'comic-vine-sdk': major
 ---
 
-Rewrite as a single-package SDK with `@http-client-toolkit/core` for HTTP, caching, deduplication, and rate limiting.
+Rewrite as a single-package SDK built on `@http-client-toolkit/core` for HTTP requests, with toolkit-compatible caching, deduplication, and rate limiting stores.
 
 **Breaking changes:**
 
 - Package renamed from `@comic-vine/client` to `comic-vine-sdk`
-- Replaced monorepo structure with a single flat package
+- Replaced the monorepo package layout with a single published SDK package
 - HTTP layer replaced: custom Axios-based client → `@http-client-toolkit/core` (fetch-based)
 - Store interfaces now use `CacheStore`, `DedupeStore`, and `RateLimitStore` from `@http-client-toolkit/core`
 - Constructor accepts a single `ComicVineOptions` object with `apiKey`, `baseUrl`, `stores`, and `client` fields
