@@ -62,15 +62,14 @@ describe('BaseError', () => {
     });
 
     test('should successfully create an error object when captureStackTrace is undefined', () => {
-      const cacheCaptureStackTrace = Error.captureStackTrace;
-      (Error.captureStackTrace as typeof Error.captureStackTrace | undefined) =
-        undefined;
+      const cacheCaptureStackTrace = Reflect.get(Error, 'captureStackTrace');
+      Reflect.set(Error, 'captureStackTrace', undefined);
       const error = new TestComicVineError({
         message: 'Test message',
         help: 'Help message',
       });
       expect(error).toBeDefined();
-      Error.captureStackTrace = cacheCaptureStackTrace;
+      Reflect.set(Error, 'captureStackTrace', cacheCaptureStackTrace);
     });
   });
 });

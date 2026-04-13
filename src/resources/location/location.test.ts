@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Location', () => {
   const httpClient = new HttpClient({
+    name: 'location-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('VideoType', () => {
   const httpClient = new HttpClient({
+    name: 'video-type-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

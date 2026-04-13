@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import prettier from 'prettier';
 import {
   extractCommentsFromHtml,
   applyComments,
@@ -70,14 +71,25 @@ function readJson<T>(filePath: string): T {
   return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
-function writeFile(filePath: string, content: string): void {
+async function writeFile(filePath: string, content: string): Promise<void> {
   const dir = path.dirname(filePath);
   fs.mkdirSync(dir, { recursive: true });
+
+  if (path.extname(filePath) === '.ts') {
+    const config = (await prettier.resolveConfig(filePath)) ?? {};
+    const formattedContent = await prettier.format(content, {
+      ...config,
+      filepath: filePath,
+    });
+    fs.writeFileSync(filePath, formattedContent, 'utf-8');
+    return;
+  }
+
   fs.writeFileSync(filePath, content, 'utf-8');
 }
 
-function writeJson(filePath: string, data: unknown): void {
-  writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
+async function writeJson(filePath: string, data: unknown): Promise<void> {
+  await writeFile(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
 /** Strip the `-details` or `-list-item` suffix to get the base resource name (e.g. `character`). */
@@ -90,7 +102,7 @@ function extractMockName(folder: string): string {
   return folder.replace(/-item$/, '');
 }
 
-function main() {
+async function main() {
   // ─── Validate required inputs ──────────────────────────────────────
   const docPath = path.join(SAMPLES_DIR, 'documentation.html');
   if (!fs.existsSync(docPath)) {
@@ -110,7 +122,10 @@ function main() {
   console.log('\n--- Step 0: Generating code comments from documentation ---');
   const htmlContent = fs.readFileSync(docPath, 'utf-8');
   const comments = extractCommentsFromHtml(htmlContent);
-  writeJson(path.join(SAMPLES_DIR, 'code-comments', 'comments.json'), comments);
+  await writeJson(
+    path.join(SAMPLES_DIR, 'code-comments', 'comments.json'),
+    comments,
+  );
   console.log(`  Extracted comments for ${comments.length} resources`);
 
   // ─── Read all sample data and flatten results in a single pass ─────
@@ -174,7 +189,7 @@ function main() {
       kebabResourceName,
       'types',
     );
-    writeFile(
+    await writeFile(
       path.join(typesDir, `${kebabCase(resourceFolder)}.ts`),
       types.trim() + '\n',
     );
@@ -185,7 +200,7 @@ function main() {
       classList.push(pascalName);
 
       // Resource class
-      writeFile(
+      await writeFile(
         path.join(
           SRC_DIR,
           'resources',
@@ -196,7 +211,7 @@ function main() {
       );
 
       // Resource test
-      writeFile(
+      await writeFile(
         path.join(
           SRC_DIR,
           'resources',
@@ -207,13 +222,13 @@ function main() {
       );
 
       // Resource index barrel
-      writeFile(
+      await writeFile(
         path.join(SRC_DIR, 'resources', kebabResourceName, 'index.ts'),
         generateResourceIndex(kebabResourceName),
       );
 
       // Types index barrel
-      writeFile(
+      await writeFile(
         path.join(SRC_DIR, 'resources', kebabResourceName, 'types', 'index.ts'),
         generateTypesIndex(kebabResourceName),
       );
@@ -233,7 +248,7 @@ function main() {
     const mockOutput = generateMockData(resourceFolder, apiResponse);
 
     // Write API response mock
-    writeJson(
+    await writeJson(
       path.join(
         SRC_DIR,
         '__mocks__',
@@ -244,7 +259,7 @@ function main() {
     );
 
     // Write expected response mock
-    writeJson(
+    await writeJson(
       path.join(
         SRC_DIR,
         '__mocks__',
@@ -257,7 +272,7 @@ function main() {
     // Write paginated mock data if present
     if (mockOutput.paginatedData) {
       for (const pageData of mockOutput.paginatedData) {
-        writeJson(
+        await writeJson(
           path.join(
             SRC_DIR,
             '__mocks__',
@@ -266,7 +281,7 @@ function main() {
           ),
           pageData.apiResponse,
         );
-        writeJson(
+        await writeJson(
           path.join(
             SRC_DIR,
             '__mocks__',
@@ -286,7 +301,7 @@ function main() {
   classList.sort();
 
   // resource-list.ts
-  writeFile(
+  await writeFile(
     path.join(SRC_DIR, 'resources', 'resource-list.ts'),
     generateResourceList(classList),
   );
@@ -301,7 +316,7 @@ function main() {
       console.warn(`  Warning: No resource type ID found for ${name}`);
     }
   }
-  writeFile(
+  await writeFile(
     path.join(SRC_DIR, 'resources', 'resource-type.ts'),
     generateResourceType(resourceTypeMap),
   );
@@ -317,7 +332,7 @@ function main() {
       listName: overrides?.listName ?? defaultList,
     };
   });
-  writeFile(
+  await writeFile(
     path.join(SRC_DIR, 'resources', 'resource-map.ts'),
     generateResourceMap(resourceMapEntries),
   );
@@ -326,4 +341,4 @@ function main() {
   console.log(classList.map((name) => `  - ${name}`).join('\n'));
 }
 
-main();
+void main();

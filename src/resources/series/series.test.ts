@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Series', () => {
   const httpClient = new HttpClient({
+    name: 'series-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

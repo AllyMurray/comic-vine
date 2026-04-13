@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Promo', () => {
   const httpClient = new HttpClient({
+    name: 'promo-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

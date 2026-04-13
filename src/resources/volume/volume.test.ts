@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Volume', () => {
   const httpClient = new HttpClient({
+    name: 'volume-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

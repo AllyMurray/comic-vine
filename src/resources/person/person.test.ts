@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Person', () => {
   const httpClient = new HttpClient({
+    name: 'person-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

@@ -5,6 +5,24 @@ interface ErrorDetails {
   help: string;
 }
 
+type CaptureStackTrace = (
+  targetObject: object,
+  constructorOpt?: abstract new (...args: Array<never>) => object,
+) => void;
+
+interface V8ErrorConstructor extends ErrorConstructor {
+  captureStackTrace: CaptureStackTrace;
+}
+
+function hasCaptureStackTrace(
+  errorConstructor: ErrorConstructor,
+): errorConstructor is V8ErrorConstructor {
+  return (
+    'captureStackTrace' in errorConstructor &&
+    typeof Reflect.get(errorConstructor, 'captureStackTrace') === 'function'
+  );
+}
+
 export abstract class BaseError extends HttpClientError {
   public help: string;
 
@@ -14,8 +32,8 @@ export abstract class BaseError extends HttpClientError {
     this.name = this.constructor.name;
 
     // Remove constructor invocation from the stack trace. Only available in V8.
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
+    if (hasCaptureStackTrace(Error)) {
+      Error.captureStackTrace(this, new.target);
     }
 
     // Custom debugging information

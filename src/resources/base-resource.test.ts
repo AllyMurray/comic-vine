@@ -33,6 +33,7 @@ const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
 describe('Issue', () => {
   const MOCK_SUCCESSFUL_ISSUE_ID = 1;
   const httpClient = new HttpClient({
+    name: 'base-resource-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

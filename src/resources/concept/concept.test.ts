@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Concept', () => {
   const httpClient = new HttpClient({
+    name: 'concept-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

@@ -26,7 +26,10 @@ export const loadOptions = (userOptions?: userOptions) => {
       const validationError = error.issues[0];
       if (validationError) {
         throw new OptionsValidationError(
-          validationError.path,
+          validationError.path.filter(
+            (segment): segment is string | number =>
+              typeof segment === 'string' || typeof segment === 'number',
+          ),
           validationError.message,
         );
       }

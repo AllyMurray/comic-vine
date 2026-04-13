@@ -24,10 +24,13 @@ describe('ComicVine', () => {
 
     test('should handle stores in constructor', () => {
       const mockCache = {
-        get: vi.fn(),
-        set: vi.fn(),
-        delete: vi.fn(),
-        clear: vi.fn(),
+        get: vi.fn().mockResolvedValue(undefined),
+        set: vi.fn().mockResolvedValue(undefined),
+        delete: vi.fn().mockResolvedValue(undefined),
+        clear: vi.fn().mockResolvedValue(undefined),
+        setWithTags: vi.fn().mockResolvedValue(undefined),
+        invalidateByTag: vi.fn().mockResolvedValue(0),
+        invalidateByTags: vi.fn().mockResolvedValue(0),
       };
 
       const comicVine = new ComicVine({

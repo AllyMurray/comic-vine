@@ -18,12 +18,10 @@ export interface PriorityOptions {
 }
 
 export interface RetrieveOptions<FieldKey>
-  extends BaseOptions<FieldKey>,
-    PriorityOptions {}
+  extends BaseOptions<FieldKey>, PriorityOptions {}
 
 export interface ListOptions<FieldKey, Filter>
-  extends BaseOptions<FieldKey>,
-    PriorityOptions {
+  extends BaseOptions<FieldKey>, PriorityOptions {
   /**
    * The number of results to display per page
    * This value defaults to 100 and can not exceed this number

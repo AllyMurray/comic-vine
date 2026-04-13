@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Publisher', () => {
   const httpClient = new HttpClient({
+    name: 'publisher-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

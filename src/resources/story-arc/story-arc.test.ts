@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('StoryArc', () => {
   const httpClient = new HttpClient({
+    name: 'story-arc-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

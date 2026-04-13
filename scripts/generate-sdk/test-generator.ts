@@ -18,6 +18,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('${pascalName}', () => {
   const httpClient = new HttpClient({
+    name: '${kebabName}-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

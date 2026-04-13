@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Movie', () => {
   const httpClient = new HttpClient({
+    name: 'movie-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

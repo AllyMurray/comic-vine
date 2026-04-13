@@ -18,7 +18,7 @@ describe('loadOptions', () => {
     const { loadOptions } = await import('./index.js');
 
     expect(() => loadOptions({ baseUrl: '@not-a-valid-url' })).toThrow(
-      'Property: baseUrl, Problem: Invalid url',
+      'Property: baseUrl, Problem: Invalid URL',
     );
   });
 

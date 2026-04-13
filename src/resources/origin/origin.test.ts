@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Origin', () => {
   const httpClient = new HttpClient({
+    name: 'origin-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

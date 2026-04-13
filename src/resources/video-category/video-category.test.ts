@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('VideoCategory', () => {
   const httpClient = new HttpClient({
+    name: 'video-category-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

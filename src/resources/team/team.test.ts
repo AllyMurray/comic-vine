@@ -10,6 +10,7 @@ import { ResourceType } from '../resource-type.js';
 
 describe('Team', () => {
   const httpClient = new HttpClient({
+    name: 'team-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

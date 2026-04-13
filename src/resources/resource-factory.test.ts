@@ -11,6 +11,7 @@ import type { ValueOf } from '../types/index.js';
 
 describe('ResourceFactory', () => {
   const httpClient = new HttpClient({
+    name: 'resource-factory-test-client',
     responseTransformer: comicVineResponseTransformer,
     responseHandler: comicVineResponseHandler,
     errorHandler: comicVineErrorHandler,

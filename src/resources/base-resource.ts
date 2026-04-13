@@ -16,9 +16,10 @@ export interface ResourceInterface {
   ): Promise<unknown> & AsyncIterable<unknown>;
 }
 
-export abstract class BaseResource<Resource, ResourceListItem>
-  implements ResourceInterface
-{
+export abstract class BaseResource<
+  Resource,
+  ResourceListItem,
+> implements ResourceInterface {
   protected abstract resourceType: ResourceType;
 
   constructor(
@@ -81,24 +82,25 @@ export abstract class BaseResource<Resource, ResourceListItem>
         const defaultPageSize = 100;
         const limit = options?.limit ?? defaultPageSize;
         let page = options?.offset ? options.offset / limit + 1 : 1;
-        let hasMoreResults = true;
         let response = await fetchPagePromise;
 
-        do {
+        while (true) {
           for (const resource of response.data) {
             yield resource;
           }
 
-          hasMoreResults =
-            response.limit + response.offset < response.numberOfTotalResults;
-
-          if (hasMoreResults) {
-            response = await fetchPage({
-              limit,
-              offset: response.numberOfPageResults * page++,
-            });
+          if (
+            response.limit + response.offset >=
+            response.numberOfTotalResults
+          ) {
+            break;
           }
-        } while (hasMoreResults);
+
+          response = await fetchPage({
+            limit,
+            offset: response.numberOfPageResults * page++,
+          });
+        }
       },
     };
 
