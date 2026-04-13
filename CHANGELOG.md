@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Patch Changes
+
+- ce5f30a: Update the internal dependency and build/test toolchain to current compatible versions, including pinning Vite to `7.3.2` so Vitest resolves the patched release and the remaining Vite security advisories in the root lockfile are cleared.
+
 ## 2.0.0
 
 ### Major Changes
