@@ -1,0 +1,92 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1279/",
+    "birth": null,
+    "character_enemies": [],
+    "character_friends": [],
+    "count_of_issue_appearances": 4,
+    "creators": [],
+    "date_added": "2008-06-06 11:26:59",
+    "date_last_updated": "2012-09-01 13:44:34",
+    "deck": null,
+    "description": null,
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-105294/",
+      "id": 105294,
+      "name": null,
+      "issue_number": "5"
+    },
+    "gender": 0,
+    "id": 1279,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/3664/199572-151930-phren.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/3664/199572-151930-phren.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/3664/199572-151930-phren.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/3664/199572-151930-phren.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/3664/199572-151930-phren.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/3664/199572-151930-phren.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/3664/199572-151930-phren.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/3664/199572-151930-phren.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/3664/199572-151930-phren.jpg",
+      "image_tags": "All Images,Phren"
+    },
+    "issue_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-309770/",
+        "id": 309770,
+        "name": "Volume 2",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-death-of-a-dream-2-volume-2/4000-309770/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-114963/",
+        "id": 114963,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-13/4000-114963/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-309762/",
+        "id": 309762,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-teenage-revolution-1-volume/4000-309762/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105294/",
+        "id": 105294,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes-5/4000-105294/"
+      }
+    ],
+    "issues_died_in": [],
+    "movies": [],
+    "name": "Phren",
+    "origin": null,
+    "powers": [],
+    "publisher": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-10/",
+      "id": 10,
+      "name": "DC Comics"
+    },
+    "real_name": null,
+    "site_detail_url": "https://comicvine.gamespot.com/phren/4005-1279/",
+    "story_arc_credits": [],
+    "team_enemies": [],
+    "team_friends": [],
+    "teams": [],
+    "volume_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-11059/",
+        "id": 11059,
+        "name": "Legion of Super-Heroes",
+        "site_detail_url": "https://comicvine.gamespot.com/legion-of-super-heroes/4050-11059/"
+      }
+    ]
+  },
+  "version": "1.0"
+}

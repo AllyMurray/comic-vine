@@ -1,0 +1,591 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-768300/",
+    "associated_images": [
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423217-01-variant.jpg",
+        "id": 7423217,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423216-01-variant.jpg",
+        "id": 7423216,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423214-01-variant.jpg",
+        "id": 7423214,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423213-01-1-25.jpg",
+        "id": 7423213,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423210-01-1-100.jpg",
+        "id": 7423210,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423209-01-midnight-party.jpg",
+        "id": 7423209,
+        "caption": null,
+        "image_tags": "All Images"
+      },
+      {
+        "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423208-01-variant.jpg",
+        "id": 7423208,
+        "caption": null,
+        "image_tags": "All Images"
+      }
+    ],
+    "character_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-79928/",
+        "id": 79928,
+        "name": "Alec Holland",
+        "site_detail_url": "https://comicvine.gamespot.com/alec-holland/4005-79928/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-12165/",
+        "id": 12165,
+        "name": "Anti-Monitor",
+        "site_detail_url": "https://comicvine.gamespot.com/anti-monitor/4005-12165/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2357/",
+        "id": 2357,
+        "name": "Aquaman",
+        "site_detail_url": "https://comicvine.gamespot.com/aquaman/4005-2357/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-88687/",
+        "id": 88687,
+        "name": "Barbatos",
+        "site_detail_url": "https://comicvine.gamespot.com/barbatos/4005-88687/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-22804/",
+        "id": 22804,
+        "name": "Barry Allen",
+        "site_detail_url": "https://comicvine.gamespot.com/barry-allen/4005-22804/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1699/",
+        "id": 1699,
+        "name": "Batman",
+        "site_detail_url": "https://comicvine.gamespot.com/batman/4005-1699/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-141840/",
+        "id": 141840,
+        "name": "Batman Who Laughs",
+        "site_detail_url": "https://comicvine.gamespot.com/batman-who-laughs/4005-141840/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2350/",
+        "id": 2350,
+        "name": "Billy Batson",
+        "site_detail_url": "https://comicvine.gamespot.com/billy-batson/4005-2350/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2392/",
+        "id": 2392,
+        "name": "Captain Cold",
+        "site_detail_url": "https://comicvine.gamespot.com/captain-cold/4005-2392/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-165617/",
+        "id": 165617,
+        "name": "Castle Bat",
+        "site_detail_url": "https://comicvine.gamespot.com/castle-bat/4005-165617/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-164460/",
+        "id": 164460,
+        "name": "Darkfather",
+        "site_detail_url": "https://comicvine.gamespot.com/darkfather/4005-164460/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2349/",
+        "id": 2349,
+        "name": "Darkseid",
+        "site_detail_url": "https://comicvine.gamespot.com/darkseid/4005-2349/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-141673/",
+        "id": 141673,
+        "name": "Dawnbreaker",
+        "site_detail_url": "https://comicvine.gamespot.com/dawnbreaker/4005-141673/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-59487/",
+        "id": 59487,
+        "name": "Dax Novu",
+        "site_detail_url": "https://comicvine.gamespot.com/dax-novu/4005-59487/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-142475/",
+        "id": 142475,
+        "name": "Devastator",
+        "site_detail_url": "https://comicvine.gamespot.com/devastator/4005-142475/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3763/",
+        "id": 3763,
+        "name": "Eclipso",
+        "site_detail_url": "https://comicvine.gamespot.com/eclipso/4005-3763/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-7367/",
+        "id": 7367,
+        "name": "Etrigan",
+        "site_detail_url": "https://comicvine.gamespot.com/etrigan/4005-7367/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-11202/",
+        "id": 11202,
+        "name": "Hal Jordan",
+        "site_detail_url": "https://comicvine.gamespot.com/hal-jordan/4005-11202/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1696/",
+        "id": 1696,
+        "name": "Harley Quinn",
+        "site_detail_url": "https://comicvine.gamespot.com/harley-quinn/4005-1696/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-27541/",
+        "id": 27541,
+        "name": "Jeremiah Arkham",
+        "site_detail_url": "https://comicvine.gamespot.com/jeremiah-arkham/4005-27541/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1702/",
+        "id": 1702,
+        "name": "Joker",
+        "site_detail_url": "https://comicvine.gamespot.com/joker/4005-1702/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3614/",
+        "id": 3614,
+        "name": "Jonah Hex",
+        "site_detail_url": "https://comicvine.gamespot.com/jonah-hex/4005-3614/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-61907/",
+        "id": 61907,
+        "name": "Kingdom Come Batman",
+        "site_detail_url": "https://comicvine.gamespot.com/kingdom-come-batman/4005-61907/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-6578/",
+        "id": 6578,
+        "name": "Lobo",
+        "site_detail_url": "https://comicvine.gamespot.com/lobo/4005-6578/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-5703/",
+        "id": 5703,
+        "name": "Mr. Miracle",
+        "site_detail_url": "https://comicvine.gamespot.com/mr-miracle/4005-5703/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-141533/",
+        "id": 141533,
+        "name": "Murder Machine",
+        "site_detail_url": "https://comicvine.gamespot.com/murder-machine/4005-141533/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-41293/",
+        "id": 41293,
+        "name": "Parallax",
+        "site_detail_url": "https://comicvine.gamespot.com/parallax/4005-41293/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-151229/",
+        "id": 151229,
+        "name": "Perpetua",
+        "site_detail_url": "https://comicvine.gamespot.com/perpetua/4005-151229/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-140883/",
+        "id": 140883,
+        "name": "Red Death",
+        "site_detail_url": "https://comicvine.gamespot.com/red-death/4005-140883/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3718/",
+        "id": 3718,
+        "name": "Riddler",
+        "site_detail_url": "https://comicvine.gamespot.com/riddler/4005-3718/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3604/",
+        "id": 3604,
+        "name": "Sgt. Rock",
+        "site_detail_url": "https://comicvine.gamespot.com/sgt-rock/4005-3604/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40756/",
+        "id": 40756,
+        "name": "Superboy Prime",
+        "site_detail_url": "https://comicvine.gamespot.com/superboy-prime/4005-40756/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1807/",
+        "id": 1807,
+        "name": "Superman",
+        "site_detail_url": "https://comicvine.gamespot.com/superman/4005-1807/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-40501/",
+        "id": 40501,
+        "name": "Terry McGinnis",
+        "site_detail_url": "https://comicvine.gamespot.com/terry-mcginnis/4005-40501/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-141985/",
+        "id": 141985,
+        "name": "The Drowned",
+        "site_detail_url": "https://comicvine.gamespot.com/the-drowned/4005-141985/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-142058/",
+        "id": 142058,
+        "name": "The Merciless",
+        "site_detail_url": "https://comicvine.gamespot.com/the-merciless/4005-142058/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-23879/",
+        "id": 23879,
+        "name": "Wally West",
+        "site_detail_url": "https://comicvine.gamespot.com/wally-west/4005-23879/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-2048/",
+        "id": 2048,
+        "name": "Wonder Woman",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-woman/4005-2048/"
+      }
+    ],
+    "character_died_in": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-141840/",
+        "id": 141840,
+        "name": "Batman Who Laughs",
+        "site_detail_url": "https://comicvine.gamespot.com/batman-who-laughs/4005-141840/"
+      }
+    ],
+    "concept_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-40617/",
+        "id": 40617,
+        "name": "Alternate Reality",
+        "site_detail_url": "https://comicvine.gamespot.com/alternate-reality/4015-40617/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-57337/",
+        "id": 57337,
+        "name": "Blank Sketch Cover",
+        "site_detail_url": "https://comicvine.gamespot.com/blank-sketch-cover/4015-57337/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-57479/",
+        "id": 57479,
+        "name": "Dark Multiverse",
+        "site_detail_url": "https://comicvine.gamespot.com/dark-multiverse/4015-57479/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-43603/",
+        "id": 43603,
+        "name": "DC Multiverse",
+        "site_detail_url": "https://comicvine.gamespot.com/dc-multiverse/4015-43603/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56207/",
+        "id": 56207,
+        "name": "Flashback ",
+        "site_detail_url": "https://comicvine.gamespot.com/flashback/4015-56207/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56593/",
+        "id": 56593,
+        "name": "Imprisonment",
+        "site_detail_url": "https://comicvine.gamespot.com/imprisonment/4015-56593/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56263/",
+        "id": 56263,
+        "name": "Murder",
+        "site_detail_url": "https://comicvine.gamespot.com/murder/4015-56263/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56347/",
+        "id": 56347,
+        "name": "Resurrection",
+        "site_detail_url": "https://comicvine.gamespot.com/resurrection/4015-56347/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56059/",
+        "id": 56059,
+        "name": "Robots",
+        "site_detail_url": "https://comicvine.gamespot.com/robots/4015-56059/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-48870/",
+        "id": 48870,
+        "name": "The Source",
+        "site_detail_url": "https://comicvine.gamespot.com/the-source/4015-48870/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-57572/",
+        "id": 57572,
+        "name": "Undead",
+        "site_detail_url": "https://comicvine.gamespot.com/undead/4015-57572/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-57349/",
+        "id": 57349,
+        "name": "Variant Cover",
+        "site_detail_url": "https://comicvine.gamespot.com/variant-cover/4015-57349/"
+      }
+    ],
+    "cover_date": "2020-08-01",
+    "date_added": "2020-06-16 12:24:40",
+    "date_last_updated": "2020-06-16 13:32:37",
+    "deck": " ",
+    "description": "<p><em>Get ready for the earth-shattering encore! The legendary team behind Dark Nights: Metal and Batman: Last Knight on Earth take center stage and reunite for one last tour.</em></p><p><em>When the Earth is enveloped by the Dark Multiverse, the Justice League is at the mercy of the Batman Who Laughs. Humanity struggles to survive in a hellish landscape twisted beyond recognition, while Batman, Wonder Woman, and Superman have all been separated and fight to survive. Unleash the beast and let the head banging begin!</em></p><h2>Contents</h2><ul><li>Dead Beats</li><li>Power Chords</li><li>The Chainsaw of Truth</li></ul><h4>List of covers and their creators:</h4><table data-max-width=\"true\"><thead><tr><th scope=\"col\">Cover</th><th scope=\"col\">Name</th><th scope=\"col\">Creator(s)</th><th scope=\"col\">Sidebar Location</th></tr></thead><tbody><tr><td>Reg</td><td>Regular Cover</td><td>Greg Capullo, Jonathan Glapion &amp; FCO Plascencia</td><td>1</td></tr><tr><td>Var</td><td>Variant Cover (Trinity)</td><td>David Finch &amp; Steve Firchow</td><td>2</td></tr><tr><td>Var</td><td>Variant Cover (Superman)</td><td>Francesco Mattina</td><td>3</td></tr><tr><td>Var</td><td>Variant Cover (Wonder Woman)</td><td>Artgerm</td><td>4</td></tr><tr><td>Var</td><td>1:25 Variant Cover</td><td>Doug Mahnke</td><td>5</td></tr><tr><td>Var</td><td>1:100 Variant Cover</td><td>Greg Capullo, Jonathan Glapion &amp; FCO Plascencia</td><td>6</td></tr><tr><td>Var</td><td>Midnight Party Variant Cover</td><td>Greg Capullo &amp; Jonathan Glapion</td><td>7</td></tr><tr><td>Var</td><td>Blank Black Variant Cover</td><td>None</td><td>8</td></tr></tbody></table>",
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 768300,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/6/67663/7423185-01.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/6/67663/7423185-01.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/6/67663/7423185-01.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/6/67663/7423185-01.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/6/67663/7423185-01.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/7423185-01.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/6/67663/7423185-01.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/6/67663/7423185-01.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/67663/7423185-01.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_number": "1",
+    "location_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-31682/",
+        "id": 31682,
+        "name": "Arkham Asylum",
+        "site_detail_url": "https://comicvine.gamespot.com/arkham-asylum/4020-31682/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-57183/",
+        "id": 57183,
+        "name": "Earth",
+        "site_detail_url": "https://comicvine.gamespot.com/earth/4020-57183/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-56254/",
+        "id": 56254,
+        "name": "Space",
+        "site_detail_url": "https://comicvine.gamespot.com/space/4020-56254/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/location/4020-56187/",
+        "id": 56187,
+        "name": "Themyscira",
+        "site_detail_url": "https://comicvine.gamespot.com/themyscira/4020-56187/"
+      }
+    ],
+    "name": "An Anti-Crisis Part I: It All Matters",
+    "object_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-55745/",
+        "id": 55745,
+        "name": "Bat-Suit",
+        "site_detail_url": "https://comicvine.gamespot.com/bat-suit/4055-55745/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-55739/",
+        "id": 55739,
+        "name": "Black Power Ring",
+        "site_detail_url": "https://comicvine.gamespot.com/black-power-ring/4055-55739/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-57539/",
+        "id": 57539,
+        "name": "Rexie",
+        "site_detail_url": "https://comicvine.gamespot.com/rexie/4055-57539/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/object/4055-43539/",
+        "id": 43539,
+        "name": "Wonder Woman's Invisible Plane",
+        "site_detail_url": "https://comicvine.gamespot.com/wonder-womans-invisible-plane/4055-43539/"
+      }
+    ],
+    "person_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-84502/",
+        "id": 84502,
+        "name": "Andrew Marino",
+        "site_detail_url": "https://comicvine.gamespot.com/andrew-marino/4040-84502/",
+        "role": "editor, other"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-107027/",
+        "id": 107027,
+        "name": "Darran Robinson",
+        "site_detail_url": "https://comicvine.gamespot.com/darran-robinson/4040-107027/",
+        "role": "other, designer"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-3226/",
+        "id": 3226,
+        "name": "David Finch",
+        "site_detail_url": "https://comicvine.gamespot.com/david-finch/4040-3226/",
+        "role": "cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-1533/",
+        "id": 1533,
+        "name": "Doug Mahnke",
+        "site_detail_url": "https://comicvine.gamespot.com/doug-mahnke/4040-1533/",
+        "role": "cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-55700/",
+        "id": 55700,
+        "name": "FCO Plascencia",
+        "site_detail_url": "https://comicvine.gamespot.com/fco-plascencia/4040-55700/",
+        "role": "colorist, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-55967/",
+        "id": 55967,
+        "name": "Francesco Mattina",
+        "site_detail_url": "https://comicvine.gamespot.com/francesco-mattina/4040-55967/",
+        "role": "cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-3379/",
+        "id": 3379,
+        "name": "Greg Capullo",
+        "site_detail_url": "https://comicvine.gamespot.com/greg-capullo/4040-3379/",
+        "role": "penciler, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-110293/",
+        "id": 110293,
+        "name": "Jared Blando",
+        "site_detail_url": "https://comicvine.gamespot.com/jared-blando/4040-110293/",
+        "role": "other"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-41794/",
+        "id": 41794,
+        "name": "Jonathan Glapion",
+        "site_detail_url": "https://comicvine.gamespot.com/jonathan-glapion/4040-41794/",
+        "role": "inker, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-25538/",
+        "id": 25538,
+        "name": "Marie Javins",
+        "site_detail_url": "https://comicvine.gamespot.com/marie-javins/4040-25538/",
+        "role": "editor"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-58926/",
+        "id": 58926,
+        "name": "Scott Snyder",
+        "site_detail_url": "https://comicvine.gamespot.com/scott-snyder/4040-58926/",
+        "role": "writer"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-57165/",
+        "id": 57165,
+        "name": "Stanley Lau",
+        "site_detail_url": "https://comicvine.gamespot.com/stanley-lau/4040-57165/",
+        "role": "cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-13762/",
+        "id": 13762,
+        "name": "Steve Firchow",
+        "site_detail_url": "https://comicvine.gamespot.com/steve-firchow/4040-13762/",
+        "role": "cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-83732/",
+        "id": 83732,
+        "name": "Tom Napolitano",
+        "site_detail_url": "https://comicvine.gamespot.com/tom-napolitano/4040-83732/",
+        "role": "letterer"
+      }
+    ],
+    "site_detail_url": "https://comicvine.gamespot.com/dark-nights-death-metal-1-an-anti-crisis-part-i-it/4000-768300/",
+    "store_date": "2020-06-16",
+    "story_arc_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-59509/",
+        "id": 59509,
+        "name": "Dark Nights",
+        "site_detail_url": "https://comicvine.gamespot.com/dark-nights/4045-59509/"
+      }
+    ],
+    "team_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-31815/",
+        "id": 31815,
+        "name": "Justice League of America",
+        "site_detail_url": "https://comicvine.gamespot.com/justice-league-of-america/4060-31815/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-64281/",
+        "id": 64281,
+        "name": "Robins",
+        "site_detail_url": "https://comicvine.gamespot.com/robins/4060-64281/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-63197/",
+        "id": 63197,
+        "name": "The Dark Knights",
+        "site_detail_url": "https://comicvine.gamespot.com/the-dark-knights/4060-63197/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-44930/",
+        "id": 44930,
+        "name": "Zombies",
+        "site_detail_url": "https://comicvine.gamespot.com/zombies/4060-44930/"
+      }
+    ],
+    "team_disbanded_in": [],
+    "volume": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-127927/",
+      "id": 127927,
+      "name": "Dark Nights: Death Metal",
+      "site_detail_url": "https://comicvine.gamespot.com/dark-nights-death-metal/4050-127927/"
+    }
+  },
+  "version": "1.0"
+}

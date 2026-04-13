@@ -1,0 +1,182 @@
+---
+title: Video
+description: API reference for the Video resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access Comic Vine video content data from the Comic Vine API. Official API docs: [`/video`](https://comicvine.gamespot.com/api/documentation#toc-0-36) | [`/videos`](https://comicvine.gamespot.com/api/documentation#toc-0-37)
+
+```typescript
+const video = client.video;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the video |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<VideoDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const video = await client.video.retrieve(12345);
+
+    // With field selection
+    const video = await client.video.retrieve(12345, {
+      fieldList: ['id', 'name', 'deck', 'lengthSeconds'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface VideoDetails {
+      /** URL pointing to the video detail resource. */
+      apiDetailUrl: string;
+      crew: null | string;
+      /** Brief summary of the video. */
+      deck: string;
+      embedPlayer: string;
+      guid: string;
+      /** URL to the High Res version of the video. */
+      highUrl: string;
+      hosts: null | string;
+      /** Unique ID of the video. */
+      id: number;
+      /** Main image of the video. */
+      image: { [key: string]: null | string };
+      /** Length (in seconds) of the video. */
+      lengthSeconds: number;
+      /** URL to the Low Res version of the video. */
+      lowUrl: string;
+      /** Name of the video. */
+      name: string;
+      premium: boolean;
+      /** Date the video was published on Comic Vine. */
+      publishDate: Date;
+      /** URL pointing to the video on Giant Bomb. */
+      siteDetailUrl: string;
+      /** The video's filename. */
+      url: string;
+      /** Author of the video. */
+      user: null | string;
+      videoCategories: Array<SiteResource>;
+      videoType: string;
+      youtubeId: null | string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<VideoListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const videos = await client.video.list();
+
+    // With auto pagination
+    for await (const video of client.video.list()) {
+      console.log(video.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface VideoListItem {
+      /** URL pointing to the video detail resource. */
+      apiDetailUrl: string;
+      crew: Crew | null;
+      /** Brief summary of the video. */
+      deck: string;
+      embedPlayer: string;
+      guid: string;
+      /** URL to the High Res version of the video. */
+      highUrl: string;
+      hosts: Crew | null;
+      /** Unique ID of the video. */
+      id: number;
+      /** Main image of the video. */
+      image: { [key: string]: null | string };
+      /** Length (in seconds) of the video. */
+      lengthSeconds: number;
+      /** URL to the Low Res version of the video. */
+      lowUrl: string;
+      /** Name of the video. */
+      name: string;
+      premium: boolean;
+      /** Date the video was published on Comic Vine. */
+      publishDate: Date;
+      /** URL pointing to the video on Giant Bomb. */
+      siteDetailUrl: string;
+      /** The video's filename. */
+      url: string;
+      /** Author of the video. */
+      user: Crew | null;
+      videoCategories: Array<SiteResource>;
+      videoType: VideoType | null;
+      youtubeId: null | string;
+    }
+
+    enum Crew {
+      Aclarkp = 'aclarkp',
+      Buddyhutton = 'buddyhutton',
+      Cadamien = 'cadamien',
+      Gmanfromheck = 'gmanfromheck',
+      GmanfromheckRyanerikp = 'gmanfromheck, ryanerikp',
+      GmanfromheckRyanerikpBuddyhutton = 'gmanfromheck, ryanerikp, buddyhutton',
+      Inferiorego = 'inferiorego',
+      Ryanerikp = 'ryanerikp',
+      RyanerikpBuddyhutton = 'ryanerikp, buddyhutton',
+    }
+
+    enum VideoType {
+      Events = 'Events',
+      Feature = 'Feature',
+      FeatureEvents = 'Feature, Events',
+      FeatureMysteryArtChallenge = 'Feature, Mystery Art Challenge',
+      FeatureUnboxing = 'Feature, Unboxing',
+      MysteryArtChallenge = 'Mystery Art Challenge',
+      Review = 'Review',
+      Trailer = 'Trailer',
+      Unboxing = 'Unboxing',
+    }
+    ```
+
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::
+
+:::caution[Omitted API fields]
+The `savedTime` and `videoShow` fields from the Comic Vine API are not included in this SDK. An exhaustive scan of all 3,119 videos in the API confirmed these fields are always `null` and have no discernible type.
+:::

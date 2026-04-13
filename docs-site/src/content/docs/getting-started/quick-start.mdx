@@ -1,0 +1,91 @@
+---
+title: Quick Start
+description: Set up the Comic Vine SDK and make your first API requests.
+---
+
+## Get an API Key
+
+You'll need a Comic Vine API key. Register for free at [comicvine.gamespot.com/api](https://comicvine.gamespot.com/api/).
+
+## Create a Client
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+
+const client = new ComicVine({ apiKey: 'your-api-key' });
+```
+
+## Retrieve a Resource
+
+Every resource has a `retrieve()` method that fetches a single item by ID:
+
+```typescript
+// Get a specific issue
+const issue = await client.issue.retrieve(1);
+console.log(issue.name);
+
+// Get a specific character
+const character = await client.character.retrieve(1443);
+console.log(character.name); // "Spider-Man"
+```
+
+## List Resources
+
+Every resource has a `list()` method that returns paginated results:
+
+```typescript
+const characters = await client.character.list({
+  filter: { name: 'Spider-Man' },
+  limit: 10,
+});
+
+console.log(characters.totalCount); // Total matching results
+console.log(characters.results); // Array of characters
+```
+
+## Select Specific Fields
+
+Reduce response size and get type-safe narrowing with `fieldList`:
+
+```typescript
+const issue = await client.issue.retrieve(12345, {
+  fieldList: ['id', 'name', 'issueNumber', 'coverDate'],
+});
+
+console.log(issue.name); // string - available
+console.log(issue.issueNumber); // number - available
+// issue.description            // TypeScript error - not selected
+```
+
+## Configure with Stores
+
+Add caching, deduplication, and rate limiting by installing store packages:
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+import {
+  InMemoryCacheStore,
+  InMemoryDedupeStore,
+  InMemoryRateLimitStore,
+} from '@http-client-toolkit/store-memory';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    cache: new InMemoryCacheStore({
+      maxItems: 1000,
+    }),
+    dedupe: new InMemoryDedupeStore(),
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 100, windowMs: 60000 },
+    }),
+  },
+});
+```
+
+## Next Steps
+
+- [Field Selection](/comic-vine/guides/field-selection/) — Type-safe field narrowing
+- [Filtering](/comic-vine/guides/filtering/) — Filter results by name, date, and more
+- [Pagination](/comic-vine/guides/pagination/) — Manual and automatic pagination
+- [All Resources](/comic-vine/api/resources/) — Complete resource reference

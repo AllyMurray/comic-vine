@@ -1,0 +1,159 @@
+---
+title: Volume
+description: API reference for the Volume resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access comic book volume data from the Comic Vine API. Official API docs: [`/volume`](https://comicvine.gamespot.com/api/documentation#toc-0-42) | [`/volumes`](https://comicvine.gamespot.com/api/documentation#toc-0-43)
+
+```typescript
+const volume = client.volume;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the volume |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<VolumeDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const volume = await client.volume.retrieve(796);
+
+    // With field selection
+    const volume = await client.volume.retrieve(796, {
+      fieldList: ['id', 'name', 'startYear', 'countOfIssues'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface VolumeDetails {
+      /** List of aliases the volume is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the volume detail resource. */
+      apiDetailUrl: string;
+      /** A list of characters that appear in this volume. */
+      characters?: Array<SiteResourceWithCount>;
+      /** A list of concepts that appear in this volume. */
+      concepts?: Array<SiteResourceWithCount>;
+      /** Number of issues included in this volume. */
+      countOfIssues: number;
+      /** Date the volume was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the volume was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Brief summary of the volume. */
+      deck: null | string;
+      /** Description of the volume. */
+      description: null | string;
+      /** The first issue in this volume. */
+      firstIssue: IssueApiResource;
+      /** Unique ID of the volume. */
+      id: number;
+      /** Main image of the volume. */
+      image: Image;
+      issues: Array<IssueSiteResource>;
+      /** The last issue in this volume. */
+      lastIssue: IssueApiResource;
+      /** Name of the volume. */
+      name: string;
+      /** List of things that appeared in this volume. */
+      objects?: Array<SiteResourceWithCount>;
+      people: Array<SiteResourceWithCount>;
+      /** The primary publisher a volume is attached to. */
+      publisher: ApiResource;
+      /** URL pointing to the volume on Giant Bomb. */
+      siteDetailUrl: string;
+      /** The first year this volume appeared in comics. */
+      startYear: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<VolumeListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const volumes = await client.volume.list({
+      filter: { name: 'Amazing Spider-Man' },
+    });
+
+    // With auto pagination
+    for await (const volume of client.volume.list()) {
+      console.log(volume.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface VolumeListItem {
+      /** List of aliases the volume is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the volume detail resource. */
+      apiDetailUrl: string;
+      /** Number of issues included in this volume. */
+      countOfIssues: number;
+      /** Date the volume was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the volume was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Brief summary of the volume. */
+      deck: null | string;
+      /** Description of the volume. */
+      description: null | string;
+      /** The first issue in this volume. */
+      firstIssue: IssueApiResource;
+      /** Unique ID of the volume. */
+      id: number;
+      /** Main image of the volume. */
+      image: Image;
+      /** The last issue in this volume. */
+      lastIssue: IssueApiResource;
+      /** Name of the volume. */
+      name: string;
+      /** The primary publisher a volume is attached to. */
+      publisher: ApiResource;
+      /** URL pointing to the volume on Giant Bomb. */
+      siteDetailUrl: string;
+      /** The first year this volume appeared in comics. */
+      startYear: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::

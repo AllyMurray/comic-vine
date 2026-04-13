@@ -1,0 +1,106 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-52/",
+    "associated_images": [],
+    "character_credits": [],
+    "character_died_in": [],
+    "concept_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56133/",
+        "id": 56133,
+        "name": "War",
+        "site_detail_url": "https://comicvine.gamespot.com/war/4015-56133/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/concept/4015-56025/",
+        "id": 56025,
+        "name": "World War II",
+        "site_detail_url": "https://comicvine.gamespot.com/world-war-ii/4015-56025/"
+      }
+    ],
+    "cover_date": "1952-11-01",
+    "date_added": "2008-06-06 11:10:21",
+    "date_last_updated": "2022-07-28 18:58:25",
+    "deck": null,
+    "description": null,
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 52,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/4/51-1543-52-1-star-spangled-war-st.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_number": "3",
+    "location_credits": [],
+    "name": "''Hundred-Mission'' Mitchell",
+    "object_credits": [],
+    "person_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-21274/",
+        "id": 21274,
+        "name": "Curt Swan",
+        "site_detail_url": "https://comicvine.gamespot.com/curt-swan/4040-21274/",
+        "role": "penciler"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-33524/",
+        "id": 33524,
+        "name": "Ramona Fradon",
+        "site_detail_url": "https://comicvine.gamespot.com/ramona-fradon/4040-33524/",
+        "role": "penciler, inker"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-39532/",
+        "id": 39532,
+        "name": "Stan Kaye",
+        "site_detail_url": "https://comicvine.gamespot.com/stan-kaye/4040-39532/",
+        "role": "inker"
+      }
+    ],
+    "site_detail_url": "https://comicvine.gamespot.com/star-spangled-war-stories-3-hundred-mission-mitche/4000-52/",
+    "store_date": null,
+    "story_arc_credits": [],
+    "team_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-49867/",
+        "id": 49867,
+        "name": "Nazis",
+        "site_detail_url": "https://comicvine.gamespot.com/nazis/4060-49867/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-44415/",
+        "id": 44415,
+        "name": "United States Army",
+        "site_detail_url": "https://comicvine.gamespot.com/united-states-army/4060-44415/"
+      }
+    ],
+    "team_disbanded_in": [],
+    "volume": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-1543/",
+      "id": 1543,
+      "name": "Star Spangled War Stories",
+      "site_detail_url": "https://comicvine.gamespot.com/star-spangled-war-stories/4050-1543/"
+    }
+  },
+  "version": "1.0"
+}

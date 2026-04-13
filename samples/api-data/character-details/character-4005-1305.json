@@ -1,0 +1,454 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": "Balloon Pokemon\r\nPummeluff",
+    "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1305/",
+    "birth": null,
+    "character_enemies": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-57635/",
+        "id": 57635,
+        "name": "Charmander",
+        "site_detail_url": "https://comicvine.gamespot.com/charmander/4005-57635/"
+      }
+    ],
+    "character_friends": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-155625/",
+        "id": 155625,
+        "name": "Blake",
+        "site_detail_url": "https://comicvine.gamespot.com/blake/4005-155625/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-53806/",
+        "id": 53806,
+        "name": "Green",
+        "site_detail_url": "https://comicvine.gamespot.com/green/4005-53806/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-78092/",
+        "id": 78092,
+        "name": "Igglybuff",
+        "site_detail_url": "https://comicvine.gamespot.com/igglybuff/4005-78092/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-156191/",
+        "id": 156191,
+        "name": "Satoshi",
+        "site_detail_url": "https://comicvine.gamespot.com/satoshi/4005-156191/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-155626/",
+        "id": 155626,
+        "name": "Whitley",
+        "site_detail_url": "https://comicvine.gamespot.com/whitley/4005-155626/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-67878/",
+        "id": 67878,
+        "name": "Wigglytuff",
+        "site_detail_url": "https://comicvine.gamespot.com/wigglytuff/4005-67878/"
+      }
+    ],
+    "count_of_issue_appearances": 45,
+    "creators": [],
+    "date_added": "2008-06-06 11:26:25",
+    "date_last_updated": "2016-05-17 05:42:08",
+    "deck": "Jigglypuff is a normal type Pokemon, most famously noted for it's appearence in the Super Smash Bros. series of video games.",
+    "description": "<p>Jigglypuff is a normal Pokemon which is of the Balloon species, it has a Hypnotic voice. No one has ever listened to it's whole song as they fall asleep part way through.</p><h3>Physical Appearance</h3><p><b>Height</b>: 1'8'', 0.5m</p><p><b>Weight</b>: 12lbs, 5.5kg</p>",
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-530292/",
+      "id": 530292,
+      "name": "Volume 3",
+      "issue_number": "3"
+    },
+    "gender": 0,
+    "id": 1305,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/11/114183/5212921-039jigglypuff.png",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/11/114183/5212921-039jigglypuff.png",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/11/114183/5212921-039jigglypuff.png",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/11/114183/5212921-039jigglypuff.png",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/11/114183/5212921-039jigglypuff.png",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/11/114183/5212921-039jigglypuff.png",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/11/114183/5212921-039jigglypuff.png",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/11/114183/5212921-039jigglypuff.png",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/11/114183/5212921-039jigglypuff.png",
+      "image_tags": "All Images"
+    },
+    "issue_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-716814/",
+        "id": 716814,
+        "name": null,
+        "site_detail_url": "https://comicvine.gamespot.com/mad-magazine-9/4000-716814/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-676501/",
+        "id": 676501,
+        "name": "Volume Two",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-black-2-and-white-2-2-volume-tw/4000-676501/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-622735/",
+        "id": 622735,
+        "name": "Volume 12",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-xy-12-volume-12/4000-622735/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-609162/",
+        "id": 609162,
+        "name": "Volume 4",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-omega-ruby-alpha-sapphire-4-volume-4/4000-609162/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-590738/",
+        "id": 590738,
+        "name": "Volume 10",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-xy-10-volume-10/4000-590738/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-574943/",
+        "id": 574943,
+        "name": "Volume 9",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-xy-9-volume-9/4000-574943/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-452379/",
+        "id": 452379,
+        "name": "Volume Twenty-Two",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-22-volume-twenty-two/4000-452379/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-283143/",
+        "id": 283143,
+        "name": "Volume Fourteen",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-14-volume-fourteen/4000-283143/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-285237/",
+        "id": 285237,
+        "name": "Volume Thirteen",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-13-volume-thirteen/4000-285237/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-264890/",
+        "id": 264890,
+        "name": "Volume Seven",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-7-volume-seven/4000-264890/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-261686/",
+        "id": 261686,
+        "name": "Volume Six",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-6-volume-six/4000-261686/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-195528/",
+        "id": 195528,
+        "name": "Volume Five",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-5-volume-five/4000-195528/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-186035/",
+        "id": 186035,
+        "name": "Volume Four",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-4-volume-four/4000-186035/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185590/",
+        "id": 185590,
+        "name": "Volume Three",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-3-volume-three/4000-185590/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185589/",
+        "id": 185589,
+        "name": "Volume Two",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-2-volume-two/4000-185589/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530288/",
+        "id": 530288,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-quiz-puzzle-land-pikachu-is-a-famous-detec/4000-530288/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-503200/",
+        "id": 503200,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/v-jump-200803/4000-503200/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-229434/",
+        "id": 229434,
+        "name": "Vol. 14",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-14-vol-14/4000-229434/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530304/",
+        "id": 530304,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/pocket-monster-rs-1-volume-1/4000-530304/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530095/",
+        "id": 530095,
+        "name": "Volume 14",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-14-volume-14/4000-530095/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530302/",
+        "id": 530302,
+        "name": "Volume 13",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-13-volume-13/4000-530302/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185748/",
+        "id": 185748,
+        "name": "Vol. 6",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-6-vol-6/4000-185748/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185747/",
+        "id": 185747,
+        "name": "Vol. 5",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-5-vol-5/4000-185747/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185746/",
+        "id": 185746,
+        "name": "Vol. 4",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-4-vol-4/4000-185746/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185745/",
+        "id": 185745,
+        "name": "Vol. 3",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-3-vol-3/4000-185745/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-166057/",
+        "id": 166057,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/cracked-353/4000-166057/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530299/",
+        "id": 530299,
+        "name": "Volume 10",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-10-volume-10/4000-530299/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-185744/",
+        "id": 185744,
+        "name": "Vol. 2",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-2-vol-2/4000-185744/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530080/",
+        "id": 530080,
+        "name": "Volume 7",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-7-volume-7/4000-530080/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-146291/",
+        "id": 146291,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/cracked-342/4000-146291/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-190177/",
+        "id": 190177,
+        "name": "The Impassable Mr. Mime",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-part-3-1-the-impassable-mr-mime/4000-190177/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530079/",
+        "id": 530079,
+        "name": "Volume 6",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-6-volume-6/4000-530079/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-146288/",
+        "id": 146288,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/cracked-339/4000-146288/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530296/",
+        "id": 530296,
+        "name": "Volume 7",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-7-volume-7/4000-530296/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-178750/",
+        "id": 178750,
+        "name": "I'm Your Venusaur/Clefairy in Space",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-electric-pikachu-boogaloo-1-im-your-venusa/4000-178750/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530078/",
+        "id": 530078,
+        "name": "Volume 5",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-5-volume-5/4000-530078/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530295/",
+        "id": 530295,
+        "name": "Volume 6",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-6-volume-6/4000-530295/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530077/",
+        "id": 530077,
+        "name": "Volume 4",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-4-volume-4/4000-530077/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-125514/",
+        "id": 125514,
+        "name": "Pikachu, I See You",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-the-electric-tale-of-pikachu-1-pikachu-i-s/4000-125514/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530294/",
+        "id": 530294,
+        "name": "Volume 5",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-5-volume-5/4000-530294/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530072/",
+        "id": 530072,
+        "name": "Volume 3",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-3-volume-3/4000-530072/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530060/",
+        "id": 530060,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/pocket-monsters-zensho-1-volume-1/4000-530060/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530293/",
+        "id": 530293,
+        "name": "Volume 4",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-4-volume-4/4000-530293/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530063/",
+        "id": 530063,
+        "name": "Volume 2",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-adventures-2-volume-2/4000-530063/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-530292/",
+        "id": 530292,
+        "name": "Volume 3",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-pocket-monsters-3-volume-3/4000-530292/"
+      }
+    ],
+    "issues_died_in": [],
+    "movies": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/movie/4025-2342/",
+        "id": 2342,
+        "name": "Pokémon: Detective Pikachu",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-detective-pikachu/4025-2342/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/movie/4025-1303/",
+        "id": 1303,
+        "name": "Pokémon: The Legend of Thunder!",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-the-legend-of-thunder/4025-1303/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/movie/4025-1229/",
+        "id": 1229,
+        "name": "Pokémon 4Ever",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon-4ever/4025-1229/"
+      }
+    ],
+    "name": "Jigglypuff",
+    "origin": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/origin/4030-8/",
+      "id": 8,
+      "name": "Animal"
+    },
+    "powers": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-4/",
+        "id": 4,
+        "name": "Agility"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-34/",
+        "id": 34,
+        "name": "Unarmed Combat"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-39/",
+        "id": 39,
+        "name": "Size Manipulation"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-57/",
+        "id": 57,
+        "name": "Sonic Scream"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-80/",
+        "id": 80,
+        "name": "Levitation"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-115/",
+        "id": 115,
+        "name": "Hypnosis"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-130/",
+        "id": 130,
+        "name": "Voice-induced Manipulation"
+      }
+    ],
+    "publisher": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-3822/",
+      "id": 3822,
+      "name": "Nintendo"
+    },
+    "real_name": "Jigglypuff",
+    "site_detail_url": "https://comicvine.gamespot.com/jigglypuff/4005-1305/",
+    "story_arc_credits": [],
+    "team_enemies": [],
+    "team_friends": [],
+    "teams": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-57239/",
+        "id": 57239,
+        "name": "Fairies",
+        "site_detail_url": "https://comicvine.gamespot.com/fairies/4060-57239/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/team/4060-53735/",
+        "id": 53735,
+        "name": "Pokémon",
+        "site_detail_url": "https://comicvine.gamespot.com/pokemon/4060-53735/"
+      }
+    ],
+    "volume_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-90470/",
+        "id": 90470,
+        "name": "Pocket Monsters",
+        "site_detail_url": "https://comicvine.gamespot.com/pocket-monsters/4050-90470/"
+      }
+    ]
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,120 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-64/",
+    "associated_images": [],
+    "character_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3920/",
+        "id": 3920,
+        "name": "The Crypt-Keeper",
+        "site_detail_url": "https://comicvine.gamespot.com/the-crypt-keeper/4005-3920/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-48147/",
+        "id": 48147,
+        "name": "The Old Witch",
+        "site_detail_url": "https://comicvine.gamespot.com/the-old-witch/4005-48147/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-3807/",
+        "id": 3807,
+        "name": "The Vault-Keeper",
+        "site_detail_url": "https://comicvine.gamespot.com/the-vault-keeper/4005-3807/"
+      }
+    ],
+    "character_died_in": [],
+    "concept_credits": [],
+    "cover_date": "1952-12-01",
+    "date_added": "2008-06-06 11:10:02",
+    "date_last_updated": "2018-10-09 11:27:51",
+    "deck": null,
+    "description": null,
+    "first_appearance_characters": null,
+    "first_appearance_concepts": null,
+    "first_appearance_locations": null,
+    "first_appearance_objects": null,
+    "first_appearance_storyarcs": null,
+    "first_appearance_teams": null,
+    "has_staff_review": false,
+    "id": 64,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/0/4/63-1398-64-1-haunt-of-fear.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_number": "16",
+    "location_credits": [],
+    "name": null,
+    "object_credits": [],
+    "person_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-43465/",
+        "id": 43465,
+        "name": "Al Feldstein",
+        "site_detail_url": "https://comicvine.gamespot.com/al-feldstein/4040-43465/",
+        "role": "writer, editor"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-26392/",
+        "id": 26392,
+        "name": "George Evans",
+        "site_detail_url": "https://comicvine.gamespot.com/george-evans/4040-26392/",
+        "role": "penciler, inker"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-40150/",
+        "id": 40150,
+        "name": "Graham Ingels",
+        "site_detail_url": "https://comicvine.gamespot.com/graham-ingels/4040-40150/",
+        "role": "penciler, inker, cover"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-3914/",
+        "id": 3914,
+        "name": "Jack Davis",
+        "site_detail_url": "https://comicvine.gamespot.com/jack-davis/4040-3914/",
+        "role": "penciler, inker"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-40057/",
+        "id": 40057,
+        "name": "Jack Kamen",
+        "site_detail_url": "https://comicvine.gamespot.com/jack-kamen/4040-40057/",
+        "role": "penciler, inker"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/person/4040-3492/",
+        "id": 3492,
+        "name": "Marie Severin",
+        "site_detail_url": "https://comicvine.gamespot.com/marie-severin/4040-3492/",
+        "role": "colorist"
+      }
+    ],
+    "site_detail_url": "https://comicvine.gamespot.com/haunt-of-fear-16/4000-64/",
+    "store_date": null,
+    "story_arc_credits": [],
+    "team_credits": [],
+    "team_disbanded_in": [],
+    "volume": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-1398/",
+      "id": 1398,
+      "name": "Haunt of Fear",
+      "site_detail_url": "https://comicvine.gamespot.com/haunt-of-fear/4050-1398/"
+    }
+  },
+  "version": "1.0"
+}

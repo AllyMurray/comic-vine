@@ -1,0 +1,68 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": null,
+    "api_detail_url": "https://comicvine.gamespot.com/api/story_arc/4045-42219/",
+    "count_of_isssue_appearances": 0,
+    "date_added": "2008-06-06 11:27:51",
+    "date_last_updated": "2011-05-05 17:04:18",
+    "deck": "Pre-dating Knightfall by a few years, this 3-issue arc appeared in Detective Comics 598-600.",
+    "description": "<p>Blind Justice was written by <a data-ref-id=\"4040-41467\" href=\"/sam-hamm/4040-41467/\" slug=\"sam-hamm\">  Sam Hamm</a> who was a hot property, having just turned in his script for Tim Burton's first Batman movie.</p><p>Batman is badly hurt in a fight and unable to fulfill his mission as the Dark Knight. Instead he trains a replacement, but his shoes may be too big to fill. </p><h2>Collected Editions</h2><ul class=\"plain-list\"><li><a data-ref-id=\"4050-25185\" href=\"/batman-blind-justice/4050-25185/\" slug=\"batman-blind-justice\">Batman: Blind Justice</a></li></ul>",
+    "episodes": [],
+    "first_appeared_in_episode": null,
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-106871/",
+      "id": 106871,
+      "name": "Blind Justice, Chapter One: The Sleep of Reason",
+      "issue_number": "598"
+    },
+    "id": 42219,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/6/64770/1677945-blindjustcie5.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/6/64770/1677945-blindjustcie5.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/6/64770/1677945-blindjustcie5.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/6/64770/1677945-blindjustcie5.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/6/64770/1677945-blindjustcie5.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/6/64770/1677945-blindjustcie5.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/6/64770/1677945-blindjustcie5.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/6/64770/1677945-blindjustcie5.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/6/64770/1677945-blindjustcie5.jpg",
+      "image_tags": "All Images"
+    },
+    "issues": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-106871/",
+        "id": 106871,
+        "name": "Blind Justice, Chapter One: The Sleep of Reason",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-598-blind-justice-chapter-one-the/4000-106871/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-106872/",
+        "id": 106872,
+        "name": "Blind Justice",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-599-blind-justice/4000-106872/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105900/",
+        "id": 105900,
+        "name": "Blind Justice",
+        "site_detail_url": "https://comicvine.gamespot.com/detective-comics-600-blind-justice/4000-105900/"
+      }
+    ],
+    "movies": [],
+    "name": "Blind Justice",
+    "publisher": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-10/",
+      "id": 10,
+      "name": "DC Comics",
+      "site_detail_url": "https://comicvine.gamespot.com/dc-comics/4010-10/"
+    },
+    "site_detail_url": "https://comicvine.gamespot.com/blind-justice/4045-42219/"
+  },
+  "version": "1.0"
+}

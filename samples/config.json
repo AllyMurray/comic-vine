@@ -1,0 +1,316 @@
+[
+  {
+    "typeName": "CharacterDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/character/4005-1345",
+      "https://comicvine.gamespot.com/api/character/4005-1279",
+      "https://comicvine.gamespot.com/api/character/4005-1305",
+      "https://comicvine.gamespot.com/api/character/4005-1289",
+      "https://comicvine.gamespot.com/api/character/4005-1268",
+      "https://comicvine.gamespot.com/api/character/4005-1443",
+      "https://comicvine.gamespot.com/api/character/4005-141840"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "CharacterListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/characters"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "ConceptDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/concept/4015-43631",
+      "https://comicvine.gamespot.com/api/concept/4015-43603",
+      "https://comicvine.gamespot.com/api/concept/4015-47581",
+      "https://comicvine.gamespot.com/api/concept/4015-50695",
+      "https://comicvine.gamespot.com/api/concept/4015-40617"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "ConceptListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/concepts"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "EpisodeDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/episode/4070-1",
+      "https://comicvine.gamespot.com/api/episode/4070-57",
+      "https://comicvine.gamespot.com/api/episode/4070-15",
+      "https://comicvine.gamespot.com/api/episode/4070-95",
+      "https://comicvine.gamespot.com/api/episode/4070-93",
+      "https://comicvine.gamespot.com/api/episode/4070-29962"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "EpisodeListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/episodes"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "IssueDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/issue/4000-85",
+      "https://comicvine.gamespot.com/api/issue/4000-64",
+      "https://comicvine.gamespot.com/api/issue/4000-52",
+      "https://comicvine.gamespot.com/api/issue/4000-68",
+      "https://comicvine.gamespot.com/api/issue/4000-44",
+      "https://comicvine.gamespot.com/api/issue/4000-768300",
+      "https://comicvine.gamespot.com/api/issue/4000-319366"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "IssueListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/issues"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "LocationDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/location/4020-41103",
+      "https://comicvine.gamespot.com/api/location/4020-41183",
+      "https://comicvine.gamespot.com/api/location/4020-21766",
+      "https://comicvine.gamespot.com/api/location/4020-23199",
+      "https://comicvine.gamespot.com/api/location/4020-41019"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "LocationListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/locations"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "MovieDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/movie/4025-31",
+      "https://comicvine.gamespot.com/api/movie/4025-52",
+      "https://comicvine.gamespot.com/api/movie/4025-76",
+      "https://comicvine.gamespot.com/api/movie/4025-36",
+      "https://comicvine.gamespot.com/api/movie/4025-4"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "MovieListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/movies"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "ThingDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/object/4055-40973",
+      "https://comicvine.gamespot.com/api/object/4055-40449",
+      "https://comicvine.gamespot.com/api/object/4055-43495",
+      "https://comicvine.gamespot.com/api/object/4055-43246",
+      "https://comicvine.gamespot.com/api/object/4055-43295"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "ThingListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/objects"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "OriginDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/origin/4030-9",
+      "https://comicvine.gamespot.com/api/origin/4030-1",
+      "https://comicvine.gamespot.com/api/origin/4030-5",
+      "https://comicvine.gamespot.com/api/origin/4030-7",
+      "https://comicvine.gamespot.com/api/origin/4030-6"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "OriginListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/origins"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PersonDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/person/4040-1437",
+      "https://comicvine.gamespot.com/api/person/4040-1433",
+      "https://comicvine.gamespot.com/api/person/4040-1539",
+      "https://comicvine.gamespot.com/api/person/4040-1280",
+      "https://comicvine.gamespot.com/api/person/4040-1350",
+      "https://comicvine.gamespot.com/api/person/4040-1293",
+      "https://comicvine.gamespot.com/api/person/4040-1252"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PersonListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/people"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PowerDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/power/4035-23",
+      "https://comicvine.gamespot.com/api/power/4035-79",
+      "https://comicvine.gamespot.com/api/power/4035-77",
+      "https://comicvine.gamespot.com/api/power/4035-8",
+      "https://comicvine.gamespot.com/api/power/4035-7"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PowerListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/powers"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PromoDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/promo/1700-1782",
+      "https://comicvine.gamespot.com/api/promo/1700-1763",
+      "https://comicvine.gamespot.com/api/promo/1700-1783",
+      "https://comicvine.gamespot.com/api/promo/1700-1781",
+      "https://comicvine.gamespot.com/api/promo/1700-1785"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PromoListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/promos"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PublisherDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/publisher/4010-150",
+      "https://comicvine.gamespot.com/api/publisher/4010-153",
+      "https://comicvine.gamespot.com/api/publisher/4010-214",
+      "https://comicvine.gamespot.com/api/publisher/4010-178",
+      "https://comicvine.gamespot.com/api/publisher/4010-133",
+      "https://comicvine.gamespot.com/api/publisher/4010-31"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "PublisherListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/publishers"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "SeriesDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/series/4075-38",
+      "https://comicvine.gamespot.com/api/series/4075-35",
+      "https://comicvine.gamespot.com/api/series/4075-28",
+      "https://comicvine.gamespot.com/api/series/4075-43",
+      "https://comicvine.gamespot.com/api/series/4075-13"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "SeriesListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/series_list"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "StoryArcDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/story_arc/4045-40800",
+      "https://comicvine.gamespot.com/api/story_arc/4045-42241",
+      "https://comicvine.gamespot.com/api/story_arc/4045-42219",
+      "https://comicvine.gamespot.com/api/story_arc/4045-43901",
+      "https://comicvine.gamespot.com/api/story_arc/4045-43775",
+      "https://comicvine.gamespot.com/api/story_arc/4045-40764"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "StoryArcListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/story_arcs"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "TeamDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/team/4060-13357",
+      "https://comicvine.gamespot.com/api/team/4060-3775",
+      "https://comicvine.gamespot.com/api/team/4060-3191",
+      "https://comicvine.gamespot.com/api/team/4060-9591",
+      "https://comicvine.gamespot.com/api/team/4060-4443",
+      "https://comicvine.gamespot.com/api/team/4060-40426"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "TeamListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/teams"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/video/2300-3265",
+      "https://comicvine.gamespot.com/api/video/2300-3315",
+      "https://comicvine.gamespot.com/api/video/2300-3307",
+      "https://comicvine.gamespot.com/api/video/2300-3316",
+      "https://comicvine.gamespot.com/api/video/2300-3277"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/videos"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoTypeDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/video_type/2320-3",
+      "https://comicvine.gamespot.com/api/video_type/2320-8",
+      "https://comicvine.gamespot.com/api/video_type/2320-12",
+      "https://comicvine.gamespot.com/api/video_type/2320-2",
+      "https://comicvine.gamespot.com/api/video_type/2320-7"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoTypeListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/video_types"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoCategoryDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/video_category/2320-12",
+      "https://comicvine.gamespot.com/api/video_category/2320-13",
+      "https://comicvine.gamespot.com/api/video_category/2320-2",
+      "https://comicvine.gamespot.com/api/video_category/2320-7",
+      "https://comicvine.gamespot.com/api/video_category/2320-11"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VideoCategoryListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/video_categories"],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VolumeDetails",
+    "sampleUrls": [
+      "https://comicvine.gamespot.com/api/volume/4050-1144",
+      "https://comicvine.gamespot.com/api/volume/4050-1141",
+      "https://comicvine.gamespot.com/api/volume/4050-1194",
+      "https://comicvine.gamespot.com/api/volume/4050-1168",
+      "https://comicvine.gamespot.com/api/volume/4050-1153"
+    ],
+    "shouldGenerate": true
+  },
+  {
+    "typeName": "VolumeListItem",
+    "sampleUrls": ["https://comicvine.gamespot.com/api/volumes"],
+    "shouldGenerate": true
+  }
+]

@@ -1,0 +1,82 @@
+---
+title: Error Handling
+description: Handle API errors with domain-specific error classes.
+---
+
+The SDK provides detailed error types for different failure scenarios. All errors extend a common base class, making it easy to catch specific errors or handle them broadly.
+
+## Error Types
+
+| Error Class                 | Description                            |
+| --------------------------- | -------------------------------------- |
+| `UnauthorizedError`         | Invalid or missing API key             |
+| `ObjectNotFoundError`       | Requested resource does not exist      |
+| `FilterError`               | Invalid filter parameters              |
+| `GenericRequestError`       | General API request failure            |
+| `GenericError`              | Unexpected API error                   |
+| `SubscriberOnlyError`       | Resource requires a subscriber account |
+| `UrlFormatError`            | Malformed request URL                  |
+| `JsonpCallbackMissingError` | JSONP callback parameter missing       |
+| `OptionsValidationError`    | Invalid client configuration           |
+
+## Catching Specific Errors
+
+```typescript
+import {
+  UnauthorizedError,
+  ObjectNotFoundError,
+  FilterError,
+  GenericRequestError,
+} from 'comic-vine-sdk';
+
+try {
+  const issue = await client.issue.retrieve(999999);
+} catch (error) {
+  if (error instanceof UnauthorizedError) {
+    console.error('Invalid API key');
+  } else if (error instanceof ObjectNotFoundError) {
+    console.error('Issue not found');
+  } else if (error instanceof FilterError) {
+    console.error('Invalid filter parameters');
+  } else if (error instanceof GenericRequestError) {
+    console.error('API request failed:', error.message);
+  }
+}
+```
+
+## Error Properties
+
+All SDK errors include a `help` property with guidance on resolving the issue:
+
+```typescript
+try {
+  const issue = await client.issue.retrieve(999999);
+} catch (error) {
+  if (error instanceof ObjectNotFoundError) {
+    console.error(error.message); // Error description
+    console.error(error.help); // Guidance for resolving the error
+  }
+}
+```
+
+## Error Hierarchy
+
+All error classes extend `BaseError`, which extends `HttpClientError` from `@http-client-toolkit/core`. This means you can catch all SDK errors with a single check:
+
+```typescript
+import { HttpClientError } from '@http-client-toolkit/core';
+
+try {
+  const issue = await client.issue.retrieve(1);
+} catch (error) {
+  if (error instanceof HttpClientError) {
+    // Any SDK or HTTP client error
+    console.error('SDK error:', error.message);
+  }
+}
+```
+
+## See Also
+
+- [Errors Reference](/comic-vine/api/errors/) — Complete list of all error types
+- [Configuration](/comic-vine/api/configuration/) — Rate limit error behavior options

@@ -1,0 +1,56 @@
+---
+title: Introduction
+description: What is Comic Vine SDK and why use it.
+---
+
+## What is the Comic Vine API?
+
+[Comic Vine](https://comicvine.gamespot.com/) is the largest comic book wiki in the world. Its [API](https://comicvine.gamespot.com/api/) provides programmatic access to a vast database of comic book information including characters, issues, volumes, publishers, story arcs, and more.
+
+## Why Comic Vine SDK?
+
+The Comic Vine SDK is a TypeScript client library that makes it easy to interact with the Comic Vine API. Instead of manually constructing HTTP requests and parsing responses, you get:
+
+- **Type-safe interfaces** — Full TypeScript support with detailed type definitions for all resources and fields
+- **Field selection with type narrowing** — Select only the fields you need, and TypeScript automatically narrows the return type
+- **Automatic pagination** — Iterate through all results with `for await...of` syntax
+- **Built-in optimization** — Caching, request deduplication, and adaptive rate limiting via pluggable stores
+- **Comprehensive error handling** — Domain-specific error classes for every API error condition
+
+## Supported Resources
+
+The SDK covers all 19 Comic Vine API resources:
+
+| Resource        | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `character`     | Comic book characters (Spider-Man, Batman, etc.)    |
+| `concept`       | Concepts and themes (Multiverse, Time Travel, etc.) |
+| `episode`       | TV show episodes                                    |
+| `issue`         | Individual comic book issues                        |
+| `location`      | Fictional and real locations                        |
+| `movie`         | Movies based on comics                              |
+| `origin`        | Character origin types (Mutant, Human, etc.)        |
+| `person`        | Real people (writers, artists, etc.)                |
+| `power`         | Superpowers and abilities                           |
+| `promo`         | Promotional content                                 |
+| `publisher`     | Publishing companies (Marvel, DC, etc.)             |
+| `series`        | TV/media series                                     |
+| `storyArc`      | Story arcs spanning multiple issues                 |
+| `team`          | Superhero and villain teams                         |
+| `thing`         | Objects in the comic universe                       |
+| `video`         | Video content                                       |
+| `videoCategory` | Video categories                                    |
+| `videoType`     | Video types                                         |
+| `volume`        | Comic book volumes/series                           |
+
+Each resource provides `retrieve()` and `list()` methods with full type safety.
+
+## Architecture
+
+The SDK delegates HTTP communication, caching, deduplication, and rate limiting to [`@http-client-toolkit/core`](https://github.com/AllyMurray/http-client-toolkit). This means you can use any compatible store implementation (in-memory, SQLite, or your own custom stores) without changing your application code.
+
+## Next Steps
+
+- [Install the SDK](/comic-vine/getting-started/installation/)
+- [Quick Start guide](/comic-vine/getting-started/quick-start/)
+- [Migrate from v1](/comic-vine/getting-started/migrating-from-v1/)

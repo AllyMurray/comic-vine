@@ -1,0 +1,172 @@
+---
+title: Rate Limiting
+description: Configure rate limiting with traditional or adaptive strategies.
+---
+
+The SDK supports both traditional rate limiting and an advanced adaptive system that dynamically allocates API capacity based on real-time user activity. Rate limiting is provided by [`@http-client-toolkit`](https://github.com/AllyMurray/http-client-toolkit) store packages.
+
+:::note[Need advanced toolkit details?]
+For adaptive store internals, custom rate limit stores, and deeper toolkit configuration, see the [HTTP Client Toolkit documentation](https://allymurray.github.io/http-client-toolkit/).
+:::
+
+## Traditional Rate Limiting
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+import { InMemoryRateLimitStore } from '@http-client-toolkit/store-memory';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new InMemoryRateLimitStore({
+      defaultConfig: { limit: 200, windowMs: 3600000 }, // 200 req/hour
+    }),
+  },
+});
+```
+
+## Adaptive Rate Limiting
+
+The adaptive system dynamically allocates API capacity between **user requests** (interactive, time-sensitive) and **background requests** (bulk operations, scheduled tasks):
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+import { AdaptiveRateLimitStore } from '@http-client-toolkit/store-memory';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore(),
+  },
+});
+
+// User-facing requests get priority
+const character = await client.character.retrieve(1443, {
+  priority: 'user',
+});
+
+// Background processing gets remaining capacity
+for await (const issue of client.issue.list({ priority: 'background' })) {
+  // Process issues in background
+}
+```
+
+## Adaptive Strategies
+
+The system monitors activity in real-time and transitions between four strategies:
+
+| Strategy          | User Activity | User Capacity   | Background Capacity              |
+| ----------------- | ------------- | --------------- | -------------------------------- |
+| Night Mode        | Zero          | 0%              | 100% (200/200)                   |
+| Low Activity      | Low           | 30% reserved    | 70%                              |
+| Moderate Activity | Moderate      | Dynamic scaling | Dynamic scaling                  |
+| High Activity     | High          | 90% priority    | 10% (paused on increasing trend) |
+
+## Priority Guidelines
+
+Use `priority: 'user'` for:
+
+- Interactive user requests (searches, detail views)
+- Real-time features (autocomplete, live updates)
+- Time-sensitive operations
+
+Use `priority: 'background'` for:
+
+- Bulk data processing
+- Scheduled synchronization
+- Cache warming
+- Analytics and reporting
+
+## Custom Configuration
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new AdaptiveRateLimitStore({
+      adaptiveConfig: {
+        highActivityThreshold: 15, // Requests per 15min for high activity
+        moderateActivityThreshold: 5, // Requests per 15min for moderate
+        monitoringWindowMs: 20 * 60 * 1000, // 20 minute monitoring window
+        sustainedInactivityThresholdMs: 45 * 60 * 1000, // 45min before full background
+        recalculationIntervalMs: 60000, // Recalculate every 60 seconds
+        maxUserScaling: 1.5, // Max user capacity multiplier
+        minUserReserved: 10, // Minimum guaranteed user requests
+        backgroundPauseOnIncreasingTrend: true, // Pause background on rising activity
+      },
+    }),
+  },
+});
+```
+
+## Monitoring
+
+Check the current adaptive status:
+
+```typescript
+const status = await client.getRateLimitStatus('characters');
+console.log(status);
+// {
+//   remaining: 120,
+//   resetTime: Date,
+//   limit: 200,
+// }
+```
+
+## Persistent Rate Limiting
+
+Use SQLite stores for rate limiting that survives application restarts:
+
+```typescript
+import { SqliteAdaptiveRateLimitStore } from '@http-client-toolkit/store-sqlite';
+
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  stores: {
+    rateLimit: new SqliteAdaptiveRateLimitStore({
+      database: './comic-vine.db',
+    }),
+  },
+});
+```
+
+## Migration from Traditional Rate Limiting
+
+Existing code works unchanged — requests without a `priority` are treated as `'background'` by default:
+
+```typescript
+// Existing code - no changes needed
+const issue = await client.issue.retrieve(1);
+const issues = await client.issue.list();
+
+// Gradually add priority where beneficial
+const userSearch = await client.character.list({
+  filter: { name: searchTerm },
+  priority: 'user',
+});
+```
+
+## Rate Limit Behavior
+
+The client supports two modes for handling rate limit violations:
+
+### Throw Mode (Default)
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: { throwOnRateLimit: true },
+});
+```
+
+### Wait Mode
+
+```typescript
+const client = new ComicVine({
+  apiKey: 'your-api-key',
+  client: {
+    throwOnRateLimit: false,
+    maxWaitTime: 60000, // Wait up to 1 minute
+  },
+});
+```

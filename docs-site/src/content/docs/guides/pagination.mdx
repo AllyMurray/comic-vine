@@ -1,0 +1,85 @@
+---
+title: Pagination
+description: Navigate through results with manual pagination or automatic async iteration.
+---
+
+The Comic Vine API uses offset-based pagination. The SDK supports both manual pagination and automatic pagination through async iteration.
+
+## Manual Pagination
+
+Control pagination explicitly using `limit` and `offset` parameters:
+
+```typescript
+const limit = 50;
+const filter = { volume: 12345 };
+
+// Get the first page (items 1-50)
+const page1 = await client.issue.list({
+  limit,
+  filter,
+  offset: 0,
+});
+console.log(`Page 1: ${page1.results.length} issues`);
+console.log(`Total available: ${page1.totalCount}`);
+
+// Get the second page (items 51-100)
+const page2 = await client.issue.list({
+  limit,
+  filter,
+  offset: 50,
+});
+console.log(`Page 2: ${page2.results.length} issues`);
+
+// Calculate pagination info
+const totalPages = Math.ceil(page1.totalCount / limit);
+console.log(`Total pages: ${totalPages}`);
+```
+
+## Auto Pagination
+
+Use `for await...of` to automatically iterate through all results across multiple pages:
+
+```typescript
+const filter = { volume: 12345 };
+const issueNames = [];
+
+for await (const issue of client.issue.list({ filter, limit: 50 })) {
+  issueNames.push(issue.name);
+
+  // The loop automatically fetches new pages as needed
+  // No need to manage offset manually
+}
+
+console.log(`Found ${issueNames.length} total issues`);
+```
+
+## Auto Pagination with Field Selection
+
+Auto pagination works with all other options including field selection and filtering:
+
+```typescript
+const spiderCharacters = [];
+
+for await (const character of client.character.list({
+  fieldList: ['id', 'name', 'publisher', 'image'],
+  filter: { name: 'Spider' },
+  limit: 100,
+})) {
+  if (character.name.toLowerCase().includes('spider')) {
+    spiderCharacters.push({
+      id: character.id,
+      name: character.name,
+      publisher: character.publisher?.name,
+    });
+  }
+}
+
+console.log(`Found ${spiderCharacters.length} Spider characters`);
+```
+
+## How Auto Pagination Works
+
+- Automatically fetches subsequent pages when the current page is exhausted
+- Works with any filter or field selection options
+- Memory efficient — processes one item at a time
+- Respects rate limits and caching automatically

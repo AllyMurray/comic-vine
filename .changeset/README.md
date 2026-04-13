@@ -6,20 +6,3 @@ find the full documentation for it [in our repository](https://github.com/change
 
 We have a quick list of common questions to get you started engaging with this project in
 [our documentation](https://github.com/changesets/changesets/blob/main/docs/common-questions.md)
-
-## How to use Changesets
-
-1. **Add a changeset**: Run `pnpm changeset` to add a new changeset describing your changes
-2. **Version packages**: Run `pnpm version-packages` to consume changesets and update package versions
-3. **Publish packages**: Run `pnpm release` to build and publish packages to npm
-
-## Workflow
-
-When you make changes to a package:
-
-1. Make your changes
-2. Run `pnpm changeset` and describe your changes
-3. Commit the changeset file along with your changes
-4. When ready to release, run `pnpm version-packages` to update versions
-5. Commit the version changes
-6. Run `pnpm release` to publish

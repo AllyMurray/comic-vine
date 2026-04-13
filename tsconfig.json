@@ -17,24 +17,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["vitest/globals"]
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./packages/tsup-config/tsconfig.json"
-    },
-    {
-      "path": "./packages/vitest-config/tsconfig.json"
-    },
-    {
-      "path": "./packages/client/tsconfig.json"
-    },
-    {
-      "path": "./packages/in-memory-store/tsconfig.json"
-    },
-    {
-      "path": "./packages/sqlite-store/tsconfig.json"
-    }
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "lib", "dist"]
 }

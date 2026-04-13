@@ -1,0 +1,793 @@
+{
+  "error": "OK",
+  "limit": 1,
+  "offset": 0,
+  "number_of_page_results": 1,
+  "number_of_total_results": 1,
+  "status_code": 1,
+  "results": {
+    "aliases": "Tim Holt\nRedmask\n",
+    "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-1345/",
+    "birth": null,
+    "character_enemies": [],
+    "character_friends": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/character/4005-47989/",
+        "id": 47989,
+        "name": "Black Phantom",
+        "site_detail_url": "https://comicvine.gamespot.com/black-phantom/4005-47989/"
+      }
+    ],
+    "count_of_issue_appearances": 118,
+    "creators": [],
+    "date_added": "2008-06-06 11:26:33",
+    "date_last_updated": "2011-07-12 00:55:12",
+    "deck": "An odd variation on the Lone Ranger theme, Tim Holt became the Red Mask in 1954.",
+    "description": "<h2>History</h2> <p>Operating from a hidden cave, which is tended by his aide, Zut, the Red Mask uses his unusual arsenal to keep peace in the West. <br/> <br/></p> <h2>Weapons</h2> <p>A satchel-like \"war bag\" contains a lariat, bolo, boomerang, and a crossbow with a grappel bolt.  He also wears six-shooters.</p>",
+    "first_appeared_in_issue": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/first_appeared_in_issue/4000-208832/",
+      "id": 208832,
+      "name": "Tim Holt",
+      "issue_number": "14"
+    },
+    "gender": 1,
+    "id": 1345,
+    "image": {
+      "icon_url": "https://comicvine.gamespot.com/a/uploads/square_avatar/2/27783/1515402-redmask_1.jpg",
+      "medium_url": "https://comicvine.gamespot.com/a/uploads/scale_medium/2/27783/1515402-redmask_1.jpg",
+      "screen_url": "https://comicvine.gamespot.com/a/uploads/screen_medium/2/27783/1515402-redmask_1.jpg",
+      "screen_large_url": "https://comicvine.gamespot.com/a/uploads/screen_kubrick/2/27783/1515402-redmask_1.jpg",
+      "small_url": "https://comicvine.gamespot.com/a/uploads/scale_small/2/27783/1515402-redmask_1.jpg",
+      "super_url": "https://comicvine.gamespot.com/a/uploads/scale_large/2/27783/1515402-redmask_1.jpg",
+      "thumb_url": "https://comicvine.gamespot.com/a/uploads/scale_avatar/2/27783/1515402-redmask_1.jpg",
+      "tiny_url": "https://comicvine.gamespot.com/a/uploads/square_mini/2/27783/1515402-redmask_1.jpg",
+      "original_url": "https://comicvine.gamespot.com/a/uploads/original/2/27783/1515402-redmask_1.jpg",
+      "image_tags": "All Images"
+    },
+    "issue_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-682295/",
+        "id": 682295,
+        "name": "The Complete Red Mask: Volume 2",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-2092-the-complete-red-mask-vol/4000-682295/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-682294/",
+        "id": 682294,
+        "name": "The Complete Red Mask: Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-2091-the-complete-red-mask-vol/4000-682294/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-508806/",
+        "id": 508806,
+        "name": "The Painted Killer",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-western-adventures-17-the-painted-killer/4000-508806/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-474845/",
+        "id": 474845,
+        "name": "Satan's Stagecoach",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-western-adventures-1-satan-s-stagecoach/4000-474845/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-512926/",
+        "id": 512926,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/lurid-little-nightmare-makers-1/4000-512926/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-707605/",
+        "id": 707605,
+        "name": "Volume 2",
+        "site_detail_url": "https://comicvine.gamespot.com/western-treasury-2-volume-2/4000-707605/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-707604/",
+        "id": 707604,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/western-treasury-1-volume-1/4000-707604/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-192834/",
+        "id": 192834,
+        "name": "Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/femforce-omnibus-1-volume-1/4000-192834/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-170244/",
+        "id": 170244,
+        "name": "Battle For A World",
+        "site_detail_url": "https://comicvine.gamespot.com/sentinels-of-america-1-battle-for-a-world/4000-170244/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-125637/",
+        "id": 125637,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-5/4000-125637/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-408911/",
+        "id": 408911,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/great-american-western-sampler-1/4000-408911/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-125636/",
+        "id": 125636,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-4/4000-125636/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-125635/",
+        "id": 125635,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-3/4000-125635/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-125142/",
+        "id": 125142,
+        "name": "War on the Sioux Trail",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-2-war-on-the-sioux-trail/4000-125142/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-123723/",
+        "id": 123723,
+        "name": "The Son of the Sheriff",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-1-the-son-of-the-sheriff/4000-123723/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-170214/",
+        "id": 170214,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/golden-age-greats-7/4000-170214/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-105202/",
+        "id": 105202,
+        "name": "One Slip",
+        "site_detail_url": "https://comicvine.gamespot.com/femforce-up-close-2-one-slip/4000-105202/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-403870/",
+        "id": 403870,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-of-the-rio-grande-3/4000-403870/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-403869/",
+        "id": 403869,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-of-the-rio-grande-2/4000-403869/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-427294/",
+        "id": 427294,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-western-annual-1/4000-427294/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-403867/",
+        "id": 403867,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-of-the-rio-grande-1/4000-403867/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-138110/",
+        "id": 138110,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/black-phantom-2/4000-138110/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-138109/",
+        "id": 138109,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/black-phantom-1/4000-138109/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-408906/",
+        "id": 408906,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/great-american-western-2/4000-408906/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-237971/",
+        "id": 237971,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/latigo-kid-western-1/4000-237971/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-27590/",
+        "id": 27590,
+        "name": "Frontier Justice!",
+        "site_detail_url": "https://comicvine.gamespot.com/femforce-8-frontier-justice/4000-27590/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-27584/",
+        "id": 27584,
+        "name": "The Good, The Bad, And The Paranormal",
+        "site_detail_url": "https://comicvine.gamespot.com/femforce-7-the-good-the-bad-and-the-paranormal/4000-27584/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-143109/",
+        "id": 143109,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/bizarre-thrills-1/4000-143109/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-534500/",
+        "id": 534500,
+        "name": "Tim Holt Moter Red River-Banden ; Durango Kid i Testamentet",
+        "site_detail_url": "https://comicvine.gamespot.com/ranchserien-107-tim-holt-moter-red-river-banden-du/4000-534500/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-526534/",
+        "id": 526534,
+        "name": "Hopalong Cassidy",
+        "site_detail_url": "https://comicvine.gamespot.com/ranchserien-62-hopalong-cassidy/4000-526534/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-149509/",
+        "id": 149509,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/bravados-1/4000-149509/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-11503/",
+        "id": 11503,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/wild-western-action-3/4000-11503/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-11392/",
+        "id": 11392,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/blazing-six-guns-2/4000-11392/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-11289/",
+        "id": 11289,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/blazing-six-guns-1/4000-11289/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-885933/",
+        "id": 885933,
+        "name": null,
+        "site_detail_url": "https://comicvine.gamespot.com/superman-presents-worlds-finest-comic-monthly-59/4000-885933/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-891784/",
+        "id": 891784,
+        "name": "The Demon Superman!",
+        "site_detail_url": "https://comicvine.gamespot.com/superman-presents-worlds-finest-comic-monthly-58-t/4000-891784/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-83979/",
+        "id": 83979,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tomahawk-196912/4000-83979/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-83975/",
+        "id": 83975,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tomahawk-196908/4000-83975/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-82462/",
+        "id": 82462,
+        "name": "Captain Rumble Blasts the Scene",
+        "site_detail_url": "https://comicvine.gamespot.com/tip-top-comic-monthly-43-captain-rumble-blasts-the/4000-82462/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164550/",
+        "id": 164550,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-53/4000-164550/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164549/",
+        "id": 164549,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-52/4000-164549/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164548/",
+        "id": 164548,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-51/4000-164548/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164547/",
+        "id": 164547,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-50/4000-164547/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164546/",
+        "id": 164546,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-49/4000-164546/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164544/",
+        "id": 164544,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-47/4000-164544/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164545/",
+        "id": 164545,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-48/4000-164545/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164543/",
+        "id": 164543,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-46/4000-164543/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-506589/",
+        "id": 506589,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/serie-magasinet-195406-tim-holt/4000-506589/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164542/",
+        "id": 164542,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-45/4000-164542/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164541/",
+        "id": 164541,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-44/4000-164541/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164540/",
+        "id": 164540,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-43/4000-164540/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164539/",
+        "id": 164539,
+        "name": "A Tin Soldier",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-42-a-tin-soldier/4000-164539/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-100228/",
+        "id": 100228,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/great-western-9/4000-100228/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-164572/",
+        "id": 164572,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-12/4000-164572/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98494/",
+        "id": 98494,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-41/4000-98494/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98493/",
+        "id": 98493,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-40/4000-98493/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-366073/",
+        "id": 366073,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/serie-magasinet-195338-tim-holt/4000-366073/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-366069/",
+        "id": 366069,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/serie-magasinet-195328-tim-holt/4000-366069/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98492/",
+        "id": 98492,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-39/4000-98492/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-801/",
+        "id": 801,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-11/4000-801/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-748/",
+        "id": 748,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-38/4000-748/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-693/",
+        "id": 693,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-10/4000-693/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-642/",
+        "id": 642,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-37/4000-642/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-589/",
+        "id": 589,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-9/4000-589/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-476/",
+        "id": 476,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-8/4000-476/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-339/",
+        "id": 339,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-7/4000-339/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-505199/",
+        "id": 505199,
+        "name": "Tim Holt!",
+        "site_detail_url": "https://comicvine.gamespot.com/serie-magasinet-195301-tim-holt/4000-505199/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98490/",
+        "id": 98490,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-33/4000-98490/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-137/",
+        "id": 137,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-6/4000-137/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-13/",
+        "id": 13,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-5/4000-13/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-163983/",
+        "id": 163983,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-4/4000-163983/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-163982/",
+        "id": 163982,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-3/4000-163982/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98489/",
+        "id": 98489,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-30/4000-98489/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-203317/",
+        "id": 203317,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-27/4000-203317/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98487/",
+        "id": 98487,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-26/4000-98487/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98486/",
+        "id": 98486,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-25/4000-98486/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-163981/",
+        "id": 163981,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/best-of-the-west-2/4000-163981/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98483/",
+        "id": 98483,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-21/4000-98483/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98475/",
+        "id": 98475,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-11/4000-98475/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-98470/",
+        "id": 98470,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tim-holt-6/4000-98470/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-208834/",
+        "id": 208834,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/a-1-comics-19-tim-holt/4000-208834/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-165670/",
+        "id": 165670,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/a-1-comics-17-tim-holt/4000-165670/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-208832/",
+        "id": 208832,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/a-1-comics-14-tim-holt/4000-208832/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-742775/",
+        "id": 742775,
+        "name": "Tim Holt in Death Ride of the Iron Horse",
+        "site_detail_url": "https://comicvine.gamespot.com/picture-story-pocket-western-8-tim-holt-in-death-r/4000-742775/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-699445/",
+        "id": 699445,
+        "name": "Best of the West #1-12",
+        "site_detail_url": "https://comicvine.gamespot.com/classic-comics-library-5-best-of-the-west-1-12/4000-699445/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-698401/",
+        "id": 698401,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-comics-23-tim-holt/4000-698401/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-697549/",
+        "id": 697549,
+        "name": "Tim Holt ",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-comics-20-tim-holt/4000-697549/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-696732/",
+        "id": 696732,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-comics-15-tim-holt/4000-696732/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-695776/",
+        "id": 695776,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-comics-12-tim-holt/4000-695776/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-695173/",
+        "id": 695173,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-comics-9-tim-holt/4000-695173/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-682327/",
+        "id": 682327,
+        "name": "The Complete Red Mask: Volumes 1 & 2",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-20912092-the-complete-red-mask/4000-682327/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-680985/",
+        "id": 680985,
+        "name": "The Complete Tim Holt: Volume 5",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-113-the-complete-tim-holt-volu/4000-680985/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-680984/",
+        "id": 680984,
+        "name": "The Complete Tim Holt: Volume 4",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-112-the-complete-tim-holt-volu/4000-680984/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-680982/",
+        "id": 680982,
+        "name": "The Complete Tim Holt: Volume 3",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-111-the-complete-tim-holt-volu/4000-680982/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-680981/",
+        "id": 680981,
+        "name": "The Complete Tim Holt: Volume 2",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-110-the-complete-tim-holt-volu/4000-680981/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-680980/",
+        "id": 680980,
+        "name": "The Complete Tim Holt: Volume 1",
+        "site_detail_url": "https://comicvine.gamespot.com/gwandanaland-comics-109-the-complete-tim-holt-volu/4000-680980/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-605806/",
+        "id": 605806,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/comics-library-4-tim-holt/4000-605806/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-605572/",
+        "id": 605572,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/comics-library-1-tim-holt/4000-605572/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-595239/",
+        "id": 595239,
+        "name": "T. O. Morrow Kills the Justice League—Today!",
+        "site_detail_url": "https://comicvine.gamespot.com/mighty-comic-75-t-o-morrow-kills-the-justice-leagu/4000-595239/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-594504/",
+        "id": 594504,
+        "name": "Winged Warriors of the Immortal Queen",
+        "site_detail_url": "https://comicvine.gamespot.com/mighty-comic-69-winged-warriors-of-the-immortal-qu/4000-594504/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-592528/",
+        "id": 592528,
+        "name": "The Fury of Egg Fu!",
+        "site_detail_url": "https://comicvine.gamespot.com/mighty-comic-54-the-fury-of-egg-fu/4000-592528/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-592347/",
+        "id": 592347,
+        "name": "I, The Bomb!",
+        "site_detail_url": "https://comicvine.gamespot.com/mighty-comic-53-i-the-bomb/4000-592347/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-538378/",
+        "id": 538378,
+        "name": "Reward for Red Mask!",
+        "site_detail_url": "https://comicvine.gamespot.com/red-mask-1-reward-for-red-mask/4000-538378/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-533751/",
+        "id": 533751,
+        "name": "Tim Holt i kamp mot apasjene",
+        "site_detail_url": "https://comicvine.gamespot.com/ranchserien-105-tim-holt-i-kamp-mot-apasjene/4000-533751/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-512585/",
+        "id": 512585,
+        "name": "Superman's Secret Master!",
+        "site_detail_url": "https://comicvine.gamespot.com/century-comic-93-supermans-secret-master/4000-512585/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-511101/",
+        "id": 511101,
+        "name": "The Ghost of Batman",
+        "site_detail_url": "https://comicvine.gamespot.com/century-comic-96-the-ghost-of-batman/4000-511101/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-507708/",
+        "id": 507708,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/serie-magasinet-195416-tim-holt/4000-507708/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-505474/",
+        "id": 505474,
+        "name": "Wanted-- The Capsule Master",
+        "site_detail_url": "https://comicvine.gamespot.com/hundred-comic-89-wanted-the-capsule-master/4000-505474/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-442281/",
+        "id": 442281,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/king-size-comic-34/4000-442281/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-442280/",
+        "id": 442280,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/king-size-comic-26/4000-442280/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-244006/",
+        "id": 244006,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/tomahawk-196810/4000-244006/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-209694/",
+        "id": 209694,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-picture-library-15-tim-holt/4000-209694/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-209691/",
+        "id": 209691,
+        "name": "Tin Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-picture-library-9-tin-holt/4000-209691/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-209239/",
+        "id": 209239,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-picture-library-23-tim-holt/4000-209239/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-209238/",
+        "id": 209238,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-picture-library-20-tim-holt/4000-209238/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-209236/",
+        "id": 209236,
+        "name": "Tim Holt",
+        "site_detail_url": "https://comicvine.gamespot.com/cowboy-picture-library-12-tim-holt/4000-209236/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-170200/",
+        "id": 170200,
+        "name": "",
+        "site_detail_url": "https://comicvine.gamespot.com/black-phantom-3/4000-170200/"
+      },
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/issue/4000-100230/",
+        "id": 100230,
+        "name": "Great Western # 9",
+        "site_detail_url": "https://comicvine.gamespot.com/a-1-comics-105-great-western-9/4000-100230/"
+      }
+    ],
+    "issues_died_in": [],
+    "movies": [],
+    "name": "Red Mask",
+    "origin": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/origin/4030-4/",
+      "id": 4,
+      "name": "Human"
+    },
+    "powers": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/power/4035-108/",
+        "id": 108,
+        "name": "Marksmanship"
+      }
+    ],
+    "publisher": {
+      "api_detail_url": "https://comicvine.gamespot.com/api/publisher/4010-84/",
+      "id": 84,
+      "name": "Magazine Enterprises"
+    },
+    "real_name": "Tim Holt",
+    "site_detail_url": "https://comicvine.gamespot.com/red-mask/4005-1345/",
+    "story_arc_credits": [],
+    "team_enemies": [],
+    "team_friends": [],
+    "teams": [],
+    "volume_credits": [
+      {
+        "api_detail_url": "https://comicvine.gamespot.com/api/volume/4050-1032/",
+        "id": 1032,
+        "name": "A-1 Comics",
+        "site_detail_url": "https://comicvine.gamespot.com/a-1-comics/4050-1032/"
+      }
+    ]
+  },
+  "version": "1.0"
+}

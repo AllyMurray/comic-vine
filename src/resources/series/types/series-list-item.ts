@@ -1,0 +1,19 @@
+import { ApiResource, EpisodeApiResource, Image } from '../../common-types.js';
+
+export interface SeriesListItem {
+  aliases: null | string;
+  apiDetailUrl: string;
+  countOfEpisodes: number;
+  dateAdded: Date;
+  dateLastUpdated: Date;
+  deck: null | string;
+  description: null | string;
+  firstEpisode: EpisodeApiResource;
+  id: number;
+  image: Image;
+  lastEpisode: EpisodeApiResource;
+  name: string;
+  publisher: ApiResource | null;
+  siteDetailUrl: string;
+  startYear: string;
+}

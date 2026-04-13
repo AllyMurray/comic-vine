@@ -1,0 +1,123 @@
+---
+title: Power
+description: API reference for the Power resource in the Comic Vine SDK.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Access super power and ability data from the Comic Vine API. Official API docs: [`/power`](https://comicvine.gamespot.com/api/documentation#toc-0-22) | [`/powers`](https://comicvine.gamespot.com/api/documentation#toc-0-23)
+
+```typescript
+const power = client.power;
+```
+
+## Methods
+
+### `retrieve(id, options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `id` | `number` | Yes | The unique ID of the power |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+
+    **Returns:** `Promise<PowerDetails>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const power = await client.power.retrieve(12345);
+
+    // With field selection
+    const power = await client.power.retrieve(12345, {
+      fieldList: ['id', 'name'],
+    });
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface PowerDetails {
+      /** List of aliases the power is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the power detail resource. */
+      apiDetailUrl: string;
+      /** Characters related to the power. */
+      characters: Array<SiteResource>;
+      /** Date the power was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the power was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Description of the power. */
+      description: null | string;
+      /** Unique ID of the power. */
+      id: number;
+      /** Name of the power. */
+      name: string;
+      /** URL pointing to the power on Giant Bomb. */
+      siteDetailUrl: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+### `list(options?)`
+
+<Tabs>
+  <TabItem label="Details">
+    **Parameters:**
+
+    | Name | Type | Required | Description |
+    | --- | --- | --- | --- |
+    | `options.fieldList` | `string[]` | No | Only return the specified fields |
+    | `options.limit` | `number` | No | Number of results to return (default: 100) |
+    | `options.offset` | `number` | No | Number of results to skip |
+    | `options.sort` | `SortOption` | No | Sort field and direction |
+    | `options.filter` | `object` | No | Filter results by field values |
+
+    **Returns:** `Promise<PageData> & AsyncIterable<PowerListItem>`
+
+  </TabItem>
+  <TabItem label="Example">
+    ```typescript
+    const powers = await client.power.list();
+
+    // With auto pagination
+    for await (const power of client.power.list()) {
+      console.log(power.name);
+    }
+    ```
+
+  </TabItem>
+  <TabItem label="Response">
+    ```typescript
+    interface PowerListItem {
+      /** List of aliases the power is known by. A \n (newline) seperates each alias. */
+      aliases: null | string;
+      /** URL pointing to the power detail resource. */
+      apiDetailUrl: string;
+      /** Date the power was added to Comic Vine. */
+      dateAdded: Date;
+      /** Date the power was last updated on Comic Vine. */
+      dateLastUpdated: Date;
+      /** Description of the power. */
+      description: null | string;
+      /** Unique ID of the power. */
+      id: number;
+      /** Name of the power. */
+      name: string;
+      /** URL pointing to the power on Giant Bomb. */
+      siteDetailUrl: string;
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+:::note
+See [Common Types](/comic-vine/api/resources/#common-types) for shared type definitions like `Image`, `ApiResource`, and `SiteResource`.
+:::

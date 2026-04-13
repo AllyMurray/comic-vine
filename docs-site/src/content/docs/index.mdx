@@ -1,0 +1,82 @@
+---
+title: Comic Vine SDK
+description: A type-safe TypeScript client for the Comic Vine API with built-in caching, deduplication, and rate limiting.
+template: splash
+hero:
+  tagline: A type-safe TypeScript client for the Comic Vine API with built-in caching, deduplication, and rate limiting.
+  actions:
+    - text: Get Started
+      link: /comic-vine/getting-started/introduction/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/AllyMurray/comic-vine
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Features
+
+<CardGrid stagger>
+  <Card title="Type-Safe API" icon="approve-check">
+    Full TypeScript support with detailed type definitions for all 19 Comic Vine
+    resources. Field selection automatically narrows return types.
+  </Card>
+  <Card title="Adaptive Rate Limiting" icon="random">
+    Intelligent priority-based rate limiting that maximizes API utilization by
+    dynamically allocating capacity between user and background requests.
+  </Card>
+  <Card title="Caching & Deduplication" icon="rocket">
+    Configurable caching with TTL support and automatic deduplication of
+    concurrent identical requests. Choose from in-memory or SQLite stores.
+  </Card>
+  <Card title="Auto Pagination" icon="list-format">
+    Iterate through all results with `for await...of` syntax. The client
+    automatically fetches subsequent pages as needed.
+  </Card>
+</CardGrid>
+
+## Quick Example
+
+```typescript
+import ComicVine from 'comic-vine-sdk';
+
+const client = new ComicVine({ apiKey: 'your-api-key' });
+
+// Get a specific issue
+const issue = await client.issue.retrieve(1);
+
+// Search for characters with type-safe field selection
+const characters = await client.character.list({
+  fieldList: ['id', 'name', 'image'],
+  filter: { name: 'Spider-Man' },
+  limit: 10,
+});
+```
+
+## Next Steps
+
+<CardGrid>
+  <Card title="Installation" icon="seti:npm">
+    Install the SDK and optional store packages for caching and rate limiting.
+    [Install now &rarr;](/comic-vine/getting-started/installation/)
+  </Card>
+  <Card title="Quick Start" icon="rocket">
+    Set up your first client and make API requests in minutes. [Get started
+    &rarr;](/comic-vine/getting-started/quick-start/)
+  </Card>
+  <Card title="Migration Guide" icon="open-book">
+    Upgrading from `@comic-vine/client`? Read the v1 to v2 migration guide.
+    [Migrate &rarr;](/comic-vine/getting-started/migrating-from-v1/)
+  </Card>
+  <Card title="Guides" icon="open-book">
+    Learn about field selection, filtering, pagination, and more. [Read guides
+    &rarr;](/comic-vine/guides/field-selection/)
+  </Card>
+  <Card title="API Reference" icon="setting">
+    Explore all 19 resources, configuration options, and error types. [View
+    reference &rarr;](/comic-vine/api/resources/)
+  </Card>
+</CardGrid>
