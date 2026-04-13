@@ -72,7 +72,7 @@ jobs:
         run: |
           npx changeset version
           git add .
-          git commit -m "chore: release packages"
+          HUSKY=0 git commit -m "chore: release packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
