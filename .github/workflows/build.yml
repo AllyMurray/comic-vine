@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7.0.0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24.x
           cache: pnpm
 
       - name: Install dependencies
@@ -47,14 +47,20 @@ jobs:
       - name: Typecheck
         run: pnpm run typecheck
 
+      # tsdown needs a modern build runtime; test the output on every supported major.
+      - name: Setup test runtime
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Test
         run: pnpm test
 
       - name: Test Build Artifacts
-        run: pnpm run test:build
+        run: pnpm run test:build:artifacts
 
-      - name: Validate package tarball
-        run: pnpm pack --out "${{ runner.temp }}/comic-vine-sdk.tgz"
+      - name: Test installed package tarball
+        run: pnpm run test:package
 
       - name: Verify generated code is up to date
         if: matrix.node-version == '24.x'

@@ -25,7 +25,8 @@ This project adheres to a [Code of Conduct](./CODE_OF_CONDUCT.md). By participat
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js**: Version 20.0.0 or higher
+- **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
+  The published package continues to support Node 20, 22 and 24.
 - **pnpm**: Use the version pinned in `package.json` (currently 10.34.5).
   ```bash
   npm install -g pnpm@10.34.5
@@ -75,7 +76,7 @@ If all tests pass, you're ready to start developing!
 1. **Write Code**: Follow the [Code Standards](#code-standards) below
 2. **Add Tests**: Ensure new functionality has corresponding tests
 3. **Run Tests**: `pnpm test` to run tests and linting
-4. **Build**: `pnpm compile` to ensure your changes compile correctly
+4. **Build**: `pnpm build` to ensure your changes compile correctly
 
 ### Commit Messages
 
@@ -289,13 +290,29 @@ GitHub's "Allow auto-merge" setting is not needed for Renovate-managed merging.
 Avoid granting Renovate a bypass of required checks. The legacy Mergify rule
 references a `build` status and is not used by this Renovate policy.
 
+### Build tooling
+
+`pnpm build` uses tsdown for the ESM bundle and bundled TypeScript declarations,
+then esbuild for the existing CommonJS wrapper. The wrapper preserves the
+callable constructor returned by `require('comic-vine-sdk')` and its named
+exports. Both bundles retain the ES2015 syntax target and external runtime
+dependencies. TypeScript remains on version 6 for this migration.
+
+`pnpm test:build` builds and validates the artifacts. CI uses
+`pnpm test:build:artifacts` after building on Node 24 so that validation can run
+on older supported runtimes without invoking tsdown. `pnpm test:package` packs
+the existing build, installs it in a temporary consumer project with the same
+24-hour dependency policy, and exercises the package's ESM and CommonJS exports.
+
 ### Validation
 
 All dependency PRs use the existing `ci` workflow, with no path filters. It runs
 frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
 exports, browser bundling, declaration tests, size limits and package packing
-on each supported Node major. It also checks dependency audits, generated code
-and the documentation build. The commands can be run locally with:
+using Node 24 for the build tools. Each matrix job then switches to Node 20,
+22 or 24 to run unit tests, artifact checks and a fresh tarball installation.
+It also checks dependency audits, generated code and the documentation build.
+The commands can be run locally with:
 
 ```bash
 pnpm install --frozen-lockfile
@@ -303,6 +320,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:build
+pnpm test:package
 pnpm pack --out /tmp/comic-vine-sdk.tgz
 pnpm audit
 pnpm --dir docs-site install --frozen-lockfile

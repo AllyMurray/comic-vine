@@ -109,7 +109,7 @@
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["typescript", "tsup", "tsx", "tsd", "esbuild"],
+      "matchPackageNames": ["typescript", "tsdown", "tsx", "tsd", "esbuild"],
       "groupName": "typescript and build tooling"
     },
     {

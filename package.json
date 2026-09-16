@@ -8,10 +8,10 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsup && esbuild src/index-wrapper.cjs --bundle --platform=node --format=cjs --target=es2015 --outfile=lib/index.cjs --sourcemap --packages=external",
+    "build": "tsdown && esbuild src/index-wrapper.cjs --bundle --platform=node --format=cjs --target=es2015 --outfile=lib/index.cjs --sourcemap --packages=external",
     "test": "vitest run --dir=src",
     "test:watch": "vitest --dir=src",
-    "test:build": "npm run build && npm run test:build:esm && npm run test:build:cjs && npm run test:build:exports && npm run test:build:functionality && npm run test:build:browser && npm run test:build:types && npm run test:build:size",
+    "test:build": "pnpm run build && pnpm run test:build:artifacts",
     "test:build:esm": "node build-tests/esm-import.test.js",
     "test:build:cjs": "node build-tests/cjs-require.test.cjs",
     "test:build:exports": "node build-tests/exports.test.cjs",
@@ -24,14 +24,16 @@
     "lint:fix": "eslint --fix src",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "pre-commit": "prettier --write . && eslint src && vitest run --dir=src",
-    "dev": "tsup --watch",
+    "dev": "tsdown --watch",
     "clean": "rimraf lib dist node_modules",
     "prepare": "husky",
     "sdk:generate": "tsx scripts/generate-sdk.ts",
     "samples:fetch": "tsx scripts/fetch-samples.ts",
     "docs:dev": "pnpm --dir docs-site dev",
     "docs:build": "pnpm --dir docs-site build",
-    "docs:preview": "pnpm --dir docs-site preview"
+    "docs:preview": "pnpm --dir docs-site preview",
+    "test:build:artifacts": "pnpm run test:build:esm && pnpm run test:build:cjs && pnpm run test:build:exports && pnpm run test:build:functionality && pnpm run test:build:browser && pnpm run test:build:types && pnpm run test:build:size",
+    "test:package": "node build-tests/packed-package.test.cjs"
   },
   "author": {
     "name": "Ally Murray",
@@ -66,7 +68,7 @@
     "rimraf": "6.1.3",
     "size-limit": "^12.1.0",
     "tsd": "^0.33.0",
-    "tsup": "8.5.1",
+    "tsdown": "0.23.0",
     "tsx": "^4.23.13",
     "typescript": "6.0.2",
     "typescript-eslint": "^8.70.0",
@@ -140,7 +142,7 @@
   },
   "size-limit": [
     {
-      "path": "lib/index.js",
+      "path": "lib/*.js",
       "limit": "30 KB"
     },
     {
@@ -148,7 +150,7 @@
       "limit": "30 KB"
     },
     {
-      "path": "lib/index.js",
+      "path": "lib/*.js",
       "gzip": true,
       "limit": "10 KB"
     }
