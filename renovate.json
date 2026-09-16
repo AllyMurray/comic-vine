@@ -8,7 +8,7 @@
   "prHourlyLimit": 2,
   "labels": ["dependencies"],
   "separateMajorMinor": true,
-  "separateMinorPatch": true,
+  "separateMinorPatch": false,
   "automerge": false,
   "automergeType": "pr",
   "platformAutomerge": false,
@@ -23,6 +23,31 @@
     "automerge": false
   },
   "packageRules": [
+    {
+      "description": "Keep patch and minor PRs separate only for stable development tools eligible for patch automerge.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchCurrentVersion": ">=1.0.0",
+      "matchPackageNames": [
+        "@eslint/**",
+        "eslint",
+        "eslint-*",
+        "prettier",
+        "globals",
+        "typescript-eslint",
+        "@typescript-eslint/**",
+        "vitest",
+        "@vitest/**",
+        "vite",
+        "nock",
+        "@size-limit/**",
+        "size-limit",
+        "rimraf",
+        "change-case",
+        "pluralize"
+      ],
+      "separateMinorPatch": true
+    },
     {
       "description": "Group and automerge stable patches to explicitly selected development tools only.",
       "matchManagers": ["npm"],
@@ -95,6 +120,19 @@
       "automerge": false
     },
     {
+      "description": "Update the HTTP client and its memory store together within the current major; always review consumer-facing changes.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchPackageNames": [
+        "@http-client-toolkit/core",
+        "@http-client-toolkit/store-memory"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "http client toolkit",
+      "groupSlug": "http-client-toolkit",
+      "automerge": false
+    },
+    {
       "description": "Runtime and optional dependencies affect consumers and require review.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["dependencies", "optionalDependencies"],
@@ -130,6 +168,14 @@
       "groupName": null,
       "groupSlug": null,
       "automerge": false
+    },
+    {
+      "description": "Keep size-limit and its exact-version peer plugin together, including coordinated major upgrades. The major rule above still disables automerge.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": ["size-limit", "@size-limit/file"],
+      "groupName": "size limit",
+      "groupSlug": "size-limit"
     }
   ]
 }
