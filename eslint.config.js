@@ -42,7 +42,7 @@ export default [
             '**/test/**',
             '**/build-tools/**',
             '**/vitest.config.ts',
-            '**/tsup.config.ts',
+            '**/tsdown.config.ts',
             '**/*.test.ts',
             '**/*.test.tsx',
           ],
