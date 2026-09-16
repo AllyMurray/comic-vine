@@ -23,5 +23,5 @@ peerDependencyRules:
   allowedVersions:
     vite: '*'
 
-# Previously configured as save-exact in .npmrc.
+# Save exact versions when adding dependencies.
 saveExact: true

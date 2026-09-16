@@ -234,7 +234,7 @@ and docs site retain separate installs and lockfiles. Build-script allowlists
 and dependency overrides also live in these pnpm configuration files.
 Build permissions use pnpm 12's `allowBuilds` map; unreviewed dependency scripts
 are not approved automatically. The library's `saveExact: true` setting lives
-here as well; `.npmrc` retains only a preference for npm itself.
+here as well. No repository `.npmrc` is needed.
 
 Renovate waits one day before proposing ordinary npm updates, and keeps the
 longer three-day delay for patch auto-merge candidates. These delays provide
