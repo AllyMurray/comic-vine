@@ -1,0 +1,14 @@
+# Keep the library and docs-site as separate pnpm projects with separate lockfiles.
+packages:
+  - '.'
+
+# Minutes since publication; applies to direct and transitive dependency resolution.
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver
+
+overrides:
+  tsup>esbuild: $esbuild
+  yaml@<2.8.3: ^2.8.3

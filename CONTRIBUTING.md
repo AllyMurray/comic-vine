@@ -26,9 +26,9 @@ This project adheres to a [Code of Conduct](./CODE_OF_CONDUCT.md). By participat
 Before you begin, ensure you have the following installed:
 
 - **Node.js**: Version 20.0.0 or higher
-- **pnpm**: Version 9.15.4+ (specified in package.json)
+- **pnpm**: Use the version pinned in `package.json` (currently 10.34.5).
   ```bash
-  npm install -g pnpm@9.15.4
+  npm install -g pnpm@10.34.5
   ```
 
 ### Development Setup
@@ -210,11 +210,24 @@ The TypeScript library supports Node 20, 22 and 24 and is published publicly as
 dependencies are `@http-client-toolkit/core` and `zod`; it currently has no peer
 or optional dependencies.
 
-Normal updates are scheduled for Mondays between 00:00 and 06:00 in
+Normal updates are scheduled every night between 00:00 and 06:00 in
 `Europe/London`, with at most five open PRs and two new PRs per hour. Actual runs
 depend on the Renovate service. Existing PRs can be rebased outside that window
 so CI can run against the current `main`. The Dependency Dashboard lists pending
 updates, and PRs use the existing `dependencies` label.
+
+Both pnpm projects set `minimumReleaseAge: 1440` in their own
+`pnpm-workspace.yaml`. New direct and transitive registry dependency versions
+must be at least 24 hours old before pnpm selects them. There are no package
+exemptions. Frozen installs continue to use the committed lockfiles; this policy
+does not re-audit the publication age of versions already locked. The library
+and docs site retain separate installs and lockfiles. Build-script allowlists
+and dependency overrides also live in these pnpm configuration files.
+
+Renovate waits one day before proposing ordinary npm updates, and keeps the
+longer three-day delay for patch auto-merge candidates. These delays provide
+time for compromised releases to be detected; they do not establish that a
+package is safe.
 
 Related lint/formatting, testing, TypeScript/build and `@types/*` updates are
 grouped. Patch and minor PRs are separated only for stable development tools
@@ -250,9 +263,11 @@ work, test any newly added support, and retain old ranges where appropriate.
 Do not copy a development dependency's version directly into a peer constraint.
 Node engine changes are maintained manually because they change consumer support.
 
-Security PRs bypass the weekly schedule, release-age delay and normal PR limits
+Security PRs bypass Renovate's nightly schedule, release-age delay and normal PR limits
 and are raised as soon as Renovate processes an available vulnerability alert.
-They still require review and passing CI. See Renovate's
+They still require review and passing CI. pnpm's 24-hour resolution delay also
+applies to security fixes, so a newly published fix may need to age before
+Renovate can successfully update its lockfile. See Renovate's
 [vulnerability alert prerequisites](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts).
 
 ### GitHub setup

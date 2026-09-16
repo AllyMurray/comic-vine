@@ -1,0 +1,9 @@
+packages:
+  - '.'
+
+# Match the library's 24-hour delay, including transitive dependencies.
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp

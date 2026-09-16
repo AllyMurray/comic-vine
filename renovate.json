@@ -3,7 +3,7 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "timezone": "Europe/London",
-  "schedule": ["* 0-5 * * 1"],
+  "schedule": ["* 0-5 * * *"],
   "prConcurrentLimit": 5,
   "prHourlyLimit": 2,
   "labels": ["dependencies"],
@@ -23,6 +23,12 @@
     "automerge": false
   },
   "packageRules": [
+    {
+      "description": "Wait 24 hours before proposing ordinary npm updates, matching pnpm's release-age policy.",
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "1 day",
+      "internalChecksFilter": "strict"
+    },
     {
       "description": "Keep patch and minor PRs separate only for stable development tools eligible for patch automerge.",
       "matchManagers": ["npm"],
