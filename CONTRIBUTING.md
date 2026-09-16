@@ -26,10 +26,10 @@ This project adheres to a [Code of Conduct](./CODE_OF_CONDUCT.md). By participat
 Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
-  The published package continues to support Node 20, 22 and 24.
-- **pnpm**: Use the version pinned in `package.json` (currently 10.34.5).
+  The published package continues to support Node 22 and 24.
+- **pnpm**: Use the version pinned in `package.json` (currently 12.4.2).
   ```bash
-  npm install -g pnpm@10.34.5
+  npm install -g pnpm@12.4.2
   ```
 
 ### Development Setup
@@ -211,8 +211,9 @@ describe('ResourceName', () => {
 [renovate.json](./renovate.json) manages the library, the documentation site's
 separate pnpm project, and GitHub Actions. Both projects commit `pnpm-lock.yaml`
 and pin pnpm in `packageManager`; use that version when updating dependencies.
-The TypeScript library supports Node 20, 22 and 24 and is published publicly as
-`comic-vine-sdk` through the existing Changesets release workflow. Its runtime
+The TypeScript library supports Node 22 and 24 and is published publicly as
+`comic-vine-sdk` through the existing Changesets release workflow. Dropping a
+supported Node major is recorded in a major Changeset. Its runtime
 dependencies are `@http-client-toolkit/core` and `zod`; it currently has no peer
 or optional dependencies.
 
@@ -225,10 +226,15 @@ updates, and PRs use the existing `dependencies` label.
 Both pnpm projects set `minimumReleaseAge: 1440` in their own
 `pnpm-workspace.yaml`. New direct and transitive registry dependency versions
 must be at least 24 hours old before pnpm selects them. There are no package
-exemptions. Frozen installs continue to use the committed lockfiles; this policy
-does not re-audit the publication age of versions already locked. The library
+exemptions. `minimumReleaseAgeStrict: true` rejects a requested range with no
+eligible release, and `minimumReleaseAgeIgnoreMissingTime: false` rejects missing
+publication dates. pnpm 12 also checks the existing lockfile against these
+policies during installs, including frozen installs. The library
 and docs site retain separate installs and lockfiles. Build-script allowlists
 and dependency overrides also live in these pnpm configuration files.
+Build permissions use pnpm 12's `allowBuilds` map; unreviewed dependency scripts
+are not approved automatically. The library's `saveExact: true` setting lives
+here as well; `.npmrc` retains only a preference for npm itself.
 
 Renovate waits one day before proposing ordinary npm updates, and keeps the
 longer three-day delay for patch auto-merge candidates. These delays provide
@@ -289,7 +295,7 @@ the dependency graph and Dependabot alerts, and grant Renovate read access to
 those alerts for immediate security PRs. This does not require a separate
 Renovate Actions workflow or a repository token secret.
 
-Configure the `main` ruleset to require `validate (20.x)`, `validate (22.x)`,
+Configure the `main` ruleset to require `validate (22.x)`,
 `validate (24.x)` and `docs`, with branches up to date before merging. The
 existing ruleset was inspected during setup and only prevented deletion and
 force pushes; repository configuration files do not change those GitHub settings.
@@ -354,14 +360,27 @@ JS-plugin compatibility layer is currently alpha; check these rules when updatin
 it. Prettier is no longer used by the library or SDK generator. The generator
 uses `vite-plus/fmt` with the shared configuration.
 
+### Publishing with pnpm 12
+
+The release workflow runs Changesets with `pnpm exec`, builds with pnpm and packs
+an explicit tarball with `pnpm pack`. It publishes that tarball using
+`npm publish --provenance --access public`, preserving npm's GitHub OIDC trusted
+publishing. pnpm 12 publishes natively, so upgrading npm would no longer control
+the behavior of `pnpm publish`. Packing first also resolves the pnpm catalog
+references in the published manifest. No registry credentials are added by this
+migration.
+
 ### Validation
 
 All dependency PRs use the existing `ci` workflow, with no path filters. It runs
 frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
 exports, browser bundling, declaration tests, size limits and package packing
-using Node 24 for the build tools. Each matrix job then switches to Node 20,
-22 or 24 to run unit tests, artifact checks and a fresh tarball installation.
+using Node 24 for the build tools. Each matrix job then switches to Node 22
+or 24 to run unit tests, artifact checks and a fresh tarball installation.
 It also checks dependency audits, generated code and the documentation build.
+`pnpm test:dependency-policy` uses a local registry to verify both projects
+reject fresh releases, missing publish dates and a lockfile containing fresh
+versions, while selecting eligible direct and transitive releases.
 The commands can be run locally with:
 
 ```bash
@@ -371,6 +390,7 @@ pnpm typecheck
 pnpm test
 pnpm test:build
 pnpm test:package
+pnpm test:dependency-policy
 pnpm pack --out /tmp/comic-vine-sdk.tgz
 pnpm audit
 pnpm --dir docs-site install --frozen-lockfile

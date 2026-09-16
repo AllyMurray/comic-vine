@@ -13,7 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 20.x
           - 22.x
           - 24.x
     env:
@@ -37,6 +36,10 @@ jobs:
       - name: Audit dependencies
         if: matrix.node-version == '24.x'
         run: pnpm audit
+
+      - name: Verify dependency release-age policy
+        if: matrix.node-version == '24.x'
+        run: pnpm test:dependency-policy
 
       - name: Build
         run: pnpm run build

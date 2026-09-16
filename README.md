@@ -12,6 +12,8 @@ A TypeScript client library for the [Comic Vine API](https://comicvine.gamespot.
 
 ## Quick Start
 
+Supports Node.js 22 and 24. Node.js 20 support was removed for v3 after its end of life.
+
 ```typescript
 import ComicVine from 'comic-vine-sdk';
 

@@ -24,15 +24,24 @@ try {
       dependencies: { [pkg.name]: `file:${tarball}` },
     }),
   );
-  const minimumReleaseAge = execFileSync(
-    'pnpm',
-    ['config', 'get', 'minimumReleaseAge'],
-    { cwd: root, encoding: 'utf8' },
-  ).trim();
-  assert.match(minimumReleaseAge, /^\d+$/);
+  const agePolicy = [
+    'minimumReleaseAge',
+    'minimumReleaseAgeStrict',
+    'minimumReleaseAgeIgnoreMissingTime',
+  ].map((setting) => {
+    const value = execFileSync('pnpm', ['config', 'get', setting], {
+      cwd: root,
+      encoding: 'utf8',
+    }).trim();
+    assert.match(
+      value,
+      setting === 'minimumReleaseAge' ? /^\d+$/ : /^(true|false)$/,
+    );
+    return `${setting}: ${value}`;
+  });
   writeFileSync(
     join(temporary, 'pnpm-workspace.yaml'),
-    `packages:\n  - '.'\nminimumReleaseAge: ${minimumReleaseAge}\n`,
+    `packages:\n  - '.'\n${agePolicy.join('\n')}\n`,
   );
   execFileSync('pnpm', ['install', '--ignore-scripts'], {
     cwd: temporary,
