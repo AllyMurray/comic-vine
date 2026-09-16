@@ -75,7 +75,7 @@ If all tests pass, you're ready to start developing!
 
 1. **Write Code**: Follow the [Code Standards](#code-standards) below
 2. **Add Tests**: Ensure new functionality has corresponding tests
-3. **Run Tests**: `pnpm test` to run tests and linting
+3. **Validate**: `pnpm lint && pnpm typecheck && pnpm test`
 4. **Build**: `pnpm build` to ensure your changes compile correctly
 
 ### Commit Messages
@@ -119,14 +119,19 @@ docs(readme): update installation instructions
 
 ### Code Style
 
-The project uses **ESLint** and **Prettier** for code formatting:
+The library uses project-local **Vite+**: Oxlint for linting and type-aware checks,
+and Oxfmt for formatting. Configuration lives in `vite.config.ts`. Keep using
+pnpm; a global Vite+ installation or runtime manager is not required.
 
 ```bash
-# Auto-fix linting issues and format code
+# Check source formatting, lint rules and types
 pnpm lint
 
-# Check linting without fixing
-npx eslint src --ext .ts
+# Apply formatting and available lint fixes to source
+pnpm lint:fix
+
+# Format TypeScript and Markdown
+pnpm format
 ```
 
 **Key Style Rules:**
@@ -159,14 +164,14 @@ import { HttpClient } from './http-client';
 ### Running Tests
 
 ```bash
-# Run all tests with linting
+# Run unit tests
 pnpm test
 
-# Run tests only (without linting)
-pnpm test:run
+# Check formatting, lint and types
+pnpm lint
 
 # Run tests in watch mode
-npx vitest --dir=src
+pnpm test:watch
 ```
 
 ### Writing Tests
@@ -178,7 +183,7 @@ npx vitest --dir=src
 **Example Test:**
 
 ```typescript
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect } from 'vite-plus/test';
 
 describe('ResourceName', () => {
   test('should return correct data when field list is specified', async () => {
@@ -239,9 +244,11 @@ rule so that Actions majors stay together.
 Non-major updates to `@http-client-toolkit/core` and
 `@http-client-toolkit/store-memory` are grouped and always reviewed manually.
 `size-limit` and `@size-limit/file` update together because the plugin requires
-a matching `size-limit` version. This pair is the only npm exception to individual
-major PRs: its coordinated major upgrades still require manual review and stay
-separate from non-major updates. Other npm major upgrades remain separate.
+a matching `size-limit` version. Its coordinated major upgrades require manual
+review and stay separate from
+non-major updates. Vite+ and its matching Vite core alias are another deliberate
+exception: they always update together in one manually reviewed PR, including
+major upgrades. Other npm major upgrades remain separate.
 
 Only stable patch updates to the explicitly listed development tools qualify
 for auto-merge, after a three-day release age and successful CI. Renovate merges
@@ -292,17 +299,60 @@ references a `build` status and is not used by this Renovate policy.
 
 ### Build tooling
 
-`pnpm build` uses tsdown for the ESM bundle and bundled TypeScript declarations,
+`pnpm build` checks toolchain alignment, then uses Vite+ (`vp pack`, powered by
+tsdown) for the ESM bundle and bundled TypeScript declarations,
 then esbuild for the existing CommonJS wrapper. The wrapper preserves the
 callable constructor returned by `require('comic-vine-sdk')` and its named
 exports. Both bundles retain the ES2015 syntax target and external runtime
-dependencies. TypeScript remains on version 6 for this migration.
+dependencies.
+
+TypeScript 7 performs source typechecking (`pnpm typecheck`) and declaration
+emission through tsdown's `tsgo` generator. The native compiler is pinned via
+`@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency aliases
+`@typescript/typescript6`, retaining the compiler API for compatibility tooling
+and TS6 consumer checks. It provides `tsc6`, while the native package provides
+`tsc`. Both are development
+only. The build resolves the native executable explicitly because automatic
+compiler discovery would find the TS6 compatibility package.
+
+The declaration plugin still marks its TS7 generator experimental. The
+`tsconfig.json` uses bundler module resolution instead of the removed Node 10
+mode. `pnpm test:build:types` runs the existing tsd contracts plus a public API
+consumer fixture compiled by both TS6 and TS7. The fixture resolves the built
+package exports, so changing our compiler does not silently require consumers
+to upgrade theirs. Renovate keeps the compatibility API on TS6 and the native
+compiler on TS7.0 until the declaration plugin's supported range is reviewed.
 
 `pnpm test:build` builds and validates the artifacts. CI uses
 `pnpm test:build:artifacts` after building on Node 24 so that validation can run
-on older supported runtimes without invoking tsdown. `pnpm test:package` packs
+on older supported runtimes without rebuilding. `pnpm test:package` packs
 the existing build, installs it in a temporary consumer project with the same
 24-hour dependency policy, and exercises the package's ESM and CommonJS exports.
+
+### Vite+ updates
+
+The root pnpm catalog pins `vite-plus` and the `vite` alias to the same Vite+
+release. Renovate groups both catalog entries into one PR and never auto-merges
+it. Vitest is an exact transitive dependency of Vite+: tests import
+`vite-plus/test`, and TypeScript uses `vite-plus/test/globals`. Do not add an
+independent Vitest version or override. The docs site keeps its separate pnpm
+project and toolchain.
+
+`pnpm check:toolchain` rejects mismatched Vite+/core versions or a Vitest version
+that differs from Vite+'s declared version. The build runs this check, including
+in CI. Review changes to bundled tsdown, Vitest, Oxlint and Oxfmt when upgrading
+Vite+, then run the complete validation below.
+
+Keep `minimumReleaseAge: 1440` without exceptions. Vite+'s migration command can
+add `minimumReleaseAgeExclude` entries for its tools; remove those entries if
+rerunning it and regenerate the lockfile with pnpm. Ordinary Renovate updates
+also wait at least one day.
+
+Oxlint runs the existing import resolution, dependency and ordering rules via
+`eslint-plugin-import`, so its resolver dependencies remain installed. Oxlint's
+JS-plugin compatibility layer is currently alpha; check these rules when updating
+it. Prettier is no longer used by the library or SDK generator. The generator
+uses `vite-plus/fmt` with the shared configuration.
 
 ### Validation
 
@@ -343,9 +393,10 @@ packages without a pending Changeset.
 2. **Verify Quality Checks**: All checks must pass before merging
 
    ```bash
-   pnpm test:run  # All tests pass
+   pnpm test      # All tests pass
    pnpm lint      # No linting errors
-   pnpm compile   # Code compiles successfully
+   pnpm typecheck # Source types pass
+   pnpm build     # Package builds successfully
    ```
 
 3. **Create Pull Request**:
@@ -361,16 +412,16 @@ packages without a pending Changeset.
 
 ### Pre-commit Hooks
 
-The project uses **Husky** and **lint-staged** to ensure code quality:
+The existing **Husky** hook runs `pnpm pre-commit`:
 
-- **Auto-formatting**: Prettier formats code on commit
-- **Linting**: ESLint checks are enforced
-- **Type checking**: TypeScript compilation is verified
+- **Auto-formatting**: Oxfmt formats project files
+- **Validation**: Vite+ checks source formatting, lint rules and types
+- **Tests**: Vitest runs the unit suite
 
 If pre-commit hooks fail, fix the issues before committing:
 
 ```bash
-pnpm lint  # Fix linting issues
+pnpm lint:fix  # Apply available lint and format fixes
 git add .  # Stage the fixes
 git commit # Try committing again
 ```
@@ -420,8 +471,9 @@ When adding support for a new Comic Vine API resource:
 
 - **Package Manager**: [pnpm](https://pnpm.io/)
 - **Testing**: [Vitest](https://vitest.dev/)
-- **Linting**: [ESLint](https://eslint.org/) + [TypeScript ESLint](https://typescript-eslint.io/)
-- **Formatting**: [Prettier](https://prettier.io/)
+- **Toolchain**: [Vite+](https://viteplus.dev/)
+- **Linting**: [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
+- **Formatting**: [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
 - **Git Hooks**: [Husky](https://typicode.github.io/husky/)
 
 ---

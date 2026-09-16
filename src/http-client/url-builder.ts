@@ -73,7 +73,7 @@ export class UrlBuilder {
       const snakeCaseFilter =
         convertCamelCaseToSnakeCase<Record<string, unknown>>(filter);
       const filterParams = Object.entries<unknown>(snakeCaseFilter).map(
-        ([key, value]) => `${key}:${value}`,
+        ([key, value]) => `${key}:${String(value)}`,
       );
 
       return { name: 'filter', value: filterParams.join(',') };

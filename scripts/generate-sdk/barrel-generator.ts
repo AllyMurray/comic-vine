@@ -78,7 +78,7 @@ export function generateResourceType(resources: Map<string, number>): string {
     .map(([name, id]) => `  ${name} = ${id},`)
     .join('\n');
 
-  return `/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+  return `/* oxlint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum ResourceType {
 ${entries}
 }
