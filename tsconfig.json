@@ -19,7 +19,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["vitest/globals"]
+    "types": ["vite-plus/test/globals"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib", "dist"]

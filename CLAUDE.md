@@ -84,7 +84,7 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 
 ### Testing Strategy
 
-- Uses Vitest for all testing
+- Uses Vite+ bundled Vitest for unit testing (`vite-plus/test`)
 - Comprehensive test coverage with mocked API responses in `src/__mocks__/`
 - nock for HTTP request interception (works with toolkit's fetch-based client)
 - Each resource and utility has corresponding `.test.ts` files
@@ -92,11 +92,15 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 
 ### Build System
 
-- Build on Node 24 LTS (24.11+) with tsdown for ESM/declarations and esbuild for the CommonJS wrapper
+- Build on Node 24 LTS (24.11+) with Vite+ (`vp pack`, using tsdown) for ESM/declarations and esbuild for the CommonJS wrapper
 - Test built and packed output on Node 20, 22 and 24
-- TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for ESLint
+- TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for tooling and consumer checks
 - Public declaration checks run under both TS6 and TS7, alongside tsd
 - Output in `lib/` directory
+- Vite+ configuration is in `vite.config.ts`; keep using project-local tools through pnpm
+- Renovate updates Vite+ and its Vite core alias together; `pnpm check:toolchain` enforces alignment
+- Vitest comes from Vite+; do not add an independent Vitest pin or override
+- Keep pnpm `minimumReleaseAge: 1440` with no toolchain exclusions
 
 ### Code Generation Architecture
 

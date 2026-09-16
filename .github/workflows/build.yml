@@ -47,7 +47,7 @@ jobs:
       - name: Typecheck
         run: pnpm run typecheck
 
-      # tsdown needs a modern build runtime; test the output on every supported major.
+      # Vite+ needs a modern build runtime; test the output on every supported major.
       - name: Setup test runtime
         uses: actions/setup-node@v7.0.0
         with:

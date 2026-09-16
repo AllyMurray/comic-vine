@@ -99,7 +99,8 @@ Runs the full generation pipeline (`generate-sdk.ts`):
 
 ## Generator Modules
 
-All modules in `generate-sdk/` are **pure functions** &mdash; they take input and return strings or objects. The orchestrator (`generate-sdk.ts`) handles all file I/O.
+All modules in `generate-sdk/` are **pure functions** &mdash; they take input and return strings or objects. The orchestrator (`generate-sdk.ts`) handles all file I/O and formats generated
+TypeScript using `vite-plus/fmt` with the settings from `vite.config.ts`.
 
 | Module                      | Responsibility                                                                           |
 | --------------------------- | ---------------------------------------------------------------------------------------- |

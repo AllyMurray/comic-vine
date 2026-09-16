@@ -24,7 +24,7 @@
   },
   "packageRules": [
     {
-      "description": "Keep the compiler API used by ESLint on the TypeScript 6 compatibility package.",
+      "description": "Keep the TypeScript 6 compiler API for compatibility tooling and consumer checks.",
       "matchManagers": ["npm"],
       "matchPackageNames": ["@typescript/typescript6"],
       "allowedVersions": ">=6.0.0 <7.0.0",
@@ -213,6 +213,18 @@
       "groupSlug": "github-actions",
       "separateMajorMinor": false,
       "separateMinorPatch": false,
+      "automerge": false
+    },
+    {
+      "description": "Vite+ and its Vite core alias must use the same release, including coordinated majors. Bundled Vitest is owned by Vite+; CI rejects mismatched versions.",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["pnpm-workspace.yaml"],
+      "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
+      "groupName": "vite plus toolchain",
+      "groupSlug": "vite-plus-toolchain",
+      "separateMajorMinor": false,
+      "separateMinorPatch": false,
+      "rangeStrategy": "pin",
       "automerge": false
     }
   ]

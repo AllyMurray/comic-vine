@@ -197,9 +197,12 @@ export class ComicVine implements ResourcePropertyMap {
 
         this.resourceCache.set(propertyName, resource);
       } catch (error) {
-        throw new Error(`Failed to create resource '${className}': ${error}`, {
-          cause: error,
-        });
+        throw new Error(
+          `Failed to create resource '${className}': ${String(error)}`,
+          {
+            cause: error,
+          },
+        );
       }
     }
     return this.resourceCache.get(propertyName)!;

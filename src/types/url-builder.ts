@@ -5,11 +5,11 @@ export interface UrlBuilder {
   retrieve<Key>(
     resourceType: ResourceType,
     id: number,
-    requestOptions?: RetrieveOptions<Key> | undefined,
+    requestOptions?: RetrieveOptions<Key>,
   ): string;
 
   list<Resource, FilterType>(
     resourceType: ResourceType,
-    requestOptions?: ListOptions<Resource, FilterType> | undefined,
+    requestOptions?: ListOptions<Resource, FilterType>,
   ): string;
 }

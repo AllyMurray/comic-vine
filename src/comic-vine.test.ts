@@ -1,4 +1,4 @@
-import { describe, test, expect, vi } from 'vitest';
+import { describe, test, expect, vi } from 'vite-plus/test';
 import { ComicVine } from './comic-vine.js';
 import { StatusCode } from './http-client/status-code.js';
 import * as resources from './resources/resource-list.js';

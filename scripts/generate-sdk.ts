@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import prettier from 'prettier';
+import { format } from 'vite-plus/fmt';
+import viteConfig from '../vite.config.js';
 import {
   extractCommentsFromHtml,
   applyComments,
@@ -50,7 +51,7 @@ const RESOURCE_TYPE_IDS: Record<string, number> = {
   Thing: 4055,
   Video: 2300,
   // VideoCategory and VideoType share the same resource type ID in the
-  // Comic Vine API. The generated enum uses an eslint-disable comment
+  // Comic Vine API. The generated enum uses an oxlint-disable comment
   // to allow the duplicate values.
   VideoCategory: 2320,
   VideoType: 2320,
@@ -76,12 +77,13 @@ async function writeFile(filePath: string, content: string): Promise<void> {
   fs.mkdirSync(dir, { recursive: true });
 
   if (path.extname(filePath) === '.ts') {
-    const config = (await prettier.resolveConfig(filePath)) ?? {};
-    const formattedContent = await prettier.format(content, {
-      ...config,
-      filepath: filePath,
-    });
-    fs.writeFileSync(filePath, formattedContent, 'utf-8');
+    const formatted = await format(filePath, content, viteConfig.fmt);
+    if (formatted.errors.length > 0) {
+      throw new Error(
+        `Failed to format ${filePath}: ${formatted.errors.map((error) => error.message).join('; ')}`,
+      );
+    }
+    fs.writeFileSync(filePath, formatted.code, 'utf-8');
     return;
   }
 

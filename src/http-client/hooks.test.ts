@@ -1,5 +1,5 @@
 import type { HttpErrorContext } from '@http-client-toolkit/core';
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect } from 'vite-plus/test';
 import {
   comicVineResponseTransformer,
   comicVineResponseHandler,
