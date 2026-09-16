@@ -44,11 +44,17 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
+      - name: Typecheck
+        run: pnpm run typecheck
+
       - name: Test
         run: pnpm test
 
       - name: Test Build Artifacts
         run: pnpm run test:build
+
+      - name: Validate package tarball
+        run: pnpm pack --out "${{ runner.temp }}/comic-vine-sdk.tgz"
 
       - name: Verify generated code is up to date
         if: matrix.node-version == '24.x'

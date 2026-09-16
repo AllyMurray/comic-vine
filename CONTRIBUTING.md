@@ -10,6 +10,7 @@ Thank you for your interest in contributing to the Comic Vine SDK! This document
 - [Development Workflow](#development-workflow)
 - [Code Standards](#code-standards)
 - [Testing](#testing)
+- [Dependency Updates](#dependency-updates)
 - [Submitting Changes](#submitting-changes)
 - [Project Structure](#project-structure)
 - [Resources](#resources)
@@ -198,6 +199,93 @@ describe('ResourceName', () => {
 - Include both success and error scenarios
 - Mock external dependencies using **nock** for HTTP requests
 - Test files are located in `src/__mocks__/` for mock data
+
+## Dependency Updates
+
+[renovate.json](./renovate.json) manages the library, the documentation site's
+separate pnpm project, and GitHub Actions. Both projects commit `pnpm-lock.yaml`
+and pin pnpm in `packageManager`; use that version when updating dependencies.
+The TypeScript library supports Node 20, 22 and 24 and is published publicly as
+`comic-vine-sdk` through the existing Changesets release workflow. Its runtime
+dependencies are `@http-client-toolkit/core` and `zod`; it currently has no peer
+or optional dependencies.
+
+Normal updates are scheduled for Mondays between 00:00 and 06:00 in
+`Europe/London`, with at most five open PRs and two new PRs per hour. Actual runs
+depend on the Renovate service. Existing PRs can be rebased outside that window
+so CI can run against the current `main`. The Dependency Dashboard lists pending
+updates, and PRs use the existing `dependencies` label.
+
+Related lint/formatting, testing, TypeScript/build and `@types/*` updates are
+grouped, with patches separated from minors. GitHub Actions have their own
+group. Major upgrades are individual PRs, including packages that Renovate's
+recommended preset would otherwise group.
+
+Only stable patch updates to the explicitly listed development tools qualify
+for auto-merge, after a three-day release age and successful CI. Renovate merges
+PRs itself (`platformAutomerge: false`, `ignoreTests: false`) and rebases stale
+branches before merging. Failed or pending checks, conflicts and Renovate
+artifact errors prevent automatic merging. Runtime/optional dependencies,
+compiler/build tools, type definitions, release tooling, package-manager
+updates, Actions, pre-1.0 packages, minors and majors require manual review.
+Runtime updates and auto-merge candidates are filtered against the package's
+Node engine requirements when the dependency supplies engine metadata.
+Review release notes and any compatibility warnings before merging manual PRs.
+
+Future peer dependency updates use `rangeStrategy: widen` and always require
+manual review. Check that consumers using existing supported versions still
+work, test any newly added support, and retain old ranges where appropriate.
+Do not copy a development dependency's version directly into a peer constraint.
+Node engine changes are maintained manually because they change consumer support.
+
+Security PRs bypass the weekly schedule, release-age delay and normal PR limits
+and are raised as soon as Renovate processes an available vulnerability alert.
+They still require review and passing CI. See Renovate's
+[vulnerability alert prerequisites](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts).
+
+### GitHub setup
+
+After merging the configuration, install or enable the
+[Mend Renovate GitHub App](https://github.com/apps/renovate) for this repository
+and allow it to create branches, PRs and the Dependency Dashboard issue. Enable
+the dependency graph and Dependabot alerts, and grant Renovate read access to
+those alerts for immediate security PRs. This does not require a separate
+Renovate Actions workflow or a repository token secret.
+
+Configure the `main` ruleset to require `validate (20.x)`, `validate (22.x)`,
+`validate (24.x)` and `docs`, with branches up to date before merging. The
+existing ruleset was inspected during setup and only prevented deletion and
+force pushes; repository configuration files do not change those GitHub settings.
+GitHub's "Allow auto-merge" setting is not needed for Renovate-managed merging.
+Avoid granting Renovate a bypass of required checks. The legacy Mergify rule
+references a `build` status and is not used by this Renovate policy.
+
+### Validation
+
+All dependency PRs use the existing `ci` workflow, with no path filters. It runs
+frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
+exports, browser bundling, declaration tests, size limits and package packing
+on each supported Node major. It also checks dependency audits, generated code
+and the documentation build. The commands can be run locally with:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm test:build
+pnpm pack --out /tmp/comic-vine-sdk.tgz
+pnpm audit
+pnpm --dir docs-site install --frozen-lockfile
+pnpm --dir docs-site audit
+pnpm --dir docs-site build
+```
+
+Validate configuration edits with
+`pnpm --package=renovate dlx renovate-config-validator --strict renovate.json`.
+For dependency changes that need publishing, add a Changeset according to the
+existing release process; merging a dependency PR alone does not publish npm
+packages without a pending Changeset.
 
 ## Submitting Changes
 

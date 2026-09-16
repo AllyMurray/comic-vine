@@ -1,0 +1,135 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "timezone": "Europe/London",
+  "schedule": ["* 0-5 * * 1"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "labels": ["dependencies"],
+  "separateMajorMinor": true,
+  "separateMinorPatch": true,
+  "automerge": false,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "ignoreTests": false,
+  "rebaseWhen": "behind-base-branch",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": [],
+    "prCreation": "immediate",
+    "dependencyDashboardApproval": false,
+    "minimumReleaseAge": null,
+    "automerge": false
+  },
+  "packageRules": [
+    {
+      "description": "Group and automerge stable patches to explicitly selected development tools only.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": ">=1.0.0",
+      "matchPackageNames": [
+        "@eslint/**",
+        "eslint",
+        "eslint-*",
+        "prettier",
+        "globals",
+        "typescript-eslint",
+        "@typescript-eslint/**",
+        "vitest",
+        "@vitest/**",
+        "vite",
+        "nock",
+        "@size-limit/**",
+        "size-limit",
+        "rimraf",
+        "change-case",
+        "pluralize"
+      ],
+      "groupName": "development tooling patches",
+      "constraintsFiltering": "strict",
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "@eslint/**",
+        "eslint",
+        "eslint-*",
+        "prettier",
+        "globals",
+        "typescript-eslint",
+        "@typescript-eslint/**"
+      ],
+      "groupName": "lint and formatting tools"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["vitest", "@vitest/**", "vite", "nock"],
+      "groupName": "test tooling"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["typescript", "tsup", "tsx", "tsd", "esbuild"],
+      "groupName": "typescript and build tooling"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["@types/**"],
+      "groupName": "type definitions"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "groupName": "github actions",
+      "automerge": false
+    },
+    {
+      "description": "Runtime and optional dependencies affect consumers and require review.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies", "optionalDependencies"],
+      "constraintsFiltering": "strict",
+      "automerge": false
+    },
+    {
+      "description": "Preserve existing consumer support when proposing peer range extensions.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["peerDependencies"],
+      "rangeStrategy": "widen",
+      "groupName": null,
+      "groupSlug": null,
+      "automerge": false
+    },
+    {
+      "description": "Node support is a deliberate library compatibility decision.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "description": "Pre-1.0 releases can break compatibility even in a patch.",
+      "matchManagers": ["npm"],
+      "matchCurrentVersion": "<1.0.0",
+      "groupName": null,
+      "groupSlug": null,
+      "automerge": false
+    },
+    {
+      "description": "Never combine unrelated major upgrades, including inherited preset groups.",
+      "matchUpdateTypes": ["major"],
+      "groupName": null,
+      "groupSlug": null,
+      "automerge": false
+    }
+  ]
+}

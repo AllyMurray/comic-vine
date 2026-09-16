@@ -20,6 +20,7 @@
     "test:build:types": "tsd",
     "test:build:size": "size-limit",
     "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
     "lint:fix": "eslint --fix src",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "pre-commit": "prettier --write . && eslint src && vitest run --dir=src",
