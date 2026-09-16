@@ -20,13 +20,13 @@ jobs:
       CI: 'true'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5.0.0
+        uses: pnpm/action-setup@v6.1.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6.1.0
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
@@ -73,13 +73,13 @@ jobs:
         working-directory: docs-site
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5.0.0
+        uses: pnpm/action-setup@v6.1.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6.1.0
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: 24.x
           cache: pnpm
