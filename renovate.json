@@ -24,6 +24,20 @@
   },
   "packageRules": [
     {
+      "description": "Keep the compiler API used by ESLint on the TypeScript 6 compatibility package.",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@typescript/typescript6"],
+      "allowedVersions": ">=6.0.0 <7.0.0",
+      "automerge": false
+    },
+    {
+      "description": "Keep the native compiler within the TS7.0 range supported by the installed declaration generator; review wider upgrades with rolldown-plugin-dts.",
+      "matchManagers": ["npm"],
+      "matchDepNames": ["@typescript/native"],
+      "allowedVersions": ">=7.0.0 <7.1.0",
+      "automerge": false
+    },
+    {
       "description": "Wait 24 hours before proposing ordinary npm updates, matching pnpm's release-age policy.",
       "matchDatasources": ["npm"],
       "minimumReleaseAge": "1 day",
@@ -109,7 +123,14 @@
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["typescript", "tsdown", "tsx", "tsd", "esbuild"],
+      "matchPackageNames": [
+        "typescript",
+        "tsdown",
+        "tsx",
+        "tsd",
+        "esbuild",
+        "@typescript/typescript6"
+      ],
       "groupName": "typescript and build tooling"
     },
     {

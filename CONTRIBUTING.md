@@ -296,7 +296,23 @@ references a `build` status and is not used by this Renovate policy.
 then esbuild for the existing CommonJS wrapper. The wrapper preserves the
 callable constructor returned by `require('comic-vine-sdk')` and its named
 exports. Both bundles retain the ES2015 syntax target and external runtime
-dependencies. TypeScript remains on version 6 for this migration.
+dependencies.
+
+TypeScript 7 performs source typechecking (`pnpm typecheck`) and declaration
+emission through tsdown's `tsgo` generator. The native compiler is pinned via
+`@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency aliases
+`@typescript/typescript6`, retaining the compiler API that ESLint needs; it
+provides `tsc6`, while the native package provides `tsc`. Both are development
+only. The build resolves the native executable explicitly because automatic
+compiler discovery would find the TS6 compatibility package.
+
+The declaration plugin still marks its TS7 generator experimental. The
+`tsconfig.json` uses bundler module resolution instead of the removed Node 10
+mode. `pnpm test:build:types` runs the existing tsd contracts plus a public API
+consumer fixture compiled by both TS6 and TS7. The fixture resolves the built
+package exports, so changing our compiler does not silently require consumers
+to upgrade theirs. Renovate keeps the compatibility API on TS6 and the native
+compiler on TS7.0 until the declaration plugin's supported range is reviewed.
 
 `pnpm test:build` builds and validates the artifacts. CI uses
 `pnpm test:build:artifacts` after building on Node 24 so that validation can run

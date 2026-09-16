@@ -17,7 +17,7 @@
     "test:build:exports": "node build-tests/exports.test.cjs",
     "test:build:functionality": "node build-tests/functionality.test.cjs",
     "test:build:browser": "node build-tests/browser-bundle.test.js",
-    "test:build:types": "tsd",
+    "test:build:types": "tsd && pnpm run test:build:types:compilers",
     "test:build:size": "size-limit",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
@@ -33,7 +33,8 @@
     "docs:build": "pnpm --dir docs-site build",
     "docs:preview": "pnpm --dir docs-site preview",
     "test:build:artifacts": "pnpm run test:build:esm && pnpm run test:build:cjs && pnpm run test:build:exports && pnpm run test:build:functionality && pnpm run test:build:browser && pnpm run test:build:types && pnpm run test:build:size",
-    "test:package": "node build-tests/packed-package.test.cjs"
+    "test:package": "node build-tests/packed-package.test.cjs",
+    "test:build:types:compilers": "tsc6 --project build-tests/tsconfig.json && tsc --project build-tests/tsconfig.json"
   },
   "author": {
     "name": "Ally Murray",
@@ -51,6 +52,7 @@
     "@size-limit/file": "^12.1.0",
     "@types/node": "24.13.5",
     "@types/pluralize": "^0.0.33",
+    "@typescript/native": "npm:typescript@7.0.2",
     "change-case": "^5.4.4",
     "cheerio": "^1.2.0",
     "esbuild": "^0.28.2",
@@ -70,7 +72,7 @@
     "tsd": "^0.33.0",
     "tsdown": "0.23.0",
     "tsx": "^4.23.13",
-    "typescript": "6.0.2",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
     "typescript-eslint": "^8.70.0",
     "vite": "7.3.6",
     "vitest": "^4.1.11"

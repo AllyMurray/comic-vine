@@ -94,7 +94,8 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 
 - Build on Node 24 LTS (24.11+) with tsdown for ESM/declarations and esbuild for the CommonJS wrapper
 - Test built and packed output on Node 20, 22 and 24
-- Automatic type generation with TypeScript
+- TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for ESLint
+- Public declaration checks run under both TS6 and TS7, alongside tsd
 - Output in `lib/` directory
 
 ### Code Generation Architecture
