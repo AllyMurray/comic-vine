@@ -127,12 +127,6 @@
       "automerge": false
     },
     {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
-      "groupName": "github actions",
-      "automerge": false
-    },
-    {
       "description": "Update the HTTP client and its memory store together within the current major; always review consumer-facing changes.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["dependencies", "devDependencies"],
@@ -189,6 +183,16 @@
       "matchPackageNames": ["size-limit", "@size-limit/file"],
       "groupName": "size limit",
       "groupSlug": "size-limit"
+    },
+    {
+      "description": "Group all GitHub Actions updates, including majors, for one manually reviewed workflow update. Keep this override after the general major rule.",
+      "matchManagers": ["github-actions"],
+      "matchDatasources": ["github-tags"],
+      "groupName": "github actions",
+      "groupSlug": "github-actions",
+      "separateMajorMinor": false,
+      "separateMinorPatch": false,
+      "automerge": false
     }
   ]
 }

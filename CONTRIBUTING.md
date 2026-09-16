@@ -232,13 +232,15 @@ package is safe.
 Related lint/formatting, testing, TypeScript/build and `@types/*` updates are
 grouped. Patch and minor PRs are separated only for stable development tools
 eligible for patch auto-merge; manually reviewed groups combine non-major
-updates to reduce duplicate PRs. GitHub Actions have their own group.
+updates to reduce duplicate PRs. GitHub Actions updates, including major upgrades,
+share one manually reviewed PR. Their grouping rule follows the general major
+rule so that Actions majors stay together.
 Non-major updates to `@http-client-toolkit/core` and
 `@http-client-toolkit/store-memory` are grouped and always reviewed manually.
 `size-limit` and `@size-limit/file` update together because the plugin requires
-a matching `size-limit` version. This pair is the only exception to individual
+a matching `size-limit` version. This pair is the only npm exception to individual
 major PRs: its coordinated major upgrades still require manual review and stay
-separate from non-major updates. Unrelated major upgrades are never grouped.
+separate from non-major updates. Other npm major upgrades remain separate.
 
 Only stable patch updates to the explicitly listed development tools qualify
 for auto-merge, after a three-day release age and successful CI. Renovate merges
