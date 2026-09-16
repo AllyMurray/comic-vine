@@ -238,6 +238,12 @@ Runtime updates and auto-merge candidates are filtered against the package's
 Node engine requirements when the dependency supplies engine metadata.
 Review release notes and any compatibility warnings before merging manual PRs.
 
+`@types/node` is kept on major 24 to match the Node 24 LTS build/release
+runtime. Renovate may update it within 24.x but cannot move it to another
+major. When changing the build/release Node major, update the type dependency
+and its Renovate `allowedVersions` rule together. CI also tests compatibility
+with the other Node majors declared in `engines.node`.
+
 Future peer dependency updates use `rangeStrategy: widen` and always require
 manual review. Check that consumers using existing supported versions still
 work, test any newly added support, and retain old ranges where appropriate.
