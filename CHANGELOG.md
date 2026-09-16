@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- 651f5cf: Drop support for Node.js 20, which has reached end of life. The SDK now supports
+  Node.js 22 and 24. Upgrade to a supported LTS release before installing this major
+  version. Development and release tooling now use pnpm 12.
+
 ## 2.0.1
 
 ### Patch Changes
@@ -13,6 +21,7 @@
 - 9a65f16: Rewrite as a single-package SDK built on `@http-client-toolkit/core` for HTTP requests, with toolkit-compatible caching, deduplication, and rate limiting stores.
 
   **Breaking changes:**
+
   - Package renamed from `@comic-vine/client` to `comic-vine-sdk`
   - Replaced the monorepo package layout with a single published SDK package
   - HTTP layer replaced: custom Axios-based client → `@http-client-toolkit/core` (fetch-based)
@@ -21,6 +30,7 @@
   - Resource properties are lazily loaded via Proxy
 
   **New features:**
+
   - Full code generation pipeline: types, resources, tests, and mock data generated from API samples
   - All 19 Comic Vine resources with typed `list()` and `retrieve()` methods
   - `list()` returns a dual `Promise & AsyncIterable` for automatic pagination
