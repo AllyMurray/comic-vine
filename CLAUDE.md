@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Management
 
-- Always use `pnpm` instead of npm or yarn
+- Use pinned pnpm 12.4.2 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
 - Install dependencies: `pnpm install`
 - Build: `pnpm run build`
 - Run tests: `pnpm run test`
@@ -93,14 +93,14 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 ### Build System
 
 - Build on Node 24 LTS (24.11+) with Vite+ (`vp pack`, using tsdown) for ESM/declarations and esbuild for the CommonJS wrapper
-- Test built and packed output on Node 20, 22 and 24
+- Test built and packed output on Node 22 and 24
 - TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for tooling and consumer checks
 - Public declaration checks run under both TS6 and TS7, alongside tsd
 - Output in `lib/` directory
 - Vite+ configuration is in `vite.config.ts`; keep using project-local tools through pnpm
 - Renovate updates Vite+ and its Vite core alias together; `pnpm check:toolchain` enforces alignment
 - Vitest comes from Vite+; do not add an independent Vitest pin or override
-- Keep pnpm `minimumReleaseAge: 1440` with no toolchain exclusions
+- Keep pnpm `minimumReleaseAge: 1440`, strict enforcement and rejection of missing publish dates, with no toolchain exclusions
 
 ### Code Generation Architecture
 

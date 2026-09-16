@@ -4,10 +4,12 @@ packages:
 
 # Minutes since publication; applies to direct and transitive dependency resolution.
 minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
 
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
 
 overrides:
   yaml@<2.8.3: ^2.8.3
@@ -20,3 +22,6 @@ peerDependencyRules:
     - vite
   allowedVersions:
     vite: '*'
+
+# Save exact versions when adding dependencies.
+saveExact: true

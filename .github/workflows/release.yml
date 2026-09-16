@@ -70,7 +70,7 @@ jobs:
       - name: Version packages
         if: steps.changesets.outputs.has_changesets == 'true'
         run: |
-          npx changeset version
+          pnpm exec changeset version
           git add .
           HUSKY=0 git commit -m "chore: release packages"
         env:
@@ -102,7 +102,10 @@ jobs:
 
       - name: Publish packages
         if: steps.changesets.outputs.has_changesets == 'true' && steps.npm_package.outputs.already_published != 'true'
-        run: pnpm publish --provenance --access public
+        # Pack with pnpm to resolve catalog references; npm retains trusted publishing.
+        run: |
+          pnpm pack --out "$RUNNER_TEMP/comic-vine-sdk.tgz"
+          npm publish "$RUNNER_TEMP/comic-vine-sdk.tgz" --provenance --access public
 
       - name: Create release tag
         if: steps.changesets.outputs.has_changesets == 'true'
