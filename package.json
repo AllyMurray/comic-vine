@@ -98,7 +98,7 @@
     "metadata"
   ],
   "engines": {
-    "node": "^22.0.0 || ^24.0.0"
+    "node": ">=22.0.0"
   },
   "main": "./lib/index.cjs",
   "module": "./lib/index.js",

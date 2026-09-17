@@ -93,7 +93,7 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 ### Build System
 
 - Build on Node 24 LTS (24.11+) with Vite+ (`vp pack`, using tsdown) for ESM/declarations and esbuild for the CommonJS wrapper
-- Test built and packed output on Node 22 and 24
+- Support Node 22 and newer at runtime (`engines.node: >=22.0.0`); test built and packed output on Node 22 and 24 LTS
 - TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for tooling and consumer checks
 - Public declaration checks run under both TS6 and TS7, alongside tsd
 - Output in `lib/` directory

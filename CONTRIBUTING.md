@@ -26,7 +26,7 @@ This project adheres to a [Code of Conduct](./CODE_OF_CONDUCT.md). By participat
 Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
-  The published package continues to support Node 22 and 24.
+  The published package supports Node 22 and newer; CI tests Node 22 and 24 LTS.
 - **pnpm**: Use the version pinned in `package.json` (currently 12.4.2).
   ```bash
   npm install -g pnpm@12.4.2
@@ -211,7 +211,7 @@ describe('ResourceName', () => {
 [renovate.json](./renovate.json) manages the library, the documentation site's
 separate pnpm project, and GitHub Actions. Both projects commit `pnpm-lock.yaml`
 and pin pnpm in `packageManager`; use that version when updating dependencies.
-The TypeScript library supports Node 22 and 24 and is published publicly as
+The TypeScript library supports Node 22 and newer and is published publicly as
 `comic-vine-sdk` through the existing Changesets release workflow. Dropping a
 supported Node major is recorded in a major Changeset. Its runtime
 dependencies are `@http-client-toolkit/core` and `zod`; it currently has no peer
@@ -274,7 +274,7 @@ Review release notes and any compatibility warnings before merging manual PRs.
 runtime. Renovate may update it within 24.x but cannot move it to another
 major. When changing the build/release Node major, update the type dependency
 and its Renovate `allowedVersions` rule together. CI also tests compatibility
-with the other Node majors declared in `engines.node`.
+with the minimum supported Node version. CI tests the Node 22 and 24 LTS lines.
 
 Future peer dependency updates use `rangeStrategy: widen` and always require
 manual review. Check that consumers using existing supported versions still
