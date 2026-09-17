@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+### Patch Changes
+
+- 735f308: Update HTTP Client Toolkit to 4.2.0 and align the development memory store with the same release.
+
 ## 3.0.0
 
 ### Major Changes
