@@ -23,7 +23,7 @@ export default defineConfig({
       },
     ],
     settings: {
-      'import/resolver': { node: {}, typescript: { alwaysTryTypes: true } },
+      'import/resolver': { typescript: { alwaysTryTypes: true } },
     },
     categories: {
       correctness: 'warn',
