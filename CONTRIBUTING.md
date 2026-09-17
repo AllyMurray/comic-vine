@@ -366,6 +366,11 @@ uses `vite-plus/fmt` with the shared configuration.
 
 ### Publishing with pnpm 12
 
+Changesets v3 runs on the Node 24 release runtime. `changeset version` exits
+with code 1 when no unreleased changesets exist, so the workflow checks for
+pending changesets before running it. Development-tool-only upgrades do not
+need a publishing Changeset.
+
 The release workflow runs Changesets with `pnpm exec`, builds with pnpm and packs
 an explicit tarball with `pnpm pack`. It publishes that tarball using
 `npm publish --provenance --access public`, preserving npm's GitHub OIDC trusted
