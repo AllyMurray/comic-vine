@@ -225,8 +225,9 @@ updates, and PRs use the existing `dependencies` label.
 
 Both pnpm projects set `minimumReleaseAge: 1440` in their own
 `pnpm-workspace.yaml`. New direct and transitive registry dependency versions
-must be at least 24 hours old before pnpm selects them. There are no package
-exemptions. `minimumReleaseAgeStrict: true` rejects a requested range with no
+must be at least 24 hours old before pnpm selects them, except owner-maintained
+`@http-client-toolkit/*` packages. Their third-party dependencies still wait.
+`minimumReleaseAgeStrict: true` rejects a requested range with no
 eligible release, and `minimumReleaseAgeIgnoreMissingTime: false` rejects missing
 publication dates. pnpm 12 also checks the existing lockfile against these
 policies during installs, including frozen installs. The library
@@ -237,7 +238,9 @@ are not approved automatically. The library's `saveExact: true` setting lives
 here as well. No repository `.npmrc` is needed.
 
 Renovate waits one day before proposing ordinary npm updates, and keeps the
-longer three-day delay for patch auto-merge candidates. These delays provide
+longer three-day delay for patch auto-merge candidates. Owner-maintained
+`@http-client-toolkit/*` packages also bypass Renovate's release-age delay, while
+retaining the nightly schedule, manual review and CI requirements. These delays provide
 time for compromised releases to be detected; they do not establish that a
 package is safe.
 
@@ -282,7 +285,7 @@ Node engine changes are maintained manually because they change consumer support
 Security PRs bypass Renovate's nightly schedule, release-age delay and normal PR limits
 and are raised as soon as Renovate processes an available vulnerability alert.
 They still require review and passing CI. pnpm's 24-hour resolution delay also
-applies to security fixes, so a newly published fix may need to age before
+applies to third-party security fixes, so a newly published fix may need to age before
 Renovate can successfully update its lockfile. See Renovate's
 [vulnerability alert prerequisites](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts).
 
@@ -349,10 +352,11 @@ that differs from Vite+'s declared version. The build runs this check, including
 in CI. Review changes to bundled tsdown, Vitest, Oxlint and Oxfmt when upgrading
 Vite+, then run the complete validation below.
 
-Keep `minimumReleaseAge: 1440` without exceptions. Vite+'s migration command can
+Keep `minimumReleaseAge: 1440` with only the `@http-client-toolkit/*` exception.
+Vite+'s migration command can
 add `minimumReleaseAgeExclude` entries for its tools; remove those entries if
 rerunning it and regenerate the lockfile with pnpm. Ordinary Renovate updates
-also wait at least one day.
+outside that scope also wait at least one day.
 
 Oxlint runs the existing import resolution, dependency and ordering rules via
 `eslint-plugin-import`, so its resolver dependencies remain installed. Oxlint's

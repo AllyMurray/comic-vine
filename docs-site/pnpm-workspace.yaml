@@ -5,6 +5,9 @@ packages:
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 minimumReleaseAgeIgnoreMissingTime: false
+minimumReleaseAgeExclude:
+  # Match the library's exception for packages maintained by the repository owner.
+  - '@http-client-toolkit/*'
 
 allowBuilds:
   esbuild: true

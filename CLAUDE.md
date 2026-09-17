@@ -100,7 +100,7 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 - Vite+ configuration is in `vite.config.ts`; keep using project-local tools through pnpm
 - Renovate updates Vite+ and its Vite core alias together; `pnpm check:toolchain` enforces alignment
 - Vitest comes from Vite+; do not add an independent Vitest pin or override
-- Keep pnpm `minimumReleaseAge: 1440`, strict enforcement and rejection of missing publish dates, with no toolchain exclusions
+- Keep pnpm `minimumReleaseAge: 1440`, strict enforcement and rejection of missing publish dates. Only owner-maintained `@http-client-toolkit/*` packages are exempt; their third-party dependencies still wait. Mirror this exception in Renovate and packed-consumer validation.
 
 ### Code Generation Architecture
 
