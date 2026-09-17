@@ -1,4 +1,5 @@
-import { z, ZodError } from 'zod';
+import { en } from 'zod/locales';
+import { z } from 'zod/mini';
 import { customError, OptionsValidationError } from '../errors/index.js';
 
 const options = z.object({
@@ -8,21 +9,23 @@ const options = z.object({
    * It also ensures that if the comic vine url was to change it wouldn't be a breaking change to the library.
    * @default https://comicvine.gamespot.com/api/
    */
-  baseUrl: z
-    .string()
-    .url()
-    .optional()
-    .default('https://comicvine.gamespot.com/api/'),
+  baseUrl: z._default(
+    z.optional(z.url()),
+    'https://comicvine.gamespot.com/api/',
+  ),
 });
+
+// Preserve English validation messages without changing consumers' global Zod config.
+const validationErrorMap = en().localeError;
 
 export type userOptions = z.input<typeof options>;
 export type Options = z.output<typeof options>;
 
 export const loadOptions = (userOptions?: userOptions) => {
   try {
-    return options.parse(userOptions ?? {});
+    return options.parse(userOptions ?? {}, { error: validationErrorMap });
   } catch (error: unknown) {
-    if (error instanceof ZodError) {
+    if (error instanceof z.core.$ZodError) {
       const validationError = error.issues[0];
       if (validationError) {
         throw new OptionsValidationError(
