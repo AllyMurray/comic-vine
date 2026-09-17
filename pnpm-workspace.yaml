@@ -6,6 +6,9 @@ packages:
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 minimumReleaseAgeIgnoreMissingTime: false
+minimumReleaseAgeExclude:
+  # Maintained by the repository owner; third-party dependencies still wait.
+  - '@http-client-toolkit/*'
 
 allowBuilds:
   esbuild: true

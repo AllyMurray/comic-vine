@@ -39,6 +39,19 @@ try {
     );
     return `${setting}: ${value}`;
   });
+  const ageExclusions = JSON.parse(
+    execFileSync(
+      'pnpm',
+      ['config', 'get', 'minimumReleaseAgeExclude', '--json'],
+      {
+        cwd: root,
+        encoding: 'utf8',
+      },
+    ),
+  );
+  assert.ok(Array.isArray(ageExclusions));
+  assert.ok(ageExclusions.every((pattern) => typeof pattern === 'string'));
+  agePolicy.push(`minimumReleaseAgeExclude: ${JSON.stringify(ageExclusions)}`);
   writeFileSync(
     join(temporary, 'pnpm-workspace.yaml'),
     `packages:\n  - '.'\n${agePolicy.join('\n')}\n`,

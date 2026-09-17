@@ -26,8 +26,16 @@ async function main() {
   const now = Date.now();
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, 'http://localhost');
-    const name = url.pathname.split('/').at(-1);
-    if (!['age-policy-probe', 'age-policy-transitive'].includes(name)) {
+    const name = decodeURIComponent(
+      url.pathname.replace(/^\/(missing-time\/|fresh-transitive\/)?/, ''),
+    );
+    if (
+      ![
+        'age-policy-probe',
+        'age-policy-transitive',
+        '@http-client-toolkit/age-policy-probe',
+      ].includes(name)
+    ) {
       response.writeHead(404).end();
       return;
     }
@@ -40,8 +48,16 @@ async function main() {
           tarball: `http://127.0.0.1:${server.address().port}/${name}-${version}.tgz`,
           shasum: '0000000000000000000000000000000000000000',
         },
-        ...(name === 'age-policy-probe'
-          ? { dependencies: { 'age-policy-transitive': '*' } }
+        ...(name !== 'age-policy-transitive'
+          ? {
+              dependencies: {
+                'age-policy-transitive': url.pathname.startsWith(
+                  '/fresh-transitive/',
+                )
+                  ? '1.0.1'
+                  : '*',
+              },
+            }
           : {}),
       };
     }
@@ -58,7 +74,16 @@ async function main() {
   await once(server, 'listening');
   try {
     for (const project of ['.', 'docs-site']) {
-      for (const scenario of ['range', 'exact', 'missing-time', 'frozen']) {
+      for (const scenario of [
+        'range',
+        'exact',
+        'missing-time',
+        'frozen',
+        'toolkit',
+        'fresh-transitive',
+      ]) {
+        const isToolkit =
+          scenario === 'toolkit' || scenario === 'fresh-transitive';
         const cwd = join(temporary, project, scenario);
         await fs.mkdir(cwd, { recursive: true });
         await fs.copyFile(
@@ -72,14 +97,17 @@ async function main() {
             private: true,
             packageManager,
             dependencies: {
-              'age-policy-probe': scenario === 'exact' ? '1.0.1' : '*',
+              [isToolkit
+                ? '@http-client-toolkit/age-policy-probe'
+                : 'age-policy-probe']:
+                isToolkit || scenario === 'exact' ? '1.0.1' : '*',
             },
           }),
         );
         const options = [
           '--lockfile-only',
           '--ignore-scripts',
-          `--registry=http://127.0.0.1:${server.address().port}/${scenario === 'missing-time' ? 'missing-time/' : ''}`,
+          `--registry=http://127.0.0.1:${server.address().port}/${['missing-time', 'fresh-transitive'].includes(scenario) ? `${scenario}/` : ''}`,
           '--store-dir',
           join(cwd, 'store'),
         ];
@@ -104,7 +132,18 @@ async function main() {
             );
           }
         }
-        if (scenario !== 'range') {
+        if (scenario === 'toolkit') {
+          assert.equal(result.code, 0, result.output);
+          const lock = await fs.readFile(join(cwd, 'pnpm-lock.yaml'), 'utf8');
+          assert.ok(
+            lock.includes('@http-client-toolkit/age-policy-probe@1.0.1'),
+            lock,
+          );
+          assert.ok(lock.includes('age-policy-transitive@1.0.0:'), lock);
+          assert.ok(!lock.includes('age-policy-transitive@1.0.1:'), lock);
+          result = await run(['install', '--frozen-lockfile', ...options], cwd);
+          assert.equal(result.code, 0, result.output);
+        } else if (scenario !== 'range') {
           assert.notEqual(result.code, 0, result.output);
           assert.match(
             result.output,

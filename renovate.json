@@ -44,6 +44,13 @@
       "internalChecksFilter": "strict"
     },
     {
+      "description": "Packages maintained by the repository owner do not need the npm release-age delay; updates still require review and CI.",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["@http-client-toolkit/*"],
+      "minimumReleaseAge": null,
+      "automerge": false
+    },
+    {
       "description": "Keep patch and minor PRs separate only for stable development tools eligible for patch automerge.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
