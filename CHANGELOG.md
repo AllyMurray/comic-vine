@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.3
+
+### Patch Changes
+
+- f20b272: Use Zod Mini for internal option validation to reduce consumer bundle size while preserving default options and English validation messages.
+
 ## 3.0.2
 
 ### Patch Changes
