@@ -51,7 +51,7 @@
     "@changesets/cli": "^3.0.3",
     "@http-client-toolkit/store-memory": "4.2.0",
     "@size-limit/file": "^14.0.0",
-    "@types/node": "24.13.5",
+    "@types/node": "24.13.6",
     "@types/pluralize": "^0.0.33",
     "@typescript/native": "npm:typescript@7.0.2",
     "change-case": "^5.4.4",
