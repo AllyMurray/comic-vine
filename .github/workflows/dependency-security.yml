@@ -7,6 +7,7 @@ on:
   schedule:
     - cron: '17 7 * * *'
   workflow_dispatch: {}
+  workflow_call: {}
 
 permissions:
   contents: read
@@ -40,7 +41,7 @@ jobs:
         with:
           node-version: 24.x
 
-      # Audit the committed lockfile without installing packages. Keep failures
-      # visible here so existing findings cannot prevent builds and tests in ci.
+      # Audit the committed lockfile without installing packages. Failures block
+      # callers' release/deployment jobs, while ordinary ci remains independent.
       - name: Audit all dependencies
         run: pnpm audit

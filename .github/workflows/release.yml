@@ -6,12 +6,19 @@ on:
       - main
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+
 concurrency:
   group: release-main
   cancel-in-progress: false
 
 jobs:
+  security:
+    uses: ./.github/workflows/dependency-security.yml
+
   release:
+    needs: security
     runs-on: ubuntu-latest
     permissions:
       contents: write

@@ -399,6 +399,16 @@ and on manual dispatch. These checks fail while vulnerabilities remain, but run
 independently of build CI so existing findings cannot skip builds and tests on
 `main`. Dependabot alerts continue to track unresolved findings. Keep the full
 audit jobs out of required PR checks; the PR comparison remains the security gate.
+
+Publishing and deployment have a stricter gate: `release` and `Deploy Docs` call
+the same full audit workflow for their own commit and require both SDK and docs
+audits to pass before release work or the docs deployment build can start. This
+includes development and transitive dependencies, applies to automatic and
+manual runs, and blocks on audit errors as well as vulnerability findings.
+Incremental fixes can still pass PR CI and merge while publishing and deployment
+remain blocked until both projects have clean audits. A clean audit means no
+known vulnerabilities were reported by the registry at that time.
+
 To reproduce a PR comparison locally, run
 `node scripts/audit-dependencies.mjs . <base-commit-sha>` and
 `node scripts/audit-dependencies.mjs docs-site <base-commit-sha>`.
