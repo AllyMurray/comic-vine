@@ -9,15 +9,17 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: 'pages'
   cancel-in-progress: false
 
 jobs:
+  security:
+    uses: ./.github/workflows/dependency-security.yml
+
   build:
+    needs: security
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -48,6 +50,10 @@ jobs:
           path: docs-site/dist
 
   deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
