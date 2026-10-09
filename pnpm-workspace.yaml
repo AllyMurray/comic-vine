@@ -17,8 +17,8 @@ overrides:
   yaml@<2.8.3: ^2.8.3
   vite@*: 'catalog:'
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.3.3
-  vite-plus: 0.3.3
+  vite: npm:@voidzero-dev/vite-plus-core@1.1.0
+  vite-plus: 1.1.0
 peerDependencyRules:
   allowAny:
     - vite
