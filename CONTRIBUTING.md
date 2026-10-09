@@ -392,8 +392,13 @@ Moving a finding from runtime to development scope is allowed.
 
 The comparison uses temporary lockfile copies and clean audit configuration,
 without installing packages or running their scripts. Registry errors, malformed
-reports and missing baseline data fail CI. Full `pnpm audit` checks still run on
-every push to `main`, and Dependabot alerts continue to track unresolved findings.
+reports and missing baseline data fail CI. The separate
+[`dependency security` workflow](./.github/workflows/dependency-security.yml)
+runs full `pnpm audit` checks for both projects on every push to `main`, daily,
+and on manual dispatch. These checks fail while vulnerabilities remain, but run
+independently of build CI so existing findings cannot skip builds and tests on
+`main`. Dependabot alerts continue to track unresolved findings. Keep the full
+audit jobs out of required PR checks; the PR comparison remains the security gate.
 To reproduce a PR comparison locally, run
 `node scripts/audit-dependencies.mjs . <base-commit-sha>` and
 `node scripts/audit-dependencies.mjs docs-site <base-commit-sha>`.
