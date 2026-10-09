@@ -8,6 +8,8 @@ minimumReleaseAgeIgnoreMissingTime: false
 minimumReleaseAgeExclude:
   # Match the library's exception for packages maintained by the repository owner.
   - '@http-client-toolkit/*'
+  # Renovate security update: sharp@0.35.5
+  - sharp@0.35.5
 
 allowBuilds:
   esbuild: true
