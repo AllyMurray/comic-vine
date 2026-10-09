@@ -14,9 +14,16 @@
   "platformAutomerge": false,
   "ignoreTests": false,
   "rebaseWhen": "behind-base-branch",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["* 0-5 * * 1"],
+    "automerge": false
+  },
   "vulnerabilityAlerts": {
     "enabled": true,
+    "addLabels": ["security"],
     "schedule": [],
+    "prConcurrentLimit": 0,
     "prCreation": "immediate",
     "dependencyDashboardApproval": false,
     "minimumReleaseAge": null,
