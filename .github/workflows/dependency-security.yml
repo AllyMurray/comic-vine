@@ -1,0 +1,46 @@
+name: dependency security
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '17 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: sdk
+            directory: .
+          - project: docs
+            directory: docs-site
+    name: Audit ${{ matrix.project }} dependencies
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.0
+        with:
+          package_json_file: ${{ matrix.directory }}/package.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24.x
+
+      # Audit the committed lockfile without installing packages. Keep failures
+      # visible here so existing findings cannot prevent builds and tests in ci.
+      - name: Audit all dependencies
+        run: pnpm audit

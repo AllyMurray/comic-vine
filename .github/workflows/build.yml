@@ -45,10 +45,6 @@ jobs:
           AUDIT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: node scripts/audit-dependencies.mjs . "$AUDIT_BASE_SHA"
 
-      - name: Audit all dependencies on main
-        if: matrix.node-version == '24.x' && github.event_name != 'pull_request'
-        run: pnpm audit
-
       - name: Verify dependency release-age policy
         if: matrix.node-version == '24.x'
         run: pnpm test:dependency-policy
@@ -116,10 +112,6 @@ jobs:
         env:
           AUDIT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: node ../scripts/audit-dependencies.mjs docs-site "$AUDIT_BASE_SHA"
-
-      - name: Audit all dependencies on main
-        if: github.event_name != 'pull_request'
-        run: pnpm audit
 
       - name: Build docs
         run: pnpm build
