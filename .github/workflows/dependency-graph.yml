@@ -1,0 +1,86 @@
+name: dependency graph
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dependency-graph-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: sdk
+            directory: .
+          - project: docs
+            directory: docs-site
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.0
+        with:
+          package_json_file: ${{ matrix.directory }}/package.json
+
+      # pnpm 12 lockfiles contain two YAML documents. Use pnpm itself to read
+      # the project graph, including development and transitive dependencies.
+      # No install or audit is needed, so known findings cannot block submission.
+      - name: Generate dependency inventory
+        env:
+          PROJECT_DIRECTORY: ${{ matrix.directory }}
+        run: |
+          pnpm --dir "$PROJECT_DIRECTORY" sbom --sbom-format spdx --lockfile-only --out "$RUNNER_TEMP/dependencies.spdx.json"
+          jq -e --arg name "$(jq -r .name "$PROJECT_DIRECTORY/package.json")" '
+            any(.packages[]; .SPDXID == "SPDXRef-RootPackage" and .name == $name) and
+            any(.relationships[]; .spdxElementId == "SPDXRef-RootPackage" and .relationshipType == "DEPENDS_ON")
+          ' "$RUNNER_TEMP/dependencies.spdx.json"
+
+      - name: Save dependency inventory
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: dependencies-${{ matrix.project }}
+          path: ${{ runner.temp }}/dependencies.spdx.json
+          if-no-files-found: error
+          retention-days: 7
+
+  submit:
+    # Only trusted main-branch runs receive permission to update the graph.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: generate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: sdk
+            manifest: pnpm-lock.yaml
+          - project: docs
+            manifest: docs-site/pnpm-lock.yaml
+    steps:
+      - name: Download dependency inventory
+        uses: actions/download-artifact@v8.0.2
+        with:
+          name: dependencies-${{ matrix.project }}
+          path: ${{ runner.temp }}/dependency-inventory
+
+      - name: Submit dependencies to GitHub
+        uses: advanced-security/spdx-dependency-submission-action@b009efcf8b9d562a4569d2028c276522232e631f # v0.4.0
+        with:
+          filePath: ${{ runner.temp }}/dependency-inventory
+          filePattern: dependencies.spdx.json
+          manifestPath: ${{ matrix.manifest }}
+          correlator: dependency-graph-${{ matrix.project }}

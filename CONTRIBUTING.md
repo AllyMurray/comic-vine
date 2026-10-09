@@ -381,6 +381,25 @@ migration.
 
 ### Validation
 
+On pull requests, dependency audits compare the checked-out dependency graph
+with the exact base commit from the PR event. Both lockfiles are audited against
+the current registry advisories in the same run. Existing findings remain visible
+in the job summary but do not block an incremental security fix. New advisories,
+new affected package versions, increased severity, and newly exposed runtime
+dependencies fail CI. Numeric advisory IDs and dependency path reshuffling do
+not affect the comparison; GHSA IDs, package names, versions and scope do.
+Moving a finding from runtime to development scope is allowed.
+
+The comparison uses temporary lockfile copies and clean audit configuration,
+without installing packages or running their scripts. Registry errors, malformed
+reports and missing baseline data fail CI. Full `pnpm audit` checks still run on
+every push to `main`, and Dependabot alerts continue to track unresolved findings.
+To reproduce a PR comparison locally, run
+`node scripts/audit-dependencies.mjs . <base-commit-sha>` and
+`node scripts/audit-dependencies.mjs docs-site <base-commit-sha>`.
+Run the policy regression tests with
+`node --test build-tests/audit-dependencies.test.mjs`.
+
 All dependency PRs use the existing `ci` workflow, with no path filters. It runs
 frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
 exports, browser bundling, declaration tests, size limits and package packing
