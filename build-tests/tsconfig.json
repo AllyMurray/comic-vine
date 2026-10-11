@@ -7,5 +7,5 @@
     "noEmit": true,
     "types": []
   },
-  "files": ["consumer-types.ts"]
+  "files": ["consumer-types.ts", "api-types.ts"]
 }

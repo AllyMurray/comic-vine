@@ -4,7 +4,7 @@
   "dependencyDashboard": true,
   "timezone": "Europe/London",
   "schedule": ["* 0-5 * * *"],
-  "prConcurrentLimit": 5,
+  "prConcurrentLimit": 0,
   "prHourlyLimit": 2,
   "labels": ["dependencies"],
   "separateMajorMinor": true,
@@ -16,7 +16,7 @@
   "rebaseWhen": "behind-base-branch",
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["* 0-5 * * 1"],
+    "schedule": ["* 0-5 * * *"],
     "automerge": false
   },
   "vulnerabilityAlerts": {
@@ -30,6 +30,11 @@
     "automerge": false
   },
   "packageRules": [
+    {
+      "description": "Prioritize transitive refreshes over ordinary version bumps.",
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "prPriority": 10
+    },
     {
       "description": "Keep the TypeScript 6 compiler API for compatibility tooling and consumer checks.",
       "matchManagers": ["npm"],
@@ -141,7 +146,7 @@
         "typescript",
         "tsdown",
         "tsx",
-        "tsd",
+        "expect-type",
         "esbuild",
         "@typescript/typescript6"
       ],

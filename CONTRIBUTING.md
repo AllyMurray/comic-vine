@@ -218,8 +218,11 @@ dependencies are `@http-client-toolkit/core` and `zod`; it currently has no peer
 or optional dependencies.
 
 Normal updates are scheduled every night between 00:00 and 06:00 in
-`Europe/London`, with at most five open PRs and two new PRs per hour. Actual runs
-depend on the Renovate service. Existing PRs can be rebased outside that window
+`Europe/London`, with at most two new PRs per hour and no concurrent PR cap.
+Lockfile maintenance runs in the same nightly window with higher priority than
+ordinary version updates, so unmerged update PRs cannot starve transitive fixes.
+Maintenance PRs still require review and passing CI. Actual runs depend on the
+Renovate service. Existing PRs can be rebased outside that window
 so CI can run against the current `main`. The Dependency Dashboard lists pending
 updates, and PRs use the existing `dependencies` label.
 
@@ -326,8 +329,10 @@ compiler discovery would find the TS6 compatibility package.
 
 The declaration plugin still marks its TS7 generator experimental. The
 `tsconfig.json` uses bundler module resolution instead of the removed Node 10
-mode. `pnpm test:build:types` runs the existing tsd contracts plus a public API
-consumer fixture compiled by both TS6 and TS7. The fixture resolves the built
+mode. `pnpm test:build:types` compiles the exact-type and assignability contracts
+in `build-tests/api-types.ts`, using `expect-type`, plus a public API consumer
+fixture with both TS6 and TS7. `@ts-expect-error` assertions check rejected calls.
+These fixtures resolve the built
 package exports, so changing our compiler does not silently require consumers
 to upgrade theirs. Renovate keeps the compatibility API on TS6 and the native
 compiler on TS7.0 until the declaration plugin's supported range is reviewed.
@@ -408,6 +413,13 @@ manual runs, and blocks on audit errors as well as vulnerability findings.
 Incremental fixes can still pass PR CI and merge while publishing and deployment
 remain blocked until both projects have clean audits. A clean audit means no
 known vulnerabilities were reported by the registry at that time.
+
+The docs project temporarily overrides `postcss-nested@6`'s selector parser to
+`^7.1.6` for GHSA-rj75-hqrm-r3gf. The override is limited to that consumer; remove
+it once its declared dependency range accepts a patched parser. Run the docs
+build when changing it. The SDK type contracts use the dependency-free
+`expect-type` package instead of `tsd`, removing the unpatched `braces` chain
+(GHSA-vfj7-8cjw-p6xm) while retaining checks under both compilers.
 
 To reproduce a PR comparison locally, run
 `node scripts/audit-dependencies.mjs . <base-commit-sha>` and

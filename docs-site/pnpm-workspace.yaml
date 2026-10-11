@@ -14,3 +14,8 @@ minimumReleaseAgeExclude:
 allowBuilds:
   esbuild: true
   sharp: true
+
+# Expressive Code's postcss-nested 6 still requests the vulnerable parser 6.x.
+# Keep the override scoped to that consumer until it accepts a patched version.
+overrides:
+  postcss-nested@6>postcss-selector-parser: ^7.1.6

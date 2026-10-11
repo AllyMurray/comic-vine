@@ -1,4 +1,4 @@
-// Compile the published entry point with TS6 and TS7, independently of tsd's compiler.
+// Compile the published entry point with both TS6 and TS7.
 import ComicVine, {
   ComicVine as ComicVineNamed,
   ComicVineUnauthorizedError,
