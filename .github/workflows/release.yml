@@ -20,6 +20,8 @@ jobs:
   release:
     needs: security
     runs-on: ubuntu-latest
+    outputs:
+      docs_ref: ${{ steps.docs.outputs.ref }}
     permissions:
       contents: write
       id-token: write
@@ -148,3 +150,29 @@ jobs:
           gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select documentation deployment
+        id: docs
+        env:
+          HAS_CHANGESETS: ${{ steps.changesets.outputs.has_changesets }}
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          # Every package release refreshes Pages from the release commit.
+          # Docs-only changes also deploy, once the release job has succeeded.
+          if [ "$HAS_CHANGESETS" = 'true' ] || [ "$EVENT_NAME" = 'workflow_dispatch' ] \
+            || [ -z "$BEFORE_SHA" ] || [[ "$BEFORE_SHA" =~ ^0+$ ]] \
+            || ! git diff --quiet "$BEFORE_SHA" HEAD -- docs-site/ .github/workflows/deploy-docs.yml; then
+            echo "ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          fi
+
+  docs:
+    needs: release
+    if: needs.release.outputs.docs_ref != ''
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy-docs.yml
+    with:
+      ref: ${{ needs.release.outputs.docs_ref }}

@@ -7,7 +7,13 @@ on:
   schedule:
     - cron: '17 7 * * *'
   workflow_dispatch: {}
-  workflow_call: {}
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to audit (defaults to the triggering commit)
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -30,6 +36,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6.1.0

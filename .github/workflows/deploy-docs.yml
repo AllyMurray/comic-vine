@@ -1,10 +1,12 @@
 name: Deploy Docs
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs-site/**'
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to audit, build and deploy after a successful release job
+        required: true
+        type: string
   workflow_dispatch:
 
 permissions:
@@ -17,6 +19,8 @@ concurrency:
 jobs:
   security:
     uses: ./.github/workflows/dependency-security.yml
+    with:
+      ref: ${{ inputs.ref || github.sha }}
 
   build:
     needs: security
@@ -27,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6.1.0
