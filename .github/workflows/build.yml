@@ -39,6 +39,10 @@ jobs:
         if: matrix.node-version == '24.x'
         run: node --test build-tests/audit-dependencies.test.mjs
 
+      - name: Test runtime dependency releases
+        if: matrix.node-version == '24.x'
+        run: node --test build-tests/runtime-release.test.mjs
+
       - name: Check dependency audit regressions
         if: matrix.node-version == '24.x' && github.event_name == 'pull_request'
         env:

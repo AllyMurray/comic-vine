@@ -373,8 +373,31 @@ uses `vite-plus/fmt` with the shared configuration.
 
 Changesets v3 runs on the Node 24 release runtime. `changeset version` exits
 with code 1 when no unreleased changesets exist, so the workflow checks for
-pending changesets before running it. Development-tool-only upgrades do not
-need a publishing Changeset.
+pending changesets before running it.
+
+The release workflow automatically prepares a patch Changeset for SDK runtime
+dependency updates. `node scripts/prepare-runtime-release.mjs` compares the root
+package's `dependencies`, `optionalDependencies`, peer requirements and locked
+runtime dependency graph with the latest reachable `comic-vine-sdk@*` release
+tag. It uses `pnpm list --lockfile-only --prod --depth Infinity --json` on
+temporary copies, without installing historical dependencies. Runtime lockfile
+refreshes, including transitive security fixes, are covered. Development tooling,
+package-manager, docs-site and GitHub Actions updates alone do not trigger an SDK
+release. Both the release history and lockfiles must be available; an incomplete
+comparison fails the workflow.
+
+This comparison covers all runtime updates since the last release, including
+updates merged while publishing was blocked by audits. The generated
+`.changeset/auto-runtime-dependencies.md` is consumed by Changesets in the same
+release run. Existing hand-written Changesets are preserved and a minor or major
+Changeset takes precedence over the automatic patch. Add an explicit major
+Changeset when a dependency update breaks the SDK's public API or supported
+runtime; an upstream major version alone does not determine the SDK's version.
+Full security audits, builds and tests still gate publishing. After a successful
+release, its new tag becomes the comparison baseline, preventing repeat releases.
+
+Run the release regression tests with
+`node --test build-tests/runtime-release.test.mjs`.
 
 The release workflow runs Changesets with `pnpm exec`, builds with pnpm and packs
 an explicit tarball with `pnpm pack`. It publishes that tarball using
@@ -455,9 +478,9 @@ pnpm --dir docs-site build
 
 Validate configuration edits with
 `pnpm --package=renovate dlx renovate-config-validator --strict renovate.json`.
-For dependency changes that need publishing, add a Changeset according to the
-existing release process; merging a dependency PR alone does not publish npm
-packages without a pending Changeset.
+Runtime dependency updates receive an automatic patch Changeset in the release
+workflow. Add a manual Changeset for other SDK changes and for runtime updates
+that require a minor or major SDK release.
 
 ## Submitting Changes
 

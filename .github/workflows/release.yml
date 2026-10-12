@@ -62,10 +62,13 @@ jobs:
       - name: Test Build Artifacts
         run: pnpm run test:build
 
+      - name: Prepare runtime dependency Changeset
+        run: node scripts/prepare-runtime-release.mjs
+
       - name: Check for changesets
         id: changesets
         run: |
-          CHANGESET_COUNT=$(ls .changeset/*.md 2>/dev/null | grep -v README.md | wc -l | tr -d ' ')
+          CHANGESET_COUNT=$(node --input-type=module -e "import { readdirSync } from 'node:fs'; console.log(readdirSync('.changeset').filter(name => name.endsWith('.md') && name !== 'README.md').length)")
           echo "count=$CHANGESET_COUNT"
           if [ "$CHANGESET_COUNT" -gt 0 ]; then
             echo "has_changesets=true" >> "$GITHUB_OUTPUT"
