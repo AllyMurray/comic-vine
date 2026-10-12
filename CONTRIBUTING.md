@@ -407,6 +407,25 @@ the behavior of `pnpm publish`. Packing first also resolves the pnpm catalog
 references in the published manifest. No registry credentials are added by this
 migration.
 
+### Coordinating package releases and documentation
+
+The `release` workflow coordinates automatic npm publishing and GitHub Pages
+deployments. After its release job succeeds, it calls `Deploy Docs` for every
+package release, even when no docs files changed. The docs build and its security
+audits check out the exact release commit, including the version bump.
+
+Changes under `docs-site/` or to the docs deployment workflow also deploy after
+the release job succeeds, without requiring an npm version bump. A failed audit,
+build, test or publishing step blocks that run's automatic docs deployment.
+Development-only changes outside the docs project trigger neither publication
+nor deployment when there is no pending Changeset.
+
+Manually running `release` also refreshes Pages after the release job succeeds.
+To retry only a docs deployment, run `Deploy Docs` manually on `main`; it still
+audits the selected commit before building and deploying. Automatic deployment
+uses a reusable workflow directly because releases created with `GITHUB_TOKEN`
+do not trigger another release-event workflow.
+
 ### Validation
 
 On pull requests, dependency audits compare the checked-out dependency graph
