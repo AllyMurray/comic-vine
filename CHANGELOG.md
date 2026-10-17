@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.4
+
+### Patch Changes
+
+- Update runtime dependencies since comic-vine-sdk@3.0.3.
+  
+  - `zod` (dependencies): `4.6.5` → `4.6.7`.
+  - Refresh locked runtime dependencies, including transitive resolutions.
+
 ## 3.0.3
 
 ### Patch Changes
