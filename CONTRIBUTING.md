@@ -240,35 +240,34 @@ Build permissions use pnpm 12's `allowBuilds` map; unreviewed dependency scripts
 are not approved automatically. The library's `saveExact: true` setting lives
 here as well. No repository `.npmrc` is needed.
 
-Renovate waits one day before proposing ordinary npm updates, and keeps the
-longer three-day delay for patch auto-merge candidates. Owner-maintained
+Renovate waits one day before proposing ordinary npm updates. Owner-maintained
 `@http-client-toolkit/*` packages also bypass Renovate's release-age delay, while
-retaining the nightly schedule, manual review and CI requirements. These delays provide
+retaining the nightly schedule and CI requirements. These delays provide
 time for compromised releases to be detected; they do not establish that a
 package is safe.
 
 Related lint/formatting, testing, TypeScript/build and `@types/*` updates are
-grouped. Patch and minor PRs are separated only for stable development tools
-eligible for patch auto-merge; manually reviewed groups combine non-major
-updates to reduce duplicate PRs. GitHub Actions updates, including major upgrades,
-share one manually reviewed PR. Their grouping rule follows the general major
-rule so that Actions majors stay together.
+grouped. Groups combine minor and patch updates to reduce duplicate PRs, while
+keeping major upgrades separate. GitHub Actions updates share a group, with
+major upgrades in a separate, manually reviewed PR. Their grouping rule follows
+the general major rule so that Actions majors stay together.
 Non-major updates to `@http-client-toolkit/core` and
-`@http-client-toolkit/store-memory` are grouped and always reviewed manually.
+`@http-client-toolkit/store-memory` are grouped.
 `size-limit` and `@size-limit/file` update together because the plugin requires
 a matching `size-limit` version. Its coordinated major upgrades require manual
 review and stay separate from
 non-major updates. Vite+ and its matching Vite core alias are another deliberate
-exception: they always update together in one manually reviewed PR, including
-major upgrades. Other npm major upgrades remain separate.
+exception: both catalog entries update together, with major upgrades in a
+separate, manually reviewed PR. Other npm major upgrades remain separate.
 
-Only stable patch updates to the explicitly listed development tools qualify
-for auto-merge, after a three-day release age and successful CI. Renovate merges
-PRs itself (`platformAutomerge: false`, `ignoreTests: false`) and rebases stale
+All minor and patch updates qualify for auto-merge after successful CI, including
+runtime dependencies, development tools, type definitions, pnpm, GitHub Actions
+and pre-1.0 packages. Renovate merges PRs itself (`platformAutomerge: false`,
+`ignoreTests: false`) and rebases stale
 branches before merging. Failed or pending checks, conflicts and Renovate
-artifact errors prevent automatic merging. Runtime/optional dependencies,
-compiler/build tools, type definitions, release tooling, package-manager
-updates, Actions, pre-1.0 packages, minors and majors require manual review.
+artifact errors prevent automatic merging. Major upgrades and lockfile
+maintenance require manual review. Existing version bounds and disabled Node
+engine updates still apply.
 Runtime updates and auto-merge candidates are filtered against the package's
 Node engine requirements when the dependency supplies engine metadata.
 Review release notes and any compatibility warnings before merging manual PRs.
@@ -279,15 +278,16 @@ major. When changing the build/release Node major, update the type dependency
 and its Renovate `allowedVersions` rule together. CI also tests compatibility
 with the minimum supported Node version. CI tests the Node 22 and 24 LTS lines.
 
-Future peer dependency updates use `rangeStrategy: widen` and always require
-manual review. Check that consumers using existing supported versions still
-work, test any newly added support, and retain old ranges where appropriate.
+Future peer dependency updates use `rangeStrategy: widen` and follow the same
+minor/patch auto-merge policy. Check that consumers using existing supported
+versions still work, test any newly added support, and retain old ranges where appropriate.
 Do not copy a development dependency's version directly into a peer constraint.
 Node engine changes are maintained manually because they change consumer support.
 
 Security PRs bypass Renovate's nightly schedule, release-age delay and normal PR limits
 and are raised as soon as Renovate processes an available vulnerability alert.
-They still require review and passing CI. pnpm's 24-hour resolution delay also
+They follow the same minor/patch auto-merge policy and still require passing CI.
+pnpm's 24-hour resolution delay also
 applies to third-party security fixes, so a newly published fix may need to age before
 Renovate can successfully update its lockfile. See Renovate's
 [vulnerability alert prerequisites](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts).
@@ -346,8 +346,9 @@ the existing build, installs it in a temporary consumer project with the same
 ### Vite+ updates
 
 The root pnpm catalog pins `vite-plus` and the `vite` alias to the same Vite+
-release. Renovate groups both catalog entries into one PR and never auto-merges
-it. Vitest is an exact transitive dependency of Vite+: tests import
+release. Renovate groups both catalog entries into one PR, auto-merges minor and
+patch updates after CI, and keeps major upgrades separate for manual review.
+Vitest is an exact transitive dependency of Vite+: tests import
 `vite-plus/test`, and TypeScript uses `vite-plus/test/globals`. Do not add an
 independent Vitest version or override. The docs site keeps its separate pnpm
 project and toolchain.
