@@ -26,10 +26,15 @@
     "prConcurrentLimit": 0,
     "prCreation": "immediate",
     "dependencyDashboardApproval": false,
-    "minimumReleaseAge": null,
-    "automerge": false
+    "minimumReleaseAge": null
   },
   "packageRules": [
+    {
+      "description": "Automerge all minor and patch updates after successful CI.",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "constraintsFiltering": "strict"
+    },
     {
       "description": "Prioritize transitive refreshes over ordinary version bumps.",
       "matchUpdateTypes": ["lockFileMaintenance"],
@@ -39,15 +44,13 @@
       "description": "Keep the TypeScript 6 compiler API for compatibility tooling and consumer checks.",
       "matchManagers": ["npm"],
       "matchPackageNames": ["@typescript/typescript6"],
-      "allowedVersions": ">=6.0.0 <7.0.0",
-      "automerge": false
+      "allowedVersions": ">=6.0.0 <7.0.0"
     },
     {
       "description": "Keep the native compiler within the TS7.0 range supported by the installed declaration generator; review wider upgrades with rolldown-plugin-dts.",
       "matchManagers": ["npm"],
       "matchDepNames": ["@typescript/native"],
-      "allowedVersions": ">=7.0.0 <7.1.0",
-      "automerge": false
+      "allowedVersions": ">=7.0.0 <7.1.0"
     },
     {
       "description": "Wait 24 hours before proposing ordinary npm updates, matching pnpm's release-age policy.",
@@ -56,65 +59,10 @@
       "internalChecksFilter": "strict"
     },
     {
-      "description": "Packages maintained by the repository owner do not need the npm release-age delay; updates still require review and CI.",
+      "description": "Packages maintained by the repository owner do not need the npm release-age delay; updates still require CI.",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["@http-client-toolkit/*"],
-      "minimumReleaseAge": null,
-      "automerge": false
-    },
-    {
-      "description": "Keep patch and minor PRs separate only for stable development tools eligible for patch automerge.",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "matchCurrentVersion": ">=1.0.0",
-      "matchPackageNames": [
-        "@eslint/**",
-        "eslint",
-        "eslint-*",
-        "prettier",
-        "globals",
-        "typescript-eslint",
-        "@typescript-eslint/**",
-        "vitest",
-        "@vitest/**",
-        "vite",
-        "nock",
-        "@size-limit/**",
-        "size-limit",
-        "rimraf",
-        "change-case",
-        "pluralize"
-      ],
-      "separateMinorPatch": true
-    },
-    {
-      "description": "Group and automerge stable patches to explicitly selected development tools only.",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["patch"],
-      "matchCurrentVersion": ">=1.0.0",
-      "matchPackageNames": [
-        "@eslint/**",
-        "eslint",
-        "eslint-*",
-        "prettier",
-        "globals",
-        "typescript-eslint",
-        "@typescript-eslint/**",
-        "vitest",
-        "@vitest/**",
-        "vite",
-        "nock",
-        "@size-limit/**",
-        "size-limit",
-        "rimraf",
-        "change-case",
-        "pluralize"
-      ],
-      "groupName": "development tooling patches",
-      "constraintsFiltering": "strict",
-      "automerge": true,
-      "minimumReleaseAge": "3 days"
+      "minimumReleaseAge": null
     },
     {
       "matchManagers": ["npm"],
@@ -163,11 +111,10 @@
       "description": "Keep Node types aligned with the Node 24 LTS build/release runtime; update this bound deliberately when that runtime changes.",
       "matchManagers": ["npm"],
       "matchPackageNames": ["@types/node"],
-      "allowedVersions": ">=24.0.0 <25.0.0",
-      "automerge": false
+      "allowedVersions": ">=24.0.0 <25.0.0"
     },
     {
-      "description": "Update the HTTP client and its memory store together within the current major; always review consumer-facing changes.",
+      "description": "Update the HTTP client and its memory store together within the current major.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["dependencies", "devDependencies"],
       "matchPackageNames": [
@@ -176,15 +123,13 @@
       ],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "http client toolkit",
-      "groupSlug": "http-client-toolkit",
-      "automerge": false
+      "groupSlug": "http-client-toolkit"
     },
     {
-      "description": "Runtime and optional dependencies affect consumers and require review.",
+      "description": "Filter runtime and optional dependency updates against consumer Node support.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["dependencies", "optionalDependencies"],
-      "constraintsFiltering": "strict",
-      "automerge": false
+      "constraintsFiltering": "strict"
     },
     {
       "description": "Preserve existing consumer support when proposing peer range extensions.",
@@ -192,8 +137,7 @@
       "matchDepTypes": ["peerDependencies"],
       "rangeStrategy": "widen",
       "groupName": null,
-      "groupSlug": null,
-      "automerge": false
+      "groupSlug": null
     },
     {
       "description": "Node support is a deliberate library compatibility decision.",
@@ -202,12 +146,11 @@
       "enabled": false
     },
     {
-      "description": "Pre-1.0 releases can break compatibility even in a patch.",
+      "description": "Keep pre-1.0 updates ungrouped because they can break compatibility even in a patch; minor and patch updates still automerge after CI.",
       "matchManagers": ["npm"],
       "matchCurrentVersion": "<1.0.0",
       "groupName": null,
-      "groupSlug": null,
-      "automerge": false
+      "groupSlug": null
     },
     {
       "description": "Never combine unrelated major upgrades, including inherited preset groups.",
@@ -225,14 +168,13 @@
       "groupSlug": "size-limit"
     },
     {
-      "description": "Group all GitHub Actions updates, including majors, for one manually reviewed workflow update. Keep this override after the general major rule.",
+      "description": "Group GitHub Actions updates, keeping manually reviewed majors separate from automerging minor and patch updates. Keep this override after the general major rule.",
       "matchManagers": ["github-actions"],
       "matchDatasources": ["github-tags"],
       "groupName": "github actions",
       "groupSlug": "github-actions",
-      "separateMajorMinor": false,
-      "separateMinorPatch": false,
-      "automerge": false
+      "separateMajorMinor": true,
+      "separateMinorPatch": false
     },
     {
       "description": "Vite+ and its Vite core alias must use the same release, including coordinated majors. Bundled Vitest is owned by Vite+; CI rejects mismatched versions.",
@@ -241,10 +183,9 @@
       "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
       "groupName": "vite plus toolchain",
       "groupSlug": "vite-plus-toolchain",
-      "separateMajorMinor": false,
+      "separateMajorMinor": true,
       "separateMinorPatch": false,
-      "rangeStrategy": "pin",
-      "automerge": false
+      "rangeStrategy": "pin"
     }
   ]
 }
