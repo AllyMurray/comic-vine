@@ -105,6 +105,8 @@ async function main() {
           }),
         );
         const options = [
+          // CI already selects pnpm; the mock registry only serves test packages.
+          '--pm-on-fail=ignore',
           '--lockfile-only',
           '--ignore-scripts',
           `--registry=http://127.0.0.1:${server.address().port}/${['missing-time', 'fresh-transitive'].includes(scenario) ? `${scenario}/` : ''}`,
