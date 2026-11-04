@@ -159,3 +159,75 @@ test('fails closed on inconsistent totals or incomplete advisory details', () =>
   ])
     assert.throws(() => parse([advisory(invalid)]));
 });
+
+test('audits the Bun graph against registry advisories without installing packages', async () => {
+  const { auditLockfile } = await import('../scripts/audit-dependencies.mjs');
+  const lock = JSON.stringify({
+    workspaces: {
+      '': {
+        dependencies: { runtime: '1.0.0' },
+        devDependencies: { tooling: '2.0.0' },
+      },
+    },
+    packages: {
+      runtime: [
+        'runtime@1.0.0',
+        '',
+        { dependencies: { transitive: '1.0.0' } },
+        'sha512-runtime',
+      ],
+      transitive: ['transitive@1.0.0', '', {}, 'sha512-transitive'],
+      tooling: ['tooling@2.0.0', '', {}, 'sha512-tooling'],
+    },
+  });
+  const findings = await auditLockfile(
+    lock,
+    'bun.lock',
+    async (url, options) => {
+      assert.equal(
+        url,
+        'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk',
+      );
+      assert.deepEqual(JSON.parse(options.body), {
+        runtime: ['1.0.0'],
+        transitive: ['1.0.0'],
+        tooling: ['2.0.0'],
+      });
+      return {
+        ok: true,
+        json: async () => ({
+          transitive: [
+            {
+              url: 'https://github.com/advisories/GHSA-aaaa-bbbb-cccc',
+              severity: 'high',
+              vulnerable_versions: '<1.0.1',
+            },
+          ],
+        }),
+      };
+    },
+  );
+  assert.deepEqual(
+    [...findings.values()],
+    [
+      {
+        id: 'GHSA-aaaa-bbbb-cccc',
+        name: 'transitive',
+        version: '1.0.0',
+        scope: 'runtime',
+        severity: 'high',
+      },
+    ],
+  );
+  await assert.rejects(
+    auditLockfile(lock, 'bun.lock', async () => ({ ok: false, status: 503 })),
+    /HTTP 503/,
+  );
+  await assert.rejects(
+    auditLockfile(lock, 'bun.lock', async () => ({
+      ok: true,
+      json: async () => ({ error: 'unavailable' }),
+    })),
+    /Audit returned an error/,
+  );
+});

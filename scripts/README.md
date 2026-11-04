@@ -12,14 +12,14 @@ flowchart TD
         api["samples/api-data/*/*.json"]
     end
 
-    subgraph fetch["pnpm samples:fetch"]
+    subgraph fetch["bun run samples:fetch"]
         F["fetch-samples.ts"]
     end
 
     config --> F
     F -- "GET /api/{resource}" --> api
 
-    subgraph generate["pnpm sdk:generate"]
+    subgraph generate["bun run sdk:generate"]
         direction TB
 
         S0["Step 0: Extract Comments"]
@@ -75,7 +75,7 @@ flowchart LR
 
 ## Scripts
 
-### `pnpm samples:fetch`
+### `bun run samples:fetch`
 
 Fetches fresh API responses from Comic Vine. Requires the `COMIC_VINE_API_KEY` environment variable.
 
@@ -83,7 +83,7 @@ Fetches fresh API responses from Comic Vine. Requires the `COMIC_VINE_API_KEY` e
 - Rate-limits to 3 requests/second
 - Saves responses to `samples/api-data/{resource-folder}/`
 
-### `pnpm sdk:generate`
+### `bun run sdk:generate`
 
 Runs the full generation pipeline (`generate-sdk.ts`):
 
@@ -136,4 +136,4 @@ samples/
 
 ## Idempotency
 
-Running `pnpm sdk:generate && pnpm format` should produce zero `git diff` on `src/`. If it doesn't, either the samples have changed or a generator module has been modified.
+Running `bun run sdk:generate && bun run format` should produce zero `git diff` on `src/`. If it doesn't, either the samples have changed or a generator module has been modified.

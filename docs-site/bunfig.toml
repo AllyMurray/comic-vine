@@ -1,0 +1,10 @@
+[install]
+# Astro bundles the parser loader into prerendered output.
+publicHoistPattern = ["@bruits/satteri-*"]
+minimumReleaseAgeExcludes = ["@http-client-toolkit/core", "@http-client-toolkit/dashboard", "@http-client-toolkit/store-dynamodb", "@http-client-toolkit/store-memory", "@http-client-toolkit/store-sqlite"]
+minimumReleaseAge = 86400
+globalStore = true
+linker = "isolated"
+
+[install.security]
+scanner = "../scripts/release-age-scanner.mjs"

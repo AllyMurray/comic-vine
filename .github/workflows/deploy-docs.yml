@@ -34,21 +34,21 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
 
       - name: Setup Node
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
-          cache: pnpm
-          cache-dependency-path: docs-site/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build docs
-        run: pnpm build
+        run: bun run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5.0.0

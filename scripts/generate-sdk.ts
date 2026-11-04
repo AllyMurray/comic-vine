@@ -109,14 +109,14 @@ async function main() {
   const docPath = path.join(SAMPLES_DIR, 'documentation.html');
   if (!fs.existsSync(docPath)) {
     throw new Error(
-      `Missing required input: ${docPath}\nRun "pnpm samples:fetch" to download API samples first.`,
+      `Missing required input: ${docPath}\nRun "bun run samples:fetch" to download API samples first.`,
     );
   }
 
   const apiDataDir = path.join(SAMPLES_DIR, 'api-data');
   if (!fs.existsSync(apiDataDir) || fs.readdirSync(apiDataDir).length === 0) {
     throw new Error(
-      `Missing or empty required input: ${apiDataDir}\nRun "pnpm samples:fetch" to download API samples first.`,
+      `Missing or empty required input: ${apiDataDir}\nRun "bun run samples:fetch" to download API samples first.`,
     );
   }
 

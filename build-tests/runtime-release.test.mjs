@@ -253,3 +253,56 @@ test('fails if the lockfile cannot supply the declared runtime graph', async (t)
     code: 'ENOENT',
   });
 });
+
+async function saveBunLock(f, transitive = '1.0.0') {
+  await f.write(
+    'bun.lock',
+    JSON.stringify({
+      lockfileVersion: 3,
+      configVersion: 1,
+      workspaces: {
+        '': {
+          name: f.manifest.name,
+          dependencies: f.manifest.dependencies,
+          optionalDependencies: f.manifest.optionalDependencies,
+          devDependencies: f.manifest.devDependencies,
+        },
+      },
+      packages: {
+        runtime: [
+          'runtime@1.0.0',
+          '',
+          { dependencies: { transitive } },
+          'sha512-runtime',
+        ],
+        optional: ['optional@1.0.0', '', {}, 'sha512-optional'],
+        tooling: ['tooling@1.0.0', '', {}, 'sha512-tooling'],
+        transitive: [`transitive@${transitive}`, '', {}, 'sha512-transitive'],
+      },
+    }),
+  );
+}
+
+test('Bun migration preserves the runtime graph from a historical pnpm release', async (t) => {
+  const f = await fixture(t);
+  f.manifest.packageManager = 'bun@1.4.3';
+  await f.saveManifest();
+  await saveBunLock(f);
+  await rm(join(f.directory, 'pnpm-lock.yaml'));
+  assert.equal(await prepareRuntimeRelease(f.directory), false);
+  await saveBunLock(f, '1.0.1');
+  assert.equal(await prepareRuntimeRelease(f.directory), true);
+});
+
+test('compares two Bun release locks and detects locked transitive changes', async (t) => {
+  const f = await fixture(t);
+  await saveBunLock(f);
+  await rm(join(f.directory, 'pnpm-lock.yaml'));
+  f.manifest.version = '1.0.1';
+  await f.saveManifest();
+  await f.commit();
+  await f.git('tag', 'comic-vine-sdk@1.0.1');
+  assert.equal(await prepareRuntimeRelease(f.directory), false);
+  await saveBunLock(f, '1.0.1');
+  assert.equal(await prepareRuntimeRelease(f.directory), true);
+});

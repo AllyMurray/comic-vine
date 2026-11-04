@@ -11,7 +11,7 @@
  *
  * The script does NOT modify any SDK files — add discovered URLs to
  * samples/config.json manually, then run:
- *   pnpm samples:fetch && pnpm sdk:generate && pnpm format
+ *   bun run samples:fetch && bun run sdk:generate && bun run format
  */
 
 import fs from 'node:fs';

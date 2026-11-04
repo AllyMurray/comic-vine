@@ -1,0 +1,14 @@
+---
+description: Use Bun for package management in this project
+globs: ['package.json', 'bun.lock', 'bunfig.toml', '**/*.ts', '**/*.js', '**/*.md']
+alwaysApply: true
+---
+
+Use the Bun version pinned in `package.json`.
+
+- Install dependencies with `bun install`; use `bun install --frozen-lockfile` in CI.
+- Run project scripts with `bun run <script>` and local tools with `bunx <tool>`.
+- Add packages with `bun add <package>` and remove them with `bun remove <package>`.
+- Keep the 24-hour release-age policy in `bunfig.toml` and its strict scanner intact.
+- Commit `bun.lock` and any dependency patches with dependency changes.
+- npm remains the release workflow's trusted-publishing client.

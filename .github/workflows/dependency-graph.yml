@@ -29,19 +29,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          package_json_file: ${{ matrix.directory }}/package.json
+          bun-version: 1.4.3
 
-      # pnpm 12 lockfiles contain two YAML documents. Use pnpm itself to read
-      # the project graph, including development and transitive dependencies.
-      # No install or audit is needed, so known findings cannot block submission.
+      # Read the locked graph without installing dependencies or executing hooks.
       - name: Generate dependency inventory
         env:
           PROJECT_DIRECTORY: ${{ matrix.directory }}
         run: |
-          pnpm --dir "$PROJECT_DIRECTORY" sbom --sbom-format spdx --lockfile-only --out "$RUNNER_TEMP/dependencies.spdx.json"
+          bun scripts/dependency-inventory.mjs "$PROJECT_DIRECTORY" "$RUNNER_TEMP/dependencies.spdx.json"
           jq -e --arg name "$(jq -r .name "$PROJECT_DIRECTORY/package.json")" '
             any(.packages[]; .SPDXID == "SPDXRef-RootPackage" and .name == $name) and
             any(.relationships[]; .spdxElementId == "SPDXRef-RootPackage" and .relationshipType == "DEPENDS_ON")
@@ -67,9 +65,9 @@ jobs:
       matrix:
         include:
           - project: sdk
-            manifest: pnpm-lock.yaml
+            manifest: bun.lock
           - project: docs
-            manifest: docs-site/pnpm-lock.yaml
+            manifest: docs-site/bun.lock
     steps:
       - name: Download dependency inventory
         uses: actions/download-artifact@v8.0.2

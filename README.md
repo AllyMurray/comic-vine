@@ -52,10 +52,10 @@ Resource types, classes, tests, and mock data are generated from sample API resp
 
 ```bash
 # Generate all types, resource classes, tests, and mock data from samples
-pnpm sdk:generate
+bun run sdk:generate
 
 # Fetch fresh API samples (requires COMIC_VINE_API_KEY)
-COMIC_VINE_API_KEY=your-key pnpm samples:fetch
+COMIC_VINE_API_KEY=your-key bun run samples:fetch
 ```
 
 ## Contributing

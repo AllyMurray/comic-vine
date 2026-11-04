@@ -42,27 +42,28 @@ jobs:
           git config user.name "$AUTHOR_NAME"
           git config user.email "$AUTHOR_EMAIL"
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.x
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build
-        run: pnpm run build
+        run: bun run build
 
       - name: Test
-        run: pnpm test
+        run: bun run test
 
       - name: Test Build Artifacts
-        run: pnpm run test:build
+        run: bun run test:build
 
       - name: Prepare runtime dependency Changeset
         run: node scripts/prepare-runtime-release.mjs
@@ -82,7 +83,7 @@ jobs:
       - name: Version packages
         if: steps.changesets.outputs.has_changesets == 'true'
         run: |
-          pnpm exec changeset version
+          bunx changeset version
           git add .
           HUSKY=0 git commit -m "chore: release packages"
         env:
@@ -114,9 +115,9 @@ jobs:
 
       - name: Publish packages
         if: steps.changesets.outputs.has_changesets == 'true' && steps.npm_package.outputs.already_published != 'true'
-        # Pack with pnpm to resolve catalog references; npm retains trusted publishing.
+        # Pack with Bun to resolve catalog references; npm retains trusted publishing.
         run: |
-          pnpm pack --out "$RUNNER_TEMP/comic-vine-sdk.tgz"
+          bun pm pack --filename "$RUNNER_TEMP/comic-vine-sdk.tgz"
           npm publish "$RUNNER_TEMP/comic-vine-sdk.tgz" --provenance --access public
 
       - name: Create release tag
