@@ -127,6 +127,12 @@ Bun reads the existing lint rules from `.oxlintrc.json`; retain that configurati
 to preserve rule behavior. CI installs the exact canary build in `.bun-version`
 from npm instead of following a moving canary release.
 
+Renovate uses released Bun 1.4.4 only to regenerate lockfiles, via the `bun`
+manager's tool constraint in `renovate.json`. Its installer uses GitHub releases
+and cannot install the npm-specific canary build. Dependency rules cover both
+`npm` and `bun` managers. Bun runtime updates are manual: update `.bun-version`
+and both manifests together and verify native linting before changing the pin.
+
 ```bash
 # Check source formatting, lint rules and types
 bun run lint

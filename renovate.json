@@ -30,6 +30,12 @@
   },
   "packageRules": [
     {
+      "description": "Keep the lint-capable Bun canary pinned; update both packageManager entries and .bun-version together after verifying native linting.",
+      "matchManagers": ["npm", "bun", "bun-version"],
+      "matchDepNames": ["bun", "Bun"],
+      "enabled": false
+    },
+    {
       "description": "Automerge all minor and patch updates after successful CI.",
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
@@ -42,13 +48,13 @@
     },
     {
       "description": "Keep the TypeScript 6 compiler API for compatibility tooling and consumer checks.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchPackageNames": ["@typescript/typescript6"],
       "allowedVersions": ">=6.0.0 <7.0.0"
     },
     {
       "description": "Keep the native compiler within the TS7.0 range supported by the installed declaration generator; review wider upgrades with rolldown-plugin-dts.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepNames": ["@typescript/native"],
       "allowedVersions": ">=7.0.0 <7.1.0"
     },
@@ -65,7 +71,7 @@
       "minimumReleaseAge": null
     },
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": [
@@ -80,7 +86,7 @@
       "groupName": "lint and formatting tools"
     },
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": [
@@ -94,7 +100,7 @@
       "groupName": "typescript and build tooling"
     },
     {
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": ["@types/**"],
@@ -102,13 +108,13 @@
     },
     {
       "description": "Keep Node types aligned with the Node 24 LTS build/release runtime; update this bound deliberately when that runtime changes.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchPackageNames": ["@types/node"],
       "allowedVersions": ">=24.0.0 <25.0.0"
     },
     {
       "description": "Update the HTTP client and its memory store together within the current major.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["dependencies", "devDependencies"],
       "matchPackageNames": [
         "@http-client-toolkit/core",
@@ -120,13 +126,13 @@
     },
     {
       "description": "Filter runtime and optional dependency updates against consumer Node support.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["dependencies", "optionalDependencies"],
       "constraintsFiltering": "strict"
     },
     {
       "description": "Preserve existing consumer support when proposing peer range extensions.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["peerDependencies"],
       "rangeStrategy": "widen",
       "groupName": null,
@@ -134,13 +140,13 @@
     },
     {
       "description": "Node support is a deliberate library compatibility decision.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["engines"],
       "enabled": false
     },
     {
       "description": "Keep pre-1.0 updates ungrouped because they can break compatibility even in a patch; minor and patch updates still automerge after CI.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchCurrentVersion": "<1.0.0",
       "groupName": null,
       "groupSlug": null
@@ -154,7 +160,7 @@
     },
     {
       "description": "Keep size-limit and its exact-version peer plugin together, including coordinated major upgrades. The major rule above still disables automerge.",
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "bun"],
       "matchDepTypes": ["devDependencies"],
       "matchPackageNames": ["size-limit", "@size-limit/file"],
       "groupName": "size limit",
@@ -169,5 +175,10 @@
       "separateMajorMinor": true,
       "separateMinorPatch": false
     }
-  ]
+  ],
+  "bun": {
+    "constraints": {
+      "bun": "1.4.4"
+    }
+  }
 }
