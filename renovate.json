@@ -75,9 +75,7 @@
         "prettier",
         "globals",
         "typescript-eslint",
-        "@typescript-eslint/**",
-        "oxlint",
-        "oxlint-tsgolint"
+        "@typescript-eslint/**"
       ],
       "groupName": "lint and formatting tools"
     },

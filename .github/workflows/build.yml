@@ -23,15 +23,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.4
-
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.x
+
+      - name: Set up pinned Bun
+        run: npm install --global "bun@$(cat "$GITHUB_WORKSPACE/.bun-version")"
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -100,15 +98,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.4
-
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.x
+
+      - name: Set up pinned Bun
+        run: npm install --global "bun@$(cat "$GITHUB_WORKSPACE/.bun-version")"
 
       - name: Install dependencies
         run: bun install --frozen-lockfile

@@ -27,9 +27,10 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
   The published package supports Node 22 and newer; CI tests Node 22 and 24 LTS.
-- **Bun**: Use the version pinned in `package.json` (currently 1.4.4).
+- **Bun**: Use the exact canary build in `.bun-version`, also recorded in
+  `package.json`. It includes the built-in linter.
   ```bash
-  curl -fsSL https://bun.sh/install | bash -s "bun-v1.4.4"
+  npm install --global "bun@$(cat .bun-version)"
   ```
 
 ### Development Setup
@@ -119,10 +120,12 @@ docs(readme): update installation instructions
 
 ### Code Style
 
-The library uses Bun's formatter, configured in `bunfig.toml`, and standalone
-Oxlint for linting and type-aware checks, configured in `.oxlintrc.json`.
-Bun 1.4.4 has built-in formatting; its stable release does not yet include
-`bun lint`, so Oxlint preserves the existing lint rules without using a canary.
+The library uses Bun's built-in formatter and linter. Formatting settings in
+`bunfig.toml` preserve the existing quotes, semicolons, indentation and wrapping,
+with import sorting disabled. The generated Changesets changelog is excluded.
+Bun reads the existing lint rules from `.oxlintrc.json`; retain that configuration
+to preserve rule behavior. CI installs the exact canary build in `.bun-version`
+from npm instead of following a moving canary release.
 
 ```bash
 # Check source formatting, lint rules and types
@@ -333,7 +336,7 @@ The project has no Vite+ wrapper or Vitest dependency. Tests explicitly import
 from `bun:test`, and generated resource tests use the same imports. SDK generation
 formats all generated TypeScript with `bun fmt` after writing the files.
 
-Oxlint retains the existing import resolution, dependency and ordering rules via
+Bun retains the existing import resolution, dependency and ordering rules via
 `eslint-plugin-import`. Bun's `bun:test` module is configured as a built-in module
 for those checks. Keep the TypeScript-native declaration generator within its
 supported compiler range and run the public declaration checks after upgrades.
@@ -503,7 +506,7 @@ that require a minor or major SDK release.
 The existing **Husky** hook runs `bun run pre-commit`:
 
 - **Auto-formatting**: Bun formats project files
-- **Validation**: Bun checks formatting and source types; Oxlint checks lint rules and types
+- **Validation**: Bun checks formatting, lint rules and types
 - **Tests**: Bun runs the unit suite
 
 If pre-commit hooks fail, fix the issues before committing:
@@ -560,8 +563,8 @@ When adding support for a new Comic Vine API resource:
 - **Package Manager**: [Bun](https://bun.sh/)
 - **Testing**: [Bun test](https://bun.sh/docs/test)
 - **Build**: [tsdown](https://tsdown.dev/) and esbuild
-- **Linting**: [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
-- **Formatting**: [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
+- **Linting**: [Bun lint](https://bun.sh/docs/lint)
+- **Formatting**: [Bun fmt](https://bun.sh/docs/format)
 - **Git Hooks**: [Husky](https://typicode.github.io/husky/)
 
 ---

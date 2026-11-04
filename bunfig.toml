@@ -17,8 +17,16 @@ scanner = "./scripts/release-age-scanner.mjs"
 [test]
 root = "src"
 
+# Preserve the existing style; keep import and manifest sorting disabled.
 [fmt]
 singleQuote = true
 printWidth = 80
+semi = true
+tabWidth = 2
+useTabs = false
+trailingComma = "all"
+endOfLine = "lf"
+sortImports = false
 sortPackageJson = false
-ignorePatterns = ["scripts/create-package-json.ts", "samples/", "docs-site/**", "lib/**", "dist/**"]
+# Changesets owns the generated changelog's formatting.
+ignorePatterns = ["scripts/create-package-json.ts", "samples/", "docs-site/**", "lib/**", "dist/**", "CHANGELOG.md"]

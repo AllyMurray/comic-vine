@@ -29,10 +29,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.1.0
         with:
-          bun-version: 1.4.4
+          node-version: 24.x
+
+      - name: Set up pinned Bun
+        run: npm install --global "bun@$(cat "$GITHUB_WORKSPACE/.bun-version")"
 
       # Read the locked graph without installing dependencies or executing hooks.
       - name: Generate dependency inventory

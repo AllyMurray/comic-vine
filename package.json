@@ -19,9 +19,9 @@
     "test:build:browser": "node build-tests/browser-bundle.test.js",
     "test:build:types": "bun run test:build:types:compilers",
     "test:build:size": "size-limit",
-    "lint": "bun run format:check && oxlint --type-aware --type-check src",
+    "lint": "bun run format:check && bun lint --no-script --type-aware --type-check src",
     "typecheck": "bun --check",
-    "lint:fix": "oxlint --type-aware --type-check --fix src && bun run format",
+    "lint:fix": "bun lint --no-script --type-aware --type-check --fix src && bun run format",
     "format": "bun fmt \"**/*.{ts,tsx,md}\"",
     "pre-commit": "bun run format && bun run lint && bun run test",
     "dev": "tsdown --watch",
@@ -36,7 +36,7 @@
     "test:package": "node build-tests/packed-package.test.cjs",
     "test:build:types:compilers": "tsc6 --project build-tests/tsconfig.json && tsc --project build-tests/tsconfig.json",
     "test:dependency-policy": "node build-tests/dependency-policy.test.cjs",
-    "format:check": "bun fmt --check \"src/**/*.ts\""
+    "format:check": "bun fmt --check \"**/*.{ts,tsx,md}\""
   },
   "author": {
     "name": "Ally Murray",
@@ -67,9 +67,7 @@
     "tsx": "^4.23.15",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "@types/bun": "1.4.4",
-    "tsdown": "0.23.1",
-    "oxlint": "1.91.0",
-    "oxlint-tsgolint": "7.0.2005"
+    "tsdown": "0.23.1"
   },
   "keywords": [
     "comic-metadata",
@@ -128,7 +126,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.4-canary.20261104.1",
   "size-limit": [
     {
       "path": "lib/*.js",

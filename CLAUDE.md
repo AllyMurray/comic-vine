@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Management
 
-- Use pinned Bun 1.4.4 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
+- Use the exact Bun canary build in `.bun-version` for package management, formatting and linting; the release workflow uses npm only to publish the packed tarball through trusted publishing
 - Install dependencies: `bun install`
 - Build: `bun run build`
 - Run tests: `bun run test`
