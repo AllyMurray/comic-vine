@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.5
+
+### Patch Changes
+
+- Update runtime dependencies since comic-vine-sdk@3.0.4.
+  
+  - `@http-client-toolkit/core` (dependencies): `4.2.0` → `5.0.0`.
+  - Refresh locked runtime dependencies, including transitive resolutions.
+
 ## 3.0.4
 
 ### Patch Changes
