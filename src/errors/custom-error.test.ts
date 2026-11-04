@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'bun:test';
 import { customError } from './custom-error.js';
 
 describe('Catch Error', () => {

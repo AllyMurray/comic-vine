@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'bun:test';
 import { isObject } from './is-object.js';
 
 describe('isObject', () => {

@@ -6,7 +6,8 @@ export function generateResourceTest(
   pascalName: string,
   kebabName: string,
 ): string {
-  return `import { HttpClient } from '@http-client-toolkit/core';
+  return `import { describe, it, expect } from 'bun:test';
+import { HttpClient } from '@http-client-toolkit/core';
 import { ${pascalName} } from './${kebabName}.js';
 import {
   comicVineResponseTransformer,

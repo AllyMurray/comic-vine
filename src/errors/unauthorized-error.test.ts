@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'bun:test';
 import { BaseError } from './base-error.js';
 import { ComicVineUnauthorizedError } from './unauthorized-error.js';
 

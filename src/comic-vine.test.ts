@@ -1,4 +1,4 @@
-import { describe, test, expect, vi } from 'vite-plus/test';
+import { describe, test, expect, mock, spyOn } from 'bun:test';
 import { ComicVine } from './comic-vine.js';
 import { StatusCode } from './http-client/status-code.js';
 import * as resources from './resources/resource-list.js';
@@ -24,13 +24,13 @@ describe('ComicVine', () => {
 
     test('should handle stores in constructor', () => {
       const mockCache = {
-        get: vi.fn().mockResolvedValue(undefined),
-        set: vi.fn().mockResolvedValue(undefined),
-        delete: vi.fn().mockResolvedValue(undefined),
-        clear: vi.fn().mockResolvedValue(undefined),
-        setWithTags: vi.fn().mockResolvedValue(undefined),
-        invalidateByTag: vi.fn().mockResolvedValue(0),
-        invalidateByTags: vi.fn().mockResolvedValue(0),
+        get: mock().mockResolvedValue(undefined),
+        set: mock().mockResolvedValue(undefined),
+        delete: mock().mockResolvedValue(undefined),
+        clear: mock().mockResolvedValue(undefined),
+        setWithTags: mock().mockResolvedValue(undefined),
+        invalidateByTag: mock().mockResolvedValue(0),
+        invalidateByTags: mock().mockResolvedValue(0),
       };
 
       const comicVine = new ComicVine({
@@ -87,8 +87,7 @@ describe('ComicVine', () => {
 
   describe('rate limiting', () => {
     test('should use the same canonical resource name for list, retrieve, and status APIs', async () => {
-      const fetchMock = vi
-        .fn<typeof fetch>()
+      const fetchMock = spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(
           new Response(
             JSON.stringify({
@@ -124,18 +123,16 @@ describe('ComicVine', () => {
           ),
         );
 
-      vi.stubGlobal('fetch', fetchMock);
-
       const rateLimitStore = {
-        canProceed: vi.fn().mockResolvedValue(true),
-        record: vi.fn().mockResolvedValue(undefined),
-        getStatus: vi.fn().mockResolvedValue({
+        canProceed: mock().mockResolvedValue(true),
+        record: mock().mockResolvedValue(undefined),
+        getStatus: mock().mockResolvedValue({
           remaining: 59,
           resetTime: new Date(),
           limit: 60,
         }),
-        reset: vi.fn().mockResolvedValue(undefined),
-        getWaitTime: vi.fn().mockResolvedValue(0),
+        reset: mock().mockResolvedValue(undefined),
+        getWaitTime: mock().mockResolvedValue(0),
       };
 
       try {
@@ -174,7 +171,7 @@ describe('ComicVine', () => {
         expect(rateLimitStore.getStatus).toHaveBeenNthCalledWith(2, 'issues');
         expect(rateLimitStore.reset).toHaveBeenCalledWith('issues');
       } finally {
-        vi.unstubAllGlobals();
+        fetchMock.mockRestore();
       }
     });
   });

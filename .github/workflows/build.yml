@@ -23,17 +23,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
-
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.x
-          cache: pnpm
+
+      - name: Set up pinned Bun
+        run: npm install --global "bun@$(cat "$GITHUB_WORKSPACE/.bun-version")"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Test dependency audit policy
         if: matrix.node-version == '24.x'
@@ -51,39 +50,40 @@ jobs:
 
       - name: Verify dependency release-age policy
         if: matrix.node-version == '24.x'
-        run: pnpm test:dependency-policy
+        run: bun run test:dependency-policy
 
       - name: Build
-        run: pnpm run build
+        run: bun run build
 
       - name: Lint
-        run: pnpm run lint
+        run: bun run lint
 
       - name: Typecheck
-        run: pnpm run typecheck
+        run: bun run typecheck
 
-      # Vite+ needs a modern build runtime; test the output on every supported major.
+      - name: Test SDK with Bun
+        if: matrix.node-version == '24.x'
+        run: bun run test
+
+      # Build tools run on Node 24; validate the output on every supported major.
       - name: Setup test runtime
         uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Test
-        run: pnpm test
-
       - name: Test Build Artifacts
-        run: pnpm run test:build:artifacts
+        run: bun run test:build:artifacts
 
       - name: Test installed package tarball
-        run: pnpm run test:package
+        run: bun run test:package
 
       - name: Verify generated code is up to date
         if: matrix.node-version == '24.x'
         run: |
-          pnpm run sdk:generate
-          pnpm run format
+          bun run sdk:generate
+          bun run format
           git diff --exit-code -- src/ samples/code-comments/ || {
-            echo "::error::Generated code is out of date. Run 'pnpm sdk:generate && pnpm format' and commit the result."
+            echo "::error::Generated code is out of date. Run 'bun run sdk:generate && bun run format' and commit the result."
             exit 1
           }
 
@@ -98,18 +98,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
-
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.x
-          cache: pnpm
-          cache-dependency-path: docs-site/pnpm-lock.yaml
+
+      - name: Set up pinned Bun
+        run: npm install --global "bun@$(cat "$GITHUB_WORKSPACE/.bun-version")"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Check dependency audit regressions
         if: github.event_name == 'pull_request'
@@ -118,4 +116,4 @@ jobs:
         run: node ../scripts/audit-dependencies.mjs docs-site "$AUDIT_BASE_SHA"
 
       - name: Build docs
-        run: pnpm build
+        run: bun run build

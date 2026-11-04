@@ -6,26 +6,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Management
 
-- Use pinned pnpm 12.16.1 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
-- Install dependencies: `pnpm install`
-- Build: `pnpm run build`
-- Run tests: `pnpm run test`
-- Run linting: `pnpm run lint`
-- Fix linting issues: `pnpm run lint:fix`
-- Format code: `pnpm run format`
+- Use the exact Bun canary build in `.bun-version` for package management, formatting and linting; the release workflow uses npm only to publish the packed tarball through trusted publishing
+- Install dependencies: `bun install`
+- Build: `bun run build`
+- Run tests: `bun run test`
+- Run linting: `bun run lint`
+- Fix linting issues: `bun run lint:fix`
+- Format code: `bun run format`
 
 ### Development Workflow
 
-- Pre-commit checks: `pnpm run pre-commit`
-- Watch mode: `pnpm run dev`
-- Clean build artifacts: `pnpm run clean`
-- Build artifact tests: `pnpm run test:build`
+- Pre-commit checks: `bun run pre-commit`
+- Watch mode: `bun run dev`
+- Clean build artifacts: `bun run clean`
+- Build artifact tests: `bun run test:build`
 
 ### Code Generation
 
-- Generate SDK (types, resources, tests, mock data): `pnpm run sdk:generate`
-- Fetch fresh API samples (requires `COMIC_VINE_API_KEY` env var): `pnpm run samples:fetch`
-- After generating, run `pnpm run format` to normalize formatting
+- Generate SDK (types, resources, tests, mock data): `bun run sdk:generate`
+- Fetch fresh API samples (requires `COMIC_VINE_API_KEY` env var): `bun run samples:fetch`
+- After generating, run `bun run format` to normalize formatting
 
 ## Architecture Overview
 
@@ -84,23 +84,22 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 
 ### Testing Strategy
 
-- Uses Vite+ bundled Vitest for unit testing (`vite-plus/test`)
+- Uses Bun's built-in test runner (`bun:test`) for unit testing
 - Comprehensive test coverage with mocked API responses in `src/__mocks__/`
-- nock for HTTP request interception (works with toolkit's fetch-based client)
+- Bun fetch spies for HTTP request fixtures, with URL and response-consumption assertions
 - Each resource and utility has corresponding `.test.ts` files
 - Tests focus on type safety, error handling, and API contract compliance
 
 ### Build System
 
-- Build on Node 24 LTS (24.11+) with Vite+ (`vp pack`, using tsdown) for ESM/declarations and esbuild for the CommonJS wrapper
+- Build on Node 24 LTS (24.11+) with standalone tsdown for ESM/declarations and esbuild for the CommonJS wrapper
 - Support Node 22 and newer at runtime (`engines.node: >=22.0.0`); test built and packed output on Node 22 and 24 LTS
-- TypeScript 7 for typechecking and declaration generation; TS6 compatibility API for tooling and consumer checks
-- Public declaration checks run under both TS6 and TS7, alongside tsd
+- Bun for source typechecking; TypeScript 7 for declaration generation; TS6 compatibility API for tooling and consumer checks
+- Public declaration checks run under both TS6 and TS7
 - Output in `lib/` directory
-- Vite+ configuration is in `vite.config.ts`; keep using project-local tools through pnpm
-- Renovate updates Vite+ and its Vite core alias together; `pnpm check:toolchain` enforces alignment
-- Vitest comes from Vite+; do not add an independent Vitest pin or override
-- Keep pnpm `minimumReleaseAge: 1440`, strict enforcement and rejection of missing publish dates. Only owner-maintained `@http-client-toolkit/*` packages are exempt; their third-party dependencies still wait. Mirror this exception in Renovate and packed-consumer validation.
+- Build configuration is in `tsdown.config.ts`, formatting in `bunfig.toml`, and linting in `.oxlintrc.json`
+- Tests import from `bun:test`; do not add Vitest or Vite+ dependencies
+- Keep Bun `minimumReleaseAge = 86400` and the release-age scanner, including strict frozen-lock enforcement and rejection of missing publication dates. The explicitly listed owner-maintained `@http-client-toolkit/*` packages are exempt; their third-party dependencies still wait. Add new owned packages to the explicit Bun exclusion list and mirror the policy in Renovate and packed-consumer validation.
 
 ### Code Generation Architecture
 
@@ -115,4 +114,4 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
   - `common-types-generator.ts` — replaces nested types matching shared shapes (Image, Death, ApiResource, etc.) with common type imports
   - `type-overrides.ts` — applies known type overrides where sample data is ambiguous (hasStaffReview, aliases)
 - Also generates: resource classes, tests, mock data, barrel files, ResourceType enum
-- Running `pnpm sdk:generate && pnpm format` should produce zero `git diff` on `src/`
+- Running `bun run sdk:generate && bun run format` should produce zero `git diff` on `src/`

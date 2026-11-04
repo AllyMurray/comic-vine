@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { isDeepStrictEqual, promisify } from 'node:util';
+import { lockGraph } from './lockfile.mjs';
 
 const exec = promisify(execFile);
 const runtimeFields = [
@@ -19,72 +19,6 @@ function runtimeManifest(manifest) {
   return Object.fromEntries(
     runtimeFields.map((field) => [field, manifest[field] ?? {}]),
   );
-}
-
-// Ignore installation paths, ordering and all development-only dependencies.
-// Keep dependency edges so a resolution change anywhere in the runtime graph
-// counts, including a transitive security fix in a lockfile-maintenance PR.
-function runtimeGraph(project) {
-  return Object.fromEntries(
-    ['dependencies', 'optionalDependencies'].map((field) => [
-      field,
-      Object.fromEntries(
-        Object.entries(project[field] ?? {}).map(([name, dependency]) => {
-          assert(
-            typeof dependency.version === 'string' && !dependency.isMissing,
-            `Missing locked runtime dependency: ${name}`,
-          );
-          return [
-            name,
-            {
-              from: dependency.from,
-              version: dependency.version,
-              resolved: dependency.resolved,
-              ...runtimeGraph(dependency),
-            },
-          ];
-        }),
-      ),
-    ]),
-  );
-}
-
-async function readRuntimeGraph(manifest, lockfile, directory) {
-  await mkdir(directory);
-  // Inspect both committed lockfiles using the same installed pnpm. Do not
-  // install packages, execute hooks, or switch to a historical package manager.
-  await writeFile(
-    join(directory, 'package.json'),
-    JSON.stringify({
-      name: manifest.name,
-      version: manifest.version,
-      ...runtimeManifest(manifest),
-    }),
-  );
-  await writeFile(join(directory, 'pnpm-lock.yaml'), lockfile);
-  await writeFile(
-    join(directory, 'pnpm-workspace.yaml'),
-    "packages:\n  - '.'\n",
-  );
-  const { stdout } = await exec(
-    'pnpm',
-    ['list', '--lockfile-only', '--prod', '--depth', 'Infinity', '--json'],
-    { cwd: directory, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const projects = JSON.parse(stdout);
-  assert(
-    Array.isArray(projects) && projects.length === 1,
-    'Expected one SDK dependency graph',
-  );
-  for (const field of ['dependencies', 'optionalDependencies']) {
-    for (const name of Object.keys(manifest[field] ?? {})) {
-      assert(
-        projects[0][field]?.[name],
-        `Runtime dependency absent from lockfile: ${name}`,
-      );
-    }
-  }
-  return runtimeGraph(projects[0]);
 }
 
 export async function prepareRuntimeRelease(directory = process.cwd()) {
@@ -119,25 +53,27 @@ export async function prepareRuntimeRelease(directory = process.cwd()) {
     'Release tag belongs to another package',
   );
 
-  const temporary = await mkdtemp(
-    join(tmpdir(), 'comic-vine-runtime-release-'),
-  );
-  let graphChanged;
+  let previousLock, previousFilename;
   try {
-    const previousGraph = await readRuntimeGraph(
-      previous,
-      await git('show', `${tag}:pnpm-lock.yaml`),
-      join(temporary, 'previous'),
-    );
-    const currentGraph = await readRuntimeGraph(
-      manifest,
-      await readFile(join(directory, 'pnpm-lock.yaml'), 'utf8'),
-      join(temporary, 'current'),
-    );
-    graphChanged = !isDeepStrictEqual(previousGraph, currentGraph);
-  } finally {
-    await rm(temporary, { recursive: true, force: true });
+    previousLock = await git('show', `${tag}:bun.lock`);
+    previousFilename = 'bun.lock';
+  } catch {
+    previousLock = await git('show', `${tag}:pnpm-lock.yaml`);
+    previousFilename = 'pnpm-lock.yaml';
   }
+  let currentLock, currentFilename;
+  try {
+    currentLock = await readFile(join(directory, 'bun.lock'), 'utf8');
+    currentFilename = 'bun.lock';
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    currentLock = await readFile(join(directory, 'pnpm-lock.yaml'), 'utf8');
+    currentFilename = 'pnpm-lock.yaml';
+  }
+  const graphChanged = !isDeepStrictEqual(
+    lockGraph(previousLock, previousFilename, previous).runtime,
+    lockGraph(currentLock, currentFilename, manifest).runtime,
+  );
 
   if (
     !graphChanged &&

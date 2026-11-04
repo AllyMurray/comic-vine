@@ -27,9 +27,10 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
   The published package supports Node 22 and newer; CI tests Node 22 and 24 LTS.
-- **pnpm**: Use the version pinned in `package.json` (currently 12.16.1).
+- **Bun**: Use the exact canary build in `.bun-version`, also recorded in
+  `package.json`. It includes the built-in linter.
   ```bash
-  npm install -g pnpm@12.16.1
+  npm install --global "bun@$(cat .bun-version)"
   ```
 
 ### Development Setup
@@ -44,12 +45,12 @@ Before you begin, ensure you have the following installed:
 2. **Install Dependencies**
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 3. **Verify Setup**
    ```bash
-   pnpm test
+   bun run test
    ```
 
 If all tests pass, you're ready to start developing!
@@ -75,8 +76,8 @@ If all tests pass, you're ready to start developing!
 
 1. **Write Code**: Follow the [Code Standards](#code-standards) below
 2. **Add Tests**: Ensure new functionality has corresponding tests
-3. **Validate**: `pnpm lint && pnpm typecheck && pnpm test`
-4. **Build**: `pnpm build` to ensure your changes compile correctly
+3. **Validate**: `bun run lint && bun run typecheck && bun run test`
+4. **Build**: `bun run build` to ensure your changes compile correctly
 
 ### Commit Messages
 
@@ -119,19 +120,22 @@ docs(readme): update installation instructions
 
 ### Code Style
 
-The library uses project-local **Vite+**: Oxlint for linting and type-aware checks,
-and Oxfmt for formatting. Configuration lives in `vite.config.ts`. Keep using
-pnpm; a global Vite+ installation or runtime manager is not required.
+The library uses Bun's built-in formatter and linter. Formatting settings in
+`bunfig.toml` preserve the existing quotes, semicolons, indentation and wrapping,
+with import sorting disabled. The generated Changesets changelog is excluded.
+Bun reads the existing lint rules from `.oxlintrc.json`; retain that configuration
+to preserve rule behavior. CI installs the exact canary build in `.bun-version`
+from npm instead of following a moving canary release.
 
 ```bash
 # Check source formatting, lint rules and types
-pnpm lint
+bun run lint
 
 # Apply formatting and available lint fixes to source
-pnpm lint:fix
+bun run lint:fix
 
 # Format TypeScript and Markdown
-pnpm format
+bun run format
 ```
 
 **Key Style Rules:**
@@ -165,13 +169,13 @@ import { HttpClient } from './http-client';
 
 ```bash
 # Run unit tests
-pnpm test
+bun run test
 
 # Check formatting, lint and types
-pnpm lint
+bun run lint
 
 # Run tests in watch mode
-pnpm test:watch
+bun run test:watch
 ```
 
 ### Writing Tests
@@ -183,7 +187,7 @@ pnpm test:watch
 **Example Test:**
 
 ```typescript
-import { describe, test, expect } from 'vite-plus/test';
+import { describe, test, expect } from 'bun:test';
 
 describe('ResourceName', () => {
   test('should return correct data when field list is specified', async () => {
@@ -203,14 +207,14 @@ describe('ResourceName', () => {
 
 - Write tests for all new functionality
 - Include both success and error scenarios
-- Mock external dependencies using **nock** for HTTP requests
+- Mock HTTP requests with `spyOn(globalThis, 'fetch')` from `bun:test`; restore spies after each test
 - Test files are located in `src/__mocks__/` for mock data
 
 ## Dependency Updates
 
 [renovate.json](./renovate.json) manages the library, the documentation site's
-separate pnpm project, and GitHub Actions. Both projects commit `pnpm-lock.yaml`
-and pin pnpm in `packageManager`; use that version when updating dependencies.
+separate Bun project, and GitHub Actions. Both projects commit `bun.lock`
+and pin Bun in `packageManager`; use that version when updating dependencies.
 The TypeScript library supports Node 22 and newer and is published publicly as
 `comic-vine-sdk` through the existing Changesets release workflow. Dropping a
 supported Node major is recorded in a major Changeset. Its runtime
@@ -226,19 +230,16 @@ Renovate service. Existing PRs can be rebased outside that window
 so CI can run against the current `main`. The Dependency Dashboard lists pending
 updates, and PRs use the existing `dependencies` label.
 
-Both pnpm projects set `minimumReleaseAge: 1440` in their own
-`pnpm-workspace.yaml`. New direct and transitive registry dependency versions
-must be at least 24 hours old before pnpm selects them, except owner-maintained
-`@http-client-toolkit/*` packages. Their third-party dependencies still wait.
-`minimumReleaseAgeStrict: true` rejects a requested range with no
-eligible release, and `minimumReleaseAgeIgnoreMissingTime: false` rejects missing
-publication dates. pnpm 12 also checks the existing lockfile against these
-policies during installs, including frozen installs. The library
-and docs site retain separate installs and lockfiles. Build-script allowlists
-and dependency overrides also live in these pnpm configuration files.
-Build permissions use pnpm 12's `allowBuilds` map; unreviewed dependency scripts
-are not approved automatically. The library's `saveExact: true` setting lives
-here as well. No repository `.npmrc` is needed.
+Both projects set `minimumReleaseAge = 86400` in their own `bunfig.toml`.
+New direct and transitive registry dependencies must be at least 24 hours old,
+except the explicitly listed owner-maintained `@http-client-toolkit/*` packages.
+Their third-party dependencies still wait. A shared release-age scanner also
+checks frozen lockfiles and rejects missing publication dates, preserving the
+strict policy during installs. Add new owner-maintained packages to the explicit
+exclusion lists when needed. The library and docs site retain separate installs
+and lockfiles. `trustedDependencies` and dependency overrides live in each
+`package.json`; the library sets `install.exact = true` in `bunfig.toml`.
+No repository `.npmrc` is needed.
 
 Renovate waits one day before proposing ordinary npm updates. Owner-maintained
 `@http-client-toolkit/*` packages also bypass Renovate's release-age delay, while
@@ -256,12 +257,10 @@ Non-major updates to `@http-client-toolkit/core` and
 `size-limit` and `@size-limit/file` update together because the plugin requires
 a matching `size-limit` version. Its coordinated major upgrades require manual
 review and stay separate from
-non-major updates. Vite+ and its matching Vite core alias are another deliberate
-exception: both catalog entries update together, with major upgrades in a
-separate, manually reviewed PR. Other npm major upgrades remain separate.
+non-major updates. Other npm major upgrades remain separate.
 
 All minor and patch updates qualify for auto-merge after successful CI, including
-runtime dependencies, development tools, type definitions, pnpm, GitHub Actions
+runtime dependencies, development tools, type definitions, Bun, GitHub Actions
 and pre-1.0 packages. Renovate merges PRs itself (`platformAutomerge: false`,
 `ignoreTests: false`) and rebases stale
 branches before merging. Failed or pending checks, conflicts and Renovate
@@ -287,7 +286,7 @@ Node engine changes are maintained manually because they change consumer support
 Security PRs bypass Renovate's nightly schedule, release-age delay and normal PR limits
 and are raised as soon as Renovate processes an available vulnerability alert.
 They follow the same minor/patch auto-merge policy and still require passing CI.
-pnpm's 24-hour resolution delay also
+Bun's 24-hour resolution delay also
 applies to third-party security fixes, so a newly published fix may need to age before
 Renovate can successfully update its lockfile. See Renovate's
 [vulnerability alert prerequisites](https://docs.renovatebot.com/configuration-options/#vulnerabilityalerts).
@@ -311,66 +310,42 @@ references a `build` status and is not used by this Renovate policy.
 
 ### Build tooling
 
-`pnpm build` checks toolchain alignment, then uses Vite+ (`vp pack`, powered by
-tsdown) for the ESM bundle and bundled TypeScript declarations,
-then esbuild for the existing CommonJS wrapper. The wrapper preserves the
+`bun run build` uses standalone tsdown for the ESM bundle and bundled TypeScript
+declarations, then esbuild for the CommonJS wrapper. The wrapper preserves the
 callable constructor returned by `require('comic-vine-sdk')` and its named
 exports. Both bundles retain the ES2015 syntax target and external runtime
-dependencies.
+dependencies. Build configuration lives in `tsdown.config.ts`.
 
-TypeScript 7 performs source typechecking (`pnpm typecheck`) and declaration
-emission through tsdown's `tsgo` generator. The native compiler is pinned via
-`@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency aliases
-`@typescript/typescript6`, retaining the compiler API for compatibility tooling
-and TS6 consumer checks. It provides `tsc6`, while the native package provides
-`tsc`. Both are development
-only. The build resolves the native executable explicitly because automatic
-compiler discovery would find the TS6 compatibility package.
+Bun performs source typechecking (`bun run typecheck`). TypeScript 7 handles
+declaration emission through tsdown's `tsgo` generator. The native compiler is
+pinned via `@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency
+aliases `@typescript/typescript6`, retaining the compiler API for tooling and
+TS6 consumer checks. Both compilers are development dependencies.
 
-The declaration plugin still marks its TS7 generator experimental. The
-`tsconfig.json` uses bundler module resolution instead of the removed Node 10
-mode. `pnpm test:build:types` compiles the exact-type and assignability contracts
-in `build-tests/api-types.ts`, using `expect-type`, plus a public API consumer
-fixture with both TS6 and TS7. `@ts-expect-error` assertions check rejected calls.
-These fixtures resolve the built
-package exports, so changing our compiler does not silently require consumers
-to upgrade theirs. Renovate keeps the compatibility API on TS6 and the native
-compiler on TS7.0 until the declaration plugin's supported range is reviewed.
+`bun run test:build:types` checks the built package with both TS6 and TS7,
+including the exact-type and assignability contracts in `build-tests/api-types.ts`.
+`bun run test:build` validates ESM/CommonJS exports, browser bundling, public
+declarations and size limits. `bun run test:package` installs the actual tarball
+in a temporary consumer project and exercises its ESM and CommonJS exports.
+CI runs unit tests with Bun and validates the built and packed artifacts on
+Node 22 and 24.
 
-`pnpm test:build` builds and validates the artifacts. CI uses
-`pnpm test:build:artifacts` after building on Node 24 so that validation can run
-on older supported runtimes without rebuilding. `pnpm test:package` packs
-the existing build, installs it in a temporary consumer project with the same
-24-hour dependency policy, and exercises the package's ESM and CommonJS exports.
+### Tooling updates
 
-### Vite+ updates
+The project has no Vite+ wrapper or Vitest dependency. Tests explicitly import
+from `bun:test`, and generated resource tests use the same imports. SDK generation
+formats all generated TypeScript with `bun fmt` after writing the files.
 
-The root pnpm catalog pins `vite-plus` and the `vite` alias to the same Vite+
-release. Renovate groups both catalog entries into one PR, auto-merges minor and
-patch updates after CI, and keeps major upgrades separate for manual review.
-Vitest is an exact transitive dependency of Vite+: tests import
-`vite-plus/test`, and TypeScript uses `vite-plus/test/globals`. Do not add an
-independent Vitest version or override. The docs site keeps its separate pnpm
-project and toolchain.
+Bun retains the existing import resolution, dependency and ordering rules via
+`eslint-plugin-import`. Bun's `bun:test` module is configured as a built-in module
+for those checks. Keep the TypeScript-native declaration generator within its
+supported compiler range and run the public declaration checks after upgrades.
 
-`pnpm check:toolchain` rejects mismatched Vite+/core versions or a Vitest version
-that differs from Vite+'s declared version. The build runs this check, including
-in CI. Review changes to bundled tsdown, Vitest, Oxlint and Oxfmt when upgrading
-Vite+, then run the complete validation below.
+Keep `minimumReleaseAge = 86400` and the shared release-age scanner with only
+the explicitly listed `@http-client-toolkit/*` exceptions. The docs site keeps a
+separate Bun install and lockfile for Astro.
 
-Keep `minimumReleaseAge: 1440` with only the `@http-client-toolkit/*` exception.
-Vite+'s migration command can
-add `minimumReleaseAgeExclude` entries for its tools; remove those entries if
-rerunning it and regenerate the lockfile with pnpm. Ordinary Renovate updates
-outside that scope also wait at least one day.
-
-Oxlint runs the existing import resolution, dependency and ordering rules via
-`eslint-plugin-import`, so its resolver dependencies remain installed. Oxlint's
-JS-plugin compatibility layer is currently alpha; check these rules when updating
-it. Prettier is no longer used by the library or SDK generator. The generator
-uses `vite-plus/fmt` with the shared configuration.
-
-### Publishing with pnpm 12
+### Publishing with Bun
 
 Changesets v3 runs on the Node 24 release runtime. `changeset version` exits
 with code 1 when no unreleased changesets exist, so the workflow checks for
@@ -380,8 +355,8 @@ The release workflow automatically prepares a patch Changeset for SDK runtime
 dependency updates. `node scripts/prepare-runtime-release.mjs` compares the root
 package's `dependencies`, `optionalDependencies`, peer requirements and locked
 runtime dependency graph with the latest reachable `comic-vine-sdk@*` release
-tag. It uses `pnpm list --lockfile-only --prod --depth Infinity --json` on
-temporary copies, without installing historical dependencies. Runtime lockfile
+tag. It reads current Bun lockfiles and historical pnpm lockfiles directly,
+without installing historical dependencies. Runtime lockfile
 refreshes, including transitive security fixes, are covered. Development tooling,
 package-manager, docs-site and GitHub Actions updates alone do not trigger an SDK
 release. Both the release history and lockfiles must be available; an incomplete
@@ -400,13 +375,11 @@ release, its new tag becomes the comparison baseline, preventing repeat releases
 Run the release regression tests with
 `node --test build-tests/runtime-release.test.mjs`.
 
-The release workflow runs Changesets with `pnpm exec`, builds with pnpm and packs
-an explicit tarball with `pnpm pack`. It publishes that tarball using
-`npm publish --provenance --access public`, preserving npm's GitHub OIDC trusted
-publishing. pnpm 12 publishes natively, so upgrading npm would no longer control
-the behavior of `pnpm publish`. Packing first also resolves the pnpm catalog
-references in the published manifest. No registry credentials are added by this
-migration.
+The release workflow runs Changesets with `bunx changeset version`, builds
+with Bun and packs an explicit tarball with `bun pm pack`. It publishes that
+tarball using `npm publish --provenance --access public`, preserving npm's
+GitHub OIDC trusted publishing. Packing first resolves the Bun catalog references
+in the published manifest. No registry credentials are added by this migration.
 
 ### Coordinating package releases and documentation
 
@@ -442,7 +415,7 @@ The comparison uses temporary lockfile copies and clean audit configuration,
 without installing packages or running their scripts. Registry errors, malformed
 reports and missing baseline data fail CI. The separate
 [`dependency security` workflow](./.github/workflows/dependency-security.yml)
-runs full `pnpm audit` checks for both projects on every push to `main`, daily,
+runs full `bun run audit` checks for both projects on every push to `main`, daily,
 and on manual dispatch. These checks fail while vulnerabilities remain, but run
 independently of build CI so existing findings cannot skip builds and tests on
 `main`. Dependabot alerts continue to track unresolved findings. Keep the full
@@ -473,31 +446,31 @@ Run the policy regression tests with
 All dependency PRs use the existing `ci` workflow, with no path filters. It runs
 frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
 exports, browser bundling, declaration tests, size limits and package packing
-using Node 24 for the build tools. Each matrix job then switches to Node 22
-or 24 to run unit tests, artifact checks and a fresh tarball installation.
+using Node 24 for the build tools. Unit tests run once on Bun. Each matrix job then switches to Node 22
+or 24 for artifact checks and a fresh tarball installation.
 It also checks dependency audits, generated code and the documentation build.
-`pnpm test:dependency-policy` uses a local registry to verify both projects
+`bun run test:dependency-policy` uses a local registry to verify both projects
 reject fresh releases, missing publish dates and a lockfile containing fresh
 versions, while selecting eligible direct and transitive releases.
 The commands can be run locally with:
 
 ```bash
-pnpm install --frozen-lockfile
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm test:build
-pnpm test:package
-pnpm test:dependency-policy
-pnpm pack --out /tmp/comic-vine-sdk.tgz
-pnpm audit
-pnpm --dir docs-site install --frozen-lockfile
-pnpm --dir docs-site audit
-pnpm --dir docs-site build
+bun install --frozen-lockfile
+bun run lint
+bun run typecheck
+bun run test
+bun run test:build
+bun run test:package
+bun run test:dependency-policy
+bun pm pack --filename /tmp/comic-vine-sdk.tgz
+bun audit
+bun install --cwd docs-site --frozen-lockfile
+bun audit --cwd docs-site
+bun run --cwd docs-site build
 ```
 
 Validate configuration edits with
-`pnpm --package=renovate dlx renovate-config-validator --strict renovate.json`.
+`bunx --package=renovate renovate-config-validator --strict renovate.json`.
 Runtime dependency updates receive an automatic patch Changeset in the release
 workflow. Add a manual Changeset for other SDK changes and for runtime updates
 that require a minor or major SDK release.
@@ -511,10 +484,10 @@ that require a minor or major SDK release.
 2. **Verify Quality Checks**: All checks must pass before merging
 
    ```bash
-   pnpm test      # All tests pass
-   pnpm lint      # No linting errors
-   pnpm typecheck # Source types pass
-   pnpm build     # Package builds successfully
+   bun run test      # All tests pass
+   bun run lint      # No linting errors
+   bun run typecheck # Source types pass
+   bun run build     # Package builds successfully
    ```
 
 3. **Create Pull Request**:
@@ -530,16 +503,16 @@ that require a minor or major SDK release.
 
 ### Pre-commit Hooks
 
-The existing **Husky** hook runs `pnpm pre-commit`:
+The existing **Husky** hook runs `bun run pre-commit`:
 
-- **Auto-formatting**: Oxfmt formats project files
-- **Validation**: Vite+ checks source formatting, lint rules and types
-- **Tests**: Vitest runs the unit suite
+- **Auto-formatting**: Bun formats project files
+- **Validation**: Bun checks formatting, lint rules and types
+- **Tests**: Bun runs the unit suite
 
 If pre-commit hooks fail, fix the issues before committing:
 
 ```bash
-pnpm lint:fix  # Apply available lint and format fixes
+bun run lint:fix  # Apply available lint and format fixes
 git add .  # Stage the fixes
 git commit # Try committing again
 ```
@@ -587,11 +560,11 @@ When adding support for a new Comic Vine API resource:
 
 ### Development Tools
 
-- **Package Manager**: [pnpm](https://pnpm.io/)
-- **Testing**: [Vitest](https://vitest.dev/)
-- **Toolchain**: [Vite+](https://viteplus.dev/)
-- **Linting**: [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
-- **Formatting**: [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
+- **Package Manager**: [Bun](https://bun.sh/)
+- **Testing**: [Bun test](https://bun.sh/docs/test)
+- **Build**: [tsdown](https://tsdown.dev/) and esbuild
+- **Linting**: [Bun lint](https://bun.sh/docs/lint)
+- **Formatting**: [Bun fmt](https://bun.sh/docs/format)
 - **Git Hooks**: [Husky](https://typicode.github.io/husky/)
 
 ---

@@ -15,7 +15,8 @@
 /.projen/tasks.json linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated
-/pnpm-lock.yaml linguist-generated
+/bun.lock linguist-generated
+/docs-site/bun.lock linguist-generated
 /scripts/create-package-json.ts linguist-generated
 /tsconfig.build.cjs.json linguist-generated
 /tsconfig.build.esm.json linguist-generated

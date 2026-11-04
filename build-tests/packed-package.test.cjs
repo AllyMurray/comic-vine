@@ -2,7 +2,14 @@
 // and broken package exports cannot be hidden by the development installation.
 const assert = require('node:assert/strict');
 const { execFileSync } = require('node:child_process');
-const { mkdtempSync, readFileSync, writeFileSync, rmSync } = require('node:fs');
+const {
+  copyFileSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  writeFileSync,
+  rmSync,
+} = require('node:fs');
 const { tmpdir } = require('node:os');
 const { resolve, join } = require('node:path');
 
@@ -12,7 +19,7 @@ const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const tarball = join(temporary, 'comic-vine-sdk.tgz');
 
 try {
-  execFileSync('pnpm', ['pack', '--out', tarball], {
+  execFileSync('bun', ['pm', 'pack', '--filename', tarball], {
     cwd: root,
     stdio: 'inherit',
   });
@@ -24,39 +31,13 @@ try {
       dependencies: { [pkg.name]: `file:${tarball}` },
     }),
   );
-  const agePolicy = [
-    'minimumReleaseAge',
-    'minimumReleaseAgeStrict',
-    'minimumReleaseAgeIgnoreMissingTime',
-  ].map((setting) => {
-    const value = execFileSync('pnpm', ['config', 'get', setting], {
-      cwd: root,
-      encoding: 'utf8',
-    }).trim();
-    assert.match(
-      value,
-      setting === 'minimumReleaseAge' ? /^\d+$/ : /^(true|false)$/,
-    );
-    return `${setting}: ${value}`;
-  });
-  const ageExclusions = JSON.parse(
-    execFileSync(
-      'pnpm',
-      ['config', 'get', 'minimumReleaseAgeExclude', '--json'],
-      {
-        cwd: root,
-        encoding: 'utf8',
-      },
-    ),
+  copyFileSync(join(root, 'bunfig.toml'), join(temporary, 'bunfig.toml'));
+  mkdirSync(join(temporary, 'scripts'));
+  copyFileSync(
+    join(root, 'scripts/release-age-scanner.mjs'),
+    join(temporary, 'scripts/release-age-scanner.mjs'),
   );
-  assert.ok(Array.isArray(ageExclusions));
-  assert.ok(ageExclusions.every((pattern) => typeof pattern === 'string'));
-  agePolicy.push(`minimumReleaseAgeExclude: ${JSON.stringify(ageExclusions)}`);
-  writeFileSync(
-    join(temporary, 'pnpm-workspace.yaml'),
-    `packages:\n  - '.'\n${agePolicy.join('\n')}\n`,
-  );
-  execFileSync('pnpm', ['install', '--ignore-scripts'], {
+  execFileSync('bun', ['install', '--ignore-scripts'], {
     cwd: temporary,
     stdio: 'inherit',
   });

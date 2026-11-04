@@ -1,0 +1,32 @@
+[install]
+exact = true
+minimumReleaseAgeExcludes = [
+  "@http-client-toolkit/core",
+  "@http-client-toolkit/dashboard",
+  "@http-client-toolkit/store-dynamodb",
+  "@http-client-toolkit/store-memory",
+  "@http-client-toolkit/store-sqlite",
+]
+minimumReleaseAge = 86400
+globalStore = true
+linker = "isolated"
+
+[install.security]
+scanner = "./scripts/release-age-scanner.mjs"
+
+[test]
+root = "src"
+
+# Preserve the existing style; keep import and manifest sorting disabled.
+[fmt]
+singleQuote = true
+printWidth = 80
+semi = true
+tabWidth = 2
+useTabs = false
+trailingComma = "all"
+endOfLine = "lf"
+sortImports = false
+sortPackageJson = false
+# Changesets owns the generated changelog's formatting.
+ignorePatterns = ["scripts/create-package-json.ts", "samples/", "docs-site/**", "lib/**", "dist/**", "CHANGELOG.md"]

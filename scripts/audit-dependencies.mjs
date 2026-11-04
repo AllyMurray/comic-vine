@@ -1,17 +1,10 @@
 import assert from 'node:assert/strict';
-import { execFile } from 'node:child_process';
-import {
-  appendFile,
-  mkdir,
-  mkdtemp,
-  readFile,
-  rm,
-  writeFile,
-} from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { execFile, execFileSync } from 'node:child_process';
+import { appendFile, readFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
+import { lockGraph } from './lockfile.mjs';
 
 const exec = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,11 +12,11 @@ const severityRank = { info: 0, low: 1, moderate: 2, high: 3, critical: 4 };
 const isObject = (value) =>
   value !== null && typeof value === 'object' && !Array.isArray(value);
 
-// A successful registry response is required, even when pnpm exits 1 for findings.
+// A successful registry response is required, even when an audit returns findings.
 export function parseAudit(stdout, status) {
   assert(
     [0, 1].includes(status),
-    `pnpm audit failed with exit status ${status}`,
+    `Dependency audit failed with exit status ${status}`,
   );
   const report = JSON.parse(stdout);
   assert(isObject(report) && !report.error, 'Audit returned an error');
@@ -137,41 +130,91 @@ export function compareAudits(base, head) {
   return { regressions, existing, resolved };
 }
 
-async function auditLockfile(lockfile, directory) {
-  await mkdir(directory);
-  await writeFile(join(directory, 'pnpm-lock.yaml'), lockfile);
-  // Audit the resolved graph with the same pnpm and clean configuration on both
-  // sides. PR changes to audit.ignore, severity filters or registry cannot hide
-  // findings, and no dependency installs or lifecycle scripts are executed.
-  await writeFile(
-    join(directory, 'package.json'),
-    '{"name":"dependency-audit","private":true}',
-  );
-  await writeFile(
-    join(directory, 'pnpm-workspace.yaml'),
-    "packages:\n  - '.'\npmOnFail: ignore\n",
-  );
-  const args = [
-    'audit',
-    '--json',
-    '--audit-level',
-    'low',
-    '--registry=https://registry.npmjs.org',
-  ];
-  let stdout;
-  let status = 0;
-  try {
-    ({ stdout } = await exec('pnpm', args, {
-      cwd: directory,
-      timeout: 120_000,
-      maxBuffer: 16 * 1024 * 1024,
-    }));
-  } catch (error) {
-    if (error.code !== 1 || error.killed || error.signal) throw error;
-    stdout = error.stdout;
-    status = error.code;
+export async function auditLockfile(lockfile, filename, fetcher = fetch) {
+  const graph = lockGraph(lockfile, filename);
+  const inventory = {};
+  for (const node of graph.nodes.values()) {
+    inventory[node.name] ??= [];
+    if (!inventory[node.name].includes(node.version))
+      inventory[node.name].push(node.version);
   }
-  return parseAudit(stdout, status);
+  // Query the same public registry for both graphs, ignoring repository audit
+  // exclusions and registry settings. No install or lifecycle hook is needed.
+  const response = await fetcher(
+    'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk',
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(inventory),
+      signal: AbortSignal.timeout(120000),
+    },
+  );
+  assert(response.ok, `Audit registry returned HTTP ${response.status}`);
+  const bulk = await response.json();
+  assert(isObject(bulk) && !bulk.error, 'Audit returned an error');
+  const advisories = [];
+  for (const [name, reports] of Object.entries(bulk)) {
+    assert(Array.isArray(reports) && inventory[name], 'Invalid audit package');
+    for (const report of reports) {
+      assert(
+        typeof report.vulnerable_versions === 'string' &&
+          typeof report.url === 'string',
+        'Invalid audit advisory',
+      );
+      const affected = JSON.parse(
+        execFileSync(
+          'bun',
+          [
+            '--eval',
+            `
+        const { versions, range } = JSON.parse(await Bun.stdin.text());
+        console.log(JSON.stringify(versions.filter(version => Bun.semver.satisfies(version, range))));
+      `,
+          ],
+          {
+            encoding: 'utf8',
+            input: JSON.stringify({
+              versions: inventory[name],
+              range: report.vulnerable_versions,
+            }),
+          },
+        ),
+      );
+      const findings = [];
+      for (const [key, node] of graph.nodes) {
+        if (node.name === name && affected.includes(node.version))
+          findings.push({
+            version: node.version,
+            dev: !graph.runtimeKeys.has(key),
+            paths: [key],
+          });
+      }
+      if (findings.length)
+        advisories.push({
+          github_advisory_id: report.url.match(
+            /GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/,
+          )?.[0],
+          module_name: name,
+          severity: report.severity,
+          findings,
+        });
+    }
+  }
+  const vulnerabilities = Object.fromEntries(
+    Object.keys(severityRank).map((severity) => [
+      severity,
+      advisories.filter((item) => item.severity === severity).length,
+    ]),
+  );
+  return parseAudit(
+    JSON.stringify({
+      advisories: Object.fromEntries(
+        advisories.map((item, index) => [index, item]),
+      ),
+      metadata: { vulnerabilities },
+    }),
+    advisories.length ? 1 : 0,
+  );
 }
 
 export async function auditProject(project, baseSha) {
@@ -183,29 +226,31 @@ export async function auditProject(project, baseSha) {
     /^[a-f0-9]{40}$/.test(baseSha),
     'An exact PR base commit SHA is required',
   );
-  const lockfile =
-    project === '.' ? 'pnpm-lock.yaml' : 'docs-site/pnpm-lock.yaml';
-  const { stdout: baseLockfile } = await exec(
-    'git',
-    ['show', `${baseSha}:${lockfile}`],
-    { cwd: root, maxBuffer: 16 * 1024 * 1024 },
-  );
-  const headLockfile = await readFile(join(root, lockfile), 'utf8');
-  const temporary = await mkdtemp(join(tmpdir(), 'comic-vine-audit-'));
+  const prefix = project === '.' ? '' : 'docs-site/';
+  let baseLockfile, baseFilename;
   try {
-    // Both commits are scanned now, so newly disclosed advisories already on
-    // the base branch do not appear to have been introduced by this PR.
-    // allSettled ensures cleanup waits for both child processes, even on error.
-    const audits = await Promise.allSettled([
-      auditLockfile(baseLockfile, join(temporary, 'base')),
-      auditLockfile(headLockfile, join(temporary, 'head')),
-    ]);
-    for (const audit of audits)
-      if (audit.status === 'rejected') throw audit.reason;
-    return compareAudits(audits[0].value, audits[1].value);
-  } finally {
-    await rm(temporary, { recursive: true, force: true });
+    ({ stdout: baseLockfile } = await exec(
+      'git',
+      ['show', `${baseSha}:${prefix}bun.lock`],
+      { cwd: root, maxBuffer: 16 * 1024 * 1024 },
+    ));
+    baseFilename = 'bun.lock';
+  } catch {
+    ({ stdout: baseLockfile } = await exec(
+      'git',
+      ['show', `${baseSha}:${prefix}pnpm-lock.yaml`],
+      { cwd: root, maxBuffer: 16 * 1024 * 1024 },
+    ));
+    baseFilename = 'pnpm-lock.yaml';
   }
+  const headLockfile = await readFile(join(root, prefix, 'bun.lock'), 'utf8');
+  const audits = await Promise.allSettled([
+    auditLockfile(baseLockfile, baseFilename),
+    auditLockfile(headLockfile, 'bun.lock'),
+  ]);
+  for (const audit of audits)
+    if (audit.status === 'rejected') throw audit.reason;
+  return compareAudits(audits[0].value, audits[1].value);
 }
 
 const markdownCell = (value) =>

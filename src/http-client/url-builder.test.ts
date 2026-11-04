@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'bun:test';
 import { UrlBuilder } from './url-builder.js';
 import { ResourceType } from '../resources/index.js';
 

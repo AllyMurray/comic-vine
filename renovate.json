@@ -53,7 +53,7 @@
       "allowedVersions": ">=7.0.0 <7.1.0"
     },
     {
-      "description": "Wait 24 hours before proposing ordinary npm updates, matching pnpm's release-age policy.",
+      "description": "Wait 24 hours before proposing ordinary npm updates, matching Bun's release-age policy.",
       "matchDatasources": ["npm"],
       "minimumReleaseAge": "1 day",
       "internalChecksFilter": "strict"
@@ -78,13 +78,6 @@
         "@typescript-eslint/**"
       ],
       "groupName": "lint and formatting tools"
-    },
-    {
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["vitest", "@vitest/**", "vite", "nock"],
-      "groupName": "test tooling"
     },
     {
       "matchManagers": ["npm"],
@@ -175,17 +168,6 @@
       "groupSlug": "github-actions",
       "separateMajorMinor": true,
       "separateMinorPatch": false
-    },
-    {
-      "description": "Vite+ and its Vite core alias must use the same release, including coordinated majors. Bundled Vitest is owned by Vite+; CI rejects mismatched versions.",
-      "matchManagers": ["npm"],
-      "matchFileNames": ["pnpm-workspace.yaml"],
-      "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
-      "groupName": "vite plus toolchain",
-      "groupSlug": "vite-plus-toolchain",
-      "separateMajorMinor": true,
-      "separateMinorPatch": false,
-      "rangeStrategy": "pin"
     }
   ]
 }
