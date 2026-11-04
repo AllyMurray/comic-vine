@@ -27,9 +27,9 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
   The published package supports Node 22 and newer; CI tests Node 22 and 24 LTS.
-- **pnpm**: Use the version pinned in `package.json` (currently 12.4.2).
+- **pnpm**: Use the version pinned in `package.json` (currently 12.16.1).
   ```bash
-  npm install -g pnpm@12.4.2
+  npm install -g pnpm@12.16.1
   ```
 
 ### Development Setup
