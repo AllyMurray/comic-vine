@@ -1,3 +1,4 @@
+import { describe, test, it, expect } from 'bun:test';
 import { HttpClient } from '@http-client-toolkit/core';
 import { ResourceFactory } from './resource-factory.js';
 import * as resources from './resource-list.js';

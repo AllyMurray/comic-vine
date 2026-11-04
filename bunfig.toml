@@ -13,3 +13,12 @@ linker = "isolated"
 
 [install.security]
 scanner = "./scripts/release-age-scanner.mjs"
+
+[test]
+root = "src"
+
+[fmt]
+singleQuote = true
+printWidth = 80
+sortPackageJson = false
+ignorePatterns = ["scripts/create-package-json.ts", "samples/", "docs-site/**", "lib/**", "dist/**"]

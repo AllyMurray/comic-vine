@@ -26,7 +26,7 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.4.3
+          bun-version: 1.4.4
 
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
@@ -63,14 +63,15 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-      # Vite+ needs a modern build runtime; test the output on every supported major.
+      - name: Test SDK with Bun
+        if: matrix.node-version == '24.x'
+        run: bun run test
+
+      # Build tools run on Node 24; validate the output on every supported major.
       - name: Setup test runtime
         uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Test
-        run: bun run test
 
       - name: Test Build Artifacts
         run: bun run test:build:artifacts
@@ -102,7 +103,7 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.4.3
+          bun-version: 1.4.4
 
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0

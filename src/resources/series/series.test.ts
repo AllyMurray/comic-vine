@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'bun:test';
 import { HttpClient } from '@http-client-toolkit/core';
 import { Series } from './series.js';
 import {

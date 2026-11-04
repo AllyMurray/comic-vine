@@ -75,16 +75,11 @@
         "prettier",
         "globals",
         "typescript-eslint",
-        "@typescript-eslint/**"
+        "@typescript-eslint/**",
+        "oxlint",
+        "oxlint-tsgolint"
       ],
       "groupName": "lint and formatting tools"
-    },
-    {
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["vitest", "@vitest/**", "vite", "nock"],
-      "groupName": "test tooling"
     },
     {
       "matchManagers": ["npm"],
@@ -175,17 +170,6 @@
       "groupSlug": "github-actions",
       "separateMajorMinor": true,
       "separateMinorPatch": false
-    },
-    {
-      "description": "Vite+ and its Vite core alias must use the same release, including coordinated majors. Bundled Vitest is owned by Vite+; CI rejects mismatched versions.",
-      "matchManagers": ["npm"],
-      "matchFileNames": ["package.json"],
-      "matchPackageNames": ["vite-plus", "@voidzero-dev/vite-plus-core"],
-      "groupName": "vite plus toolchain",
-      "groupSlug": "vite-plus-toolchain",
-      "separateMajorMinor": true,
-      "separateMinorPatch": false,
-      "rangeStrategy": "pin"
     }
   ]
 }

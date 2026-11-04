@@ -27,9 +27,9 @@ Before you begin, ensure you have the following installed:
 
 - **Node.js**: Node 24 LTS, version 24.11.0 or higher, for development and builds.
   The published package supports Node 22 and newer; CI tests Node 22 and 24 LTS.
-- **Bun**: Use the version pinned in `package.json` (currently 1.4.3).
+- **Bun**: Use the version pinned in `package.json` (currently 1.4.4).
   ```bash
-  curl -fsSL https://bun.sh/install | bash -s "bun-v1.4.3"
+  curl -fsSL https://bun.sh/install | bash -s "bun-v1.4.4"
   ```
 
 ### Development Setup
@@ -119,9 +119,10 @@ docs(readme): update installation instructions
 
 ### Code Style
 
-The library uses project-local **Vite+**: Oxlint for linting and type-aware checks,
-and Oxfmt for formatting. Configuration lives in `vite.config.ts`. Keep using
-Bun; a global Vite+ installation or runtime manager is not required.
+The library uses Bun's formatter, configured in `bunfig.toml`, and standalone
+Oxlint for linting and type-aware checks, configured in `.oxlintrc.json`.
+Bun 1.4.4 has built-in formatting; its stable release does not yet include
+`bun lint`, so Oxlint preserves the existing lint rules without using a canary.
 
 ```bash
 # Check source formatting, lint rules and types
@@ -183,7 +184,7 @@ bun run test:watch
 **Example Test:**
 
 ```typescript
-import { describe, test, expect } from 'vite-plus/test';
+import { describe, test, expect } from 'bun:test';
 
 describe('ResourceName', () => {
   test('should return correct data when field list is specified', async () => {
@@ -203,7 +204,7 @@ describe('ResourceName', () => {
 
 - Write tests for all new functionality
 - Include both success and error scenarios
-- Mock external dependencies using **nock** for HTTP requests
+- Mock HTTP requests with `spyOn(globalThis, 'fetch')` from `bun:test`; restore spies after each test
 - Test files are located in `src/__mocks__/` for mock data
 
 ## Dependency Updates
@@ -253,9 +254,7 @@ Non-major updates to `@http-client-toolkit/core` and
 `size-limit` and `@size-limit/file` update together because the plugin requires
 a matching `size-limit` version. Its coordinated major upgrades require manual
 review and stay separate from
-non-major updates. Vite+ and its matching Vite core alias are another deliberate
-exception: both catalog entries update together, with major upgrades in a
-separate, manually reviewed PR. Other npm major upgrades remain separate.
+non-major updates. Other npm major upgrades remain separate.
 
 All minor and patch updates qualify for auto-merge after successful CI, including
 runtime dependencies, development tools, type definitions, Bun, GitHub Actions
@@ -308,63 +307,40 @@ references a `build` status and is not used by this Renovate policy.
 
 ### Build tooling
 
-`bun run build` checks toolchain alignment, then uses Vite+ (`vp pack`, powered by
-tsdown) for the ESM bundle and bundled TypeScript declarations,
-then esbuild for the existing CommonJS wrapper. The wrapper preserves the
+`bun run build` uses standalone tsdown for the ESM bundle and bundled TypeScript
+declarations, then esbuild for the CommonJS wrapper. The wrapper preserves the
 callable constructor returned by `require('comic-vine-sdk')` and its named
 exports. Both bundles retain the ES2015 syntax target and external runtime
-dependencies.
+dependencies. Build configuration lives in `tsdown.config.ts`.
 
 Bun performs source typechecking (`bun run typecheck`). TypeScript 7 handles
-declaration emission through tsdown's `tsgo` generator. The native compiler is pinned via
-`@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency aliases
-`@typescript/typescript6`, retaining the compiler API for compatibility tooling
-and TS6 consumer checks. It provides `tsc6`, while the native package provides
-`tsc`. Both are development
-only. The build resolves the native executable explicitly because automatic
-compiler discovery would find the TS6 compatibility package.
+declaration emission through tsdown's `tsgo` generator. The native compiler is
+pinned via `@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency
+aliases `@typescript/typescript6`, retaining the compiler API for tooling and
+TS6 consumer checks. Both compilers are development dependencies.
 
-The declaration plugin still marks its TS7 generator experimental. The
-`tsconfig.json` uses bundler module resolution instead of the removed Node 10
-mode. `bun run test:build:types` compiles the exact-type and assignability contracts
-in `build-tests/api-types.ts`, using `expect-type`, plus a public API consumer
-fixture with both TS6 and TS7. `@ts-expect-error` assertions check rejected calls.
-These fixtures resolve the built
-package exports, so changing our compiler does not silently require consumers
-to upgrade theirs. Renovate keeps the compatibility API on TS6 and the native
-compiler on TS7.0 until the declaration plugin's supported range is reviewed.
+`bun run test:build:types` checks the built package with both TS6 and TS7,
+including the exact-type and assignability contracts in `build-tests/api-types.ts`.
+`bun run test:build` validates ESM/CommonJS exports, browser bundling, public
+declarations and size limits. `bun run test:package` installs the actual tarball
+in a temporary consumer project and exercises its ESM and CommonJS exports.
+CI runs unit tests with Bun and validates the built and packed artifacts on
+Node 22 and 24.
 
-`bun run test:build` builds and validates the artifacts. CI uses
-`bun run test:build:artifacts` after building on Node 24 so that validation can run
-on older supported runtimes without rebuilding. `bun run test:package` packs
-the existing build, installs it in a temporary consumer project with the same
-24-hour dependency policy, and exercises the package's ESM and CommonJS exports.
+### Tooling updates
 
-### Vite+ updates
+The project has no Vite+ wrapper or Vitest dependency. Tests explicitly import
+from `bun:test`, and generated resource tests use the same imports. SDK generation
+formats all generated TypeScript with `bun fmt` after writing the files.
 
-The root Bun catalog pins `vite-plus` and the `vite` alias to the same Vite+
-release. Renovate groups both catalog entries into one PR, auto-merges minor and
-patch updates after CI, and keeps major upgrades separate for manual review.
-Vitest is an exact transitive dependency of Vite+: tests import
-`vite-plus/test`, and TypeScript uses `vite-plus/test/globals`. Do not add an
-independent Vitest version or override. The docs site keeps its separate Bun
-project and toolchain.
-
-`bun run check:toolchain` rejects mismatched Vite+/core versions or a Vitest version
-that differs from Vite+'s declared version. The build runs this check, including
-in CI. Review changes to bundled tsdown, Vitest, Oxlint and Oxfmt when upgrading
-Vite+, then run the complete validation below.
+Oxlint retains the existing import resolution, dependency and ordering rules via
+`eslint-plugin-import`. Bun's `bun:test` module is configured as a built-in module
+for those checks. Keep the TypeScript-native declaration generator within its
+supported compiler range and run the public declaration checks after upgrades.
 
 Keep `minimumReleaseAge = 86400` and the shared release-age scanner with only
-the explicitly listed `@http-client-toolkit/*` exceptions. Review any additional
-exclusions added by Vite+'s migration command and regenerate the lockfile with Bun. Ordinary Renovate updates
-outside that scope also wait at least one day.
-
-Oxlint runs the existing import resolution, dependency and ordering rules via
-`eslint-plugin-import`, so its resolver dependencies remain installed. Oxlint's
-JS-plugin compatibility layer is currently alpha; check these rules when updating
-it. Prettier is no longer used by the library or SDK generator. The generator
-uses `vite-plus/fmt` with the shared configuration.
+the explicitly listed `@http-client-toolkit/*` exceptions. The docs site keeps a
+separate Bun install and lockfile for Astro.
 
 ### Publishing with Bun
 
@@ -467,8 +443,8 @@ Run the policy regression tests with
 All dependency PRs use the existing `ci` workflow, with no path filters. It runs
 frozen installs, lint, source typechecking, tests, builds, ESM/CJS imports,
 exports, browser bundling, declaration tests, size limits and package packing
-using Node 24 for the build tools. Each matrix job then switches to Node 22
-or 24 to run unit tests, artifact checks and a fresh tarball installation.
+using Node 24 for the build tools. Unit tests run once on Bun. Each matrix job then switches to Node 22
+or 24 for artifact checks and a fresh tarball installation.
 It also checks dependency audits, generated code and the documentation build.
 `bun run test:dependency-policy` uses a local registry to verify both projects
 reject fresh releases, missing publish dates and a lockfile containing fresh
@@ -491,7 +467,7 @@ bun run --cwd docs-site build
 ```
 
 Validate configuration edits with
-`bun run --package=renovate dlx renovate-config-validator --strict renovate.json`.
+`bunx --package=renovate renovate-config-validator --strict renovate.json`.
 Runtime dependency updates receive an automatic patch Changeset in the release
 workflow. Add a manual Changeset for other SDK changes and for runtime updates
 that require a minor or major SDK release.
@@ -526,9 +502,9 @@ that require a minor or major SDK release.
 
 The existing **Husky** hook runs `bun run pre-commit`:
 
-- **Auto-formatting**: Oxfmt formats project files
-- **Validation**: Vite+ checks source formatting, lint rules and types
-- **Tests**: Vitest runs the unit suite
+- **Auto-formatting**: Bun formats project files
+- **Validation**: Bun checks formatting and source types; Oxlint checks lint rules and types
+- **Tests**: Bun runs the unit suite
 
 If pre-commit hooks fail, fix the issues before committing:
 
@@ -582,8 +558,8 @@ When adding support for a new Comic Vine API resource:
 ### Development Tools
 
 - **Package Manager**: [Bun](https://bun.sh/)
-- **Testing**: [Vitest](https://vitest.dev/)
-- **Toolchain**: [Vite+](https://viteplus.dev/)
+- **Testing**: [Bun test](https://bun.sh/docs/test)
+- **Build**: [tsdown](https://tsdown.dev/) and esbuild
 - **Linting**: [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
 - **Formatting**: [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)
 - **Git Hooks**: [Husky](https://typicode.github.io/husky/)

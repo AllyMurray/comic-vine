@@ -100,7 +100,8 @@ Runs the full generation pipeline (`generate-sdk.ts`):
 ## Generator Modules
 
 All modules in `generate-sdk/` are **pure functions** &mdash; they take input and return strings or objects. The orchestrator (`generate-sdk.ts`) handles all file I/O and formats generated
-TypeScript using `vite-plus/fmt` with the settings from `vite.config.ts`.
+TypeScript using `bun fmt` with the settings from `bunfig.toml` after all files
+have been written. Generated tests import their test APIs from `bun:test`.
 
 | Module                      | Responsibility                                                                           |
 | --------------------------- | ---------------------------------------------------------------------------------------- |

@@ -1,5 +1,6 @@
+import { afterEach, beforeEach, describe, it, expect, spyOn } from 'bun:test';
+import { rejects } from 'node:assert/strict';
 import { HttpClient } from '@http-client-toolkit/core';
-import nock from 'nock';
 import { Issue } from './issue/index.js';
 
 import apiErrorInUrlFormatResponse from '../__mocks__/api-error-response/error-in-url-format-response.json';
@@ -22,6 +23,38 @@ import {
 import { UrlBuilder } from '../http-client/url-builder.js';
 
 const baseUrl = 'https://comicvine.gamespot.com/api/';
+const responses: Array<{ path: string; body: unknown }> = [];
+let fetchSpy: ReturnType<typeof spyOn<typeof globalThis, 'fetch'>>;
+
+const mockResponse = (path: string, body: unknown) => {
+  responses.push({ path, body });
+};
+
+beforeEach(() => {
+  responses.length = 0;
+  fetchSpy = spyOn(globalThis, 'fetch').mockImplementation(
+    Object.assign(
+      async (input: Parameters<typeof fetch>[0]) => {
+        const url =
+          typeof input === 'string'
+            ? input
+            : input instanceof URL
+              ? input.href
+              : input.url;
+        const response = responses.shift();
+        if (!response) throw new Error(`Unexpected request: ${url}`);
+        expect(url).toBe(`${baseUrl.replace(/\/$/, '')}${response.path}`);
+        return Response.json(response.body);
+      },
+      { preconnect: fetch.preconnect },
+    ),
+  );
+});
+
+afterEach(() => {
+  fetchSpy.mockRestore();
+  expect(responses).toHaveLength(0);
+});
 
 const pickProperties = <T>(obj: T, properties: Array<keyof T>) => {
   return Object.assign(
@@ -43,16 +76,17 @@ describe('Issue', () => {
   describe('retrieve', () => {
     it('should return the full resource when a successful request is made', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issue/4000-1?format=json&api_key=mock-api-key')
-        .reply(200, apiRetrieveResponse);
+      mockResponse(
+        '/issue/4000-1?format=json&api_key=mock-api-key',
+        apiRetrieveResponse,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
       const response = await issue.retrieve(MOCK_SUCCESSFUL_ISSUE_ID);
 
       // Assert
-      expect(response).toStrictEqual(expectedRetrieveResult);
+      expect<unknown>(response).toStrictEqual(expectedRetrieveResult);
     });
 
     it('should return the correct properties when the field list is specified', async () => {
@@ -65,11 +99,10 @@ describe('Issue', () => {
         ...structuredClone(apiRetrieveResponse),
         results: pickProperties(apiRetrieveResponse.results, ['id', 'name']),
       };
-      nock(baseUrl)
-        .get(
-          '/issue/4000-1?format=json&api_key=mock-api-key&field_list=id%2Cname',
-        )
-        .reply(200, mockApiResponse);
+      mockResponse(
+        '/issue/4000-1?format=json&api_key=mock-api-key&field_list=id%2Cname',
+        mockApiResponse,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
@@ -78,23 +111,21 @@ describe('Issue', () => {
       });
 
       // Assert
-      expect(response).toStrictEqual(expectedResult);
+      expect<unknown>(response).toStrictEqual(expectedResult);
     });
   });
 
   describe('list', () => {
     it('should return pagination details and a list of issues when a successful request is made', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key')
-        .reply(200, apiListResponse);
+      mockResponse('/issues?format=json&api_key=mock-api-key', apiListResponse);
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
       const response = await issue.list();
 
       // Assert
-      expect(response).toStrictEqual(expectedListResult);
+      expect<unknown>(response).toStrictEqual(expectedListResult);
     });
 
     it('should return the correct properties when the field list is specified', async () => {
@@ -111,9 +142,10 @@ describe('Issue', () => {
           pickProperties(item, ['id', 'name']),
         ),
       };
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&field_list=id%2Cname')
-        .reply(200, mockApiResponse);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&field_list=id%2Cname',
+        mockApiResponse,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
@@ -122,65 +154,69 @@ describe('Issue', () => {
       });
 
       // Assert
-      expect(response).toStrictEqual(expectedResult);
+      expect<unknown>(response).toStrictEqual(expectedResult);
     });
 
     it('should return the correct data when limit is provided', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&limit=50')
-        .reply(200, apiListAutoPaginationResponseLimit50.page1);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&limit=50',
+        apiListAutoPaginationResponseLimit50.page1,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
       const response = await issue.list({ limit: 50 });
 
       // Assert
-      expect(response).toStrictEqual(
+      expect<unknown>(response).toStrictEqual(
         expectedAutoPaginationResponseLimit50.page1,
       );
     });
 
     it('should return the correct data when offset is provided', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&offset=100')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page2);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&offset=100',
+        apiListAutoPaginationResponseNoLimitNoOffset.page2,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act
       const response = await issue.list({ offset: 100 });
 
       // Assert
-      expect(response).toStrictEqual(
+      expect<unknown>(response).toStrictEqual(
         expectedAutoPaginationResponseNoLimitNoOffset.page2,
       );
     });
 
     it('should throw a ComicVineUrlFormatError', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key')
-        .reply(200, apiErrorInUrlFormatResponse);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key',
+        apiErrorInUrlFormatResponse,
+      );
       const issue = new Issue(httpClient, urlBuilder);
 
       // Act / Assert
-      await expect(() => issue.list()).rejects.toBeInstanceOf(
-        ComicVineUrlFormatError,
-      );
+      await rejects(Promise.resolve(issue.list()), ComicVineUrlFormatError);
     });
 
     it('should allow the use of `for await of`', async () => {
       // Arrange
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page1);
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&limit=100&offset=100')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page2);
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&limit=100&offset=200')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page3);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key',
+        apiListAutoPaginationResponseNoLimitNoOffset.page1,
+      );
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&limit=100&offset=100',
+        apiListAutoPaginationResponseNoLimitNoOffset.page2,
+      );
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&limit=100&offset=200',
+        apiListAutoPaginationResponseNoLimitNoOffset.page3,
+      );
 
       const expectedResult = apiListResponse.results.map((item) => item.name);
       const issue = new Issue(httpClient, urlBuilder);
@@ -198,12 +234,14 @@ describe('Issue', () => {
     it('should allow the use of `for await of` with offset', async () => {
       // Arrange
       const offset = 100;
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&offset=100')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page2);
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&limit=100&offset=200')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page3);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&offset=100',
+        apiListAutoPaginationResponseNoLimitNoOffset.page2,
+      );
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&limit=100&offset=200',
+        apiListAutoPaginationResponseNoLimitNoOffset.page3,
+      );
 
       const expectedResult = apiListResponse.results
         .slice(offset) // Skip the offset
@@ -222,13 +260,14 @@ describe('Issue', () => {
 
     it('should throw a ComicVineUrlFormatError when using `for await of`', async () => {
       // Arrange
-      expect.assertions(1);
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key')
-        .reply(200, apiListAutoPaginationResponseNoLimitNoOffset.page1);
-      nock(baseUrl)
-        .get('/issues?format=json&api_key=mock-api-key&limit=100&offset=100')
-        .reply(200, apiErrorInUrlFormatResponse);
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key',
+        apiListAutoPaginationResponseNoLimitNoOffset.page1,
+      );
+      mockResponse(
+        '/issues?format=json&api_key=mock-api-key&limit=100&offset=100',
+        apiErrorInUrlFormatResponse,
+      );
 
       const issue = new Issue(httpClient, urlBuilder);
 

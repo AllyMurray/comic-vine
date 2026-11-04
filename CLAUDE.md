@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Management
 
-- Use pinned Bun 1.4.3 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
+- Use pinned Bun 1.4.4 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
 - Install dependencies: `bun install`
 - Build: `bun run build`
 - Run tests: `bun run test`
@@ -84,22 +84,21 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 
 ### Testing Strategy
 
-- Uses Vite+ bundled Vitest for unit testing (`vite-plus/test`)
+- Uses Bun's built-in test runner (`bun:test`) for unit testing
 - Comprehensive test coverage with mocked API responses in `src/__mocks__/`
-- nock for HTTP request interception (works with toolkit's fetch-based client)
+- Bun fetch spies for HTTP request fixtures, with URL and response-consumption assertions
 - Each resource and utility has corresponding `.test.ts` files
 - Tests focus on type safety, error handling, and API contract compliance
 
 ### Build System
 
-- Build on Node 24 LTS (24.11+) with Vite+ (`vp pack`, using tsdown) for ESM/declarations and esbuild for the CommonJS wrapper
+- Build on Node 24 LTS (24.11+) with standalone tsdown for ESM/declarations and esbuild for the CommonJS wrapper
 - Support Node 22 and newer at runtime (`engines.node: >=22.0.0`); test built and packed output on Node 22 and 24 LTS
 - Bun for source typechecking; TypeScript 7 for declaration generation; TS6 compatibility API for tooling and consumer checks
-- Public declaration checks run under both TS6 and TS7, alongside tsd
+- Public declaration checks run under both TS6 and TS7
 - Output in `lib/` directory
-- Vite+ configuration is in `vite.config.ts`; keep using project-local tools through Bun
-- Renovate updates Vite+ and its Vite core alias together; `bun run check:toolchain` enforces alignment
-- Vitest comes from Vite+; do not add an independent Vitest pin or override
+- Build configuration is in `tsdown.config.ts`, formatting in `bunfig.toml`, and linting in `.oxlintrc.json`
+- Tests import from `bun:test`; do not add Vitest or Vite+ dependencies
 - Keep Bun `minimumReleaseAge = 86400` and the release-age scanner, including strict frozen-lock enforcement and rejection of missing publication dates. The explicitly listed owner-maintained `@http-client-toolkit/*` packages are exempt; their third-party dependencies still wait. Add new owned packages to the explicit Bun exclusion list and mirror the policy in Renovate and packed-consumer validation.
 
 ### Code Generation Architecture

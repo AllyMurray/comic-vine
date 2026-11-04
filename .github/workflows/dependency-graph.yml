@@ -32,7 +32,7 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.4.3
+          bun-version: 1.4.4
 
       # Read the locked graph without installing dependencies or executing hooks.
       - name: Generate dependency inventory

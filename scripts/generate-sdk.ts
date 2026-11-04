@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { format } from 'vite-plus/fmt';
-import viteConfig from '../vite.config.js';
+import { execFileSync } from 'node:child_process';
 import {
   extractCommentsFromHtml,
   applyComments,
@@ -75,17 +74,6 @@ function readJson<T>(filePath: string): T {
 async function writeFile(filePath: string, content: string): Promise<void> {
   const dir = path.dirname(filePath);
   fs.mkdirSync(dir, { recursive: true });
-
-  if (path.extname(filePath) === '.ts') {
-    const formatted = await format(filePath, content, viteConfig.fmt);
-    if (formatted.errors.length > 0) {
-      throw new Error(
-        `Failed to format ${filePath}: ${formatted.errors.map((error) => error.message).join('; ')}`,
-      );
-    }
-    fs.writeFileSync(filePath, formatted.code, 'utf-8');
-    return;
-  }
 
   fs.writeFileSync(filePath, content, 'utf-8');
 }
@@ -343,4 +331,6 @@ async function main() {
   console.log(classList.map((name) => `  - ${name}`).join('\n'));
 }
 
-void main();
+await main();
+
+execFileSync('bun', ['fmt', SRC_DIR], { cwd: ROOT, stdio: 'inherit' });
