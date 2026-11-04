@@ -55,7 +55,7 @@
     {
       "description": "Keep the native compiler within the TS7.0 range supported by the installed declaration generator; review wider upgrades with rolldown-plugin-dts.",
       "matchManagers": ["npm", "bun"],
-      "matchDepNames": ["@typescript/native"],
+      "matchDepNames": ["typescript"],
       "allowedVersions": ">=7.0.0 <7.1.0"
     },
     {
@@ -107,10 +107,10 @@
       "groupName": "type definitions"
     },
     {
-      "description": "Keep Node types aligned with the Node 24 LTS build/release runtime; update this bound deliberately when that runtime changes.",
+      "description": "Keep Node types aligned with the Node 26 LTS build/release runtime; update this bound deliberately when that runtime changes.",
       "matchManagers": ["npm", "bun"],
       "matchPackageNames": ["@types/node"],
-      "allowedVersions": ">=24.0.0 <25.0.0"
+      "allowedVersions": ">=26.0.0 <27.0.0"
     },
     {
       "description": "Update the HTTP client and its memory store together within the current major.",
