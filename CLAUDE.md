@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Management
 
-- Use pinned pnpm 12.4.2 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
+- Use pinned pnpm 12.16.1 for package management; the release workflow uses npm only to publish the packed tarball through trusted publishing
 - Install dependencies: `pnpm install`
 - Build: `pnpm run build`
 - Run tests: `pnpm run test`
