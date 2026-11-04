@@ -40,7 +40,7 @@ jobs:
           ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.0
+        uses: pnpm/action-setup@v6.1.1
         with:
           package_json_file: ${{ matrix.directory }}/package.json
 
