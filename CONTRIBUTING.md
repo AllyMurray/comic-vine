@@ -324,9 +324,9 @@ dependencies. Build configuration lives in `tsdown.config.ts`.
 
 Bun performs source typechecking (`bun run typecheck`). TypeScript 7 handles
 declaration emission through tsdown's `tsgo` generator. The native compiler is
-pinned via `@typescript/native` (`npm:typescript@7.0.2`). The `typescript` dependency
-aliases `@typescript/typescript6`, retaining the compiler API for tooling and
-TS6 consumer checks. Both compilers are development dependencies.
+pinned as `typescript@7.0.2` so the declaration generator can detect its CLI
+backend. `@typescript/typescript6@6.0.2` retains the compiler API and `tsc6`
+command for TS6 consumer checks. Both compilers are development dependencies.
 
 `bun run test:build:types` checks the built package with both TS6 and TS7,
 including the exact-type and assignability contracts in `build-tests/api-types.ts`.
