@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Package Management
 
 - Use the exact Bun canary build in `.bun-version` for package management, formatting and linting; the release workflow uses npm only to publish the packed tarball through trusted publishing
+- Verify synchronized runtime declarations: `bun run check:bun-version` (regressions: `bun run test:bun-version`)
 - Install dependencies: `bun install`
 - Build: `bun run build`
 - Run tests: `bun run test`
@@ -98,6 +99,7 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
 - Public declaration checks run under both TS6 and TS7
 - Output in `lib/` directory
 - Build configuration is in `tsdown.config.ts`, formatting in `bunfig.toml`, and linting in `.oxlintrc.json`
+- Keep `.bun-version` and both `packageManager` declarations identical. Renovate groups them for a deliberate canary unfreeze; runtime updates remain manual until native linting is verified. Renovate uses released Bun 1.4.4 for lockfile generation because Containerbase cannot install the npm-only canary.
 - Tests import from `bun:test`; do not add Vitest or Vite+ dependencies
 - Keep Bun `minimumReleaseAge = 86400` and the release-age scanner, including strict frozen-lock enforcement and rejection of missing publication dates. The explicitly listed owner-maintained `@http-client-toolkit/*` packages are exempt; their third-party dependencies still wait. Add new owned packages to the explicit Bun exclusion list and mirror the policy in Renovate and packed-consumer validation.
 

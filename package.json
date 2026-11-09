@@ -36,6 +36,8 @@
     "test:package": "node build-tests/packed-package.test.cjs",
     "test:build:types:compilers": "tsc6 --project build-tests/tsconfig.json && tsc --project build-tests/tsconfig.json",
     "test:dependency-policy": "node build-tests/dependency-policy.test.cjs",
+    "check:bun-version": "node scripts/check-bun-version.mjs",
+    "test:bun-version": "node --test build-tests/bun-version.test.mjs",
     "format:check": "bun fmt --check \"**/*.{ts,tsx,md}\""
   },
   "author": {

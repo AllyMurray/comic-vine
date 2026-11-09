@@ -30,12 +30,6 @@
   },
   "packageRules": [
     {
-      "description": "Keep the lint-capable Bun canary pinned; update both packageManager entries and .bun-version together after verifying native linting.",
-      "matchManagers": ["npm", "bun", "bun-version"],
-      "matchDepNames": ["bun", "Bun"],
-      "enabled": false
-    },
-    {
       "description": "Automerge all minor and patch updates after successful CI.",
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
@@ -174,9 +168,22 @@
       "groupSlug": "github-actions",
       "separateMajorMinor": true,
       "separateMinorPatch": false
+    },
+    {
+      "description": "Keep the lint-capable Bun canary pinned; group runtime pins and packageManager declarations when deliberately unfreezing after native lint verification.",
+      "matchManagers": ["npm", "bun", "bun-version"],
+      "matchDepNames": ["bun", "Bun"],
+      "enabled": false,
+      "groupName": "bun runtime",
+      "groupSlug": "bun-runtime",
+      "separateMajorMinor": false,
+      "separateMinorPatch": false,
+      "rangeStrategy": "pin",
+      "automerge": false
     }
   ],
   "bun": {
+    "enabled": true,
     "constraints": {
       "bun": "1.4.4"
     }
