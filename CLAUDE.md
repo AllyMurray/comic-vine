@@ -117,3 +117,7 @@ This is a single-package TypeScript library (`comic-vine-sdk`) for the Comic Vin
   - `type-overrides.ts` — applies known type overrides where sample data is ambiguous (hasStaffReview, aliases)
 - Also generates: resource classes, tests, mock data, barrel files, ResourceType enum
 - Running `bun run sdk:generate && bun run format` should produce zero `git diff` on `src/`
+
+### Required CI and release pushes
+
+Main requires both validation matrix jobs, docs, and both dependency inventory jobs, all emitted for every PR. Do not require release, deployment, scheduled audit, or path-filtered jobs. The separate required-check ruleset permits deploy-key pushes so the release workflow can atomically push its generated version commit and tag using `RELEASE_DEPLOY_KEY`. Keep write deploy keys restricted to release automation; the original no-deletion/no-force-push ruleset has no bypass.

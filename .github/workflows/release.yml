@@ -32,7 +32,9 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # A repository deploy key can bypass required checks for generated
+          # release commits. GITHUB_TOKEN cannot bypass a personal-repo ruleset.
+          ssh-key: ${{ secrets.RELEASE_DEPLOY_KEY }}
 
       - name: Configure git
         run: |
