@@ -68,7 +68,7 @@
     "size-limit": "^14.3.0",
     "tsx": "^4.23.15",
     "typescript": "7.0.2",
-    "@types/bun": "1.4.4",
+    "@types/bun": "1.4.5",
     "tsdown": "0.23.7"
   },
   "keywords": [
