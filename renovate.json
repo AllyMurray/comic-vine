@@ -11,13 +11,13 @@
   "separateMinorPatch": false,
   "automerge": false,
   "automergeType": "pr",
-  "platformAutomerge": false,
+  "platformAutomerge": true,
   "ignoreTests": false,
   "rebaseWhen": "behind-base-branch",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["* 0-5 * * *"],
-    "automerge": false
+    "automerge": true
   },
   "vulnerabilityAlerts": {
     "enabled": true,
