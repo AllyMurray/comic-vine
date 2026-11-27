@@ -231,7 +231,7 @@ Normal updates are scheduled every night between 00:00 and 06:00 in
 `Europe/London`, with at most two new PRs per hour and no concurrent PR cap.
 Lockfile maintenance runs in the same nightly window with higher priority than
 ordinary version updates, so unmerged update PRs cannot starve transitive fixes.
-Maintenance PRs still require review and passing CI. Actual runs depend on the
+Maintenance PRs auto-merge after required CI checks pass. Actual runs depend on the
 Renovate service. Existing PRs can be rebased outside that window
 so CI can run against the current `main`. The Dependency Dashboard lists pending
 updates, and PRs use the existing `dependencies` label.
@@ -265,14 +265,11 @@ a matching `size-limit` version. Its coordinated major upgrades require manual
 review and stay separate from
 non-major updates. Other npm major upgrades remain separate.
 
-All minor and patch updates qualify for auto-merge after successful CI, including
-runtime dependencies, development tools, type definitions, Bun, GitHub Actions
-and pre-1.0 packages. Renovate merges PRs itself (`platformAutomerge: false`,
-`ignoreTests: false`) and rebases stale
-branches before merging. Failed or pending checks, conflicts and Renovate
-artifact errors prevent automatic merging. Major upgrades and lockfile
-maintenance require manual review. Existing version bounds and disabled Node
-engine updates still apply.
+Renovate requests GitHub auto-merge for minor and patch updates to runtime
+dependencies, development tools, type definitions, GitHub Actions and pre-1.0
+packages. Renovate rebases stale branches, and GitHub waits for required checks
+to pass on the updated branch. Major upgrades require manual review. Existing
+version bounds and the disabled Bun runtime and Node engine updates still apply.
 Runtime updates and auto-merge candidates are filtered against the package's
 Node engine requirements when the dependency supplies engine metadata.
 Review release notes and any compatibility warnings before merging manual PRs.
@@ -306,11 +303,10 @@ the dependency graph and Dependabot alerts, and grant Renovate read access to
 those alerts for immediate security PRs. This does not require a separate
 Renovate Actions workflow or a repository token secret.
 
-Configure the `main` ruleset to require `validate (22.x)`,
-`validate (24.x)` and `docs`, with branches up to date before merging. The
-existing ruleset was inspected during setup and only prevented deletion and
-force pushes; repository configuration files do not change those GitHub settings.
-GitHub's "Allow auto-merge" setting is not needed for Renovate-managed merging.
+Enable “Allow auto-merge” in the repository settings. The `main` ruleset requires
+branches to be up to date before merging. Its required checks are
+`validate (22.x)`, `validate (24.x)`, `docs`, `generate (sdk, .)` and
+`generate (docs, docs-site)`.
 Avoid granting Renovate a bypass of required checks. The legacy Mergify rule
 references a `build` status and is not used by this Renovate policy.
 
